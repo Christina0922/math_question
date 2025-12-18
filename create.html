@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>변형문제 생성 - 우등생이 되는 수학 변형문제</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>우등생이 되는 수학 변형문제</h1>
+            <a href="index.html" class="back-link">← 홈으로</a>
+        </header>
+
+        <main class="main-content">
+            <div class="form-container">
+                <h2>변형문제 생성하기</h2>
+                <p class="form-description">아래 항목을 선택하면 맞춤형 변형문제가 생성됩니다.</p>
+
+                <form id="problemForm" onsubmit="handleSubmit(event)">
+                    <!-- STEP 1: 학교급 선택 -->
+                    <div class="form-step">
+                        <h3>STEP 1. 학교급 선택</h3>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="schoolLevel" value="elementary" checked required>
+                                <span>초등학교</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="schoolLevel" value="middle">
+                                <span>중학교</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2: 학년 선택 -->
+                    <div class="form-step">
+                        <h3>STEP 2. 학년 선택</h3>
+                        <div id="gradeGroup" class="radio-group">
+                            <!-- 첫 줄: 1학년~3학년 -->
+                            <label class="radio-label">
+                                <input type="radio" name="grade" value="1" checked required>
+                                <span>1학년</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="grade" value="2">
+                                <span>2학년</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="grade" value="3">
+                                <span>3학년</span>
+                            </label>
+                            <!-- 두 번째 줄: 4학년~6학년 -->
+                            <label class="radio-label">
+                                <input type="radio" name="grade" value="4">
+                                <span>4학년</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="grade" value="5">
+                                <span>5학년</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="grade" value="6">
+                                <span>6학년</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3: 학기 선택 -->
+                    <div class="form-step">
+                        <h3>STEP 3. 학기 선택</h3>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="semester" value="1" checked required>
+                                <span>1학기</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="semester" value="2">
+                                <span>2학기</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- STEP 4: 개념 선택 -->
+                    <div class="form-step">
+                        <h3>STEP 4. 개념 선택 <span class="hint">(여러 개 선택 가능)</span></h3>
+                        <div id="conceptGroup" class="checkbox-group">
+                            <!-- 수학 개념 (기본) -->
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="concept" value="덧셈">
+                                <span>덧셈</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="concept" value="뺄셈">
+                                <span>뺄셈</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="concept" value="곱셈">
+                                <span>곱셈</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="concept" value="나눗셈">
+                                <span>나눗셈</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="concept" value="분수">
+                                <span>분수</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="concept" value="소수">
+                                <span>소수</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="concept" value="도형(넓이/둘레)">
+                                <span>도형(넓이/둘레)</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="concept" value="비와 비율">
+                                <span>비와 비율</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="concept" value="속력">
+                                <span>속력</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="concept" value="단위환산">
+                                <span>단위환산</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="concept" value="부등식">
+                                <span>부등식</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="concept" value="연산 순서">
+                                <span>연산 순서</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="concept" value="그래프">
+                                <span>그래프</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- STEP 5: 틀린 이유 선택 -->
+                    <div class="form-step">
+                        <h3>STEP 5. 틀린 이유 선택 <span class="hint">(최대 3개 선택 권장)</span></h3>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="mistake" value="개념을 정확히 모름">
+                                <span>개념을 정확히 모름</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="mistake" value="문제 해석을 잘못함">
+                                <span>문제 해석을 잘못함</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="mistake" value="식을 잘못 세움">
+                                <span>식을 잘못 세움</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="mistake" value="계산 실수">
+                                <span>계산 실수</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="mistake" value="단계를 빨리 넘김">
+                                <span>단계를 빨리 넘김</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="mistake" value="중요한 조건을 놓침">
+                                <span>중요한 조건을 놓침</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="mistake" value="글을 충분히 읽지 않음">
+                                <span>글을 충분히 읽지 않음</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="mistake" value="풀이 방향을 잘 모름">
+                                <span>풀이 방향을 잘 모름</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- STEP 6: 문제 유형 선택 -->
+                    <div class="form-step">
+                        <h3>STEP 6. 원하는 문제 유형</h3>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="problemType" value="기본형" checked required>
+                                <span>기본형</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="problemType" value="쉬운 개념확인형">
+                                <span>쉬운 개념확인형</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="problemType" value="실수 보완형">
+                                <span>실수 보완형</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="problemType" value="응용 심화형">
+                                <span>응용 심화형</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="problemType" value="단계별 풀이형">
+                                <span>단계별 풀이형(아주 천천히 진행)</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="problemType" value="서술형 문제">
+                                <span>서술형 문제</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- STEP 7: 문제 개수 선택 -->
+                    <div class="form-step">
+                        <h3>STEP 7. 문제 개수 선택</h3>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="problemCount" value="3" checked required>
+                                <span>3개</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="problemCount" value="5">
+                                <span>5개</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="problemCount" value="7">
+                                <span>7개</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 제출 버튼 -->
+                    <div class="form-submit">
+                        <button type="submit" class="btn btn-primary btn-large">
+                            <span class="btn-icon">✨</span>
+                            AI로 변형문제 생성하기
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

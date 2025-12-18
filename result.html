@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>변형문제 결과 - 우등생이 되는 수학 변형문제</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>우등생이 되는 수학 변형문제</h1>
+            <a href="index.html" class="back-link">← 홈으로</a>
+        </header>
+
+        <main class="main-content">
+            <div class="result-container">
+                <div class="result-header">
+                    <h2>✔ 맞춤형 변형문제가 생성되었습니다!</h2>
+                    <p class="result-subtitle" id="resultInfo">아래 문제들을 풀어보세요.</p>
+                </div>
+
+                <div id="problemsList" class="problems-list">
+                    <!-- 문제들이 여기에 동적으로 추가됩니다 -->
+                </div>
+
+                <div class="result-actions">
+                    <div class="save-button-wrapper">
+                        <button onclick="toggleSaveMenu()" class="btn btn-primary" id="saveButton">
+                            <span class="btn-icon">💾</span>
+                            저장하기
+                        </button>
+                        <div id="saveMenu" class="save-menu" style="display: none;">
+                            <div class="save-menu-title">저장 방법 선택</div>
+                            <button onclick="downloadPDF()" class="save-menu-item">
+                                <span class="save-menu-icon">📄</span>
+                                PDF로 저장
+                            </button>
+                            <button onclick="printProblems()" class="save-menu-item">
+                                <span class="save-menu-icon">🖨️</span>
+                                인쇄
+                            </button>
+                            <button onclick="saveAsText()" class="save-menu-item">
+                                <span class="save-menu-icon">📝</span>
+                                텍스트로 저장(.txt)
+                            </button>
+                            <button onclick="copyProblems()" class="save-menu-item">
+                                <span class="save-menu-icon">📋</span>
+                                내용 복사
+                            </button>
+                        </div>
+                    </div>
+                    <button onclick="adjustDifficulty('up')" class="btn btn-outline">
+                        <span class="btn-icon">⬆️</span>
+                        난이도 올리기
+                    </button>
+                    <button onclick="adjustDifficulty('down')" class="btn btn-outline">
+                        <span class="btn-icon">⬇️</span>
+                        난이도 낮추기
+                    </button>
+                    <button onclick="regenerate()" class="btn btn-outline">
+                        <span class="btn-icon">🔄</span>
+                        다시 생성하기
+                    </button>
+                    <button onclick="showConceptSummary()" class="btn btn-outline">
+                        <span class="btn-icon">📚</span>
+                        개념 요약 보기
+                    </button>
+                    <button onclick="showMistakeAnalysis()" class="btn btn-outline">
+                        <span class="btn-icon">🔍</span>
+                        오답 원인 분석(심화)
+                    </button>
+                </div>
+            </div>
+
+            <!-- 개념 요약 모달 -->
+            <div id="conceptModal" class="modal">
+                <div class="modal-content">
+                    <span class="modal-close" onclick="closeModal('conceptModal')">&times;</span>
+                    <h3>개념 요약</h3>
+                    <div id="conceptSummary" class="modal-body">
+                        <!-- 개념 요약 내용이 여기에 표시됩니다 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 오답 분석 모달 -->
+            <div id="mistakeModal" class="modal">
+                <div class="modal-content">
+                    <span class="modal-close" onclick="closeModal('mistakeModal')">&times;</span>
+                    <h3>오답 원인 분석</h3>
+                    <div id="mistakeAnalysis" class="modal-body">
+                        <!-- 오답 분석 내용이 여기에 표시됩니다 -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

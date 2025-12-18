@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>우등생이 되는 수학 변형문제</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Hero 섹션 -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">우등생이 되는 수학 변형문제</h1>
+                <p class="hero-subtitle">틀린 이유를 분석해 개념·유형·난이도에 맞춘 변형문제를 생성합니다.</p>
+                
+                <div class="hero-badges">
+                    <span class="badge">개념 기반 변형</span>
+                    <span class="badge">난이도 자동 조절</span>
+                    <span class="badge">오답 원인 분석</span>
+                </div>
+                
+                <div class="hero-actions">
+                    <a href="create.html" class="btn btn-primary btn-large">
+                        <span class="btn-icon">✓</span>
+                        문제 만들기 시작
+                    </a>
+                    <button onclick="scrollToSection('sample-problems')" class="btn btn-secondary btn-large">
+                        <span class="btn-icon">📝</span>
+                        샘플 문제 보기
+                    </button>
+                </div>
+                
+                <a href="#reviews-section" class="hero-link">후기 보기</a>
+                
+                <div class="hero-stats">
+                    <div class="hero-stat-item">
+                        <span class="hero-stat-number">1,234+</span>
+                        <span class="hero-stat-label">생성된 문제</span>
+                    </div>
+                    <div class="hero-stat-item">
+                        <span class="hero-stat-number">567+</span>
+                        <span class="hero-stat-label">사용자</span>
+                    </div>
+                    <div class="hero-stat-item">
+                        <span class="hero-stat-number">98%</span>
+                        <span class="hero-stat-label">만족도</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <main class="main-content">
+            <!-- 샘플 문제 미리보기 섹션 -->
+            <section id="sample-problems" class="sample-problems-section">
+                <div class="section-header">
+                    <h2>샘플 문제 미리보기</h2>
+                    <p class="section-subtitle">실제 생성되는 변형문제를 확인해보세요</p>
+                </div>
+                <div id="sampleProblemsList" class="sample-problems-list">
+                    <!-- 샘플 문제가 여기에 동적으로 추가됩니다 -->
+                </div>
+            </section>
+
+            <!-- 생성 과정 3단계 섹션 -->
+            <section class="process-section">
+                <div class="section-header">
+                    <h2>생성 과정</h2>
+                    <p class="section-subtitle">간단한 3단계로 맞춤형 문제를 만들어보세요</p>
+                </div>
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="process-icon">📋</div>
+                        <h3>1단계</h3>
+                        <p>풀이/오답 입력</p>
+                        <p class="process-detail">틀린 문제의 개념과 실수 유형을 선택하세요</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="process-icon">🔍</div>
+                        <h3>2단계</h3>
+                        <p>오답 원인 분석</p>
+                        <p class="process-detail">AI가 정확히 어디서 막혔는지 분석합니다</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="process-icon">✨</div>
+                        <h3>3단계</h3>
+                        <p>변형문제 3~7개 생성</p>
+                        <p class="process-detail">맞춤형 변형문제를 자동으로 생성합니다</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 기능 하이라이트 섹션 -->
+            <section class="features-section">
+                <div class="section-header">
+                    <h2>주요 기능</h2>
+                    <p class="section-subtitle">학생별 맞춤형 학습을 위한 핵심 기능</p>
+                </div>
+                <div class="features" id="featuresContainer">
+                    <!-- 기능 카드와 확장 영역은 JavaScript로 동적 생성 -->
+                </div>
+            </section>
+
+            <!-- 사용자 후기 섹션 -->
+            <section id="reviews-section" class="reviews-section">
+                <div class="section-header">
+                    <h2>사용자 후기</h2>
+                    <p class="section-subtitle">실제 사용자들의 솔직한 후기를 확인해보세요</p>
+                </div>
+                <div id="reviewsPreview" class="reviews-preview">
+                    <!-- 후기 미리보기 3개가 여기에 동적으로 추가됩니다 -->
+                </div>
+                <div class="reviews-actions">
+                    <button onclick="scrollToAllReviews()" class="btn btn-outline">후기 전체 보기</button>
+                    <button onclick="showReviewDrawer()" class="btn btn-primary">
+                        <span class="btn-icon">✏️</span>
+                        후기 작성하기
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="footer-content">
+                <p>© 2026 우등생이 되는 수학 변형문제. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#" onclick="showFooterModal('terms'); return false;">이용약관</a>
+                    <a href="#" onclick="showFooterModal('privacy'); return false;">개인정보처리방침</a>
+                    <a href="#" onclick="showFooterModal('contact'); return false;">문의하기</a>
+                </div>
+            </div>
+        </footer>
+
+        <!-- 후기 작성 드로어 (사이드 패널) -->
+        <div id="reviewDrawer" class="review-drawer">
+            <div class="drawer-overlay" onclick="closeReviewDrawer()"></div>
+            <div class="drawer-content">
+                <div class="drawer-header">
+                    <h2>후기 작성하기</h2>
+                    <button class="drawer-close" onclick="closeReviewDrawer()">&times;</button>
+                </div>
+                <form id="reviewForm" onsubmit="submitReview(event)" class="review-form">
+                    <div class="form-group">
+                        <label>별점 (선택)</label>
+                        <div class="star-rating">
+                            <span class="star" data-rating="1">⭐</span>
+                            <span class="star" data-rating="2">⭐</span>
+                            <span class="star" data-rating="3">⭐</span>
+                            <span class="star" data-rating="4">⭐</span>
+                            <span class="star" data-rating="5">⭐</span>
+                        </div>
+                        <input type="hidden" name="rating" id="ratingInput">
+                    </div>
+                    <div class="form-group">
+                        <label>한 줄 후기 <span class="required">*</span></label>
+                        <input type="text" name="summary" placeholder="한 줄로 요약해주세요 (10~80자)" required minlength="10" maxlength="80">
+                    </div>
+                    <div class="form-group">
+                        <label>자세한 후기 (선택)</label>
+                        <textarea name="content" placeholder="더 자세한 후기를 작성해주세요 (0~300자)" rows="6" maxlength="300"></textarea>
+                        <div class="char-count"><span id="charCount">0</span>/300</div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" onclick="closeReviewDrawer()" class="btn btn-outline">취소</button>
+                        <button type="submit" class="btn btn-primary">작성하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- 푸터 링크 모달 -->
+        <div id="footerModal" class="modal">
+            <div class="modal-content" style="max-width: 800px;">
+                <span class="modal-close" onclick="closeFooterModal()">&times;</span>
+                <h2 id="footerModalTitle"></h2>
+                <div id="footerModalBody" class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+                    <!-- 내용이 여기에 표시됩니다 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
