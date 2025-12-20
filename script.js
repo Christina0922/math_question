@@ -79,12 +79,12 @@ const conceptsBySubject = {
 };
 
 // 페이지 로드 시 초기화
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     // create.html 페이지에서 초기화
     if (document.querySelector('input[name="grade"]')) {
         initializeFormSelectors();
         // 초기 개념 목록 표시
-        updateConceptList();
+        await updateConceptList();
     }
     
     // result.html 페이지에서 데이터 로드
@@ -106,26 +106,29 @@ function initializeFormSelectors() {
     // 학교급 선택 시 학년 목록 업데이트
     const schoolLevelInputs = document.querySelectorAll('input[name="schoolLevel"]');
     schoolLevelInputs.forEach(input => {
-        input.addEventListener('change', function() {
+        input.addEventListener('change', async function() {
             updateGradeList(this.value);
-            updateConceptList(); // 개념 목록도 업데이트
+            await updateConceptList(); // 개념 목록도 업데이트
         });
     });
     
-    // 학년 선택 시 개념 목록 업데이트
+    // 학년 선택 시 개념 목록 업데이트 및 선택값 초기화
     const gradeInputs = document.querySelectorAll('input[name="grade"]');
     gradeInputs.forEach(input => {
-        input.addEventListener('change', function() {
-            updateConceptList();
+        input.addEventListener('change', async function() {
+            // 학년/학기가 바뀌면 선택값 초기화
+            clearAllConcepts();
+            await updateConceptList();
         });
     });
     
-    // 학기 선택 시 개념 목록 업데이트 (필요시)
+    // 학기 선택 시 개념 목록 업데이트 및 선택값 초기화
     const semesterInputs = document.querySelectorAll('input[name="semester"]');
     semesterInputs.forEach(input => {
-        input.addEventListener('change', function() {
-            // 학기는 수학 개념에는 직접 영향을 주지 않지만, 필요시 추가 로직 가능
-            updateConceptList();
+        input.addEventListener('change', async function() {
+            // 학년/학기가 바뀌면 선택값 초기화
+            clearAllConcepts();
+            await updateConceptList();
         });
     });
 }
@@ -152,23 +155,167 @@ function updateGradeList(schoolLevel) {
     // 이벤트 리스너 다시 연결
     const gradeInputs = document.querySelectorAll('input[name="grade"]');
     gradeInputs.forEach(input => {
-        input.addEventListener('change', function() {
-            updateConceptList();
+        input.addEventListener('change', async function() {
+            clearAllConcepts();
+            await updateConceptList();
         });
     });
 }
 
-// 개념 목록 업데이트 (학교급 + 학년에 따라 - 수학만)
-function updateConceptList() {
+// curriculum 데이터 캐시
+let curriculumData = null;
+let curriculumLoadPromise = null;
+
+// curriculum 데이터 로드
+async function loadCurriculumData() {
+    if (curriculumData) return curriculumData;
+    if (curriculumLoadPromise) return curriculumLoadPromise;
+    
+    // 상대 경로와 절대 경로 모두 시도
+    const paths = [
+        'src/data/curriculum_1_3.json',
+        '/src/data/curriculum_1_3.json',
+        './src/data/curriculum_1_3.json'
+    ];
+    
+    curriculumLoadPromise = (async () => {
+        let lastError = null;
+        for (const path of paths) {
+            try {
+                const response = await fetch(path);
+                if (response.ok) {
+                    const data = await response.json();
+                    curriculumData = data;
+                    console.log('Curriculum data loaded successfully from:', path);
+                    return data;
+                }
+            } catch (error) {
+                lastError = error;
+                console.warn(`Failed to load from ${path}:`, error);
+            }
+        }
+        
+        console.error('Error loading curriculum data from all paths:', lastError);
+        curriculumLoadPromise = null;
+        return null;
+    })();
+    
+    return curriculumLoadPromise;
+}
+
+// 단원 번호 추출
+function pickUnitNo(unitTitle, fallback) {
+    const m = unitTitle.match(/^(\d+)\s*단원/);
+    return m ? Number(m[1]) : fallback;
+}
+
+// 차시 번호 추출
+function pickTopicNo(topicTitle, fallback) {
+    const m = topicTitle.match(/^(\d+)\s*\)/);
+    return m ? Number(m[1]) : fallback;
+}
+
+// HTML 이스케이프 함수 (전역 함수로 한 번만 정의)
+function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// 개념 목록 업데이트 (학년/학기 기반 - 1~3학년만)
+async function updateConceptList() {
     const conceptGroup = document.getElementById('conceptGroup');
-    if (!conceptGroup) return;
+    if (!conceptGroup) {
+        console.error('conceptGroup element not found');
+        return;
+    }
     
     const schoolLevel = document.querySelector('input[name="schoolLevel"]:checked')?.value || 'elementary';
     const grade = parseInt(document.querySelector('input[name="grade"]:checked')?.value || '1');
+    const semester = parseInt(document.querySelector('input[name="semester"]:checked')?.value || '1');
     
+    console.log('Updating concept list:', { schoolLevel, grade, semester });
+    
+    // 로딩 표시
+    conceptGroup.innerHTML = '<div style="padding: 20px; text-align: center; color: #999;">로딩 중...</div>';
+    
+    // 1~3학년만 새로운 curriculum 데이터 사용
+    if (schoolLevel === 'elementary' && grade >= 1 && grade <= 3) {
+        try {
+            const data = await loadCurriculumData();
+            if (!data) {
+                console.error('Failed to load curriculum data, using fallback');
+                // 데이터 로드 실패 시 기존 방식 사용
+                const concepts = elementaryMathConcepts[grade] || elementaryMathConcepts[1];
+                conceptGroup.innerHTML = concepts.map(concept => `
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="concept" value="${concept}" onchange="updateConceptCount()">
+                        <span>${concept}</span>
+                    </label>
+                `).join('');
+                updateConceptCount();
+                return;
+            }
+            
+            const gradeKey = `${grade}학년`;
+            const semesterKey = `${semester}학기`;
+            
+            console.log('Looking for:', gradeKey, semesterKey);
+            console.log('Available keys:', Object.keys(data));
+            
+            if (!data[gradeKey] || !data[gradeKey][semesterKey]) {
+                console.error('Data not found for:', gradeKey, semesterKey);
+                conceptGroup.innerHTML = '<div style="padding: 20px; text-align: center; color: #999;">해당 학년/학기의 데이터가 없습니다. (' + gradeKey + ' ' + semesterKey + ')</div>';
+                return;
+            }
+            
+            const units = data[gradeKey][semesterKey];
+            console.log('Found units:', units.length);
+            
+            // 단원별로 그룹화하여 렌더링 (전체 공간 활용)
+            let html = '<div style="margin-bottom: 20px; width: 100%;">';
+            html += '<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 15px;">';
+            html += '<button type="button" onclick="selectAllConcepts()" style="padding: 6px 12px; border: 1px solid #ddd; background: #f5f5f5; border-radius: 4px; cursor: pointer;">전체 선택</button>';
+            html += '<button type="button" onclick="clearAllConcepts()" style="padding: 6px 12px; border: 1px solid #ddd; background: #f5f5f5; border-radius: 4px; cursor: pointer;">전체 해제</button>';
+            html += '<div style="margin-left: auto; font-size: 13px; opacity: 0.8;" id="conceptCount">선택됨: 0개</div>';
+            html += '</div>';
+            
+            // 단원별로 렌더링 (3-4열 그리드로 전체 공간 활용)
+            units.forEach((unit, uIdx) => {
+                const unitNo = pickUnitNo(unit.unit, uIdx + 1);
+                const escapedUnit = escapeHtml(unit.unit);
+                html += '<div style="margin-bottom: 24px; width: 100%;">';
+                html += '<div style="font-weight: 700; margin-bottom: 12px; font-size: 16px; color: #4F46E5; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb;">' + escapedUnit + '</div>';
+                html += '<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; width: 100%;">';
+                
+                unit.topics.forEach((topic, tIdx) => {
+                    const topicNo = pickTopicNo(topic, tIdx + 1);
+                    const conceptId = 'G' + grade + '-S' + semester + '-U' + unitNo + '-T' + topicNo;
+                    const escapedTopic = escapeHtml(topic);
+                    
+                    html += '<label class="checkbox-label" style="display: flex; flex-direction: row; gap: 10px; align-items: center; padding: 12px 16px; border: 2px solid #e5e7eb; border-radius: 8px; background: #fff; cursor: pointer; transition: all 0.2s; box-sizing: border-box; min-height: 50px;">';
+                    html += '<input type="checkbox" name="concept" value="' + conceptId + '" data-topic-title="' + escapedTopic + '" onchange="updateConceptCount()" style="margin: 0; width: 20px; height: 20px; cursor: pointer; flex-shrink: 0;">';
+                    html += '<span style="flex: 1; word-break: keep-all; line-height: 1.5; font-size: 14px;">' + escapedTopic + '</span>';
+                    html += '</label>';
+                });
+                
+                html += '</div></div>';
+            });
+            
+            html += '</div>';
+            conceptGroup.innerHTML = html;
+            updateConceptCount();
+            return;
+        } catch (error) {
+            console.error('Error in updateConceptList:', error);
+            conceptGroup.innerHTML = '<div style="padding: 20px; text-align: center; color: #f00;">오류가 발생했습니다: ' + escapeHtml(error.message) + '</div>';
+            return;
+        }
+    }
+    
+    // 4~6학년 또는 중학교는 기존 방식 사용
     let concepts = [];
-    
-    // 수학만 사용하므로 학교급과 학년에 따라 개념 선택
     if (schoolLevel === 'elementary') {
         concepts = elementaryMathConcepts[grade] || elementaryMathConcepts[1];
     } else if (schoolLevel === 'middle') {
@@ -177,10 +324,34 @@ function updateConceptList() {
     
     conceptGroup.innerHTML = concepts.map(concept => `
         <label class="checkbox-label">
-            <input type="checkbox" name="concept" value="${concept}">
+            <input type="checkbox" name="concept" value="${concept}" onchange="updateConceptCount()">
             <span>${concept}</span>
         </label>
     `).join('');
+    updateConceptCount();
+}
+
+// 선택된 개념 개수 업데이트
+function updateConceptCount() {
+    const checked = document.querySelectorAll('input[name="concept"]:checked').length;
+    const countEl = document.getElementById('conceptCount');
+    if (countEl) {
+        countEl.textContent = `선택됨: ${checked}개`;
+    }
+}
+
+// 전체 선택
+function selectAllConcepts() {
+    const checkboxes = document.querySelectorAll('input[name="concept"]');
+    checkboxes.forEach(cb => cb.checked = true);
+    updateConceptCount();
+}
+
+// 전체 해제
+function clearAllConcepts() {
+    const checkboxes = document.querySelectorAll('input[name="concept"]');
+    checkboxes.forEach(cb => cb.checked = false);
+    updateConceptCount();
 }
 
 // 폼 제출 처리
@@ -193,7 +364,11 @@ function handleSubmit(event) {
         semester: parseInt(document.querySelector('input[name="semester"]:checked')?.value || '1'),
         subject: 'math', // 수학만 사용
         concepts: Array.from(document.querySelectorAll('input[name="concept"]:checked'))
-            .map(cb => cb.value),
+            .map(cb => {
+                // 1~3학년의 경우 topicTitle도 함께 저장
+                const topicTitle = cb.getAttribute('data-topic-title');
+                return topicTitle ? { id: cb.value, title: topicTitle } : cb.value;
+            }),
         mistakes: Array.from(document.querySelectorAll('input[name="mistake"]:checked'))
             .map(cb => cb.value),
         problemType: document.querySelector('input[name="problemType"]:checked')?.value || '기본형',
@@ -639,28 +814,7 @@ function generateMiddleSchoolQuestion(concept, mistake, grade, problemType) {
             `문제) 직각삼각형에서 한 변의 길이가 ${3 + grade}, ${4 + grade * 2}, ${5 + grade * 3}일 때, sin의 값은?`
         ]
     };
-    
-    // 기본 문제 템플릿
-    const baseProblems = problems[concept] || [`문제) ${concept}와 관련된 문제입니다.`];
-    const randomProblem = baseProblems[Math.floor(Math.random() * baseProblems.length)];
-    
-    let problemText = randomProblem;
-    
-    // 문제 유형에 따라 설명 추가
-    if (problemType === '쉬운 개념확인형') {
-        problemText += `\n\n(개념을 다시 확인하는 쉬운 문제입니다)`;
-    } else if (problemType === '실수 보완형') {
-        problemText += `\n\n※ "${mistake}" 부분에 특히 주의해서 풀어보세요.`;
-    } else if (problemType === '응용 심화형') {
-        problemText += `\n\n(응용력을 기를 수 있는 문제입니다)`;
-    } else if (problemType === '단계별 풀이형') {
-        problemText += `\n\n(단계별로 천천히 풀어보세요)\n1단계: \n2단계: \n3단계: `;
-    } else if (problemType === '서술형 문제') {
-        problemText += `\n\n(풀이 과정을 자세히 설명하시오)`;
-    }
-    
-    return problemText;
-}
+*/
 
 // 문제 표시 (questions 배열 기반)
 function displayProblems(questions, formData) {
@@ -1780,11 +1934,3 @@ function loadReviews() {
         `;
     }
 }
-
-// HTML 이스케이프 함수
-function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-}
-
