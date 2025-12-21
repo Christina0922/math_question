@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { Grade, Semester, getCurriculumUnits } from "../utils/curriculum";
+import SelectCard from "./SelectCard";
 
 type Props = {
   grade: Grade | null;
@@ -68,8 +69,9 @@ export default function ConceptSelector({
   }
 
   return (
-    <div>
-      <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 10 }}>
+    <div style={{ width: "100%", boxSizing: "border-box" }}>
+      {/* 전체 선택/해제 버튼줄: STEP 3/5와 동일한 폭 규칙 (width: 100%) */}
+      <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 15, width: "100%", boxSizing: "border-box" }}>
         <button type="button" onClick={selectAllVisible}>
           전체 선택
         </button>
@@ -82,36 +84,22 @@ export default function ConceptSelector({
       </div>
 
       {itemsByUnit.map((u) => (
-        <div key={u.unitTitle} style={{ marginBottom: 14 }}>
-          <div style={{ fontWeight: 700, marginBottom: 8 }}>{u.unitTitle}</div>
+        <div key={u.unitTitle} style={{ marginBottom: 24, width: "100%", boxSizing: "border-box" }}>
+          {/* 단원 제목: STEP 3 타이틀과 동일한 스타일 */}
+          <div style={{ fontWeight: 700, marginBottom: 12, fontSize: 16, color: "#4F46E5", paddingBottom: 8, borderBottom: "2px solid #e5e7eb", width: "100%" }}>
+            {u.unitTitle}
+          </div>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-              gap: 10
-            }}
-          >
+          {/* STEP 3과 완전히 동일한 radio-group 클래스 사용 (flex 레이아웃으로 가로 배치) */}
+          <div className="radio-group">
             {u.topics.map((t) => (
-              <label
+              <SelectCard
                 key={t.id}
-                style={{
-                  display: "flex",
-                  gap: 10,
-                  alignItems: "center",
-                  padding: "10px 12px",
-                  border: "1px solid #e6e6e6",
-                  borderRadius: 10,
-                  background: "#fff"
-                }}
-              >
-                <input
-                  type="checkbox"
-                  checked={selectedIds.includes(t.id)}
-                  onChange={() => toggleOne(t.id)}
-                />
-                <span>{t.title}</span>
-              </label>
+                inputType="checkbox"
+                checked={selectedIds.includes(t.id)}
+                onToggle={() => toggleOne(t.id)}
+                label={t.title}
+              />
             ))}
           </div>
         </div>

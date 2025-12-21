@@ -273,30 +273,38 @@ async function updateConceptList() {
             const units = data[gradeKey][semesterKey];
             console.log('Found units:', units.length);
             
-            // 단원별로 그룹화하여 렌더링 (전체 공간 활용)
-            let html = '<div style="margin-bottom: 20px; width: 100%;">';
-            html += '<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 15px;">';
+            // STEP 3/5와 동일한 레이아웃 규칙 적용: 전체 래퍼 width: 100%
+            let html = '<div style="width: 100%; box-sizing: border-box;">';
+            
+            // 전체 선택/해제 버튼줄: STEP 3/5와 동일한 폭 규칙 (width: 100%)
+            html += '<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 15px; width: 100%; box-sizing: border-box;">';
             html += '<button type="button" onclick="selectAllConcepts()" style="padding: 6px 12px; border: 1px solid #ddd; background: #f5f5f5; border-radius: 4px; cursor: pointer;">전체 선택</button>';
             html += '<button type="button" onclick="clearAllConcepts()" style="padding: 6px 12px; border: 1px solid #ddd; background: #f5f5f5; border-radius: 4px; cursor: pointer;">전체 해제</button>';
             html += '<div style="margin-left: auto; font-size: 13px; opacity: 0.8;" id="conceptCount">선택됨: 0개</div>';
             html += '</div>';
             
-            // 단원별로 렌더링 (3-4열 그리드로 전체 공간 활용)
+            // 단원별로 렌더링 (STEP 3과 완전히 동일한 스타일)
             units.forEach((unit, uIdx) => {
                 const unitNo = pickUnitNo(unit.unit, uIdx + 1);
                 const escapedUnit = escapeHtml(unit.unit);
-                html += '<div style="margin-bottom: 24px; width: 100%;">';
-                html += '<div style="font-weight: 700; margin-bottom: 12px; font-size: 16px; color: #4F46E5; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb;">' + escapedUnit + '</div>';
-                html += '<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; width: 100%;">';
+                // 단원 래퍼: width: 100% 강제
+                html += '<div style="margin-bottom: 24px; width: 100%; box-sizing: border-box;">';
+                // 단원 제목: STEP 3 타이틀과 동일한 스타일
+                html += '<div style="font-weight: 700; margin-bottom: 12px; font-size: 16px; color: #4F46E5; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; width: 100%;">' + escapedUnit + '</div>';
+                // STEP 3과 완전히 동일한 radio-group 클래스 사용 (flex 레이아웃으로 가로 배치)
+                // 인라인 스타일 제거, CSS 클래스만 사용
+                html += '<div class="radio-group">';
                 
                 unit.topics.forEach((topic, tIdx) => {
                     const topicNo = pickTopicNo(topic, tIdx + 1);
                     const conceptId = 'G' + grade + '-S' + semester + '-U' + unitNo + '-T' + topicNo;
                     const escapedTopic = escapeHtml(topic);
                     
-                    html += '<label class="checkbox-label" style="display: flex; flex-direction: row; gap: 10px; align-items: center; padding: 12px 16px; border: 2px solid #e5e7eb; border-radius: 8px; background: #fff; cursor: pointer; transition: all 0.2s; box-sizing: border-box; min-height: 50px;">';
-                    html += '<input type="checkbox" name="concept" value="' + conceptId + '" data-topic-title="' + escapedTopic + '" onchange="updateConceptCount()" style="margin: 0; width: 20px; height: 20px; cursor: pointer; flex-shrink: 0;">';
-                    html += '<span style="flex: 1; word-break: keep-all; line-height: 1.5; font-size: 14px;">' + escapedTopic + '</span>';
+                    // STEP 3과 완전히 동일한 radio-label 클래스 사용 (인라인 스타일 완전 제거)
+                    // STEP 3 카드 구조를 그대로 재사용: <label class="radio-label"><input><span></label>
+                    html += '<label class="radio-label">';
+                    html += '<input type="checkbox" name="concept" value="' + conceptId + '" data-topic-title="' + escapedTopic + '" onchange="updateConceptCount()">';
+                    html += '<span>' + escapedTopic + '</span>';
                     html += '</label>';
                 });
                 
