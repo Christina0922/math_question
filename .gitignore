@@ -16,3 +16,6 @@ Thumbs.db
 *.tmp
 *.log
 
+# import 폴더 (문제/자료 보관용, GitHub 제외)
+/import_from_Math_Questions/
+
