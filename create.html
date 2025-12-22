@@ -23,12 +23,12 @@
                     <div class="form-step">
                         <h3>STEP 1. 학교급 선택</h3>
                         <div class="radio-group">
-                            <label class="radio-label">
-                                <input type="radio" name="schoolLevel" value="elementary" checked required>
+                            <label for="schoolLevel-elementary" class="radio-label">
+                                <input id="schoolLevel-elementary" type="radio" name="schoolLevel" value="elementary" checked required>
                                 <span>초등학교</span>
                             </label>
-                            <label class="radio-label">
-                                <input type="radio" name="schoolLevel" value="middle">
+                            <label for="schoolLevel-middle" class="radio-label">
+                                <input id="schoolLevel-middle" type="radio" name="schoolLevel" value="middle">
                                 <span>중학교</span>
                             </label>
                         </div>
@@ -71,12 +71,12 @@
                     <div class="form-step">
                         <h3>STEP 3. 학기 선택</h3>
                         <div class="radio-group">
-                            <label class="radio-label">
-                                <input type="radio" name="semester" value="1" checked required>
+                            <label id="semester1Wrap" for="semester-1" class="radio-label">
+                                <input id="semester-1" type="radio" name="semester" value="1" checked required>
                                 <span>1학기</span>
                             </label>
-                            <label class="radio-label">
-                                <input type="radio" name="semester" value="2">
+                            <label id="semester2Wrap" for="semester-2" class="radio-label">
+                                <input id="semester-2" type="radio" name="semester" value="2">
                                 <span>2학기</span>
                             </label>
                         </div>
@@ -85,7 +85,7 @@
                     <!-- STEP 4: 개념 선택 -->
                     <div class="form-step">
                         <h3>STEP 4. 개념 선택 <span class="hint">(여러 개 선택 가능)</span></h3>
-                        <div id="conceptGroup" class="checkbox-group">
+                        <div id="conceptGroup" class="checkbox-group concept-list">
                             <!-- 동적으로 생성됨 -->
                         </div>
                     </div>
@@ -94,36 +94,36 @@
                     <div class="form-step">
                         <h3>STEP 5. 틀린 이유 선택 <span class="hint">(최대 3개 선택 권장)</span></h3>
                         <div class="checkbox-group">
-                            <label class="checkbox-label">
-                                <input type="checkbox" name="mistake" value="개념을 정확히 모름">
+                            <label for="mistake-개념을 정확히 모름" class="checkbox-label">
+                                <input id="mistake-개념을 정확히 모름" type="checkbox" name="mistake" value="개념을 정확히 모름">
                                 <span>개념을 정확히 모름</span>
                             </label>
-                            <label class="checkbox-label">
-                                <input type="checkbox" name="mistake" value="문제 해석을 잘못함">
+                            <label for="mistake-문제 해석을 잘못함" class="checkbox-label">
+                                <input id="mistake-문제 해석을 잘못함" type="checkbox" name="mistake" value="문제 해석을 잘못함">
                                 <span>문제 해석을 잘못함</span>
                             </label>
-                            <label class="checkbox-label">
-                                <input type="checkbox" name="mistake" value="식을 잘못 세움">
+                            <label for="mistake-식을 잘못 세움" class="checkbox-label">
+                                <input id="mistake-식을 잘못 세움" type="checkbox" name="mistake" value="식을 잘못 세움">
                                 <span>식을 잘못 세움</span>
                             </label>
-                            <label class="checkbox-label">
-                                <input type="checkbox" name="mistake" value="계산 실수">
+                            <label for="mistake-계산 실수" class="checkbox-label">
+                                <input id="mistake-계산 실수" type="checkbox" name="mistake" value="계산 실수">
                                 <span>계산 실수</span>
                             </label>
-                            <label class="checkbox-label">
-                                <input type="checkbox" name="mistake" value="단계를 빨리 넘김">
+                            <label for="mistake-단계를 빨리 넘김" class="checkbox-label">
+                                <input id="mistake-단계를 빨리 넘김" type="checkbox" name="mistake" value="단계를 빨리 넘김">
                                 <span>단계를 빨리 넘김</span>
                             </label>
-                            <label class="checkbox-label">
-                                <input type="checkbox" name="mistake" value="중요한 조건을 놓침">
+                            <label for="mistake-중요한 조건을 놓침" class="checkbox-label">
+                                <input id="mistake-중요한 조건을 놓침" type="checkbox" name="mistake" value="중요한 조건을 놓침">
                                 <span>중요한 조건을 놓침</span>
                             </label>
-                            <label class="checkbox-label">
-                                <input type="checkbox" name="mistake" value="글을 충분히 읽지 않음">
+                            <label for="mistake-글을 충분히 읽지 않음" class="checkbox-label">
+                                <input id="mistake-글을 충분히 읽지 않음" type="checkbox" name="mistake" value="글을 충분히 읽지 않음">
                                 <span>글을 충분히 읽지 않음</span>
                             </label>
-                            <label class="checkbox-label">
-                                <input type="checkbox" name="mistake" value="풀이 방향을 잘 모름">
+                            <label for="mistake-풀이 방향을 잘 모름" class="checkbox-label">
+                                <input id="mistake-풀이 방향을 잘 모름" type="checkbox" name="mistake" value="풀이 방향을 잘 모름">
                                 <span>풀이 방향을 잘 모름</span>
                             </label>
                         </div>
@@ -133,28 +133,28 @@
                     <div class="form-step">
                         <h3>STEP 6. 원하는 문제 유형</h3>
                         <div class="radio-group">
-                            <label class="radio-label">
-                                <input type="radio" name="problemType" value="기본형" checked required>
+                            <label for="problemType-기본형" class="radio-label">
+                                <input id="problemType-기본형" type="radio" name="problemType" value="기본형" checked required>
                                 <span>기본형</span>
                             </label>
-                            <label class="radio-label">
-                                <input type="radio" name="problemType" value="쉬운 개념확인형">
+                            <label for="problemType-쉬운 개념확인형" class="radio-label">
+                                <input id="problemType-쉬운 개념확인형" type="radio" name="problemType" value="쉬운 개념확인형">
                                 <span>쉬운 개념확인형</span>
                             </label>
-                            <label class="radio-label">
-                                <input type="radio" name="problemType" value="실수 보완형">
+                            <label for="problemType-실수 보완형" class="radio-label">
+                                <input id="problemType-실수 보완형" type="radio" name="problemType" value="실수 보완형">
                                 <span>실수 보완형</span>
                             </label>
-                            <label class="radio-label">
-                                <input type="radio" name="problemType" value="응용 심화형">
+                            <label for="problemType-응용 심화형" class="radio-label">
+                                <input id="problemType-응용 심화형" type="radio" name="problemType" value="응용 심화형">
                                 <span>응용 심화형</span>
                             </label>
-                            <label class="radio-label">
-                                <input type="radio" name="problemType" value="단계별 풀이형">
+                            <label for="problemType-단계별 풀이형" class="radio-label">
+                                <input id="problemType-단계별 풀이형" type="radio" name="problemType" value="단계별 풀이형">
                                 <span>단계별 풀이형(아주 천천히 진행)</span>
                             </label>
-                            <label class="radio-label">
-                                <input type="radio" name="problemType" value="서술형 문제">
+                            <label for="problemType-서술형 문제" class="radio-label">
+                                <input id="problemType-서술형 문제" type="radio" name="problemType" value="서술형 문제">
                                 <span>서술형 문제</span>
                             </label>
                         </div>
@@ -164,16 +164,16 @@
                     <div class="form-step">
                         <h3>STEP 7. 문제 개수 선택</h3>
                         <div class="radio-group">
-                            <label class="radio-label">
-                                <input type="radio" name="problemCount" value="3" checked required>
+                            <label for="problemCount-3" class="radio-label">
+                                <input id="problemCount-3" type="radio" name="problemCount" value="3" checked required>
                                 <span>3개</span>
                             </label>
-                            <label class="radio-label">
-                                <input type="radio" name="problemCount" value="5">
+                            <label for="problemCount-5" class="radio-label">
+                                <input id="problemCount-5" type="radio" name="problemCount" value="5">
                                 <span>5개</span>
                             </label>
-                            <label class="radio-label">
-                                <input type="radio" name="problemCount" value="7">
+                            <label for="problemCount-7" class="radio-label">
+                                <input id="problemCount-7" type="radio" name="problemCount" value="7">
                                 <span>7개</span>
                             </label>
                         </div>
@@ -191,7 +191,8 @@
         </main>
     </div>
 
-    <script src="script.js"></script>
+    <script src="./curriculum_4to6.js"></script>
+    <script src="./script.js"></script>
 </body>
 </html>
 

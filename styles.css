@@ -353,7 +353,7 @@ body {
     text-decoration: underline;
 }
 
-/* 메인 컨텐츠 */
+/* 메인 컨테이너 */
 .main-content {
     flex: 1;
     background: white;
@@ -700,6 +700,7 @@ body {
 .radio-label {
     display: flex;
     align-items: center;
+    gap: 12px;
     padding: 12px 20px;
     background: white;
     border: 2px solid var(--border-color);
@@ -710,14 +711,23 @@ body {
     min-width: 150px;
     width: 100%;
     box-sizing: border-box;
+    user-select: none; /* 텍스트 선택 방지 */
+}
+
+/* label 내부의 span도 클릭 가능하도록 */
+.radio-label span {
+    flex: 1;
+    cursor: pointer;
 }
 
 /* STEP 4 체크박스도 radio-label 스타일 사용 (STEP 3과 동일) */
 .radio-label input[type="checkbox"] {
-    margin-right: 10px;
+    margin: 0;
     width: 18px;
     height: 18px;
     cursor: pointer;
+    flex-shrink: 0;
+    pointer-events: auto;
 }
 
 .radio-label input[type="checkbox"]:checked + span {
@@ -736,10 +746,12 @@ body {
 }
 
 .radio-label input[type="radio"] {
-    margin-right: 10px;
+    margin: 0;
     width: 18px;
     height: 18px;
     cursor: pointer;
+    flex-shrink: 0;
+    pointer-events: auto;
 }
 
 .radio-label input[type="radio"]:checked + span {
@@ -764,6 +776,7 @@ body {
 .checkbox-label {
     display: flex;
     align-items: center;
+    gap: 12px;
     padding: 12px 16px;
     background: white;
     border: 2px solid var(--border-color);
@@ -772,6 +785,13 @@ body {
     transition: all 0.3s ease;
     width: 100%;
     box-sizing: border-box;
+    user-select: none; /* 텍스트 선택 방지 */
+}
+
+/* checkbox-label 내부의 span도 클릭 가능하도록 */
+.checkbox-label span {
+    flex: 1;
+    cursor: pointer;
 }
 
 .checkbox-label:hover {
@@ -780,10 +800,12 @@ body {
 }
 
 .checkbox-label input[type="checkbox"] {
-    margin-right: 10px;
+    margin: 0;
     width: 18px;
     height: 18px;
     cursor: pointer;
+    flex-shrink: 0;
+    pointer-events: auto;
 }
 
 .checkbox-label input[type="checkbox"]:checked + span {
@@ -1612,3 +1634,537 @@ footer,
     }
 }
 
+/* 화면 폭 더 쓰기 - 오른쪽 공백 활용 */
+body {
+    margin: 0;
+}
+
+main, .container, .wrapper, .app {
+    max-width: 1400px;
+    width: calc(100% - 48px);
+    margin: 0 auto;
+}
+
+/* STEP4 체크리스트를 2~3열로 자동 배치 (오른쪽 공백 활용) - 주석 처리: 래퍼 div에 그리드 적용하도록 변경 */
+/* #conceptList, .concept-list, .concepts, .step4-list,
+/* #conceptGroup.checkbox-group, #conceptGroup.concept-list - 제거됨: .unit-grid로 대체 */
+/* #conceptGroup.checkbox-group, #conceptGroup.concept-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+} */ */
+
+/* STEP4 내부의 단원별 그룹도 그리드 레이아웃 적용 */
+#conceptGroup .radio-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 8px;
+}
+
+/* 프로젝트 표준: 꾸미기용 오버레이/데코 요소는 기본적으로 클릭 차단 */
+.radio-label .overlay,
+.radio-label .decor,
+.checkbox-label .overlay,
+.checkbox-label .decor,
+.radio-label::before,
+.radio-label::after,
+.checkbox-label::before,
+.checkbox-label::after {
+    pointer-events: none;
+}
+
+/* STEP4: 개념 선택을 2열(상황에 따라 3열)로 배치 */
+.step4-concepts,
+#conceptList,
+.concept-list,
+.concepts,
+#conceptContainer,
+.conceptContainer {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important; /* 기본 2열 */
+  gap: 12px !important;
+  align-items: start;
+}
+
+/* 화면이 넓으면 3열까지 자동 확장 */
+@media (min-width: 1200px) {
+  .step4-concepts,
+  #conceptList,
+  .concept-list,
+  .concepts,
+  #conceptContainer,
+  .conceptContainer {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+}
+
+/* 체크박스 카드(항목) 자체가 줄 전체를 먹어버리면 2열이 안 되므로 폭 강제 해제 */
+.step4-concepts > *,
+#conceptList > *,
+.concept-list > *,
+.concepts > * ,
+#conceptContainer > * ,
+.conceptContainer > * {
+  width: auto !important;
+  max-width: none !important;
+}
+
+/* 카드 안 긴 문장 줄바꿈 */
+.step4-concepts label,
+#conceptList label,
+.concept-list label,
+.concepts label,
+#conceptContainer label,
+.conceptContainer label {
+  white-space: normal !important;
+  word-break: keep-all;
+}
+
+/* STEP4 개념 선택: 무조건 반반(2열 고정) - 제거됨: .unit-grid로 대체 */
+/* #conceptGroup.checkbox-group,
+#conceptGroup {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  width: 100% !important;
+} */
+
+/* 카드(항목)가 한 줄을 통째로 먹지 않게 - 제거됨 */
+/* #conceptGroup > * {
+  width: auto !important;
+  max-width: none !important;
+} */
+
+/* 모바일에서는 1열(가독성) - 제거됨 */
+/* @media (max-width: 768px) {
+  #conceptGroup.checkbox-group,
+  #conceptGroup {
+    grid-template-columns: 1fr !important;
+  }
+} */
+
+/* STEP4 개념 선택: 무조건 2열을 "끝까지" 사용 - 제거됨: .unit-grid로 대체 */
+/* #conceptGroup {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  width: 100% !important;
+} */
+
+/* ✅ 핵심: 항목들이 2칸을 다 먹지 못하게(= 한 칸만 차지하게) 강제 */
+#conceptGroup > *,
+#conceptGroup label,
+#conceptGroup .checkbox-item,
+#conceptGroup .concept-item {
+  grid-column: auto !important;          /* span 제거 */
+  width: 100% !important;               /* 각 칸 안에서는 꽉 차게 */
+  max-width: none !important;
+}
+
+/* 단원 제목/구분선이 있으면 그건 한 줄 전체(2칸) 차지하게 */
+#conceptGroup .unit-title,
+#conceptGroup .unit-header,
+#conceptGroup .section-title,
+#conceptGroup hr {
+  grid-column: 1 / -1 !important;
+}
+
+/* 모바일에서는 1열 - 제거됨: .unit-grid로 대체 */
+/* @media (max-width: 768px) {
+  #conceptGroup {
+    grid-template-columns: 1fr !important;
+  }
+} */
+
+/* STEP4: #conceptGroup 안에 래퍼 div가 1겹 있어서 2열이 안 먹는 문제 해결 */
+
+/* 1) 컨테이너는 2열 그리드 */
+#conceptGroup {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  width: 100% !important;
+}
+
+/* STEP4: 단원별 블록은 유지하면서, 각 단원 내부만 2열로 */
+
+#conceptGroup{
+  display:block !important;
+  width:100% !important;
+}
+
+/* 단원 블록(구분선/제목 포함)을 카드처럼 세로로 쌓기 */
+#conceptGroup .unit-block,
+#conceptGroup .unit,
+#conceptGroup .unit-group,
+#conceptGroup .concept-unit,
+#conceptGroup .concept-section{
+  margin-top: 12px;
+}
+
+/* ✅ 단원 내부 체크리스트만 2열 그리드 */
+#conceptGroup .checkbox-group,
+#conceptGroup .concept-list,
+#conceptGroup .unit-items,
+#conceptGroup .unit-body,
+#conceptGroup .unit-content{
+  display:grid !important;
+  grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+  gap:12px !important;
+}
+
+/* 단원 제목은 전체 폭 */
+#conceptGroup h4,
+#conceptGroup .unit-title,
+#conceptGroup .unit-header,
+#conceptGroup .section-title{
+  width:100%;
+  margin: 10px 0 8px;
+}
+
+/* 5) 모바일에서는 1열 */
+@media (max-width: 768px) {
+  #conceptGroup {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* STEP4: 단원별 블록은 유지하면서, 각 단원 내부만 2열로 */
+
+#conceptGroup{
+  display:block !important;
+  width:100% !important;
+}
+
+/* 단원 블록(구분선/제목 포함)을 카드처럼 세로로 쌓기 */
+#conceptGroup .unit-block,
+#conceptGroup .unit,
+#conceptGroup .unit-group,
+#conceptGroup .concept-unit,
+#conceptGroup .concept-section{
+  margin-top: 12px;
+}
+
+/* ✅ 단원 내부 체크리스트만 2열 그리드 */
+#conceptGroup .checkbox-group,
+#conceptGroup .concept-list,
+#conceptGroup .unit-items,
+#conceptGroup .unit-body,
+#conceptGroup .unit-content{
+  display:grid !important;
+  grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+  gap:12px !important;
+}
+
+/* 단원 제목은 전체 폭 */
+#conceptGroup h4,
+#conceptGroup .unit-title,
+#conceptGroup .unit-header,
+#conceptGroup .section-title{
+  width:100%;
+  margin: 10px 0 8px;
+}
+
+/* 모바일에서는 단원 내부도 1열 */
+@media (max-width: 768px) {
+  #conceptGroup .unit-items,
+  #conceptGroup .checkbox-group,
+  #conceptGroup .concept-list {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* STEP4 영역: 화면 폭을 끝까지 쓰게 강제 */
+.form-step,
+.form-container,
+.main-content,
+.container {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+/* STEP4 개념선택 박스 자체도 100% */
+#conceptGroup {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+}
+
+/* 혹시 #conceptGroup이 flex 아이템이면 폭 고정값을 제거 */
+#conceptGroup {
+  flex: 1 1 auto !important;
+}
+
+/* 카드 그리드: 2열 고정(지금처럼) */
+#conceptGroup.checkbox-group,
+#conceptGroup {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+}
+
+/* 단원 제목은 한 줄 전체 */
+#conceptGroup .unit-title,
+#conceptGroup .unit-header,
+#conceptGroup .section-title,
+#conceptGroup hr {
+  grid-column: 1 / -1 !important;
+}
+
+/* 모바일 1열 */
+@media (max-width: 768px) {
+  #conceptGroup {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* STEP4: 2열 칸을 끝까지 쓰게(카드 폭 100% 강제) */
+#conceptGroup {
+  justify-items: stretch !important; /* 그리드 아이템을 칸에 맞게 늘림 */
+  align-items: start !important;
+}
+
+/* 실제 체크박스 카드(라벨/아이템)가 고정폭이면 오른쪽이 비니, 폭을 100%로 강제 */
+#conceptGroup > *,
+#conceptGroup label,
+#conceptGroup .checkbox-item,
+#conceptGroup .concept-item {
+  width: 100% !important;
+  max-width: none !important;
+  justify-self: stretch !important;
+  box-sizing: border-box !important;
+}
+
+/* ✅ STEP4: #conceptGroup 안의 '래퍼 div 1개' 때문에 오른쪽 반이 비는 문제 해결 */
+
+/* 1) 바깥(#conceptGroup)은 그리드 하지 말고 그냥 블록으로 둔다 */
+#conceptGroup {
+  display: block !important;
+  width: 100% !important;
+}
+
+/* 2) 실제 항목들이 들어있는 래퍼(div 한 겹)에 그리드를 건다 - 제거됨: .unit-grid로 대체 */
+/* #conceptGroup > div,
+#conceptGroup.checkbox-group > div,
+#conceptGroup.concept-list > div,
+#conceptGroup.checkbox-group.concept-list > div,
+#conceptGroup > div[style*="width"] {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  justify-items: start !important;
+  align-items: start !important;
+} */
+
+/* 3) 체크박스 카드들은 칸을 100% 꽉 채우게 */
+#conceptGroup > div > * {
+  width: 100% !important;
+  max-width: none !important;
+  box-sizing: border-box !important;
+  justify-self: stretch !important;
+}
+
+/* 4) 단원 제목/구분선은 2칸 전체 */
+#conceptGroup > div h4,
+#conceptGroup > div .unit-title,
+#conceptGroup > div .unit-header,
+#conceptGroup > div .section-title,
+#conceptGroup > div hr {
+  grid-column: 1 / -1 !important;
+}
+
+/* 5) 모바일은 1열 */
+@media (max-width: 768px) {
+  #conceptGroup > div {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ================================
+   STEP4: #conceptGroup 있는 구간만
+   "좌/우 2단"을 해제하고
+   전체 폭(100%)을 쓰게 만든다
+   ================================ */
+
+/* ✅ STEP4 컨테이너(= #conceptGroup을 포함한 .form-step)를 강제로 세로 레이아웃으로 */
+.form-step:has(#conceptGroup) {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+}
+
+/* STEP4 안의 요소들은 기본적으로 줄바꿈(전체 폭) */
+.form-step:has(#conceptGroup) > * {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+/* ✅ 개념 리스트 바깥(#conceptGroup)은 블록 - 기존 그리드 규칙 덮어쓰기 */
+#conceptGroup,
+#conceptGroup.checkbox-group,
+#conceptGroup.concept-list,
+#conceptGroup.checkbox-group.concept-list {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  grid-template-columns: none !important; /* 기존 그리드 규칙 제거 */
+  grid: none !important; /* 모든 그리드 속성 제거 */
+}
+
+/* 래퍼 div에 2열 그리드 - 제거됨: .unit-grid로 대체 */
+/* #conceptGroup > div {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  width: 100% !important;
+  align-items: start !important;
+} */
+
+/* 단원 블록(.unit-block)은 각각 1칸씩 차지 (2열 그리드에서) - 왼쪽부터 채우기 */
+#conceptGroup > div > .unit-block {
+  width: 100% !important;
+  max-width: none !important;
+  box-sizing: border-box !important;
+  grid-column: auto !important; /* 자동 배치 - 왼쪽부터 */
+  margin-bottom: 0 !important; /* gap으로 간격 처리 */
+}
+
+/* 단원 블록 내부 요소들은 그리드에 영향 없음 */
+#conceptGroup > div > .unit-block > * {
+  grid-column: auto !important;
+}
+
+/* 단원 제목은 단원 블록 내부에서 전체 폭 사용 (더 이상 2칸 전체 차지 안 함) */
+#conceptGroup .unit-title,
+#conceptGroup .unit-header,
+#conceptGroup .section-title {
+  width: 100% !important;
+  margin: 10px 0 8px !important;
+  grid-column: auto !important; /* 단원 블록 내부에서만 사용 */
+}
+
+/* 모바일은 1열 */
+@media (max-width: 768px) {
+  #conceptGroup > div {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ============================================
+   최종: 단원 블록들을 2열로 배치 (1단원|2단원, 3단원|4단원...)
+   ============================================ */
+
+/* 단원 내부 체크박스 컨테이너(.unit-items)는 세로 배치로 변경 */
+/* #conceptGroup .unit-items {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  width: 100% !important;
+} */
+
+/* 단원 제목은 단원 블록 내부에서만 사용 */
+#conceptGroup .unit-title {
+  width: 100% !important;
+  grid-column: auto !important;
+}
+
+/* 모바일: 단원 블록도 1열, 단원 내부도 1열 */
+@media (max-width: 768px) {
+  #conceptGroup > div {
+    grid-template-columns: 1fr !important;
+  }
+  #conceptGroup .unit-items {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* STEP4 단원 배치: 1-2 / 3-4 / 5-6 형태 2열 그리드 */
+#conceptGroup { width: 100% !important; max-width: none !important; }
+#conceptGroup > div { width: 100% !important; }
+
+/* 단원 그리드 */
+#conceptGroup .unit-grid{
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important; /* 단원 단위 2열 */
+  gap: 24px !important;
+  width: 100% !important;
+}
+
+/* 단원 블록 */
+#conceptGroup .unit-block{
+  background: #fff !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 12px !important;
+  padding: 12px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* 단원 제목 */
+#conceptGroup .unit-title{
+  font-weight: 700 !important;
+  color: #2f5bff !important;
+  margin: 4px 0 10px !important;
+  font-size: 16px !important;
+  padding-bottom: 8px !important;
+  border-bottom: 2px solid #e5e7eb !important;
+}
+
+/* 단원 안의 항목은 세로로(읽기 편하게) */
+#conceptGroup .unit-items{
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  width: 100% !important;
+}
+
+/* 체크박스 카드 폭은 블록을 꽉 채우게 */
+#conceptGroup .unit-items > *{
+  width: 100% !important;
+  max-width: none !important;
+  box-sizing: border-box !important;
+}
+
+/* 모바일은 1열 */
+@media (max-width: 768px){
+  #conceptGroup .unit-grid{
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* STEP4: 단원(블록) 단위 2열 배치 */
+#conceptGroup .unit-grid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* 1|2, 3|4, 5|6 */
+  gap: 18px;
+  width: 100%;
+  align-items: start;
+}
+
+#conceptGroup .unit-block{
+  width: 100%;
+  min-width: 0;
+}
+
+#conceptGroup .unit-items{
+  display: flex;
+  flex-direction: column; /* ✅ 항목마다 줄바꿈(엔터) */
+  gap: 10px;
+}
+
+/* label/항목이 inline으로 눌리지 않게 */
+#conceptGroup .unit-items label,
+#conceptGroup .unit-items .checkbox-item{
+  display: block;
+  width: 100%;
+}
+
+/* 모바일에서 1열 */
+@media (max-width: 900px){
+  #conceptGroup .unit-grid{
+    grid-template-columns: 1fr;
+  }
+}

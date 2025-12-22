@@ -83,6 +83,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     // create.html 페이지에서 초기화
     if (document.querySelector('input[name="grade"]')) {
         initializeFormSelectors();
+        // 초기 학기 UI 업데이트
+        updateSemesterUI();
         // 초기 개념 목록 표시
         await updateConceptList();
     }
@@ -118,6 +120,7 @@ function initializeFormSelectors() {
         input.addEventListener('change', async function() {
             // 학년/학기가 바뀌면 선택값 초기화
             clearAllConcepts();
+            updateSemesterUI(); // 학기 UI 업데이트
             await updateConceptList();
         });
     });
@@ -145,21 +148,56 @@ function updateGradeList(schoolLevel) {
         grades = [1, 2, 3];
     }
     
-    gradeGroup.innerHTML = grades.map(grade => `
-        <label class="radio-label">
-            <input type="radio" name="grade" value="${grade}" ${grade === 1 ? 'checked' : ''} required>
-            <span>${grade}학년</span>
-        </label>
-    `).join('');
+    gradeGroup.innerHTML = grades.map(grade => {
+        const gradeId = `grade-${grade}`;
+        return createSelectableCard({
+            id: gradeId,
+            type: 'radio',
+            name: 'grade',
+            value: String(grade),
+            checked: grade === 1,
+            label: `${grade}학년`,
+            onChange: '',
+            className: '',
+            dataAttributes: {}
+        });
+    }).join('');
     
     // 이벤트 리스너 다시 연결
     const gradeInputs = document.querySelectorAll('input[name="grade"]');
     gradeInputs.forEach(input => {
         input.addEventListener('change', async function() {
             clearAllConcepts();
+            updateSemesterUI(); // 학기 UI 업데이트
             await updateConceptList();
         });
     });
+    
+    // 학기 UI 업데이트
+    updateSemesterUI();
+}
+
+// 학기 UI 업데이트 함수 (5·6학년에서만 2학기 숨김)
+function getSelectedGrade() {
+    const el = document.querySelector('input[name="grade"]:checked');
+    return el ? String(el.value) : null;
+}
+
+function updateSemesterUI() {
+    const grade = getSelectedGrade();
+    const sem2Wrap = document.getElementById("semester2Wrap");
+    const sem2Input = document.querySelector('input[name="semester"][value="2"]');
+    const sem1Input = document.querySelector('input[name="semester"][value="1"]');
+
+    if (!sem2Wrap || !sem2Input) return;
+
+    const noSecondSemester = (grade === "5" || grade === "6");
+    sem2Wrap.style.display = noSecondSemester ? "none" : "";
+
+    // 5~6학년에서 2학기가 선택되어 있으면 자동으로 1학기로 변경
+    if (noSecondSemester && sem2Input.checked && sem1Input) {
+        sem1Input.checked = true;
+    }
 }
 
 // curriculum 데이터 캐시
@@ -180,14 +218,16 @@ async function loadCurriculumData() {
     
     curriculumLoadPromise = (async () => {
         let lastError = null;
+        let data = null;
+        
+        // 1~3학년 데이터 로드
         for (const path of paths) {
             try {
                 const response = await fetch(path);
                 if (response.ok) {
-                    const data = await response.json();
-                    curriculumData = data;
+                    data = await response.json();
                     console.log('Curriculum data loaded successfully from:', path);
-                    return data;
+                    break;
                 }
             } catch (error) {
                 lastError = error;
@@ -195,9 +235,21 @@ async function loadCurriculumData() {
             }
         }
         
-        console.error('Error loading curriculum data from all paths:', lastError);
-        curriculumLoadPromise = null;
-        return null;
+        if (!data) {
+            console.error('Error loading curriculum data from all paths:', lastError);
+            curriculumLoadPromise = null;
+            return null;
+        }
+        
+        // 4~6학년 데이터 병합 (CURRICULUM_4_TO_6가 로드되어 있다면)
+        if (typeof CURRICULUM_4_TO_6 !== 'undefined') {
+            curriculumData = { ...data, ...CURRICULUM_4_TO_6 };
+            console.log('Curriculum data merged with 4~6 grade data');
+        } else {
+            curriculumData = data;
+        }
+        
+        return curriculumData;
     })();
     
     return curriculumLoadPromise;
@@ -223,7 +275,23 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
-// 개념 목록 업데이트 (학년/학기 기반 - 1~3학년만)
+// 선택 가능한 카드 생성 유틸리티 (프로젝트 표준: label이 컨테이너, id+htmlFor 사용)
+function createSelectableCard({ id, type, name, value, checked, label, onChange, className = '', dataAttributes = {} }) {
+    const inputId = id || `selectable-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const cardClass = type === 'radio' ? 'radio-label' : 'checkbox-label';
+    const finalClass = `${cardClass} ${className}`.trim();
+    
+    // data 속성 문자열 생성
+    let dataAttrs = '';
+    for (const [key, val] of Object.entries(dataAttributes)) {
+        dataAttrs += ` data-${key}="${escapeHtml(String(val))}"`;
+    }
+    
+    // 한 줄로 반환 (템플릿 리터럴의 줄바꿈 제거)
+    return `<label for="${inputId}" class="${finalClass}"><input id="${inputId}" type="${type}" ${name ? `name="${name}"` : ''} ${value ? `value="${value}"` : ''} ${checked ? 'checked' : ''} ${onChange ? `onchange="${onChange}"` : ''}${dataAttrs}><span>${label}</span></label>`;
+}
+
+// 개념 목록 업데이트 (학년/학기 기반 - 1~6학년)
 async function updateConceptList() {
     const conceptGroup = document.getElementById('conceptGroup');
     if (!conceptGroup) {
@@ -240,21 +308,33 @@ async function updateConceptList() {
     // 로딩 표시
     conceptGroup.innerHTML = '<div style="padding: 20px; text-align: center; color: #999;">로딩 중...</div>';
     
-    // 1~3학년만 새로운 curriculum 데이터 사용
-    if (schoolLevel === 'elementary' && grade >= 1 && grade <= 3) {
+    // 1~6학년 새로운 curriculum 데이터 사용
+    if (schoolLevel === 'elementary' && grade >= 1 && grade <= 6) {
         try {
             const data = await loadCurriculumData();
             if (!data) {
                 console.error('Failed to load curriculum data, using fallback');
                 // 데이터 로드 실패 시 기존 방식 사용
                 const concepts = elementaryMathConcepts[grade] || elementaryMathConcepts[1];
-                conceptGroup.innerHTML = concepts.map(concept => `
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="concept" value="${concept}" onchange="updateConceptCount()">
-                        <span>${concept}</span>
-                    </label>
-                `).join('');
+                conceptGroup.innerHTML = concepts.map((concept, idx) => {
+                    const conceptId = `concept-fallback-${grade}-${idx}`;
+                    return createSelectableCard({
+                        id: conceptId,
+                        type: 'checkbox',
+                        name: 'concept',
+                        value: concept,
+                        checked: false,
+                        label: escapeHtml(concept),
+                        onChange: 'updateConceptCount()',
+                        className: ''
+                    });
+                }).join('');
                 updateConceptCount();
+                setTimeout(() => {
+                  if (window.rebuildConceptGroupToUnitGrid) {
+                    window.rebuildConceptGroupToUnitGrid();
+                  }
+                }, 0);
                 return;
             }
             
@@ -283,37 +363,50 @@ async function updateConceptList() {
             html += '<div style="margin-left: auto; font-size: 13px; opacity: 0.8;" id="conceptCount">선택됨: 0개</div>';
             html += '</div>';
             
-            // 단원별로 렌더링 (STEP 3과 완전히 동일한 스타일)
+            // 단원별로 렌더링 (단원별 컨테이너 구조: unit-block > unit-title + unit-items)
             units.forEach((unit, uIdx) => {
                 const unitNo = pickUnitNo(unit.unit, uIdx + 1);
                 const escapedUnit = escapeHtml(unit.unit);
-                // 단원 래퍼: width: 100% 강제
-                html += '<div style="margin-bottom: 24px; width: 100%; box-sizing: border-box;">';
-                // 단원 제목: STEP 3 타이틀과 동일한 스타일
-                html += '<div style="font-weight: 700; margin-bottom: 12px; font-size: 16px; color: #4F46E5; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; width: 100%;">' + escapedUnit + '</div>';
-                // STEP 3과 완전히 동일한 radio-group 클래스 사용 (flex 레이아웃으로 가로 배치)
-                // 인라인 스타일 제거, CSS 클래스만 사용
-                html += '<div class="radio-group">';
+                
+                // 단원 블록 컨테이너
+                html += '<div class="unit-block" style="margin-bottom: 24px; width: 100%; box-sizing: border-box;">';
+                
+                // 단원 제목 (2칸 전체 사용)
+                html += '<div class="unit-title" style="font-weight: 700; margin-bottom: 12px; font-size: 16px; color: #4F46E5; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; width: 100%;">' + escapedUnit + '</div>';
+                
+                // 단원 내부 체크박스 컨테이너 (2열 그리드)
+                html += '<div class="unit-items">';
                 
                 unit.topics.forEach((topic, tIdx) => {
                     const topicNo = pickTopicNo(topic, tIdx + 1);
                     const conceptId = 'G' + grade + '-S' + semester + '-U' + unitNo + '-T' + topicNo;
                     const escapedTopic = escapeHtml(topic);
                     
-                    // STEP 3과 완전히 동일한 radio-label 클래스 사용 (인라인 스타일 완전 제거)
-                    // STEP 3 카드 구조를 그대로 재사용: <label class="radio-label"><input><span></label>
-                    html += '<label class="radio-label">';
-                    html += '<input type="checkbox" name="concept" value="' + conceptId + '" data-topic-title="' + escapedTopic + '" onchange="updateConceptCount()">';
-                    html += '<span>' + escapedTopic + '</span>';
-                    html += '</label>';
+                    // 프로젝트 표준: label이 컨테이너, id+htmlFor 사용
+                    html += createSelectableCard({
+                        id: conceptId,
+                        type: 'checkbox',
+                        name: 'concept',
+                        value: conceptId,
+                        checked: false,
+                        label: escapedTopic,
+                        onChange: 'updateConceptCount()',
+                        className: '',
+                        dataAttributes: { 'topic-title': escapedTopic }
+                    });
                 });
                 
-                html += '</div></div>';
+                html += '</div></div>'; // unit-items 닫기, unit-block 닫기
             });
             
             html += '</div>';
             conceptGroup.innerHTML = html;
             updateConceptCount();
+            setTimeout(() => {
+              if (window.rebuildConceptGroupToUnitGrid) {
+                window.rebuildConceptGroupToUnitGrid();
+              }
+            }, 0);
             return;
         } catch (error) {
             console.error('Error in updateConceptList:', error);
@@ -330,12 +423,21 @@ async function updateConceptList() {
         concepts = middleMathConcepts[grade] || middleMathConcepts[1];
     }
     
-    conceptGroup.innerHTML = concepts.map(concept => `
-        <label class="checkbox-label">
-            <input type="checkbox" name="concept" value="${concept}" onchange="updateConceptCount()">
-            <span>${concept}</span>
-        </label>
-    `).join('');
+    conceptGroup.innerHTML = concepts.map((concept, idx) => {
+        const conceptId = `concept-fallback-${grade}-${idx}`;
+        return createSelectableCard({
+            id: conceptId,
+            type: 'checkbox',
+            name: 'concept',
+            value: concept,
+            checked: false,
+            label: escapeHtml(concept),
+            onChange: 'updateConceptCount()',
+            className: '',
+            dataAttributes: {}
+        });
+    }).join('');
+    // fallback의 경우 단원이 없을 수 있으므로 rebuildConceptGroupToUnitGrid는 호출하지 않음
     updateConceptCount();
 }
 
@@ -1942,3 +2044,115 @@ function loadReviews() {
         `;
     }
 }
+
+// ===============================
+// STEP4: 단원별 2열 레이아웃(1-2 / 3-4 / 5-6)
+// ===============================
+function extractUnitNo(text) {
+  const m = String(text || "").trim().match(/(\d+)\s*단원/);
+  return m ? parseInt(m[1], 10) : null;
+}
+
+function looksLikeUnitTitle(el) {
+  if (!el || el.nodeType !== 1) return false;
+  const t = (el.textContent || "").trim();
+  // "n단원" 포함 + 체크박스가 안 들어있는(제목 전용) 요소를 우선 타이틀로 취급
+  if (!/(\d+)\s*단원/.test(t)) return false;
+  if (el.querySelector && el.querySelector('input[type="checkbox"]')) return false;
+  return true;
+}
+
+function isCheckboxItem(el) {
+  if (!el || el.nodeType !== 1) return false;
+  return !!(el.querySelector && el.querySelector('input[type="checkbox"]'));
+}
+
+/**
+ * STEP4(#conceptGroup)를 단원(1~6) 블록으로 재구성.
+ * - 왼쪽: 홀수 단원(1/3/5)
+ * - 오른쪽: 짝수 단원(2/4/6)
+ * - 항목들은 label/checkbox 그대로 이동 => 줄바꿈 유지
+ */
+function rebuildConceptGroupToUnitGrid() {
+  const conceptGroup = document.getElementById("conceptGroup");
+  if (!conceptGroup) return;
+
+  const wrapper = conceptGroup.querySelector(":scope > div") || conceptGroup;
+
+  // TreeWalker로 wrapper 내부를 "문서 순서"대로 훑기
+  const walker = document.createTreeWalker(wrapper, NodeFilter.SHOW_ELEMENT);
+  const blocks = {}; // {1:{titleEl, items:[]}, ...}
+  let currentUnit = null;
+
+  while (walker.nextNode()) {
+    const el = walker.currentNode;
+
+    // 1) 단원 제목 발견
+    if (looksLikeUnitTitle(el)) {
+      const no = extractUnitNo(el.textContent);
+      if (no != null) {
+        currentUnit = no;
+        if (!blocks[no]) blocks[no] = { titleEl: el, items: [] };
+        else blocks[no].titleEl = el; // 혹시 중복이면 최신으로
+      }
+      continue;
+    }
+
+    // 2) 체크박스 항목 발견 (label/div 등)
+    if (isCheckboxItem(el)) {
+      // 체크박스가 들어있는 "가장 바깥" 항목을 잡기 위해,
+      // label이 있으면 label까지 끌어올립니다.
+      let item = el;
+      const label = el.closest ? el.closest("label") : null;
+      if (label && label.querySelector('input[type="checkbox"]')) item = label;
+
+      if (currentUnit != null) {
+        if (!blocks[currentUnit]) blocks[currentUnit] = { titleEl: null, items: [] };
+        // 같은 항목 중복 추가 방지
+        if (!blocks[currentUnit].items.includes(item)) {
+          blocks[currentUnit].items.push(item);
+        }
+      }
+    }
+  }
+
+  // 1~6 중 실제로 있는 단원만 grid로 구성
+  const unitGrid = document.createElement("div");
+  unitGrid.className = "unit-grid";
+
+  for (let no = 1; no <= 6; no++) {
+    if (!blocks[no]) continue;
+
+    const section = document.createElement("section");
+    section.className = "unit-block";
+
+    // 제목은 "제목 요소"를 그대로 이동(텍스트 뽑지 말 것!)
+    // (기존 스타일 유지하려고)
+    if (blocks[no].titleEl) {
+      const titleWrap = document.createElement("div");
+      titleWrap.className = "unit-title";
+      titleWrap.appendChild(blocks[no].titleEl);
+      section.appendChild(titleWrap);
+    }
+
+    const itemsWrap = document.createElement("div");
+    itemsWrap.className = "unit-items";
+
+    // 체크박스 항목을 그대로 이동(줄바꿈/박스 UI 유지)
+    blocks[no].items.forEach((it) => itemsWrap.appendChild(it));
+    section.appendChild(itemsWrap);
+
+    unitGrid.appendChild(section);
+  }
+
+  // 안전장치: 아무것도 못 만들었으면 원본 유지
+  if (unitGrid.children.length === 0) return;
+
+  // wrapper 안을 unitGrid로 교체
+  wrapper.innerHTML = "";
+  wrapper.appendChild(unitGrid);
+}
+
+// 전역으로 노출(순서 문제로 not defined 방지)
+window.rebuildConceptGroupToUnitGrid = rebuildConceptGroupToUnitGrid;
+
