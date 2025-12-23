@@ -78,6 +78,41 @@ const conceptsBySubject = {
     ]
 };
 
+// ===============================
+// Helper 함수: [object Object] 방지
+// ===============================
+function conceptToText(concept) {
+  if (!concept) return '';
+  if (typeof concept === 'string') return concept;
+
+  // 프로젝트에서 흔히 쓰는 키들을 우선순위로 처리
+  return (
+    concept.conceptTitle ||
+    concept.topicTitle ||
+    concept.unitTitle ||
+    concept.name ||
+    concept.title ||
+    concept.label ||
+    (concept.id && typeof concept.id === 'string' ? concept.id : '') ||
+    ''   // 여기까지 없으면 빈문자열
+  );
+}
+
+function questionToPrompt(q) {
+  if (!q) return '';
+  if (typeof q === 'string') return q;
+
+  // 생성기가 object로 반환할 때 대비
+  return (
+    q.prompt ||
+    q.question ||
+    q.text ||
+    q.problem ||
+    q.stem ||
+    ''
+  );
+}
+
 // 페이지 로드 시 초기화
 document.addEventListener('DOMContentLoaded', async function() {
     // create.html 페이지에서 초기화
@@ -168,23 +203,46 @@ function updateGradeList(schoolLevel) {
     gradeInputs.forEach(input => {
         input.addEventListener('change', async function() {
             clearAllConcepts();
-            updateSemesterUI(); // 학기 UI 업데이트
+            updateSemesterUI(); // 학기 UI 업데이트 (중학교는 동적 생성)
             await updateConceptList();
         });
     });
     
-    // 학기 UI 업데이트
+    // 학기 UI 업데이트 (중학교는 동적 생성)
     updateSemesterUI();
 }
 
-// 학기 UI 업데이트 함수 (5·6학년에서만 2학기 숨김)
+// 학기 UI 업데이트 함수 (초등 5·6학년, 중3에서만 2학기 숨김)
 function getSelectedGrade() {
     const el = document.querySelector('input[name="grade"]:checked');
     return el ? String(el.value) : null;
 }
 
+function getSelectedSchoolLevel() {
+    const el = document.querySelector('input[name="schoolLevel"]:checked');
+    return el ? el.value : 'elementary';
+}
+
 function updateSemesterUI() {
     const grade = getSelectedGrade();
+    const schoolLevel = getSelectedSchoolLevel();
+    
+    // STEP 3 섹션 내의 학기 선택 radio-group 찾기
+    const step3Section = document.querySelector('.form-step:nth-of-type(3)');
+    const semesterGroup = step3Section ? step3Section.querySelector('.radio-group') : document.querySelector('input[name="semester"]')?.closest('.radio-group');
+    
+    if (!semesterGroup) {
+        console.warn('Semester group not found');
+        return;
+    }
+    
+    // 중학교인 경우 동적으로 학기 선택지 생성
+    if (schoolLevel === 'middle') {
+        updateMiddleSchoolSemesterUI(grade, semesterGroup);
+        return;
+    }
+    
+    // 초등학교인 경우 기존 로직 사용
     const sem2Wrap = document.getElementById("semester2Wrap");
     const sem2Input = document.querySelector('input[name="semester"][value="2"]');
     const sem1Input = document.querySelector('input[name="semester"][value="1"]');
@@ -197,6 +255,89 @@ function updateSemesterUI() {
     // 5~6학년에서 2학기가 선택되어 있으면 자동으로 1학기로 변경
     if (noSecondSemester && sem2Input.checked && sem1Input) {
         sem1Input.checked = true;
+    }
+}
+
+// 중학교 학기 선택지 동적 생성
+function updateMiddleSchoolSemesterUI(grade, semesterGroup) {
+    if (!window.MIDDLE_SCHOOL_TOC) {
+        console.warn('MIDDLE_SCHOOL_TOC not loaded');
+        return;
+    }
+    
+    // 키를 "1학년", "2학년", "3학년" 형식으로 변경
+    const gradeKey = `${grade}학년`;
+    const tocData = window.MIDDLE_SCHOOL_TOC[gradeKey];
+    
+    if (!tocData) {
+        console.warn(`No data for ${gradeKey}`);
+        return;
+    }
+    
+    // 사용 가능한 학기 목록 가져오기
+    const availableSemesters = Object.keys(tocData);
+    
+    // semesterGroup이 전달되지 않으면 찾기
+    if (!semesterGroup) {
+        const step3Section = document.querySelector('.form-step:nth-of-type(3)');
+        semesterGroup = step3Section ? step3Section.querySelector('.radio-group') : document.querySelector('input[name="semester"]')?.closest('.radio-group');
+    }
+    
+    if (!semesterGroup) {
+        console.warn('Semester group not found');
+        return;
+    }
+    
+    // 기존 학기 선택지 모두 제거
+    semesterGroup.innerHTML = '';
+    
+    // 사용 가능한 학기만 선택지로 생성
+    availableSemesters.forEach((semester, index) => {
+        const semesterValue = semester === '1학기' ? '1' : '2';
+        const semesterId = `semester-${semesterValue}`;
+        const labelId = `semester${semesterValue}Wrap`;
+        
+        const label = document.createElement('label');
+        label.id = labelId;
+        label.className = 'radio-label';
+        label.htmlFor = semesterId;
+        
+        const input = document.createElement('input');
+        input.id = semesterId;
+        input.type = 'radio';
+        input.name = 'semester';
+        input.value = semesterValue;
+        input.required = true;
+        
+        // 첫 번째 학기를 기본 선택
+        if (index === 0) {
+            input.checked = true;
+        }
+        
+        const span = document.createElement('span');
+        span.textContent = semester;
+        
+        label.appendChild(input);
+        label.appendChild(span);
+        semesterGroup.appendChild(label);
+    });
+    
+    // 이벤트 리스너 다시 연결
+    const semesterInputs = document.querySelectorAll('input[name="semester"]');
+    semesterInputs.forEach(input => {
+        input.addEventListener('change', async function() {
+            clearAllConcepts();
+            await updateConceptList();
+        });
+    });
+    
+    // 학년 변경 시 현재 선택된 학기가 없으면 첫 번째 학기로 자동 변경
+    const currentSemester = document.querySelector('input[name="semester"]:checked');
+    if (!currentSemester && availableSemesters.length > 0) {
+        const firstSemesterInput = document.querySelector(`input[name="semester"][value="${availableSemesters[0] === '1학기' ? '1' : '2'}"]`);
+        if (firstSemesterInput) {
+            firstSemesterInput.checked = true;
+        }
     }
 }
 
@@ -308,6 +449,228 @@ async function updateConceptList() {
     // 로딩 표시
     conceptGroup.innerHTML = '<div style="padding: 20px; text-align: center; color: #999;">로딩 중...</div>';
     
+    // 중학교 목차 표시 (단원 → 소단원 → 세부 항목)
+    if (schoolLevel === 'middle' && grade >= 1 && grade <= 3) {
+        try {
+            if (!window.MIDDLE_SCHOOL_TOC) {
+                console.error('MIDDLE_SCHOOL_TOC not loaded');
+                conceptGroup.innerHTML = '';
+                const errorDiv = document.createElement('div');
+                errorDiv.style.cssText = 'padding: 20px; text-align: center; color: #999;';
+                errorDiv.textContent = '선택한 학년/학기에 해당하는 목차가 없습니다.';
+                conceptGroup.appendChild(errorDiv);
+                return;
+            }
+            
+            // 키를 "1학년", "2학년", "3학년" 형식으로 변경
+            const gradeKey = `${grade}학년`;
+            const semesterKey = `${semester}학기`;
+            const tocData = window.MIDDLE_SCHOOL_TOC[gradeKey];
+            
+            if (!tocData || !tocData[semesterKey]) {
+                console.error('Data not found for:', gradeKey, semesterKey);
+                conceptGroup.innerHTML = '';
+                const errorDiv = document.createElement('div');
+                errorDiv.style.cssText = 'padding: 20px; text-align: center; color: #999;';
+                errorDiv.textContent = '선택한 학년/학기에 해당하는 목차가 없습니다.';
+                conceptGroup.appendChild(errorDiv);
+                return;
+            }
+            
+            const units = tocData[semesterKey];
+            console.log('Found middle school units:', units.length);
+            
+            // conceptGroup 초기화
+            conceptGroup.innerHTML = '';
+            
+            // 전체 선택/해제 버튼줄
+            const controlDiv = document.createElement('div');
+            controlDiv.style.cssText = 'display: flex; gap: 8px; align-items: center; margin-bottom: 15px; width: 100%; box-sizing: border-box;';
+            
+            const selectAllBtn = document.createElement('button');
+            selectAllBtn.type = 'button';
+            selectAllBtn.textContent = '전체 선택';
+            selectAllBtn.onclick = selectAllConcepts;
+            selectAllBtn.style.cssText = 'padding: 6px 12px; border: 1px solid #ddd; background: #f5f5f5; border-radius: 4px; cursor: pointer;';
+            
+            const clearAllBtn = document.createElement('button');
+            clearAllBtn.type = 'button';
+            clearAllBtn.textContent = '전체 해제';
+            clearAllBtn.onclick = clearAllConcepts;
+            clearAllBtn.style.cssText = 'padding: 6px 12px; border: 1px solid #ddd; background: #f5f5f5; border-radius: 4px; cursor: pointer;';
+            
+            const countDiv = document.createElement('div');
+            countDiv.id = 'conceptCount';
+            countDiv.style.cssText = 'margin-left: auto; font-size: 13px; opacity: 0.8;';
+            countDiv.textContent = '선택됨: 0개';
+            
+            controlDiv.appendChild(selectAllBtn);
+            controlDiv.appendChild(clearAllBtn);
+            controlDiv.appendChild(countDiv);
+            conceptGroup.appendChild(controlDiv);
+            
+            // unit-grid 컨테이너 생성 (2열 배치)
+            const unitGrid = document.createElement('div');
+            unitGrid.className = 'unit-grid';
+            unitGrid.style.cssText = 'display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%;';
+            
+            // 단원 카드 생성 (단원 → 소단원 → 세부 항목)
+            units.forEach((unit, uIdx) => {
+                const unitId = `U|${grade}|${semester}|${uIdx}`;
+                const unitCard = document.createElement('section');
+                unitCard.className = 'unit-card concept-card';
+                unitCard.style.cssText = 'border: 1px solid #e5e7eb; border-radius: 12px; padding: 18px; background: #fff;';
+                
+                // 단원 체크박스
+                const unitLabel = document.createElement('label');
+                unitLabel.style.cssText = 'display: flex; gap: 10px; align-items: center; font-weight: 800; font-size: 20px; margin-bottom: 12px; cursor: pointer; padding: 4px 2px;';
+                
+                const unitCheckbox = document.createElement('input');
+                unitCheckbox.type = 'checkbox';
+                unitCheckbox.name = 'concept';
+                unitCheckbox.value = unitId;
+                unitCheckbox.id = unitId;
+                unitCheckbox.className = 'concept-checkbox';
+                
+                // 단원 아래 모든 토픽 ID 수집
+                const allTopicIds = [];
+                if (unit.subunits && unit.subunits.length > 0) {
+                    unit.subunits.forEach((su, sIdx) => {
+                        if (su.topics && su.topics.length > 0) {
+                            su.topics.forEach((_, tIdx) => {
+                                allTopicIds.push(`T|${grade}|${semester}|${uIdx}|${sIdx}|${tIdx}`);
+                            });
+                        }
+                    });
+                }
+                
+                // 단원 체크박스 변경 이벤트
+                unitCheckbox.addEventListener('change', function() {
+                    const checked = this.checked;
+                    const checkboxes = document.querySelectorAll(`input[name="concept"][value^="T|${grade}|${semester}|${uIdx}|"]`);
+                    checkboxes.forEach(cb => {
+                        cb.checked = checked;
+                    });
+                    updateConceptCount();
+                });
+                
+                const unitSpan = document.createElement('span');
+                unitSpan.className = 'unit-title';
+                unitSpan.textContent = unit.title;
+                
+                unitLabel.appendChild(unitCheckbox);
+                unitLabel.appendChild(unitSpan);
+                unitCard.appendChild(unitLabel);
+                
+                // 카드에 클래스 추가
+                unitCard.classList.add('concept-card');
+                
+                // 소단원 및 세부 항목
+                if (unit.subunits && unit.subunits.length > 0) {
+                    const subunitsDiv = document.createElement('div');
+                    subunitsDiv.className = 'subunits-container';
+                    subunitsDiv.style.cssText = 'margin-top: 10px; padding-left: 8px;';
+                    
+                    unit.subunits.forEach((su, sIdx) => {
+                        const subId = `S|${grade}|${semester}|${uIdx}|${sIdx}`;
+                        const subDiv = document.createElement('div');
+                        subDiv.style.cssText = 'margin-bottom: 14px;';
+                        
+                        // 소단원 체크박스
+                        const subLabel = document.createElement('label');
+                        subLabel.style.cssText = 'display: flex; gap: 10px; align-items: center; font-weight: 700; font-size: 18px; margin-top: 10px; margin-bottom: 8px; cursor: pointer; padding: 4px 2px;';
+                        
+                        const subCheckbox = document.createElement('input');
+                        subCheckbox.type = 'checkbox';
+                        subCheckbox.name = 'concept';
+                        subCheckbox.value = subId;
+                        subCheckbox.id = subId;
+                        subCheckbox.className = 'concept-checkbox';
+                        
+                        // 소단원 아래 모든 토픽 ID 수집
+                        const topicIds = [];
+                        if (su.topics && su.topics.length > 0) {
+                            su.topics.forEach((_, tIdx) => {
+                                topicIds.push(`T|${grade}|${semester}|${uIdx}|${sIdx}|${tIdx}`);
+                            });
+                        }
+                        
+                        // 소단원 체크박스 변경 이벤트
+                        subCheckbox.addEventListener('change', function() {
+                            const checked = this.checked;
+                            const checkboxes = document.querySelectorAll(`input[name="concept"][value^="T|${grade}|${semester}|${uIdx}|${sIdx}|"]`);
+                            checkboxes.forEach(cb => {
+                                cb.checked = checked;
+                            });
+                            updateConceptCount();
+                        });
+                        
+                        const subSpan = document.createElement('span');
+                        subSpan.className = 'subunit-title';
+                        subSpan.textContent = su.title;
+                        
+                        subLabel.appendChild(subCheckbox);
+                        subLabel.appendChild(subSpan);
+                        subDiv.appendChild(subLabel);
+                        
+                        // 세부 항목 (토픽)
+                        if (su.topics && su.topics.length > 0) {
+                            const topicsDiv = document.createElement('div');
+                            topicsDiv.className = 'topics-container';
+                            topicsDiv.style.cssText = 'margin-top: 8px; padding-left: 22px; display: grid; gap: 8px;';
+                            
+                            su.topics.forEach((topic, tIdx) => {
+                                const topicId = `T|${grade}|${semester}|${uIdx}|${sIdx}|${tIdx}`;
+                                
+                                const topicLabel = document.createElement('label');
+                                topicLabel.style.cssText = 'display: flex; gap: 10px; align-items: center; font-size: 18px; font-weight: 500; cursor: pointer; padding: 4px 2px;';
+                                
+                                const topicCheckbox = document.createElement('input');
+                                topicCheckbox.type = 'checkbox';
+                                topicCheckbox.name = 'concept';
+                                topicCheckbox.value = topicId;
+                                topicCheckbox.id = topicId;
+                                topicCheckbox.className = 'concept-checkbox';
+                                
+                                topicCheckbox.addEventListener('change', function() {
+                                    updateConceptCount();
+                                });
+                                
+                                const topicSpan = document.createElement('span');
+                                topicSpan.className = 'topic-title';
+                                topicSpan.textContent = escapeHtml(topic);
+                                
+                                topicLabel.appendChild(topicCheckbox);
+                                topicLabel.appendChild(topicSpan);
+                                topicsDiv.appendChild(topicLabel);
+                            });
+                            
+                            subDiv.appendChild(topicsDiv);
+                        }
+                        
+                        subunitsDiv.appendChild(subDiv);
+                    });
+                    
+                    unitCard.appendChild(subunitsDiv);
+                }
+                
+                unitGrid.appendChild(unitCard);
+            });
+            
+            conceptGroup.appendChild(unitGrid);
+            updateConceptCount();
+            return;
+        } catch (error) {
+            console.error('Error in updateConceptList for middle school:', error);
+            conceptGroup.innerHTML = '';
+            const errorDiv = document.createElement('div');
+            errorDiv.style.cssText = 'padding: 20px; text-align: center; color: #f00;';
+            errorDiv.textContent = '오류가 발생했습니다: ' + escapeHtml(error.message);
+            conceptGroup.appendChild(errorDiv);
+            return;
+        }
+    }
+    
     // 1~6학년 새로운 curriculum 데이터 사용
     if (schoolLevel === 'elementary' && grade >= 1 && grade <= 6) {
         try {
@@ -316,9 +679,10 @@ async function updateConceptList() {
                 console.error('Failed to load curriculum data, using fallback');
                 // 데이터 로드 실패 시 기존 방식 사용
                 const concepts = elementaryMathConcepts[grade] || elementaryMathConcepts[1];
-                conceptGroup.innerHTML = concepts.map((concept, idx) => {
+                conceptGroup.innerHTML = '';
+                concepts.forEach((concept, idx) => {
                     const conceptId = `concept-fallback-${grade}-${idx}`;
-                    return createSelectableCard({
+                    const cardHtml = createSelectableCard({
                         id: conceptId,
                         type: 'checkbox',
                         name: 'concept',
@@ -328,13 +692,11 @@ async function updateConceptList() {
                         onChange: 'updateConceptCount()',
                         className: ''
                     });
-                }).join('');
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = cardHtml;
+                    conceptGroup.appendChild(tempDiv.firstElementChild);
+                });
                 updateConceptCount();
-                setTimeout(() => {
-                  if (window.rebuildConceptGroupToUnitGrid) {
-                    window.rebuildConceptGroupToUnitGrid();
-                  }
-                }, 0);
                 return;
             }
             
@@ -344,46 +706,100 @@ async function updateConceptList() {
             console.log('Looking for:', gradeKey, semesterKey);
             console.log('Available keys:', Object.keys(data));
             
+            // 5-2, 6-2 데이터 없음 처리
+            if ((grade === 5 && semester === 2) || (grade === 6 && semester === 2)) {
+                conceptGroup.innerHTML = '';
+                const noticeDiv = document.createElement('div');
+                noticeDiv.className = 'no-data-notice';
+                noticeDiv.style.cssText = 'padding: 30px; text-align: center; background: #fff3cd; border: 2px solid #ffc107; border-radius: 8px; color: #856404;';
+                noticeDiv.innerHTML = `<strong>${gradeKey} ${semesterKey}(개정):</strong> 현재 데이터 미제공`;
+                conceptGroup.appendChild(noticeDiv);
+                updateConceptCount();
+                return;
+            }
+            
             if (!data[gradeKey] || !data[gradeKey][semesterKey]) {
                 console.error('Data not found for:', gradeKey, semesterKey);
-                conceptGroup.innerHTML = '<div style="padding: 20px; text-align: center; color: #999;">해당 학년/학기의 데이터가 없습니다. (' + gradeKey + ' ' + semesterKey + ')</div>';
+                conceptGroup.innerHTML = '';
+                const errorDiv = document.createElement('div');
+                errorDiv.style.cssText = 'padding: 20px; text-align: center; color: #999;';
+                errorDiv.textContent = `해당 학년/학기의 데이터가 없습니다. (${gradeKey} ${semesterKey})`;
+                conceptGroup.appendChild(errorDiv);
                 return;
             }
             
             const units = data[gradeKey][semesterKey];
             console.log('Found units:', units.length);
             
-            // STEP 3/5와 동일한 레이아웃 규칙 적용: 전체 래퍼 width: 100%
-            let html = '<div style="width: 100%; box-sizing: border-box;">';
+            // conceptGroup 초기화
+            conceptGroup.innerHTML = '';
             
-            // 전체 선택/해제 버튼줄: STEP 3/5와 동일한 폭 규칙 (width: 100%)
-            html += '<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 15px; width: 100%; box-sizing: border-box;">';
-            html += '<button type="button" onclick="selectAllConcepts()" style="padding: 6px 12px; border: 1px solid #ddd; background: #f5f5f5; border-radius: 4px; cursor: pointer;">전체 선택</button>';
-            html += '<button type="button" onclick="clearAllConcepts()" style="padding: 6px 12px; border: 1px solid #ddd; background: #f5f5f5; border-radius: 4px; cursor: pointer;">전체 해제</button>';
-            html += '<div style="margin-left: auto; font-size: 13px; opacity: 0.8;" id="conceptCount">선택됨: 0개</div>';
-            html += '</div>';
+            // 전체 선택/해제 버튼줄 (conceptGroup 상단에 추가)
+            const controlDiv = document.createElement('div');
+            controlDiv.style.cssText = 'display: flex; gap: 8px; align-items: center; margin-bottom: 15px; width: 100%; box-sizing: border-box;';
             
-            // 단원별로 렌더링 (단원별 컨테이너 구조: unit-block > unit-title + unit-items)
-            units.forEach((unit, uIdx) => {
-                const unitNo = pickUnitNo(unit.unit, uIdx + 1);
-                const escapedUnit = escapeHtml(unit.unit);
+            const selectAllBtn = document.createElement('button');
+            selectAllBtn.type = 'button';
+            selectAllBtn.textContent = '전체 선택';
+            selectAllBtn.onclick = selectAllConcepts;
+            selectAllBtn.style.cssText = 'padding: 6px 12px; border: 1px solid #ddd; background: #f5f5f5; border-radius: 4px; cursor: pointer;';
+            
+            const clearAllBtn = document.createElement('button');
+            clearAllBtn.type = 'button';
+            clearAllBtn.textContent = '전체 해제';
+            clearAllBtn.onclick = clearAllConcepts;
+            clearAllBtn.style.cssText = 'padding: 6px 12px; border: 1px solid #ddd; background: #f5f5f5; border-radius: 4px; cursor: pointer;';
+            
+            const countDiv = document.createElement('div');
+            countDiv.id = 'conceptCount';
+            countDiv.style.cssText = 'margin-left: auto; font-size: 13px; opacity: 0.8;';
+            countDiv.textContent = '선택됨: 0개';
+            
+            controlDiv.appendChild(selectAllBtn);
+            controlDiv.appendChild(clearAllBtn);
+            controlDiv.appendChild(countDiv);
+            conceptGroup.appendChild(controlDiv);
+            
+            // unit-grid 컨테이너 생성
+            const unitGrid = document.createElement('div');
+            unitGrid.className = 'unit-grid';
+            
+            // 단원을 번호 순서로 정렬
+            const unitsWithNo = units.map((unit, uIdx) => ({
+                unit: unit,
+                unitNo: pickUnitNo(unit.unit, uIdx + 1),
+                index: uIdx
+            })).sort((a, b) => {
+                // 단원 번호로 정렬, 없으면 인덱스로
+                if (a.unitNo !== null && b.unitNo !== null) {
+                    return a.unitNo - b.unitNo;
+                }
+                return a.index - b.index;
+            });
+            
+            // 단원 카드 생성 (1~6 순서로)
+            unitsWithNo.forEach(({ unit, unitNo }) => {
+                const unitCard = document.createElement('section');
+                unitCard.className = 'unit-card';
                 
-                // 단원 블록 컨테이너
-                html += '<div class="unit-block" style="margin-bottom: 24px; width: 100%; box-sizing: border-box;">';
+                // 단원 제목
+                const titleDiv = document.createElement('div');
+                titleDiv.className = 'unit-title';
+                titleDiv.textContent = unit.unit;
+                unitCard.appendChild(titleDiv);
                 
-                // 단원 제목 (2칸 전체 사용)
-                html += '<div class="unit-title" style="font-weight: 700; margin-bottom: 12px; font-size: 16px; color: #4F46E5; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; width: 100%;">' + escapedUnit + '</div>';
+                // 단원 항목 컨테이너
+                const itemsDiv = document.createElement('div');
+                itemsDiv.className = 'unit-items';
                 
-                // 단원 내부 체크박스 컨테이너 (2열 그리드)
-                html += '<div class="unit-items">';
-                
+                // 각 항목을 DOM으로 생성
                 unit.topics.forEach((topic, tIdx) => {
                     const topicNo = pickTopicNo(topic, tIdx + 1);
-                    const conceptId = 'G' + grade + '-S' + semester + '-U' + unitNo + '-T' + topicNo;
+                    const conceptId = 'G' + grade + '-S' + semester + '-U' + (unitNo || tIdx + 1) + '-T' + topicNo;
                     const escapedTopic = escapeHtml(topic);
                     
-                    // 프로젝트 표준: label이 컨테이너, id+htmlFor 사용
-                    html += createSelectableCard({
+                    // createSelectableCard로 HTML 생성 후 DOM으로 변환
+                    const cardHtml = createSelectableCard({
                         id: conceptId,
                         type: 'checkbox',
                         name: 'concept',
@@ -391,26 +807,40 @@ async function updateConceptList() {
                         checked: false,
                         label: escapedTopic,
                         onChange: 'updateConceptCount()',
-                        className: '',
+                        className: 'concept-item',
                         dataAttributes: { 'topic-title': escapedTopic }
                     });
+                    
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = cardHtml;
+                    const cardElement = tempDiv.firstElementChild;
+                    if (cardElement) {
+                        itemsDiv.appendChild(cardElement);
+                    }
                 });
                 
-                html += '</div></div>'; // unit-items 닫기, unit-block 닫기
+                unitCard.appendChild(itemsDiv);
+                unitGrid.appendChild(unitCard);
             });
             
-            html += '</div>';
-            conceptGroup.innerHTML = html;
+            conceptGroup.appendChild(unitGrid);
             updateConceptCount();
-            setTimeout(() => {
-              if (window.rebuildConceptGroupToUnitGrid) {
-                window.rebuildConceptGroupToUnitGrid();
-              }
-            }, 0);
+            // 안전 호출 (DOM 직접 생성 방식이므로 실제로는 필요 없지만, 안전장치로 추가)
+            if (typeof window.rebuildConceptGroupToUnitGrid === 'function') {
+                try {
+                    window.rebuildConceptGroupToUnitGrid();
+                } catch (e) {
+                    console.warn('rebuildConceptGroupToUnitGrid 호출 중 오류:', e);
+                }
+            }
             return;
         } catch (error) {
             console.error('Error in updateConceptList:', error);
-            conceptGroup.innerHTML = '<div style="padding: 20px; text-align: center; color: #f00;">오류가 발생했습니다: ' + escapeHtml(error.message) + '</div>';
+            conceptGroup.innerHTML = '';
+            const errorDiv = document.createElement('div');
+            errorDiv.style.cssText = 'padding: 20px; text-align: center; color: #f00;';
+            errorDiv.textContent = '오류가 발생했습니다: ' + escapeHtml(error.message);
+            conceptGroup.appendChild(errorDiv);
             return;
         }
     }
@@ -423,9 +853,10 @@ async function updateConceptList() {
         concepts = middleMathConcepts[grade] || middleMathConcepts[1];
     }
     
-    conceptGroup.innerHTML = concepts.map((concept, idx) => {
+    conceptGroup.innerHTML = '';
+    concepts.forEach((concept, idx) => {
         const conceptId = `concept-fallback-${grade}-${idx}`;
-        return createSelectableCard({
+        const cardHtml = createSelectableCard({
             id: conceptId,
             type: 'checkbox',
             name: 'concept',
@@ -436,8 +867,10 @@ async function updateConceptList() {
             className: '',
             dataAttributes: {}
         });
-    }).join('');
-    // fallback의 경우 단원이 없을 수 있으므로 rebuildConceptGroupToUnitGrid는 호출하지 않음
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = cardHtml;
+        conceptGroup.appendChild(tempDiv.firstElementChild);
+    });
     updateConceptCount();
 }
 
@@ -484,6 +917,13 @@ function handleSubmit(event) {
         problemType: document.querySelector('input[name="problemType"]:checked')?.value || '기본형',
         problemCount: parseInt(document.querySelector('input[name="problemCount"]:checked')?.value || '3')
     };
+    
+    // 5-2, 6-2 데이터 없음 처리
+    if (formData.schoolLevel === 'elementary' && 
+        ((formData.grade === 5 && formData.semester === 2) || (formData.grade === 6 && formData.semester === 2))) {
+        alert('해당 학기는 개정으로 데이터가 없어 문제를 생성할 수 없습니다.');
+        return;
+    }
     
     // 유효성 검사
     if (formData.concepts.length === 0) {
@@ -574,13 +1014,24 @@ function generateProblems(formData) {
     // 지금은 예시 문제를 생성합니다
     setTimeout(() => {
         try {
+            // 새로운 7종 문제 형식으로 생성
             const questions = createSampleProblems(formData);
+            console.log('Generated questions:', questions);
+            
             if (questions && questions.length > 0) {
+                // 각 문제가 실제 문제인지 확인
+                questions.forEach((q, idx) => {
+                    if (!q.question || q.question.includes('관련된 문제를 풀어보세요')) {
+                        console.error(`Problem ${idx + 1} is not a real problem:`, q);
+                    }
+                });
+                
                 displayProblems(questions, formData);
             } else {
                 showEmptyState(problemsList);
             }
         } catch (error) {
+            console.error('Error in generateProblems:', error);
             showErrorState(problemsList, error.message);
         }
     }, 1500);
@@ -634,23 +1085,575 @@ function showErrorState(container, errorMessage) {
     `;
 }
 
+// 7종 문제 형식 enum
+const PROBLEM_TYPES = {
+    DIVISOR: 'divisor',           // (A) 약수 알아보기
+    COMMON_DIVISOR: 'common_divisor', // (B) 공약수와 최대공약수
+    FRACTION_SIMPLIFY: 'fraction_simplify', // (C) 분수를 간단히 나타내기
+    MIXED_CALC: 'mixed_calc',      // (D) 곱셈·나눗셈이 섞인 식 계산
+    SKIP_COUNT: 'skip_count',      // (E) 뛰어 세기
+    TWO_DIGIT_DIV: 'two_digit_div', // (F) 몇십몇으로 나누기(2)
+    PATTERN: 'pattern'             // (G) 모양의 배열에서 규칙 찾기
+};
+
+// 최대공약수 구하기 (유클리드 알고리즘)
+function gcd(a, b) {
+    while (b !== 0) {
+        const temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+// 약수 구하기
+function getDivisors(n) {
+    const divisors = [];
+    for (let i = 1; i <= n; i++) {
+        if (n % i === 0) {
+            divisors.push(i);
+        }
+    }
+    return divisors;
+}
+
+// 공약수 구하기
+function getCommonDivisors(a, b) {
+    const divisors = [];
+    const max = Math.min(a, b);
+    for (let i = 1; i <= max; i++) {
+        if (a % i === 0 && b % i === 0) {
+            divisors.push(i);
+        }
+    }
+    return divisors;
+}
+
+// (A) 약수 알아보기 문제 생성
+function generateDivisorProblem(grade) {
+    // 학년에 따라 숫자 범위 조절
+    let numbers;
+    if (grade <= 3) {
+        // 1-3학년: 작은 수
+        numbers = [12, 16, 18, 20, 24, 28, 30];
+    } else if (grade <= 4) {
+        // 4학년: 중간 수
+        numbers = [24, 30, 36, 40, 42, 48, 54, 56];
+    } else {
+        // 5-6학년: 큰 수
+        numbers = [36, 40, 42, 48, 54, 56, 60, 72, 80, 84, 90, 96];
+    }
+    const num = numbers[Math.floor(Math.random() * numbers.length)];
+    const divisors = getDivisors(num);
+    
+    return {
+        type: PROBLEM_TYPES.DIVISOR,
+        question: `${num}의 약수를 모두 쓰고, 약수의 개수도 쓰세요.`,
+        answer: `${divisors.join(',')} / ${divisors.length}개`,
+        explanation: `${num}의 약수는 ${num}을 나누어떨어지게 하는 수입니다. 1부터 ${num}까지 확인하면 ${divisors.join(', ')}가 약수입니다. 따라서 약수는 ${divisors.length}개입니다.`,
+        inputPlaceholder: '예: 1,2,3,4,6,8,12,24 / 8개',
+        meta: { number: num, divisors: divisors }
+    };
+}
+
+// (B) 공약수와 최대공약수 문제 생성
+function generateCommonDivisorProblem(grade) {
+    // 학년에 따라 숫자 범위 조절
+    let pairs;
+    if (grade <= 3) {
+        // 1-3학년: 작은 수
+        pairs = [[12, 18], [12, 20], [15, 20], [16, 24], [18, 24]];
+    } else if (grade <= 4) {
+        // 4학년: 중간 수
+        pairs = [[18, 24], [20, 30], [24, 30], [24, 36], [28, 42], [30, 36]];
+    } else {
+        // 5-6학년: 큰 수
+        pairs = [
+            [24, 36], [18, 30], [20, 30], [28, 42], [32, 48],
+            [30, 45], [36, 54], [40, 60], [42, 56], [48, 72]
+        ];
+    }
+    const [a, b] = pairs[Math.floor(Math.random() * pairs.length)];
+    
+    // 에러 방지: 0으로 나누기 방지
+    if (a === 0 || b === 0) {
+        return generateCommonDivisorProblem(grade); // 재귀 호출로 다시 생성
+    }
+    
+    const commonDivisors = getCommonDivisors(a, b);
+    const maxGcd = gcd(a, b);
+    
+    // 에러 방지: 최대공약수가 1만 나오지 않도록 (2 이상인 경우만)
+    if (maxGcd <= 1 || commonDivisors.length <= 1) {
+        return generateCommonDivisorProblem(grade); // 재귀 호출로 다시 생성
+    }
+    
+    return {
+        type: PROBLEM_TYPES.COMMON_DIVISOR,
+        question: `${a}와 ${b}의 공약수를 모두 쓰고, 최대공약수도 구하세요.`,
+        answer: `공약수: ${commonDivisors.join(',')} / 최대공약수: ${maxGcd}`,
+        explanation: `${a}와 ${b}의 공약수는 두 수를 모두 나누어떨어지게 하는 수입니다. 공약수는 ${commonDivisors.join(', ')}이고, 이 중 가장 큰 수인 ${maxGcd}가 최대공약수입니다.`,
+        inputPlaceholder: '예: 공약수: 1,2,3,6 / 최대공약수: 6',
+        meta: { a, b, commonDivisors, maxGcd }
+    };
+}
+
+// (C) 분수를 간단히 나타내기 문제 생성
+function generateFractionSimplifyProblem(grade) {
+    // 학년에 따라 분수 범위 조절
+    let fractions;
+    if (grade <= 3) {
+        // 1-3학년: 작은 분수
+        fractions = [[4, 6], [6, 8], [6, 9], [8, 10], [8, 12], [9, 12], [10, 15]];
+    } else if (grade <= 4) {
+        // 4학년: 중간 분수
+        fractions = [[8, 12], [10, 15], [12, 16], [12, 18], [14, 21], [15, 20], [16, 24], [18, 24]];
+    } else {
+        // 5-6학년: 큰 분수
+        fractions = [
+            [18, 24], [12, 20], [15, 25], [16, 24], [20, 30],
+            [24, 32], [14, 21], [21, 28], [27, 36], [30, 40]
+        ];
+    }
+    const [num, den] = fractions[Math.floor(Math.random() * fractions.length)];
+    
+    // 에러 방지: 분모가 0이면 안 됨
+    if (den === 0) {
+        return generateFractionSimplifyProblem(grade); // 재귀 호출로 다시 생성
+    }
+    
+    const g = gcd(num, den);
+    
+    // 에러 방지: 최대공약수가 1보다 크지 않으면 안 됨 (약분 불가)
+    if (g <= 1) {
+        return generateFractionSimplifyProblem(grade); // 재귀 호출로 다시 생성
+    }
+    
+    const simplifiedNum = num / g;
+    const simplifiedDen = den / g;
+    
+    // 에러 방지: 결과가 정수가 아니면 안 됨
+    if (!Number.isInteger(simplifiedNum) || !Number.isInteger(simplifiedDen)) {
+        return generateFractionSimplifyProblem(grade); // 재귀 호출로 다시 생성
+    }
+    
+    return {
+        type: PROBLEM_TYPES.FRACTION_SIMPLIFY,
+        question: `${num}/${den}를 가장 간단한 분수로 나타내세요.`,
+        answer: `${simplifiedNum}/${simplifiedDen}`,
+        explanation: `${num}과 ${den}의 최대공약수는 ${g}입니다. 분자와 분모를 ${g}로 나누면 ${simplifiedNum}/${simplifiedDen}가 됩니다.`,
+        inputPlaceholder: '예: 3/4',
+        meta: { numerator: num, denominator: den, gcd: g, simplified: [simplifiedNum, simplifiedDen] }
+    };
+}
+
+// (D) 곱셈·나눗셈이 섞인 식 계산 문제 생성
+function generateMixedCalcProblem(grade) {
+    // 학년에 따라 식의 난이도 조절
+    let expressions;
+    if (grade <= 3) {
+        // 1-3학년: 작은 수
+        expressions = [
+            { expr: '12 ÷ 3 × 4', result: 16 },
+            { expr: '16 ÷ 4 × 3', result: 12 },
+            { expr: '18 ÷ 6 × 5', result: 15 },
+            { expr: '20 ÷ 5 × 4', result: 16 },
+            { expr: '24 ÷ 6 × 5', result: 20 },
+            { expr: '28 ÷ 7 × 4', result: 16 }
+        ];
+    } else if (grade <= 4) {
+        // 4학년: 중간 수
+        expressions = [
+            { expr: '24 ÷ 4 × 5', result: 30 },
+            { expr: '30 ÷ 5 × 4', result: 24 },
+            { expr: '36 ÷ 6 × 5', result: 30 },
+            { expr: '40 ÷ 8 × 6', result: 30 },
+            { expr: '42 ÷ 6 × 4', result: 28 },
+            { expr: '48 ÷ 6 × 5', result: 40 }
+        ];
+    } else {
+        // 5-6학년: 큰 수
+        expressions = [
+            { expr: '48 ÷ 6 × 5', result: 40 },
+            { expr: '36 ÷ 4 × 3', result: 27 },
+            { expr: '56 ÷ 7 × 4', result: 32 },
+            { expr: '72 ÷ 8 × 5', result: 45 },
+            { expr: '64 ÷ 8 × 6', result: 48 },
+            { expr: '54 ÷ 6 × 7', result: 63 },
+            { expr: '42 ÷ 6 × 8', result: 56 },
+            { expr: '60 ÷ 5 × 4', result: 48 }
+        ];
+    }
+    const selected = expressions[Math.floor(Math.random() * expressions.length)];
+    
+    return {
+        type: PROBLEM_TYPES.MIXED_CALC,
+        question: `${selected.expr}의 값을 구하세요.`,
+        answer: `${selected.result}`,
+        explanation: `곱셈과 나눗셈은 같은 우선순위이므로 왼쪽부터 계산합니다. ${selected.expr} = ${selected.result}`,
+        inputPlaceholder: '답을 입력하세요',
+        meta: { expression: selected.expr, result: selected.result }
+    };
+}
+
+// (E) 뛰어 세기 문제 생성
+function generateSkipCountProblem(grade) {
+    // 학년에 따라 난이도 조절
+    let steps, nthRange;
+    if (grade <= 2) {
+        // 1-2학년: 작은 수, 작은 번째
+        steps = [2, 3, 4, 5];
+        nthRange = [3, 4, 5, 6]; // 3~6번째
+    } else if (grade <= 4) {
+        // 3-4학년: 중간 수
+        steps = [3, 4, 5, 6, 7];
+        nthRange = [5, 6, 7, 8]; // 5~8번째
+    } else {
+        // 5-6학년: 큰 수
+        steps = [3, 4, 5, 6, 7, 8];
+        nthRange = [6, 7, 8, 9, 10]; // 6~10번째
+    }
+    const step = steps[Math.floor(Math.random() * steps.length)];
+    const firstNum = step;
+    const nth = nthRange[Math.floor(Math.random() * nthRange.length)];
+    const result = firstNum * nth;
+    
+    return {
+        type: PROBLEM_TYPES.SKIP_COUNT,
+        question: `${step}씩 뛰어 세면 ${nth}번째 수는 무엇인가요? (첫째 수는 ${firstNum})`,
+        answer: `${result}`,
+        explanation: `${step}씩 뛰어 세면 첫째 수는 ${firstNum}, 둘째 수는 ${firstNum + step}, ... ${nth}번째 수는 ${firstNum} × ${nth} = ${result}입니다.`,
+        inputPlaceholder: '답을 입력하세요',
+        meta: { step, firstNum, nth, result }
+    };
+}
+
+// (F) 두 자리 수로 나눗셈 문제 생성
+function generateTwoDigitDivProblem(grade) {
+    // 학년에 따라 난이도 조절 (4학년 이상만)
+    let problems;
+    if (grade <= 3) {
+        // 1-3학년: 한 자리 수로 나누기
+        problems = [
+            { dividend: 48, divisor: 6, quotient: 8, remainder: 0 },
+            { dividend: 56, divisor: 7, quotient: 8, remainder: 0 },
+            { dividend: 63, divisor: 7, quotient: 9, remainder: 0 },
+            { dividend: 72, divisor: 8, quotient: 9, remainder: 0 },
+            { dividend: 81, divisor: 9, quotient: 9, remainder: 0 }
+        ];
+    } else if (grade <= 4) {
+        // 4학년: 작은 두 자리 수로 나누기
+        problems = [
+            { dividend: 144, divisor: 12, quotient: 12, remainder: 0 },
+            { dividend: 168, divisor: 14, quotient: 12, remainder: 0 },
+            { dividend: 180, divisor: 15, quotient: 12, remainder: 0 },
+            { dividend: 192, divisor: 16, quotient: 12, remainder: 0 },
+            { dividend: 216, divisor: 18, quotient: 12, remainder: 0 },
+            { dividend: 240, divisor: 20, quotient: 12, remainder: 0 }
+        ];
+    } else {
+        // 5-6학년: 큰 두 자리 수로 나누기
+        problems = [
+            { dividend: 864, divisor: 24, quotient: 36, remainder: 0 },
+            { dividend: 756, divisor: 21, quotient: 36, remainder: 0 },
+            { dividend: 672, divisor: 28, quotient: 24, remainder: 0 },
+            { dividend: 945, divisor: 35, quotient: 27, remainder: 0 },
+            { dividend: 832, divisor: 26, quotient: 32, remainder: 0 },
+            { dividend: 728, divisor: 28, quotient: 26, remainder: 0 },
+            { dividend: 891, divisor: 27, quotient: 33, remainder: 0 },
+            { dividend: 768, divisor: 24, quotient: 32, remainder: 0 },
+            { dividend: 875, divisor: 25, quotient: 35, remainder: 0 },
+            { dividend: 924, divisor: 22, quotient: 42, remainder: 0 }
+        ];
+    }
+    const selected = problems[Math.floor(Math.random() * problems.length)];
+    
+    // 에러 방지: 0으로 나누기 방지
+    if (selected.divisor === 0) {
+        return generateTwoDigitDivProblem(grade); // 재귀 호출로 다시 생성
+    }
+    
+    // 에러 방지: 계산 검증 (dividend = divisor * quotient + remainder)
+    const calculatedDividend = selected.divisor * selected.quotient + selected.remainder;
+    if (calculatedDividend !== selected.dividend) {
+        return generateTwoDigitDivProblem(grade); // 재귀 호출로 다시 생성
+    }
+    
+    // 에러 방지: 나머지가 한 자리~두 자리 범위로 관리
+    if (selected.remainder < 0 || selected.remainder >= selected.divisor) {
+        return generateTwoDigitDivProblem(grade); // 재귀 호출로 다시 생성
+    }
+    
+    return {
+        type: PROBLEM_TYPES.TWO_DIGIT_DIV,
+        question: `${selected.dividend} ÷ ${selected.divisor} = (몫) ( ) , (나머지) ( )`,
+        answer: `몫 ${selected.quotient}, 나머지 ${selected.remainder}`,
+        explanation: `${selected.dividend} ÷ ${selected.divisor}를 계산하면 몫은 ${selected.quotient}, 나머지는 ${selected.remainder}입니다.`,
+        inputPlaceholder: '예: 몫 36, 나머지 0',
+        meta: { dividend: selected.dividend, divisor: selected.divisor, quotient: selected.quotient, remainder: selected.remainder }
+    };
+}
+
+// (G) 모양의 배열에서 규칙 찾기 문제 생성
+function generatePatternProblem(grade) {
+    const patterns = [
+        {
+            question: `1번째: ■\n2번째: ■■\n3번째: ■■■\n…\n10번째에는 ■가 몇 개 있나요?`,
+            answer: '10',
+            explanation: 'n번째에는 ■가 n개 있습니다. 따라서 10번째에는 ■가 10개 있습니다.'
+        },
+        {
+            question: `1번째: ●\n2번째: ●●\n3번째: ●●●\n…\n8번째에는 ●가 몇 개 있나요?`,
+            answer: '8',
+            explanation: 'n번째에는 ●가 n개 있습니다. 따라서 8번째에는 ●가 8개 있습니다.'
+        },
+        {
+            question: `1번째: ▲\n2번째: ▲▲\n3번째: ▲▲▲\n…\n12번째에는 ▲가 몇 개 있나요?`,
+            answer: '12',
+            explanation: 'n번째에는 ▲가 n개 있습니다. 따라서 12번째에는 ▲가 12개 있습니다.'
+        }
+    ];
+    const selected = patterns[Math.floor(Math.random() * patterns.length)];
+    
+    return {
+        type: PROBLEM_TYPES.PATTERN,
+        question: selected.question,
+        answer: selected.answer,
+        explanation: selected.explanation,
+        inputPlaceholder: '답을 입력하세요',
+        meta: { pattern: 'linear' }
+    };
+}
+
+// 7종 문제 형식 중 하나를 랜덤 생성
+function generateProblemByType(type, grade) {
+    switch (type) {
+        case PROBLEM_TYPES.DIVISOR:
+            return generateDivisorProblem(grade);
+        case PROBLEM_TYPES.COMMON_DIVISOR:
+            return generateCommonDivisorProblem(grade);
+        case PROBLEM_TYPES.FRACTION_SIMPLIFY:
+            return generateFractionSimplifyProblem(grade);
+        case PROBLEM_TYPES.MIXED_CALC:
+            return generateMixedCalcProblem(grade);
+        case PROBLEM_TYPES.SKIP_COUNT:
+            return generateSkipCountProblem(grade);
+        case PROBLEM_TYPES.TWO_DIGIT_DIV:
+            return generateTwoDigitDivProblem(grade);
+        case PROBLEM_TYPES.PATTERN:
+            return generatePatternProblem(grade);
+        default:
+            return generateDivisorProblem(grade);
+    }
+}
+
+// 개념에 맞는 문제 형식 매핑
+function getProblemTypesForConcept(conceptText, grade) {
+    const conceptLower = conceptText.toLowerCase();
+    const types = [];
+    
+    // 약수 관련
+    if (conceptLower.includes('약수') || conceptLower.includes('배수') || conceptLower.includes('공약수') || 
+        conceptLower.includes('최대공약수') || conceptLower.includes('최소공배수')) {
+        if (grade >= 5) {
+            types.push(PROBLEM_TYPES.DIVISOR);
+            types.push(PROBLEM_TYPES.COMMON_DIVISOR);
+        }
+    }
+    
+    // 분수 관련
+    if (conceptLower.includes('분수') || conceptLower.includes('약분') || conceptLower.includes('통분') ||
+        conceptLower.includes('분수의 덧셈') || conceptLower.includes('분수의 뺄셈') || 
+        conceptLower.includes('분수의 나눗셈')) {
+        if (grade >= 3) {
+            types.push(PROBLEM_TYPES.FRACTION_SIMPLIFY);
+        }
+    }
+    
+    // 곱셈/나눗셈 관련
+    if (conceptLower.includes('곱셈') || conceptLower.includes('나눗셈') || conceptLower.includes('혼합 계산') ||
+        conceptLower.includes('곱셈과 나눗셈') || conceptLower.includes('자연수의 혼합 계산')) {
+        if (grade >= 3) {
+            types.push(PROBLEM_TYPES.MIXED_CALC);
+        }
+        if (grade >= 4) {
+            types.push(PROBLEM_TYPES.TWO_DIGIT_DIV);
+        }
+    }
+    
+    // 규칙 찾기 관련
+    if (conceptLower.includes('규칙') || conceptLower.includes('대응') || conceptLower.includes('뛰어') ||
+        conceptLower.includes('규칙과 대응') || conceptLower.includes('규칙 찾기')) {
+        if (grade >= 2) {
+            types.push(PROBLEM_TYPES.SKIP_COUNT);
+            types.push(PROBLEM_TYPES.PATTERN);
+        }
+    }
+    
+    // 기본적으로 모든 형식 사용 가능 (개념이 명확하지 않을 때)
+    if (types.length === 0) {
+        // 학년에 맞는 기본 형식 제공
+        if (grade >= 5) {
+            types.push(PROBLEM_TYPES.DIVISOR, PROBLEM_TYPES.COMMON_DIVISOR, PROBLEM_TYPES.FRACTION_SIMPLIFY);
+        }
+        if (grade >= 3) {
+            types.push(PROBLEM_TYPES.MIXED_CALC, PROBLEM_TYPES.SKIP_COUNT, PROBLEM_TYPES.PATTERN);
+        }
+        if (grade >= 4) {
+            types.push(PROBLEM_TYPES.TWO_DIGIT_DIV);
+        }
+        // 여전히 없으면 모든 형식
+        if (types.length === 0) {
+            types.push(...Object.values(PROBLEM_TYPES));
+        }
+    }
+    
+    return types;
+}
+
 // 실제 문제 생성 (선택한 개념과 틀린 이유 기반) - questions 배열 반환
 function createSampleProblems(formData) {
     const questions = [];
-    const concepts = formData.concepts;
-    const mistakes = formData.mistakes;
+    const concepts = formData.concepts || [];
+    const mistakes = formData.mistakes || [];
     const schoolLevel = formData.schoolLevel === 'elementary' ? '초등학교' : '중학교';
-    const grade = formData.grade;
-    const problemType = formData.problemType;
+    const rawGrade = formData.grade || 5;
+    const semester = formData.semester || 1;
+    const problemType = formData.problemType || '기본형';
+    const problemCount = formData.problemCount || 3;
     
-    // 각 선택된 개념에 대해 문제 생성
-    for (let i = 0; i < formData.problemCount; i++) {
-        const conceptIndex = i % concepts.length;
-        const concept = concepts[conceptIndex];
-        const mistake = mistakes[i % mistakes.length];
+    // 학교급에 따라 학년을 난이도로 변환
+    // 중학교는 초등학교보다 높은 난이도로 처리
+    let effectiveGrade;
+    if (schoolLevel === '중학교') {
+        // 중학교 1학년 = 초등학교 5-6학년 수준 이상
+        // 중학교 2학년 = 초등학교 6학년 이상
+        // 중학교 3학년 = 더 높은 수준
+        effectiveGrade = Math.max(5, rawGrade + 4); // 중1=5, 중2=6, 중3=7 (7은 6으로 처리)
+        if (effectiveGrade > 6) effectiveGrade = 6;
+        console.log(`Middle school grade conversion: ${rawGrade} -> ${effectiveGrade}`);
+    } else {
+        effectiveGrade = rawGrade;
+        console.log(`Elementary school grade: ${effectiveGrade}`);
+    }
+    
+    // 중학교인 경우 선택된 토픽 ID를 실제 토픽 텍스트로 변환
+    let selectedTopicLabels = [];
+    if (schoolLevel === '중학교' && window.MIDDLE_SCHOOL_TOC) {
+        const gradeKey = `${rawGrade}학년`;
+        const semesterKey = `${semester}학기`;
+        const tocData = window.MIDDLE_SCHOOL_TOC[gradeKey];
         
-        const question = generateQuestion(concept, mistake, grade, schoolLevel, problemType, i + 1);
-        questions.push(question);
+        if (tocData && tocData[semesterKey]) {
+            const units = tocData[semesterKey];
+            
+            // T|로 시작하는 ID만 필터링 (세부 토픽만)
+            const topicIds = concepts.filter(c => typeof c === 'string' && c.startsWith('T|'));
+            
+            topicIds.forEach(id => {
+                const parts = id.split('|');
+                if (parts.length === 6) {
+                    const uIdx = parseInt(parts[3]);
+                    const sIdx = parseInt(parts[4]);
+                    const tIdx = parseInt(parts[5]);
+                    
+                    const unit = units[uIdx];
+                    if (unit && unit.subunits && unit.subunits[sIdx] && unit.subunits[sIdx].topics) {
+                        const topic = unit.subunits[sIdx].topics[tIdx];
+                        if (topic) {
+                            selectedTopicLabels.push(topic);
+                        }
+                    }
+                }
+            });
+            
+            console.log('Selected topic labels:', selectedTopicLabels);
+        }
+    }
+    
+    // 선택된 개념이 없으면 기본 개념 사용
+    if (concepts.length === 0) {
+        console.warn('No concepts selected, using default');
+    }
+    
+    // 문제 개수만큼 생성
+    for (let i = 0; i < problemCount; i++) {
+        try {
+            let selectedType;
+            let conceptText = '수학';
+            
+            // 선택된 개념에 맞는 문제 형식 선택
+            if (concepts.length > 0) {
+                const concept = concepts[i % concepts.length];
+                
+                // 중학교인 경우 토픽 텍스트 사용, 아니면 기존 방식
+                if (schoolLevel === '중학교' && selectedTopicLabels.length > 0) {
+                    conceptText = selectedTopicLabels[i % selectedTopicLabels.length] || '수학';
+                } else {
+                    conceptText = conceptToText(concept) || '수학';
+                }
+                
+                // 개념에 맞는 문제 형식 목록 가져오기 (effectiveGrade 사용)
+                const availableTypes = getProblemTypesForConcept(conceptText, effectiveGrade);
+                
+                // 사용 가능한 형식 중에서 선택 (7종이 모두 나오도록 순환)
+                if (availableTypes.length > 0) {
+                    selectedType = availableTypes[i % availableTypes.length];
+                } else {
+                    // 사용 가능한 형식이 없으면 기본 형식 사용
+                    const allTypes = Object.values(PROBLEM_TYPES);
+                    selectedType = allTypes[i % allTypes.length];
+                }
+            } else {
+                // 개념이 없으면 7종 중에서 순환
+                const allTypes = Object.values(PROBLEM_TYPES);
+                selectedType = allTypes[i % allTypes.length];
+            }
+            
+            // 문제 생성 (effectiveGrade 사용 - 학교급 반영)
+            const problemData = generateProblemByType(selectedType, effectiveGrade);
+            
+            // 문제 데이터 검증
+            if (!problemData || !problemData.question || !problemData.answer) {
+                console.error('Problem generation failed for type:', selectedType);
+                // 기본 문제로 대체
+                const fallbackProblem = generateDivisorProblem(effectiveGrade);
+                problemData = fallbackProblem;
+            }
+            
+            // 문제 객체 생성
+            const question = {
+                id: `problem-${Date.now()}-${i}-${Math.random().toString(36).substr(2, 9)}`,
+                type: problemData.type,
+                number: i + 1,
+                question: problemData.question,
+                answer: problemData.answer,
+                explanation: problemData.explanation || '',
+                inputPlaceholder: problemData.inputPlaceholder || '답을 입력하세요',
+                meta: problemData.meta || {},
+                concept: conceptText,
+                problemType: problemType
+            };
+            
+            questions.push(question);
+        } catch (error) {
+            console.error('Error generating problem:', error);
+            // 에러 발생 시 기본 문제 생성
+            const fallbackProblem = generateDivisorProblem(effectiveGrade);
+            const question = {
+                id: `problem-${Date.now()}-${i}-fallback`,
+                type: PROBLEM_TYPES.DIVISOR,
+                number: i + 1,
+                question: fallbackProblem.question,
+                answer: fallbackProblem.answer,
+                explanation: fallbackProblem.explanation,
+                inputPlaceholder: fallbackProblem.inputPlaceholder,
+                meta: fallbackProblem.meta,
+                concept: concepts.length > 0 ? conceptToText(concepts[i % concepts.length]) : '수학',
+                problemType: problemType
+            };
+            questions.push(question);
+        }
     }
     
     return questions;
@@ -662,27 +1665,36 @@ function generateQuestion(concept, mistake, grade, schoolLevel, problemType, num
     
     // 초등학교 문제
     if (schoolLevel === '초등학교') {
-        questionData = generateElementaryQuestion(concept, mistake, grade, problemType);
+        questionData = generateElementaryProblem(concept, mistake, grade, problemType);
     } 
     // 중학교 문제
     else {
         questionData = generateMiddleSchoolQuestion(concept, mistake, grade, problemType);
     }
     
+    // concept을 문자열로 변환
+    const conceptText = conceptToText(concept);
+    // stem을 prompt로도 사용 가능하게
+    const promptText = questionToPrompt(questionData) || questionData.stem || '';
+    
     return {
         id: Date.now() + number,
         number: number,
-        stem: questionData.stem,
+        stem: promptText || questionData.stem || '문제 생성에 실패했습니다.',
+        prompt: promptText || questionData.stem || '문제 생성에 실패했습니다.',
         choices: questionData.choices,
-        answer: questionData.answer,
-        explanation: questionData.explanation,
-        concept: concept,
+        answer: questionData.answer || '',
+        explanation: questionData.explanation || '',
+        concept: conceptText,  // 문자열로 변환
         problemType: problemType
     };
 }
 
 // 초등학교 문제 생성
 function generateElementaryProblem(concept, mistake, grade, problemType) {
+    // concept을 문자열로 변환
+    const conceptText = conceptToText(concept);
+    
     const problemTemplates = {
         '덧셈': [
             { a: 15 + grade * 5, b: 23 + grade * 3 },
@@ -733,50 +1745,50 @@ function generateElementaryProblem(concept, mistake, grade, problemType) {
     let explanation = '';
     
     // 개념별 문제 생성
-    if (concept === '덧셈') {
+    if (conceptText === '덧셈' || (typeof concept === 'string' && concept.includes('덧셈'))) {
         const a = 15 + grade * 5;
         const b = 23 + grade * 3;
         stem = `${a} + ${b} = ?`;
         answer = (a + b).toString();
         explanation = `${a} + ${b} = ${answer}`;
-    } else if (concept === '뺄셈') {
+    } else if (conceptText === '뺄셈' || (typeof concept === 'string' && concept.includes('뺄셈'))) {
         const a = 45 + grade * 5;
         const b = 18 + grade * 3;
         stem = `${a} - ${b} = ?`;
         answer = (a - b).toString();
         explanation = `${a} - ${b} = ${answer}`;
-    } else if (concept === '곱셈') {
+    } else if (conceptText === '곱셈' || (typeof concept === 'string' && concept.includes('곱셈'))) {
         const a = 3 + grade;
         const b = 4 + grade;
         stem = `${a} × ${b} = ?`;
         answer = (a * b).toString();
         explanation = `${a} × ${b} = ${answer}`;
-    } else if (concept === '나눗셈') {
+    } else if (conceptText === '나눗셈' || (typeof concept === 'string' && concept.includes('나눗셈'))) {
         const divisor = grade + 2;
         const quotient = 6;
         const dividend = divisor * quotient;
         stem = `${dividend} ÷ ${divisor} = ?`;
         answer = quotient.toString();
         explanation = `${dividend} ÷ ${divisor} = ${quotient}`;
-    } else if (concept === '분수') {
+    } else if (conceptText === '분수' || (typeof concept === 'string' && concept.includes('분수'))) {
         const num1 = grade;
         const num2 = 1;
         const denom = grade + 1;
         stem = `\\frac{${num1}}{${denom}} + \\frac{${num2}}{${denom}} = ?`;
         answer = `\\frac{${num1 + num2}}{${denom}}`;
         explanation = `분모가 같으므로 분자만 더합니다: ${num1} + ${num2} = ${num1 + num2}`;
-    } else if (concept === '소수') {
+    } else if (conceptText === '소수' || (typeof concept === 'string' && concept.includes('소수'))) {
         const a = 1 + grade * 0.1;
         const b = 2 + grade * 0.2;
         stem = `${a} + ${b} = ?`;
         answer = (a + b).toFixed(1);
         explanation = `${a} + ${b} = ${answer}`;
-    } else if (concept === '도형(넓이/둘레)') {
+    } else if (conceptText === '도형(넓이/둘레)' || (typeof concept === 'string' && (concept.includes('도형') || concept.includes('넓이') || concept.includes('둘레')))) {
         const side = 5 + grade;
         stem = `한 변의 길이가 ${side}cm인 정사각형의 넓이는 몇 ㎠인가요?`;
         answer = (side * side).toString();
         explanation = `정사각형의 넓이 = 한 변의 길이 × 한 변의 길이 = ${side} × ${side} = ${answer}㎠`;
-    } else if (concept === '비와 비율') {
+    } else if (conceptText === '비와 비율' || (typeof concept === 'string' && (concept.includes('비') || concept.includes('비율')))) {
         const a = 3 + grade;
         const b = 5 + grade;
         const x = 6 + grade * 2;
@@ -786,9 +1798,10 @@ function generateElementaryProblem(concept, mistake, grade, problemType) {
         explanation = `비례식을 풀면: ${a} : ${b} = ${x} : ${y}`;
     } else {
         // 기본 문제
-        stem = `${concept}와 관련된 문제를 풀어보세요.`;
+        const conceptText = conceptToText(concept);
+        stem = `${conceptText || '선택한 개념'}와 관련된 문제를 풀어보세요.`;
         answer = '답을 입력하세요';
-        explanation = `${concept}에 대한 설명입니다.`;
+        explanation = `${conceptText || '선택한 개념'}에 대한 설명입니다.`;
     }
     
     // 문제 유형에 따라 힌트 추가
@@ -798,18 +1811,27 @@ function generateElementaryProblem(concept, mistake, grade, problemType) {
         explanation = `단계별로 풀어보세요:\n1단계: 문제를 잘 읽습니다\n2단계: 식을 세웁니다\n3단계: 계산합니다\n\n${explanation}`;
     }
     
-    return { stem, choices, answer, explanation };
+    return { 
+        stem, 
+        prompt: stem,  // prompt 필드 추가
+        choices, 
+        answer, 
+        explanation 
+    };
 }
 
 // 중학교 문제 생성 (질문 객체 반환)
 function generateMiddleSchoolQuestion(concept, mistake, grade, problemType) {
+    // concept을 문자열로 변환
+    const conceptText = conceptToText(concept);
+    
     // 중학교 문제 생성 로직
     let stem = '';
     let choices = null;
     let answer = '';
     let explanation = '';
     
-    if (concept === '소인수분해') {
+    if (conceptText === '소인수분해' || (typeof concept === 'string' && concept.includes('소인수분해'))) {
         const num = 12 + grade * 6;
         stem = `${num}을 소인수분해하시오.`;
         // 소인수분해 결과 (간단한 예시)
@@ -820,7 +1842,7 @@ function generateMiddleSchoolQuestion(concept, mistake, grade, problemType) {
             answer = `${num}의 소인수분해 결과`;
             explanation = `${num}을 소인수로 분해합니다.`;
         }
-    } else if (concept === '일차방정식') {
+    } else if (conceptText === '일차방정식' || (typeof concept === 'string' && concept.includes('일차방정식'))) {
         const coef = 2 + grade;
         const constant = 5 + grade;
         const result = 15 + grade * 3;
@@ -828,7 +1850,7 @@ function generateMiddleSchoolQuestion(concept, mistake, grade, problemType) {
         stem = `${coef}x + ${constant} = ${result}일 때, x의 값은?`;
         answer = xValue.toString();
         explanation = `${coef}x = ${result} - ${constant} = ${result - constant}\nx = ${xValue}`;
-    } else if (concept === '일차함수') {
+    } else if (conceptText === '일차함수' || (typeof concept === 'string' && concept.includes('일차함수'))) {
         const coef = 2 + grade;
         const constant = 3 + grade;
         const x = grade + 1;
@@ -836,31 +1858,31 @@ function generateMiddleSchoolQuestion(concept, mistake, grade, problemType) {
         stem = `일차함수 y = ${coef}x + ${constant}의 그래프가 점 (${x}, k)를 지날 때, k의 값은?`;
         answer = y.toString();
         explanation = `y = ${coef} × ${x} + ${constant} = ${y}`;
-    } else if (concept === '연립일차방정식') {
+    } else if (conceptText === '연립일차방정식' || (typeof concept === 'string' && concept.includes('연립일차방정식'))) {
         const a1 = 2 + grade;
         const b1 = 3 + grade;
         const c1 = 10 + grade * 2;
         stem = `연립방정식\n${a1}x + ${b1}y = ${c1}\n${grade + 1}x - ${grade + 2}y = ${grade + 3}\n의 해를 구하시오.`;
         answer = 'x와 y의 값을 구하세요';
         explanation = '연립방정식을 풀어 x와 y의 값을 구합니다.';
-    } else if (concept === '이차방정식') {
+    } else if (conceptText === '이차방정식' || (typeof concept === 'string' && concept.includes('이차방정식'))) {
         const a = 5 + grade;
         const b = 6 + grade;
         stem = `이차방정식 x² - ${a}x + ${b} = 0의 해를 구하시오.`;
         answer = 'x의 값을 구하세요';
         explanation = '인수분해 또는 근의 공식을 사용하여 해를 구합니다.';
-    } else if (concept === '인수분해') {
+    } else if (conceptText === '인수분해' || (typeof concept === 'string' && concept.includes('인수분해'))) {
         const a = 5 + grade * 2;
         const b = 6 + grade;
         stem = `x² + ${a}x + ${b}을 인수분해하시오.`;
         answer = '(x + a)(x + b) 형태로';
         explanation = '두 수의 합이 계수, 곱이 상수항이 되도록 인수분해합니다.';
-    } else if (concept === '원주각') {
+    } else if (conceptText === '원주각' || (typeof concept === 'string' && concept.includes('원주각'))) {
         const angle = 60 + grade * 10;
         stem = `원 O에서 중심각 ∠AOB = ${angle}°일 때, 원주각 ∠ACB의 크기는?`;
         answer = (angle / 2).toString() + '°';
         explanation = `원주각은 중심각의 절반입니다: ${angle}° ÷ 2 = ${angle / 2}°`;
-    } else if (concept === '삼각비') {
+    } else if (conceptText === '삼각비' || (typeof concept === 'string' && concept.includes('삼각비'))) {
         const a = 3 + grade;
         const b = 5 + grade * 2;
         stem = `직각삼각형에서 sin A = ${a}/${b}일 때, cos A의 값은?`;
@@ -869,9 +1891,10 @@ function generateMiddleSchoolQuestion(concept, mistake, grade, problemType) {
         explanation = `피타고라스 정리: cos A = 인접변/빗변`;
     } else {
         // 기본 문제
-        stem = `${concept}와 관련된 문제를 풀어보세요.`;
+        const conceptText = conceptToText(concept);
+        stem = `${conceptText || '선택한 개념'}와 관련된 문제를 풀어보세요.`;
         answer = '답을 입력하세요';
-        explanation = `${concept}에 대한 설명입니다.`;
+        explanation = `${conceptText || '선택한 개념'}에 대한 설명입니다.`;
     }
     
     // 문제 유형에 따라 힌트 추가
@@ -881,7 +1904,13 @@ function generateMiddleSchoolQuestion(concept, mistake, grade, problemType) {
         explanation = `서술형 문제입니다. 풀이 과정을 자세히 설명하세요.\n\n${explanation}`;
     }
     
-    return { stem, choices, answer, explanation };
+    return { 
+        stem, 
+        prompt: stem,  // prompt 필드 추가
+        choices, 
+        answer, 
+        explanation 
+    };
 }
 
 /* 기존 문제 템플릿 (참고용 - 제거됨)
@@ -936,36 +1965,38 @@ function displayProblems(questions, formData) {
         return;
     }
     
-    problemsList.innerHTML = questions.map((question, index) => `
+    problemsList.innerHTML = questions.map((question, index) => {
+        // 문제 본문 가져오기 (question 필드 우선, 없으면 stem)
+        const questionText = question.question || question.stem || questionToPrompt(question) || '문제 생성에 실패했습니다. 다시 생성해 주세요.';
+        
+        return `
         <div class="problem-item" data-question-id="${question.id}">
             <div class="problem-number">문제 ${question.number || index + 1}</div>
-            <div class="problem-stem">${question.stem}</div>
-            ${question.choices ? `
-                <div class="problem-choices">
-                    ${question.choices.map((choice, i) => `
-                        <label class="choice-item">
-                            <input type="radio" name="answer-${question.id}" value="${i}">
-                            <span>${String.fromCharCode(65 + i)}. ${choice}</span>
-                        </label>
-                    `).join('')}
-                </div>
-            ` : `
-                <div class="problem-answer-input">
-                    <input type="text" placeholder="답을 입력하세요" class="answer-input">
-                </div>
-            `}
+            <div class="problem-stem">${escapeHtml(questionText)}</div>
+            <div class="problem-answer-input">
+                <input type="text" placeholder="${escapeHtml(question.inputPlaceholder || '답을 입력하세요')}" class="answer-input" id="answer-input-${question.id}">
+            </div>
             <div class="problem-actions">
-                <button class="btn-hint" onclick="toggleExplanation('${question.id}')">
-                    <span class="hint-icon">💡</span>
-                    <span class="hint-text">힌트/해설 보기</span>
+                <button class="btn-toggle-answer" onclick="toggleAnswer('${question.id}')" aria-expanded="false" aria-controls="answer-${question.id}">
+                    <span class="toggle-icon">✓</span>
+                    <span class="toggle-text" id="answer-toggle-text-${question.id}">정답 보기</span>
+                </button>
+                <button class="btn-toggle-explanation" onclick="toggleExplanation('${question.id}')" aria-expanded="false" aria-controls="explanation-${question.id}">
+                    <span class="toggle-icon">💡</span>
+                    <span class="toggle-text" id="explanation-toggle-text-${question.id}">해설 보기</span>
                 </button>
             </div>
-            <div class="problem-explanation" id="explanation-${question.id}" style="display: none;">
+            <div class="problem-answer" id="answer-${question.id}" style="display: none;" role="region" aria-labelledby="answer-toggle-text-${question.id}">
+                <div class="answer-title">정답</div>
+                <div class="answer-content">${escapeHtml(question.answer || '정답이 없습니다.')}</div>
+            </div>
+            <div class="problem-explanation" id="explanation-${question.id}" style="display: none;" role="region" aria-labelledby="explanation-toggle-text-${question.id}">
                 <div class="explanation-title">해설</div>
-                <div class="explanation-content">${question.explanation || '해설이 없습니다.'}</div>
+                <div class="explanation-content">${escapeHtml(question.explanation || '해설이 없습니다.')}</div>
             </div>
         </div>
-    `).join('');
+    `;
+    }).join('');
     
     // 결과 정보 업데이트
     const resultInfo = document.getElementById('resultInfo');
@@ -980,11 +2011,43 @@ function displayProblems(questions, formData) {
     sessionStorage.setItem('currentFormData', JSON.stringify(formData));
 }
 
+// 정답 토글
+function toggleAnswer(questionId) {
+    const answer = document.getElementById(`answer-${questionId}`);
+    const toggleText = document.getElementById(`answer-toggle-text-${questionId}`);
+    const toggleButton = document.querySelector(`[onclick="toggleAnswer('${questionId}')"]`);
+    
+    if (answer && toggleText && toggleButton) {
+        const isVisible = answer.style.display !== 'none';
+        if (isVisible) {
+            answer.style.display = 'none';
+            toggleText.textContent = '정답 보기';
+            toggleButton.setAttribute('aria-expanded', 'false');
+        } else {
+            answer.style.display = 'block';
+            toggleText.textContent = '정답 숨기기';
+            toggleButton.setAttribute('aria-expanded', 'true');
+        }
+    }
+}
+
 // 해설 토글
 function toggleExplanation(questionId) {
     const explanation = document.getElementById(`explanation-${questionId}`);
-    if (explanation) {
-        explanation.style.display = explanation.style.display === 'none' ? 'block' : 'none';
+    const toggleText = document.getElementById(`explanation-toggle-text-${questionId}`);
+    const toggleButton = document.querySelector(`[onclick="toggleExplanation('${questionId}')"]`);
+    
+    if (explanation && toggleText && toggleButton) {
+        const isVisible = explanation.style.display !== 'none';
+        if (isVisible) {
+            explanation.style.display = 'none';
+            toggleText.textContent = '해설 보기';
+            toggleButton.setAttribute('aria-expanded', 'false');
+        } else {
+            explanation.style.display = 'block';
+            toggleText.textContent = '해설 숨기기';
+            toggleButton.setAttribute('aria-expanded', 'true');
+        }
     }
 }
 
@@ -999,6 +2062,22 @@ function showError(message) {
                 </div>
             </div>
         `;
+    }
+}
+
+// 저장 메뉴 토글
+function toggleSaveMenu() {
+    const saveMenu = document.getElementById('saveMenu');
+    if (saveMenu) {
+        saveMenu.style.display = saveMenu.style.display === 'none' ? 'block' : 'none';
+    }
+}
+
+// 저장 메뉴 닫기
+function closeSaveMenu() {
+    const saveMenu = document.getElementById('saveMenu');
+    if (saveMenu) {
+        saveMenu.style.display = 'none';
     }
 }
 
@@ -1021,14 +2100,16 @@ function downloadPDF() {
     content += `학년: ${formData.grade}학년\n`;
     content += `학기: ${semesterName}\n`;
     content += `과목: 수학\n`;
-    content += `개념: ${formData.concepts.join(', ')}\n`;
+    const conceptsText = formData.concepts.map(c => conceptToText(c)).filter(c => c).join(', ');
+    content += `개념: ${conceptsText || '선택한 개념'}\n`;
     content += `문제 유형: ${formData.problemType}\n`;
     content += `문제 개수: ${questions.length}개\n\n`;
     content += '='.repeat(50) + '\n\n';
     
     questions.forEach((question, index) => {
         content += `문제 ${index + 1}\n`;
-        content += `${question.stem}\n`;
+        const questionText = question.question || questionToPrompt(question) || question.stem || '문제 생성에 실패했습니다.';
+        content += `${questionText}\n`;
         if (question.answer) {
             content += `답: ${question.answer}\n`;
         }
@@ -1050,6 +2131,57 @@ function downloadPDF() {
     
     alert('문제가 다운로드되었습니다. (실제 구현 시 PDF 형식으로 제공됩니다)');
     closeSaveMenu();
+}
+
+// 텍스트로 저장
+function saveAsText() {
+    downloadPDF(); // 같은 로직 사용
+}
+
+// 문제 복사
+function copyProblems() {
+    const questions = JSON.parse(sessionStorage.getItem('generatedProblems') || '[]');
+    const formData = JSON.parse(sessionStorage.getItem('currentFormData') || '{}');
+    
+    if (questions.length === 0) {
+        alert('복사할 문제가 없습니다.');
+        closeSaveMenu();
+        return;
+    }
+    
+    const schoolLevelName = formData.schoolLevel === 'elementary' ? '초등학교' : '중학교';
+    const semesterName = formData.semester === 1 ? '1학기' : '2학기';
+    let content = '맞춤형 변형문제\n\n';
+    content += `학교급: ${schoolLevelName}\n`;
+    content += `학년: ${formData.grade}학년\n`;
+    content += `학기: ${semesterName}\n`;
+    content += `과목: 수학\n`;
+    const conceptsText = formData.concepts.map(c => conceptToText(c)).filter(c => c).join(', ');
+    content += `개념: ${conceptsText || '선택한 개념'}\n`;
+    content += `문제 유형: ${formData.problemType}\n`;
+    content += `문제 개수: ${questions.length}개\n\n`;
+    content += '='.repeat(50) + '\n\n';
+    
+    questions.forEach((question, index) => {
+        content += `문제 ${index + 1}\n`;
+        const questionText = question.question || questionToPrompt(question) || question.stem || '문제 생성에 실패했습니다.';
+        content += `${questionText}\n`;
+        if (question.answer) {
+            content += `답: ${question.answer}\n`;
+        }
+        if (question.explanation) {
+            content += `해설: ${question.explanation}\n`;
+        }
+        content += '\n' + '-'.repeat(50) + '\n\n';
+    });
+    
+    navigator.clipboard.writeText(content).then(() => {
+        alert('문제가 클립보드에 복사되었습니다.');
+        closeSaveMenu();
+    }).catch(err => {
+        alert('복사 중 오류가 발생했습니다: ' + err.message);
+        closeSaveMenu();
+    });
 }
 
 // 난이도 조절
@@ -1103,7 +2235,7 @@ function showConceptSummary() {
     const summary = `
 선택하신 개념들의 핵심 정리입니다:
 
-${concepts.map((c, i) => `${i + 1}. ${c}`).join('\n')}
+${concepts.map((c, i) => `${i + 1}. ${conceptToText(c) || '선택한 개념'}`).join('\n')}
 
 \n※ 실제 구현 시에는 AI가 각 개념의 핵심 내용을 요약해서 제공합니다.
     `.trim();
@@ -1701,7 +2833,7 @@ function renderSampleProblems() {
         <div class="sample-problem-card">
             <div class="sample-problem-tags">
                 ${problem.tags.map(tag => `<span class="sample-problem-tag">${tag}</span>`).join('')}
-                <span class="sample-problem-tag" style="background: var(--primary-color); color: white;">${problem.concept}</span>
+                <span class="sample-problem-tag" style="background: var(--primary-color); color: white;">${conceptToText(problem.concept) || '선택한 개념'}</span>
             </div>
             <div class="sample-problem-stem">${problem.stem}</div>
             <div class="sample-problem-actions">
@@ -2045,114 +3177,4 @@ function loadReviews() {
     }
 }
 
-// ===============================
-// STEP4: 단원별 2열 레이아웃(1-2 / 3-4 / 5-6)
-// ===============================
-function extractUnitNo(text) {
-  const m = String(text || "").trim().match(/(\d+)\s*단원/);
-  return m ? parseInt(m[1], 10) : null;
-}
-
-function looksLikeUnitTitle(el) {
-  if (!el || el.nodeType !== 1) return false;
-  const t = (el.textContent || "").trim();
-  // "n단원" 포함 + 체크박스가 안 들어있는(제목 전용) 요소를 우선 타이틀로 취급
-  if (!/(\d+)\s*단원/.test(t)) return false;
-  if (el.querySelector && el.querySelector('input[type="checkbox"]')) return false;
-  return true;
-}
-
-function isCheckboxItem(el) {
-  if (!el || el.nodeType !== 1) return false;
-  return !!(el.querySelector && el.querySelector('input[type="checkbox"]'));
-}
-
-/**
- * STEP4(#conceptGroup)를 단원(1~6) 블록으로 재구성.
- * - 왼쪽: 홀수 단원(1/3/5)
- * - 오른쪽: 짝수 단원(2/4/6)
- * - 항목들은 label/checkbox 그대로 이동 => 줄바꿈 유지
- */
-function rebuildConceptGroupToUnitGrid() {
-  const conceptGroup = document.getElementById("conceptGroup");
-  if (!conceptGroup) return;
-
-  const wrapper = conceptGroup.querySelector(":scope > div") || conceptGroup;
-
-  // TreeWalker로 wrapper 내부를 "문서 순서"대로 훑기
-  const walker = document.createTreeWalker(wrapper, NodeFilter.SHOW_ELEMENT);
-  const blocks = {}; // {1:{titleEl, items:[]}, ...}
-  let currentUnit = null;
-
-  while (walker.nextNode()) {
-    const el = walker.currentNode;
-
-    // 1) 단원 제목 발견
-    if (looksLikeUnitTitle(el)) {
-      const no = extractUnitNo(el.textContent);
-      if (no != null) {
-        currentUnit = no;
-        if (!blocks[no]) blocks[no] = { titleEl: el, items: [] };
-        else blocks[no].titleEl = el; // 혹시 중복이면 최신으로
-      }
-      continue;
-    }
-
-    // 2) 체크박스 항목 발견 (label/div 등)
-    if (isCheckboxItem(el)) {
-      // 체크박스가 들어있는 "가장 바깥" 항목을 잡기 위해,
-      // label이 있으면 label까지 끌어올립니다.
-      let item = el;
-      const label = el.closest ? el.closest("label") : null;
-      if (label && label.querySelector('input[type="checkbox"]')) item = label;
-
-      if (currentUnit != null) {
-        if (!blocks[currentUnit]) blocks[currentUnit] = { titleEl: null, items: [] };
-        // 같은 항목 중복 추가 방지
-        if (!blocks[currentUnit].items.includes(item)) {
-          blocks[currentUnit].items.push(item);
-        }
-      }
-    }
-  }
-
-  // 1~6 중 실제로 있는 단원만 grid로 구성
-  const unitGrid = document.createElement("div");
-  unitGrid.className = "unit-grid";
-
-  for (let no = 1; no <= 6; no++) {
-    if (!blocks[no]) continue;
-
-    const section = document.createElement("section");
-    section.className = "unit-block";
-
-    // 제목은 "제목 요소"를 그대로 이동(텍스트 뽑지 말 것!)
-    // (기존 스타일 유지하려고)
-    if (blocks[no].titleEl) {
-      const titleWrap = document.createElement("div");
-      titleWrap.className = "unit-title";
-      titleWrap.appendChild(blocks[no].titleEl);
-      section.appendChild(titleWrap);
-    }
-
-    const itemsWrap = document.createElement("div");
-    itemsWrap.className = "unit-items";
-
-    // 체크박스 항목을 그대로 이동(줄바꿈/박스 UI 유지)
-    blocks[no].items.forEach((it) => itemsWrap.appendChild(it));
-    section.appendChild(itemsWrap);
-
-    unitGrid.appendChild(section);
-  }
-
-  // 안전장치: 아무것도 못 만들었으면 원본 유지
-  if (unitGrid.children.length === 0) return;
-
-  // wrapper 안을 unitGrid로 교체
-  wrapper.innerHTML = "";
-  wrapper.appendChild(unitGrid);
-}
-
-// 전역으로 노출(순서 문제로 not defined 방지)
-window.rebuildConceptGroupToUnitGrid = rebuildConceptGroupToUnitGrid;
 

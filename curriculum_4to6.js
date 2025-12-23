@@ -314,3 +314,5 @@ function rebuildConceptGroupToUnitGrid() {
   wrapper.appendChild(unitGrid);
 }
 
+// 전역으로 노출(순서 문제로 not defined 방지)
+window.rebuildConceptGroupToUnitGrid = rebuildConceptGroupToUnitGrid;

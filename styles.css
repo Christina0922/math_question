@@ -338,6 +338,22 @@ body {
     margin-bottom: var(--section-spacing);
 }
 
+/* Header 스타일 (create.html, result.html) */
+header {
+    padding: 40px 20px;
+    text-align: center;
+    color: white;
+}
+
+header h1 {
+    font-size: var(--fs-h1);
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    line-height: var(--lh-title);
+}
+
 .back-link {
     display: inline-block;
     margin-top: 20px;
@@ -1005,27 +1021,69 @@ body {
     margin-top: 20px;
     padding-top: 15px;
     border-top: 1px solid var(--border-color);
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-.btn-hint {
-    background: none;
+.btn-toggle-answer,
+.btn-toggle-explanation {
+    background: var(--primary-color);
     border: none;
-    color: var(--primary-color);
+    color: white;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 8px;
     font-size: 0.95rem;
-    padding: 8px 0;
-    transition: opacity 0.2s;
+    padding: 10px 16px;
+    border-radius: 8px;
+    transition: background 0.2s, transform 0.1s;
+    min-height: 44px; /* 모바일 터치 영역 충분히 크게 */
+    font-weight: 500;
 }
 
-.btn-hint:hover {
-    opacity: 0.7;
+.btn-toggle-answer:hover,
+.btn-toggle-explanation:hover {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
 }
 
-.hint-icon {
-    font-size: 1.2rem;
+.btn-toggle-answer:active,
+.btn-toggle-explanation:active {
+    transform: translateY(0);
+}
+
+.toggle-icon {
+    font-size: 1.1rem;
+}
+
+.toggle-text {
+    font-size: 0.95rem;
+}
+
+.problem-answer {
+    margin-top: 15px;
+    padding: 15px;
+    background: #F0FDF4;
+    border-left: 4px solid var(--secondary-color);
+    border-radius: 8px;
+    animation: slideDown 0.3s ease;
+}
+
+.answer-title {
+    font-weight: 600;
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.answer-content {
+    color: var(--text-color);
+    line-height: 1.8;
+    white-space: pre-line;
+    font-size: 1.1rem;
+    font-weight: 500;
 }
 
 .problem-explanation {
@@ -1034,18 +1092,31 @@ body {
     background: var(--bg-light);
     border-left: 4px solid var(--primary-color);
     border-radius: 8px;
+    animation: slideDown 0.3s ease;
 }
 
 .explanation-title {
     font-weight: 600;
     color: var(--primary-color);
     margin-bottom: 10px;
+    font-size: 1rem;
 }
 
 .explanation-content {
     color: var(--text-color);
     line-height: 1.8;
     white-space: pre-line;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* 로딩 상태 */
@@ -2135,31 +2206,54 @@ main, .container, .wrapper, .app {
   }
 }
 
-/* STEP4: 단원(블록) 단위 2열 배치 */
+/* STEP4: 단원(블록) 단위 2열 배치 - 최종 */
+#conceptGroup {
+  width: 100%;
+  box-sizing: border-box;
+}
+
 #conceptGroup .unit-grid{
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr)); /* 1|2, 3|4, 5|6 */
-  gap: 18px;
+  gap: 16px;
   width: 100%;
   align-items: start;
 }
 
-#conceptGroup .unit-block{
+#conceptGroup .unit-card{
   width: 100%;
   min-width: 0;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+#conceptGroup .unit-title{
+  font-weight: 700;
+  margin-bottom: 12px;
+  font-size: 16px;
+  color: #4F46E5;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e5e7eb;
 }
 
 #conceptGroup .unit-items{
   display: flex;
   flex-direction: column; /* ✅ 항목마다 줄바꿈(엔터) */
   gap: 10px;
+  width: 100%;
 }
 
-/* label/항목이 inline으로 눌리지 않게 */
+/* label/항목이 inline으로 눌리지 않게 - 강제 한 줄 처리 */
 #conceptGroup .unit-items label,
-#conceptGroup .unit-items .checkbox-item{
-  display: block;
-  width: 100%;
+#conceptGroup .unit-items .checkbox-item,
+#conceptGroup .unit-items .concept-item,
+#conceptGroup .unit-items .selectable-card{
+  display: block !important;
+  width: 100% !important;
+  box-sizing: border-box;
 }
 
 /* 모바일에서 1열 */
@@ -2167,4 +2261,86 @@ main, .container, .wrapper, .app {
   #conceptGroup .unit-grid{
     grid-template-columns: 1fr;
   }
+}
+
+/* STEP4: 개념 선택 가독성 개선 */
+.concept-selector {
+  font-size: 18px;              /* 전체 기본 글씨 (STEP5와 동일) */
+  line-height: 1.55;
+}
+
+.concept-selector input[type="checkbox"] {
+  width: 18px;                  /* 체크박스 크기 */
+  height: 18px;
+  transform: translateY(1px);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.concept-selector label {
+  gap: 10px;                    /* 체크박스-텍스트 간격 */
+  padding: 4px 2px;             /* 클릭 영역 확대 */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+/* 단원(큰 제목) */
+.concept-selector .unit-title {
+  font-size: 20px !important;
+  font-weight: 800 !important;
+  margin-bottom: 8px !important;
+}
+
+/* 소단원(중간 제목) */
+.concept-selector .subunit-title {
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  margin-top: 10px !important;
+  margin-bottom: 6px !important;
+}
+
+/* 세부 항목(토픽) - STEP5 항목과 동일한 크기 */
+.concept-selector .topic-title {
+  font-size: 18px !important;
+  font-weight: 500 !important;
+}
+
+/* 카드(박스) 안쪽 여백도 조금 증가 */
+.concept-selector .unit-card,
+.concept-selector .concept-card {
+  padding: 18px !important;
+}
+
+/* 단원 라벨 스타일 */
+.concept-selector label:has(.unit-title) {
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+/* 소단원 라벨 스타일 */
+.concept-selector label:has(.subunit-title) {
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 10px;
+  margin-bottom: 8px;
+}
+
+/* 토픽 라벨 스타일 */
+.concept-selector label:has(.topic-title) {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+/* 세부 항목 간격 증가 */
+.concept-selector .topics-container {
+  gap: 8px !important;
+  margin-top: 8px !important;
+}
+
+/* 소단원 간격 증가 */
+.concept-selector .subunits-container > div {
+  margin-bottom: 14px !important;
 }

@@ -85,7 +85,7 @@
                     <!-- STEP 4: 개념 선택 -->
                     <div class="form-step">
                         <h3>STEP 4. 개념 선택 <span class="hint">(여러 개 선택 가능)</span></h3>
-                        <div id="conceptGroup" class="checkbox-group concept-list">
+                        <div id="conceptGroup" class="checkbox-group concept-list concept-selector">
                             <!-- 동적으로 생성됨 -->
                         </div>
                     </div>
@@ -192,6 +192,31 @@
     </div>
 
     <script src="./curriculum_4to6.js"></script>
+    <script>
+        // 중학교 목차 데이터 로드 (동적 import)
+        (async function() {
+            try {
+                const module = await import('./src/data/middleSchoolToc.js');
+                window.MIDDLE_SCHOOL_TOC = module.MIDDLE_SCHOOL_TOC;
+                console.log('Middle school TOC loaded');
+                
+                // 데이터 로드 후 초기화
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', function() {
+                        if (typeof initializeFormSelectors === 'function') {
+                            initializeFormSelectors();
+                        }
+                    });
+                } else {
+                    if (typeof initializeFormSelectors === 'function') {
+                        initializeFormSelectors();
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to load middle school TOC:', error);
+            }
+        })();
+    </script>
     <script src="./script.js"></script>
 </body>
 </html>
