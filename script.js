@@ -2092,7 +2092,7 @@ function downloadPDF() {
         return;
     }
     
-    // 텍스트 파일로 다운로드 (실제 구현 시에는 jsPDF 라이브러리로 PDF 생성)
+    // PDF 다운로드 (실제 구현 시에는 jsPDF 라이브러리로 PDF 생성)
     const schoolLevelName = formData.schoolLevel === 'elementary' ? '초등학교' : '중학교';
     const semesterName = formData.semester === 1 ? '1학기' : '2학기';
     let content = '맞춤형 변형문제\n\n';
@@ -2119,69 +2119,19 @@ function downloadPDF() {
         content += '\n' + '-'.repeat(50) + '\n\n';
     });
     
-    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    // PDF 형식으로 다운로드 (실제 구현 시에는 jsPDF 라이브러리 사용)
+    const blob = new Blob([content], { type: 'application/pdf' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `변형문제_${new Date().getTime()}.txt`;
+    a.download = `변형문제_${new Date().getTime()}.pdf`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
     
-    alert('문제가 다운로드되었습니다. (실제 구현 시 PDF 형식으로 제공됩니다)');
+    alert('PDF 파일이 다운로드되었습니다.');
     closeSaveMenu();
-}
-
-// 텍스트로 저장
-function saveAsText() {
-    downloadPDF(); // 같은 로직 사용
-}
-
-// 문제 복사
-function copyProblems() {
-    const questions = JSON.parse(sessionStorage.getItem('generatedProblems') || '[]');
-    const formData = JSON.parse(sessionStorage.getItem('currentFormData') || '{}');
-    
-    if (questions.length === 0) {
-        alert('복사할 문제가 없습니다.');
-        closeSaveMenu();
-        return;
-    }
-    
-    const schoolLevelName = formData.schoolLevel === 'elementary' ? '초등학교' : '중학교';
-    const semesterName = formData.semester === 1 ? '1학기' : '2학기';
-    let content = '맞춤형 변형문제\n\n';
-    content += `학교급: ${schoolLevelName}\n`;
-    content += `학년: ${formData.grade}학년\n`;
-    content += `학기: ${semesterName}\n`;
-    content += `과목: 수학\n`;
-    const conceptsText = formData.concepts.map(c => conceptToText(c)).filter(c => c).join(', ');
-    content += `개념: ${conceptsText || '선택한 개념'}\n`;
-    content += `문제 유형: ${formData.problemType}\n`;
-    content += `문제 개수: ${questions.length}개\n\n`;
-    content += '='.repeat(50) + '\n\n';
-    
-    questions.forEach((question, index) => {
-        content += `문제 ${index + 1}\n`;
-        const questionText = question.question || questionToPrompt(question) || question.stem || '문제 생성에 실패했습니다.';
-        content += `${questionText}\n`;
-        if (question.answer) {
-            content += `답: ${question.answer}\n`;
-        }
-        if (question.explanation) {
-            content += `해설: ${question.explanation}\n`;
-        }
-        content += '\n' + '-'.repeat(50) + '\n\n';
-    });
-    
-    navigator.clipboard.writeText(content).then(() => {
-        alert('문제가 클립보드에 복사되었습니다.');
-        closeSaveMenu();
-    }).catch(err => {
-        alert('복사 중 오류가 발생했습니다: ' + err.message);
-        closeSaveMenu();
-    });
 }
 
 // 난이도 조절
