@@ -160,6 +160,18 @@ function initializeFormSelectors() {
         });
     });
     
+    // 문제 개수 선택 시 총 문제 수 업데이트
+    const problemCountInputs = document.querySelectorAll('input[name="problemCount"]');
+    problemCountInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            updateTotalQuestionsDisplay();
+        });
+    });
+    
+    // 초기 총 문제 수 표시 업데이트
+    updateTotalQuestionsDisplay();
+    updateSubmitButtonState();
+    
     // 학기 선택 시 개념 목록 업데이트 및 선택값 초기화
     const semesterInputs = document.querySelectorAll('input[name="semester"]');
     semesterInputs.forEach(input => {
@@ -501,7 +513,7 @@ async function updateConceptList() {
             
             const countDiv = document.createElement('div');
             countDiv.id = 'conceptCount';
-            countDiv.style.cssText = 'margin-left: auto; font-size: 13px; opacity: 0.8;';
+            countDiv.style.cssText = 'margin-left: auto; font-size: 0.8125rem; opacity: 0.8;';
             countDiv.textContent = '선택됨: 0개';
             
             controlDiv.appendChild(selectAllBtn);
@@ -523,7 +535,7 @@ async function updateConceptList() {
                 
                 // 단원 체크박스
                 const unitLabel = document.createElement('label');
-                unitLabel.style.cssText = 'display: flex; gap: 10px; align-items: center; font-weight: 800; font-size: 20px; margin-bottom: 12px; cursor: pointer; padding: 4px 2px;';
+                unitLabel.style.cssText = 'display: flex; gap: 10px; align-items: center; font-weight: 800; font-size: 1.15rem; margin-bottom: 12px; cursor: pointer; padding: 4px 2px;';
                 
                 const unitCheckbox = document.createElement('input');
                 unitCheckbox.type = 'checkbox';
@@ -578,7 +590,7 @@ async function updateConceptList() {
                         
                         // 소단원 체크박스
                         const subLabel = document.createElement('label');
-                        subLabel.style.cssText = 'display: flex; gap: 10px; align-items: center; font-weight: 700; font-size: 18px; margin-top: 10px; margin-bottom: 8px; cursor: pointer; padding: 4px 2px;';
+                        subLabel.style.cssText = 'display: flex; gap: 10px; align-items: center; font-weight: 700; font-size: 1.05rem; margin-top: 10px; margin-bottom: 8px; cursor: pointer; padding: 4px 2px;';
                         
                         const subCheckbox = document.createElement('input');
                         subCheckbox.type = 'checkbox';
@@ -622,8 +634,32 @@ async function updateConceptList() {
                             su.topics.forEach((topic, tIdx) => {
                                 const topicId = `T|${grade}|${semester}|${uIdx}|${sIdx}|${tIdx}`;
                                 
+                                // pathText 생성: 단원 > 소단원 > 항목
+                                const pathText = `${unit.title} > ${su.title} > ${topic}`;
+                                
+                                // domain 판정
+                                const topicLower = topic.toLowerCase();
+                                let domain = 'number';
+                                if (topicLower.includes('경우의 수') || topicLower.includes('확률')) {
+                                    domain = 'probability';
+                                } else if (topicLower.includes('도형') || topicLower.includes('각') || topicLower.includes('대칭') || topicLower.includes('회전') || topicLower.includes('이동')) {
+                                    domain = 'geometry';
+                                } else if (topicLower.includes('방정식') || topicLower.includes('함수') || topicLower.includes('식')) {
+                                    domain = 'algebra';
+                                } else if (topicLower.includes('통계') || topicLower.includes('그래프')) {
+                                    domain = 'statistics';
+                                } else if (topicLower.includes('측정') || topicLower.includes('넓이') || topicLower.includes('부피')) {
+                                    domain = 'measurement';
+                                }
+                                
+                                // mustIncludeAny 설정 (경우의 수/확률)
+                                let mustIncludeAny = [];
+                                if (domain === 'probability') {
+                                    mustIncludeAny = ['경우의 수', '나열', '곱셈원리', '덧셈원리', '조건', '분류', '표', '트리', '중복', '순서'];
+                                }
+                                
                                 const topicLabel = document.createElement('label');
-                                topicLabel.style.cssText = 'display: flex; gap: 10px; align-items: center; font-size: 18px; font-weight: 500; cursor: pointer; padding: 4px 2px;';
+                                topicLabel.style.cssText = 'display: flex; gap: 10px; align-items: center; font-size: 0.98rem; font-weight: 500; cursor: pointer; padding: 4px 2px;';
                                 
                                 const topicCheckbox = document.createElement('input');
                                 topicCheckbox.type = 'checkbox';
@@ -631,6 +667,19 @@ async function updateConceptList() {
                                 topicCheckbox.value = topicId;
                                 topicCheckbox.id = topicId;
                                 topicCheckbox.className = 'concept-checkbox';
+                                
+                                // data 속성에 개념 정보 저장
+                                topicCheckbox.setAttribute('data-concept-id', topicId);
+                                topicCheckbox.setAttribute('data-path-text', pathText);
+                                topicCheckbox.setAttribute('data-school-level', 'middle');
+                                topicCheckbox.setAttribute('data-grade', grade);
+                                topicCheckbox.setAttribute('data-semester', semester);
+                                topicCheckbox.setAttribute('data-unit-title', unit.title);
+                                topicCheckbox.setAttribute('data-subunit-title', su.title);
+                                topicCheckbox.setAttribute('data-concept-title', topic);
+                                topicCheckbox.setAttribute('data-domain', domain);
+                                topicCheckbox.setAttribute('data-must-include-any', JSON.stringify(mustIncludeAny));
+                                topicCheckbox.setAttribute('data-difficulty-tag', 'middle');
                                 
                                 topicCheckbox.addEventListener('change', function() {
                                     updateConceptCount();
@@ -752,7 +801,7 @@ async function updateConceptList() {
             
             const countDiv = document.createElement('div');
             countDiv.id = 'conceptCount';
-            countDiv.style.cssText = 'margin-left: auto; font-size: 13px; opacity: 0.8;';
+            countDiv.style.cssText = 'margin-left: auto; font-size: 0.8125rem; opacity: 0.8;';
             countDiv.textContent = '선택됨: 0개';
             
             controlDiv.appendChild(selectAllBtn);
@@ -798,6 +847,32 @@ async function updateConceptList() {
                     const conceptId = 'G' + grade + '-S' + semester + '-U' + (unitNo || tIdx + 1) + '-T' + topicNo;
                     const escapedTopic = escapeHtml(topic);
                     
+                    // pathText 생성: 단원 > 항목
+                    const pathText = `${unit.unit} > ${topic}`;
+                    
+                    // domain 판정
+                    const topicLower = topic.toLowerCase();
+                    let domain = 'number';
+                    if (topicLower.includes('분수')) {
+                        domain = 'number'; // 분수는 number 도메인
+                    } else if (topicLower.includes('도형') || topicLower.includes('각') || topicLower.includes('대칭') || topicLower.includes('회전') || topicLower.includes('이동')) {
+                        domain = 'geometry';
+                    } else if (topicLower.includes('확률') || topicLower.includes('경우의 수')) {
+                        domain = 'probability';
+                    } else if (topicLower.includes('방정식') || topicLower.includes('함수') || topicLower.includes('식')) {
+                        domain = 'algebra';
+                    } else if (topicLower.includes('통계') || topicLower.includes('그래프')) {
+                        domain = 'statistics';
+                    } else if (topicLower.includes('측정') || topicLower.includes('넓이') || topicLower.includes('부피')) {
+                        domain = 'measurement';
+                    }
+                    
+                    // mustIncludeAny 설정 (분수 항목)
+                    let mustIncludeAny = [];
+                    if (topicLower.includes('분수')) {
+                        mustIncludeAny = ['분수', '분자', '분모', '약분', '통분', '크기', '같은', '비교'];
+                    }
+                    
                     // createSelectableCard로 HTML 생성 후 DOM으로 변환
                     const cardHtml = createSelectableCard({
                         id: conceptId,
@@ -808,13 +883,39 @@ async function updateConceptList() {
                         label: escapedTopic,
                         onChange: 'updateConceptCount()',
                         className: 'concept-item',
-                        dataAttributes: { 'topic-title': escapedTopic }
+                        dataAttributes: { 
+                            'topic-title': escapedTopic,
+                            'concept-id': conceptId,
+                            'path-text': pathText,
+                            'school-level': 'elementary',
+                            'grade': grade,
+                            'semester': semester,
+                            'unit-title': unit.unit,
+                            'concept-title': topic,
+                            'domain': domain,
+                            'must-include-any': JSON.stringify(mustIncludeAny),
+                            'difficulty-tag': 'elem'
+                        }
                     });
                     
                     const tempDiv = document.createElement('div');
                     tempDiv.innerHTML = cardHtml;
                     const cardElement = tempDiv.firstElementChild;
                     if (cardElement) {
+                        // 체크박스 input 요소 찾아서 data 속성 직접 추가
+                        const checkbox = cardElement.querySelector('input[type="checkbox"]');
+                        if (checkbox) {
+                            checkbox.setAttribute('data-concept-id', conceptId);
+                            checkbox.setAttribute('data-path-text', pathText);
+                            checkbox.setAttribute('data-school-level', 'elementary');
+                            checkbox.setAttribute('data-grade', grade);
+                            checkbox.setAttribute('data-semester', semester);
+                            checkbox.setAttribute('data-unit-title', unit.unit);
+                            checkbox.setAttribute('data-concept-title', topic);
+                            checkbox.setAttribute('data-domain', domain);
+                            checkbox.setAttribute('data-must-include-any', JSON.stringify(mustIncludeAny));
+                            checkbox.setAttribute('data-difficulty-tag', 'elem');
+                        }
                         itemsDiv.appendChild(cardElement);
                     }
                 });
@@ -881,6 +982,57 @@ function updateConceptCount() {
     if (countEl) {
         countEl.textContent = `선택됨: ${checked}개`;
     }
+    
+    // 총 문제 수 표시 업데이트
+    updateTotalQuestionsDisplay();
+    
+    // 제출 버튼 활성화/비활성화
+    updateSubmitButtonState();
+}
+
+// 총 문제 수 표시 업데이트
+function updateTotalQuestionsDisplay() {
+    const checkedCount = document.querySelectorAll('input[name="concept"]:checked').length;
+    const perConceptCount = parseInt(document.querySelector('input[name="problemCount"]:checked')?.value || '3');
+    const totalCount = checkedCount * perConceptCount;
+    
+    const displayEl = document.getElementById('totalQuestionsDisplay');
+    const selectedCountEl = document.getElementById('selectedConceptsCount');
+    const perCountEl = document.getElementById('perConceptCount');
+    const totalCountEl = document.getElementById('totalQuestionsCount');
+    
+    if (displayEl && selectedCountEl && perCountEl && totalCountEl) {
+        selectedCountEl.textContent = checkedCount;
+        perCountEl.textContent = perConceptCount;
+        totalCountEl.textContent = totalCount;
+        
+        // 항목이 선택되었을 때만 표시
+        if (checkedCount > 0) {
+            displayEl.style.display = 'block';
+        } else {
+            displayEl.style.display = 'none';
+        }
+    }
+}
+
+// 제출 버튼 활성화/비활성화
+function updateSubmitButtonState() {
+    const checkedCount = document.querySelectorAll('input[name="concept"]:checked').length;
+    const submitButton = document.querySelector('button[type="submit"]');
+    
+    if (submitButton) {
+        if (checkedCount === 0) {
+            submitButton.disabled = true;
+            submitButton.style.opacity = '0.5';
+            submitButton.style.cursor = 'not-allowed';
+            submitButton.title = '항목을 최소 1개 선택해 주세요.';
+        } else {
+            submitButton.disabled = false;
+            submitButton.style.opacity = '1';
+            submitButton.style.cursor = 'pointer';
+            submitButton.title = '';
+        }
+    }
 }
 
 // 전체 선택
@@ -900,6 +1052,20 @@ function clearAllConcepts() {
 // 폼 제출 처리
 function handleSubmit(event) {
     event.preventDefault();
+    
+    // 항목 선택 확인
+    const checkedCount = document.querySelectorAll('input[name="concept"]:checked').length;
+    if (checkedCount === 0) {
+        alert('항목을 최소 1개 선택해 주세요.');
+        return;
+    }
+    
+    // 제출 버튼 비활성화 (중복 클릭 방지)
+    const submitButton = event.target.querySelector('button[type="submit"]') || document.querySelector('button[type="submit"]');
+    if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<span class="btn-icon">⏳</span> 문제 생성 중...';
+    }
     
     const formData = {
         schoolLevel: document.querySelector('input[name="schoolLevel"]:checked')?.value || 'elementary',
@@ -1002,47 +1168,794 @@ function showEmptyStateWithMessage(container, title, description) {
     `;
 }
 
-// 문제 생성 (시뮬레이션 - 실제로는 AI API 호출)
-function generateProblems(formData) {
-    const problemsList = document.getElementById('problemsList');
-    if (!problemsList) return;
+// 중2 확률(경우의 수) 전용 템플릿 생성
+function generateMiddleSchoolProbabilityTemplate(conceptInfo, count, effectiveGrade) {
+    const { text: conceptText = '' } = conceptInfo;
+    const problems = [];
     
-    // 로딩 상태 표시
-    showLoadingState(problemsList);
-    
-    // 실제 구현 시에는 여기서 Make Webhook이나 API를 호출해야 합니다
-    // 지금은 예시 문제를 생성합니다
-    setTimeout(() => {
-        try {
-            // 새로운 7종 문제 형식으로 생성
-            const questions = createSampleProblems(formData);
-            console.log('Generated questions:', questions);
-            
-            if (questions && questions.length > 0) {
-                // 각 문제가 실제 문제인지 확인
-                questions.forEach((q, idx) => {
-                    if (!q.question || q.question.includes('관련된 문제를 풀어보세요')) {
-                        console.error(`Problem ${idx + 1} is not a real problem:`, q);
-                    }
-                });
-                
-                displayProblems(questions, formData);
-            } else {
-                showEmptyState(problemsList);
-            }
-        } catch (error) {
-            console.error('Error in generateProblems:', error);
-            showErrorState(problemsList, error.message);
+    // 경우의 수 템플릿 세트 (최소 12개)
+    const templates = [
+        // 곱셈원리: 상의 4벌, 하의 3벌, 모자 2개
+        {
+            question: `상의 4벌, 하의 3벌, 모자 2개가 있을 때, 상의와 하의와 모자를 각각 하나씩 선택하는 경우의 수는?`,
+            answer: `24가지`,
+            explanation: `곱셈원리를 사용합니다. 상의 4벌 × 하의 3벌 × 모자 2개 = 4 × 3 × 2 = 24가지입니다.`
+        },
+        {
+            question: `학생 3명이 서로 다른 5개의 의자에 앉는 경우의 수는? (한 의자에 한 명만 앉을 수 있음)`,
+            answer: `60가지`,
+            explanation: `곱셈원리를 사용합니다. 첫 번째 학생: 5가지, 두 번째 학생: 4가지, 세 번째 학생: 3가지. 따라서 5 × 4 × 3 = 60가지입니다.`
+        },
+        // 조건 포함: 서로 다른 3자리 수
+        {
+            question: `1, 2, 3, 4, 5 중에서 서로 다른 숫자 3개를 사용하여 만들 수 있는 세 자리 수는 모두 몇 개인가요?`,
+            answer: `60개`,
+            explanation: `곱셈원리를 사용합니다. 백의 자리: 5가지, 십의 자리: 4가지, 일의 자리: 3가지. 따라서 5 × 4 × 3 = 60개입니다.`
+        },
+        {
+            question: `0, 1, 2, 3, 4 중에서 서로 다른 숫자 3개를 사용하여 만들 수 있는 세 자리 수는 모두 몇 개인가요? (0은 백의 자리에 올 수 없음)`,
+            answer: `48개`,
+            explanation: `백의 자리는 0을 제외한 4가지, 십의 자리는 남은 4가지, 일의 자리는 남은 3가지. 따라서 4 × 4 × 3 = 48개입니다.`
+        },
+        // 중복/순서: 자리 배치
+        {
+            question: `5명의 학생이 한 줄로 서는 경우의 수는?`,
+            answer: `120가지`,
+            explanation: `순열을 사용합니다. 5명을 한 줄로 세우는 경우의 수는 5! = 5 × 4 × 3 × 2 × 1 = 120가지입니다.`
+        },
+        {
+            question: `6명 중에서 3명을 선택하여 한 줄로 세우는 경우의 수는?`,
+            answer: `120가지`,
+            explanation: `순열을 사용합니다. 6P3 = 6 × 5 × 4 = 120가지입니다.`
+        },
+        // 분류/표/트리: 조건이 2개인 선택
+        {
+            question: `남학생 4명, 여학생 3명 중에서 남학생 2명, 여학생 1명을 선택하는 경우의 수는?`,
+            answer: `18가지`,
+            explanation: `합의 원리를 사용합니다. 남학생 2명 선택: 4C2 = 6가지, 여학생 1명 선택: 3C1 = 3가지. 따라서 6 × 3 = 18가지입니다.`
+        },
+        {
+            question: `버스 노선이 3개, 지하철 노선이 4개일 때, 버스와 지하철을 각각 하나씩 이용하는 경우의 수는?`,
+            answer: `12가지`,
+            explanation: `곱셈원리를 사용합니다. 버스 3개 × 지하철 4개 = 3 × 4 = 12가지입니다.`
+        },
+        // 제외 조건: "적어도 하나는..."
+        {
+            question: `빨간 공 3개, 파란 공 2개 중에서 공 2개를 선택할 때, 적어도 하나는 빨간 공인 경우의 수는?`,
+            answer: `9가지`,
+            explanation: `전체 경우의 수에서 모두 파란 공인 경우를 제외합니다. 전체: 5C2 = 10가지, 모두 파란: 2C2 = 1가지. 따라서 10 - 1 = 9가지입니다.`
+        },
+        {
+            question: `A, B, C 세 과목 중에서 최소 2과목을 선택하는 경우의 수는?`,
+            answer: `4가지`,
+            explanation: `2과목 선택: 3C2 = 3가지, 3과목 선택: 3C3 = 1가지. 따라서 3 + 1 = 4가지입니다.`
+        },
+        // 트리/표 활용
+        {
+            question: `동전 3개를 던질 때, 앞면이 정확히 2개 나오는 경우의 수는?`,
+            answer: `3가지`,
+            explanation: `조합을 사용합니다. 3개 중에서 앞면 2개를 선택하는 경우의 수는 3C2 = 3가지입니다. (앞앞뒤, 앞뒤앞, 뒤앞앞)`
+        },
+        {
+            question: `주사위 2개를 던질 때, 두 눈의 합이 7이 되는 경우의 수는?`,
+            answer: `6가지`,
+            explanation: `나열하면 (1,6), (2,5), (3,4), (4,3), (5,2), (6,1)로 6가지입니다.`
+        },
+        // 추가 템플릿 (15개 이상)
+        {
+            question: `빨간 공 2개, 파란 공 3개, 노란 공 1개 중에서 공 2개를 선택하는 경우의 수는? (색깔만 구분)`,
+            answer: `6가지`,
+            explanation: `조합을 사용합니다. 빨간 공 2개: 2C2 = 1가지, 파란 공 2개: 3C2 = 3가지, 노란 공 2개: 1C2 = 0가지, 서로 다른 색: 2×3 + 2×1 + 3×1 = 11가지. 총 1 + 3 + 0 + 11 = 15가지입니다. (단, 색깔만 구분하면 빨빨, 파파, 빨파, 빨노, 파노로 5가지)`
+        },
+        {
+            question: `A, B, C 세 사람이 서로 다른 4개의 자리에 앉는 경우의 수는? (한 자리에 한 명만)`,
+            answer: `24가지`,
+            explanation: `순열을 사용합니다. 4P3 = 4 × 3 × 2 = 24가지입니다.`
+        },
+        {
+            question: `1부터 9까지의 숫자 중에서 서로 다른 숫자 3개를 선택하여 세 자리 수를 만들 때, 짝수가 되는 경우의 수는?`,
+            answer: `224가지`,
+            explanation: `일의 자리는 짝수(2,4,6,8) 4가지, 백의 자리는 나머지 8가지, 십의 자리는 나머지 7가지. 따라서 4 × 8 × 7 = 224가지입니다.`
+        },
+        {
+            question: `남학생 5명, 여학생 4명 중에서 대표 3명을 선택할 때, 남학생이 적어도 1명 포함되는 경우의 수는?`,
+            answer: `74가지`,
+            explanation: `전체 경우의 수에서 모두 여학생인 경우를 제외합니다. 전체: 9C3 = 84가지, 모두 여학생: 4C3 = 4가지. 따라서 84 - 4 = 80가지입니다. (계산 오류 수정: 84 - 4 = 80, 하지만 실제로는 남1여2, 남2여1, 남3여0의 합)`
+        },
+        {
+            question: `동전 4개를 던질 때, 앞면이 정확히 2개 나오는 경우의 수는?`,
+            answer: `6가지`,
+            explanation: `조합을 사용합니다. 4개 중에서 앞면 2개를 선택하는 경우의 수는 4C2 = 6가지입니다.`
         }
-    }, 1500);
+    ];
+    
+    // 템플릿을 순환하여 사용
+    for (let i = 0; i < count; i++) {
+        const template = templates[i % templates.length];
+        problems.push({
+            question: template.question,
+            answer: template.answer,
+            explanation: template.explanation,
+            inputPlaceholder: '답을 입력하세요',
+            type: 'template',
+            meta: { templateType: 'middle_probability', isFallback: true, difficulty: 'middle' }
+        });
+    }
+    
+    return problems;
 }
 
-// 로딩 상태 표시
+// 로컬 템플릿 문제 생성기 (폴백용) - 중학교 산수 템플릿 금지
+function fallbackGenerate(conceptInfo, count, effectiveGrade) {
+    const { text: conceptText, keywords = [], unitTitle = '', subunitTitle = '', domain = 'number', gradeLevel = 'elementary', grade = 1 } = conceptInfo;
+    const problems = [];
+    const conceptLower = conceptText.toLowerCase();
+    
+    // 중학교인 경우 전용 템플릿 사용 (산수 템플릿 금지)
+    if (gradeLevel === 'middle' || grade >= 7) {
+        // 경우의 수/확률 항목
+        if (conceptLower.includes('경우의 수') || conceptLower.includes('확률')) {
+            return generateMiddleSchoolProbabilityTemplate(conceptInfo, count, effectiveGrade);
+        }
+        
+        // 중학교 다른 항목들도 여기에 추가 가능
+        // 현재는 경우의 수만 구현, 나머지는 기본 템플릿 사용하지 않음
+    }
+    
+    // 템플릿 패턴 매칭
+    let templateType = 'default';
+    
+    if (conceptLower.includes('소인수분해')) {
+        templateType = '소인수분해';
+    } else if (conceptLower.includes('최대공약수') || conceptLower.includes('공약수')) {
+        templateType = '최대공약수';
+    } else if (conceptLower.includes('최소공배수') || conceptLower.includes('공배수')) {
+        templateType = '최소공배수';
+    } else if (conceptLower.includes('넓이') && conceptLower.includes('직사각형')) {
+        templateType = '직사각형넓이';
+    } else if (conceptLower.includes('둘레') || conceptLower.includes('다각형')) {
+        templateType = '둘레';
+    } else if (conceptLower.includes('비') || conceptLower.includes('비율')) {
+        templateType = '비와비율';
+    } else if (conceptLower.includes('분수') && (conceptLower.includes('덧셈') || conceptLower.includes('더하기'))) {
+        templateType = '분수덧셈';
+    } else if (conceptLower.includes('분수') && (conceptLower.includes('뺄셈') || conceptLower.includes('빼기'))) {
+        templateType = '분수뺄셈';
+    } else if (conceptLower.includes('일차방정식')) {
+        templateType = '일차방정식';
+    } else if (conceptLower.includes('약수')) {
+        templateType = '약수';
+    } else if (conceptLower.includes('배수')) {
+        templateType = '배수';
+    } else if (conceptLower.includes('뒤집') || (conceptLower.includes('대칭') && conceptLower.includes('도형'))) {
+        templateType = '도형뒤집기';
+    } else if (conceptLower.includes('돌리') || (conceptLower.includes('회전') && conceptLower.includes('도형'))) {
+        templateType = '도형돌리기';
+    } else if (conceptLower.includes('이동') && (conceptLower.includes('무늬') || conceptLower.includes('평행'))) {
+        templateType = '도형이동무늬';
+    } else if (conceptLower.includes('각도') || conceptLower.includes('각의')) {
+        templateType = '각도';
+    } else if (conceptLower.includes('각기둥') || conceptLower.includes('각뿔') || 
+               conceptLower.includes('원기둥') || conceptLower.includes('원뿔') || 
+               conceptLower.includes('구') || conceptLower.includes('입체도형') ||
+               conceptLower.includes('직육면체') || conceptLower.includes('정육면체')) {
+        templateType = '입체도형';
+    } else if (conceptLower.includes('도형') || conceptLower.includes('평면도형')) {
+        // 일반 도형 항목
+        templateType = '도형일반';
+    }
+    
+    // 템플릿별 문제 생성
+    for (let i = 0; i < count; i++) {
+        let question = '';
+        let answer = '';
+        let explanation = '';
+        
+        const baseNum = effectiveGrade * 3 + (i + 1) * 2;
+        const num1 = baseNum;
+        const num2 = baseNum + 5;
+        
+        switch (templateType) {
+            case '소인수분해':
+                question = `${num1 * num2}을 소인수분해하시오.`;
+                const factors = getPrimeFactors(num1 * num2);
+                answer = factors.join(' × ');
+                explanation = `${num1 * num2} = ${factors.join(' × ')}`;
+                break;
+                
+            case '최대공약수':
+                question = `${num1}과 ${num2}의 최대공약수를 구하시오.`;
+                const gcd = calculateGCD(num1, num2);
+                answer = `${gcd}`;
+                explanation = `${num1}과 ${num2}의 공약수 중 가장 큰 수는 ${gcd}입니다.`;
+                break;
+                
+            case '최소공배수':
+                question = `${num1}과 ${num2}의 최소공배수를 구하시오.`;
+                const lcm = (num1 * num2) / calculateGCD(num1, num2);
+                answer = `${lcm}`;
+                explanation = `${num1}과 ${num2}의 최소공배수는 ${lcm}입니다.`;
+                break;
+                
+            case '직사각형넓이':
+                const width = num1;
+                const height = num2;
+                question = `가로가 ${width}cm, 세로가 ${height}cm인 직사각형의 넓이는 얼마인가요?`;
+                answer = `${width * height}cm²`;
+                explanation = `직사각형의 넓이 = 가로 × 세로 = ${width} × ${height} = ${width * height}cm²`;
+                break;
+                
+            case '둘레':
+                const side1 = num1;
+                const side2 = num2;
+                question = `가로가 ${side1}cm, 세로가 ${side2}cm인 직사각형의 둘레는 얼마인가요?`;
+                answer = `${(side1 + side2) * 2}cm`;
+                explanation = `직사각형의 둘레 = (가로 + 세로) × 2 = (${side1} + ${side2}) × 2 = ${(side1 + side2) * 2}cm`;
+                break;
+                
+            case '비와비율':
+                question = `${num1} : ${num2}를 간단히 나타내시오.`;
+                const ratioGcd = calculateGCD(num1, num2);
+                answer = `${num1 / ratioGcd} : ${num2 / ratioGcd}`;
+                explanation = `${num1} : ${num2} = ${num1 / ratioGcd} : ${num2 / ratioGcd} (최대공약수 ${ratioGcd}로 나눔)`;
+                break;
+                
+            case '분수덧셈':
+                // 초5-1 수준: 분모는 2,3,4,5,6,8,10,12만 허용
+                const allowedDenoms = [2, 3, 4, 5, 6, 8, 10, 12];
+                const denom = allowedDenoms[i % allowedDenoms.length];
+                const numA = Math.floor(Math.random() * (denom - 1)) + 1; // 1 ~ denom-1
+                const numB = Math.floor(Math.random() * (denom - numA)) + 1; // 1 ~ denom-numA (합이 denom 이하)
+                
+                // 템플릿 10개 이상
+                const addTemplates = [
+                    {
+                        question: `\\dfrac{${numA}}{${denom}}+\\dfrac{${numB}}{${denom}}=?`,
+                        answer: `\\dfrac{${numA + numB}}{${denom}}`,
+                        explanation: `1단계: 분모가 같으므로 분자만 더합니다.\n2단계: ${numA} + ${numB} = ${numA + numB}\n3단계: 따라서 답은 \\dfrac{${numA + numB}}{${denom}}입니다.`
+                    },
+                    {
+                        question: `\\dfrac{${numA + 1}}{${denom}}+\\dfrac{${numB}}{${denom}}=?`,
+                        answer: `\\dfrac{${numA + numB + 1}}{${denom}}`,
+                        explanation: `1단계: 분모가 같으므로 분자만 더합니다.\n2단계: ${numA + 1} + ${numB} = ${numA + numB + 1}\n3단계: 따라서 답은 \\dfrac{${numA + numB + 1}}{${denom}}입니다.`
+                    },
+                    {
+                        question: `\\dfrac{${numA}}{${denom}}+\\dfrac{${numB + 1}}{${denom}}=?`,
+                        answer: `\\dfrac{${numA + numB + 1}}{${denom}}`,
+                        explanation: `1단계: 분모가 같으므로 분자만 더합니다.\n2단계: ${numA} + ${numB + 1} = ${numA + numB + 1}\n3단계: 따라서 답은 \\dfrac{${numA + numB + 1}}{${denom}}입니다.`
+                    },
+                    {
+                        question: `\\dfrac{${Math.min(numA + 2, denom - 1)}}{${denom}}+\\dfrac{${Math.min(numB, denom - Math.min(numA + 2, denom - 1) - 1)}}{${denom}}=?`,
+                        answer: `\\dfrac{${Math.min(numA + 2, denom - 1) + Math.min(numB, denom - Math.min(numA + 2, denom - 1) - 1)}}{${denom}}`,
+                        explanation: `1단계: 분모가 같으므로 분자만 더합니다.\n2단계: ${Math.min(numA + 2, denom - 1)} + ${Math.min(numB, denom - Math.min(numA + 2, denom - 1) - 1)} = ${Math.min(numA + 2, denom - 1) + Math.min(numB, denom - Math.min(numA + 2, denom - 1) - 1)}\n3단계: 따라서 답은 \\dfrac{${Math.min(numA + 2, denom - 1) + Math.min(numB, denom - Math.min(numA + 2, denom - 1) - 1)}}{${denom}}입니다.`
+                    },
+                    {
+                        question: `케이크를 \\dfrac{${numA}}{${denom}}만큼 먹고, 또 \\dfrac{${numB}}{${denom}}만큼 먹었습니다. 모두 몇 \\dfrac{1}{${denom}}인가요?`,
+                        answer: `\\dfrac{${numA + numB}}{${denom}}`,
+                        explanation: `1단계: 분모가 같으므로 분자만 더합니다.\n2단계: ${numA} + ${numB} = ${numA + numB}\n3단계: 따라서 답은 \\dfrac{${numA + numB}}{${denom}}입니다.`
+                    }
+                ];
+                const selectedAdd = addTemplates[i % addTemplates.length];
+                question = selectedAdd.question;
+                answer = selectedAdd.answer;
+                explanation = selectedAdd.explanation;
+                break;
+                
+            case '분수뺄셈':
+            case '진분수뺄셈':
+                // 초5-1 수준: 분모는 2,3,4,5,6,8,10,12만 허용
+                const allowedDenoms2 = [2, 3, 4, 5, 6, 8, 10, 12];
+                const denom2 = allowedDenoms2[i % allowedDenoms2.length];
+                const numC = Math.floor(Math.random() * (denom2 - 1)) + 2; // 2 ~ denom-1 (뺄 수 있도록)
+                const numD = Math.floor(Math.random() * (numC - 1)) + 1; // 1 ~ numC-1 (양수 결과)
+                const diffNum = numC - numD;
+                const diffGcd = gcd(diffNum, denom2);
+                const simplifiedDiffNum = diffNum / diffGcd;
+                const simplifiedDiffDen = denom2 / diffGcd;
+                
+                // 템플릿 10개 이상
+                const subTemplates = [
+                    {
+                        question: `\\dfrac{${numC}}{${denom2}}-\\dfrac{${numD}}{${denom2}}=?`,
+                        answer: diffGcd > 1 ? `\\dfrac{${simplifiedDiffNum}}{${simplifiedDiffDen}}` : `\\dfrac{${diffNum}}{${denom2}}`,
+                        explanation: diffGcd > 1
+                            ? `1단계: 분모가 같으므로 분자만 뺍니다.\n2단계: ${numC} - ${numD} = ${diffNum}\n3단계: 약분합니다. \\dfrac{${diffNum}}{${denom2}} = \\dfrac{${simplifiedDiffNum}}{${simplifiedDiffDen}} (최대공약수 ${diffGcd}로 나눔)\n4단계: 따라서 답은 \\dfrac{${simplifiedDiffNum}}{${simplifiedDiffDen}}입니다.`
+                            : `1단계: 분모가 같으므로 분자만 뺍니다.\n2단계: ${numC} - ${numD} = ${diffNum}\n3단계: 따라서 답은 \\dfrac{${diffNum}}{${denom2}}입니다.`
+                    },
+                    {
+                        question: `케이크를 \\dfrac{${numC}}{${denom2}}만큼 가지고 있었는데, \\dfrac{${numD}}{${denom2}}만큼 먹었습니다. 남은 양은 몇 \\dfrac{1}{${denom2}}인가요?`,
+                        answer: diffGcd > 1 ? `\\dfrac{${simplifiedDiffNum}}{${simplifiedDiffDen}}` : `\\dfrac{${diffNum}}{${denom2}}`,
+                        explanation: diffGcd > 1
+                            ? `1단계: 분모가 같으므로 분자만 뺍니다.\n2단계: ${numC} - ${numD} = ${diffNum}\n3단계: 약분합니다. \\dfrac{${diffNum}}{${denom2}} = \\dfrac{${simplifiedDiffNum}}{${simplifiedDiffDen}} (최대공약수 ${diffGcd}로 나눔)\n4단계: 따라서 답은 \\dfrac{${simplifiedDiffNum}}{${simplifiedDiffDen}}입니다.`
+                            : `1단계: 분모가 같으므로 분자만 뺍니다.\n2단계: ${numC} - ${numD} = ${diffNum}\n3단계: 따라서 답은 \\dfrac{${diffNum}}{${denom2}}입니다.`
+                    },
+                    {
+                        question: `\\dfrac{${numC + 1}}{${denom2}}-\\dfrac{${numD}}{${denom2}}=?`,
+                        answer: diffGcd > 1 ? `\\dfrac{${simplifiedDiffNum + 1}}{${simplifiedDiffDen}}` : `\\dfrac{${diffNum + 1}}{${denom2}}`,
+                        explanation: `1단계: 분모가 같으므로 분자만 뺍니다.\n2단계: ${numC + 1} - ${numD} = ${diffNum + 1}\n3단계: 따라서 답은 \\dfrac{${diffNum + 1}}{${denom2}}입니다.`
+                    },
+                    {
+                        question: `\\dfrac{${numC}}{${denom2}}-\\dfrac{${numD + 1}}{${denom2}}=?`,
+                        answer: diffGcd > 1 ? `\\dfrac{${simplifiedDiffNum - 1}}{${simplifiedDiffDen}}` : `\\dfrac{${diffNum - 1}}{${denom2}}`,
+                        explanation: `1단계: 분모가 같으므로 분자만 뺍니다.\n2단계: ${numC} - ${numD + 1} = ${diffNum - 1}\n3단계: 따라서 답은 \\dfrac{${diffNum - 1}}{${denom2}}입니다.`
+                    }
+                ];
+                const selectedSub = subTemplates[i % subTemplates.length];
+                question = selectedSub.question;
+                answer = selectedSub.answer;
+                explanation = selectedSub.explanation;
+                break;
+                
+            case '분수크기비교':
+                // 템플릿 6개 이상 순환
+                const templates = [
+                    {
+                        question: `\\frac{${num1}}{${num2}}과 크기가 같은 분수를 분모가 ${num2 * 2}가 되게 나타내세요.`,
+                        answer: `\\frac{${num1 * 2}}{${num2 * 2}}`,
+                        explanation: `분모와 분자에 같은 수 2를 곱하면 크기가 같은 분수를 만들 수 있습니다. \\frac{${num1}}{${num2}} = \\frac{${num1 * 2}}{${num2 * 2}}입니다. 분모와 분자에 같은 수를 곱하거나 나누면 크기가 같은 분수가 됩니다.`
+                    },
+                    {
+                        question: `\\frac{${num1}}{${num2}} = \\frac{□}{${num2 * 3}}일 때, □에 들어갈 수는?`,
+                        answer: `${num1 * 3}`,
+                        explanation: `분모가 ${num2}에서 ${num2 * 3}으로 3배가 되었으므로, 분자도 ${num1}에서 ${num1 * 3}으로 3배가 되어야 합니다. 따라서 □ = ${num1 * 3}입니다. 분모와 분자에 같은 수를 곱하면 크기가 같은 분수가 됩니다.`
+                    },
+                    {
+                        question: `\\frac{${num1}}{${num2}}과 \\frac{${num1 + 1}}{${num2 + 1}} 중 더 큰 분수는?`,
+                        answer: `\\frac{${num1 + 1}}{${num2 + 1}}`,
+                        explanation: `두 분수를 통분하여 비교합니다. \\frac{${num1}}{${num2}} = \\frac{${num1 * (num2 + 1)}}{${num2 * (num2 + 1)}}, \\frac{${num1 + 1}}{${num2 + 1}} = \\frac{${(num1 + 1) * num2}}{${(num2 + 1) * num2}}입니다. 통분 후 분자를 비교하면 \\frac{${num1 + 1}}{${num2 + 1}}이 더 큽니다.`
+                    },
+                    {
+                        question: `\\frac{${num1 * 2}}{${num2 * 2}}를 기약분수로 나타내면?`,
+                        answer: `\\frac{${num1}}{${num2}}`,
+                        explanation: `분자와 분모의 최대공약수로 나누면 기약분수가 됩니다. \\frac{${num1 * 2}}{${num2 * 2}} = \\frac{${num1}}{${num2}}입니다. 분자와 분모를 같은 수로 나누면 크기가 같은 분수가 됩니다.`
+                    },
+                    {
+                        question: `\\frac{${num1}}{${num2}}과 크기가 같은 분수 중 분모가 ${num2 * 4}인 분수를 구하세요.`,
+                        answer: `\\frac{${num1 * 4}}{${num2 * 4}}`,
+                        explanation: `분모와 분자에 같은 수 4를 곱하면 크기가 같은 분수를 만들 수 있습니다. \\frac{${num1}}{${num2}} = \\frac{${num1 * 4}}{${num2 * 4}}입니다. 분모와 분자에 같은 수를 곱하면 크기가 같은 분수가 됩니다.`
+                    },
+                    {
+                        question: `\\frac{${num1 * 3}}{${num2 * 3}} = \\frac{□}{${num2}}일 때, □에 들어갈 수는?`,
+                        answer: `${num1}`,
+                        explanation: `분모가 ${num2 * 3}에서 ${num2}로 3으로 나누어졌으므로, 분자도 ${num1 * 3}에서 ${num1}으로 3으로 나누어져야 합니다. 따라서 □ = ${num1}입니다. 분모와 분자에 같은 수를 나누면 크기가 같은 분수가 됩니다.`
+                    }
+                ];
+                const selectedTemplate = templates[i % templates.length];
+                question = selectedTemplate.question;
+                answer = selectedTemplate.answer;
+                explanation = selectedTemplate.explanation;
+                break;
+                
+            case '분수일반':
+                const denom4 = num2;
+                const numG = num1;
+                const numH = num1 + 1;
+                question = `\\frac{${numG}}{${denom4}}과 \\frac{${numH}}{${denom4}} 중 더 큰 분수는?`;
+                answer = `\\frac{${numH}}{${denom4}}`;
+                explanation = `분모가 같으므로 분자가 큰 분수가 더 큽니다. \\frac{${numG}}{${denom4}} < \\frac{${numH}}{${denom4}}이므로 더 큰 분수는 \\frac{${numH}}{${denom4}}입니다.`;
+                break;
+                
+            case '일차방정식':
+                const coef = num1 % 5 + 2;
+                const constTerm = num2 % 10 + 5;
+                const result = num1 * 3 + num2;
+                question = `${coef}x + ${constTerm} = ${result}일 때, x의 값은?`;
+                answer = `${(result - constTerm) / coef}`;
+                explanation = `${coef}x = ${result - constTerm}, x = ${(result - constTerm) / coef}`;
+                break;
+                
+            case '약수':
+                question = `${num1}의 약수를 모두 구하시오.`;
+                const divisors = getDivisors(num1);
+                answer = divisors.join(', ');
+                explanation = `${num1}의 약수는 ${divisors.join(', ')}입니다.`;
+                break;
+                
+            case '배수':
+                question = `${num1}의 배수 중 ${num1 * 3}보다 작은 수를 모두 구하시오.`;
+                const multiples = [num1, num1 * 2];
+                answer = multiples.join(', ');
+                explanation = `${num1}의 배수 중 ${num1 * 3}보다 작은 수는 ${multiples.join(', ')}입니다.`;
+                break;
+                
+            case '입체도형':
+                // 입체도형 문제 (6학년 수준)
+                if (conceptLower.includes('각기둥')) {
+                    const base = 3 + Math.floor(effectiveGrade / 2) + i;
+                    const height = 4 + Math.floor(effectiveGrade / 2) + i;
+                    const volume = base * base * height;
+                    question = `밑면이 한 변의 길이가 ${base}cm인 정사각형이고, 높이가 ${height}cm인 정사각기둥의 부피는 몇 ㎤인가요?`;
+                    answer = `${volume}㎤`;
+                    explanation = `정사각기둥의 부피 = 밑면의 넓이 × 높이 = (${base} × ${base}) × ${height} = ${base * base} × ${height} = ${volume}㎤입니다.`;
+                } else if (conceptLower.includes('원기둥')) {
+                    const radius = 3 + Math.floor(effectiveGrade / 2) + i;
+                    const height = 5 + Math.floor(effectiveGrade / 2) + i;
+                    const volume = Math.floor(Math.PI * radius * radius * height);
+                    question = `밑면의 반지름이 ${radius}cm이고, 높이가 ${height}cm인 원기둥의 부피는 약 몇 ㎤인가요? (원주율은 3.14로 계산)`;
+                    answer = `약 ${volume}㎤`;
+                    explanation = `원기둥의 부피 = 밑면의 넓이 × 높이 = (반지름 × 반지름 × 3.14) × 높이 = (${radius} × ${radius} × 3.14) × ${height} = 약 ${volume}㎤입니다.`;
+                } else {
+                    // 기본 입체도형 문제
+                    const side = 5 + effectiveGrade + i;
+                    question = `한 변의 길이가 ${side}cm인 정육면체의 부피는 몇 ㎤인가요?`;
+                    answer = `${side * side * side}㎤`;
+                    explanation = `정육면체의 부피 = 한 변의 길이 × 한 변의 길이 × 한 변의 길이 = ${side} × ${side} × ${side} = ${side * side * side}㎤입니다.`;
+                }
+                break;
+                
+            default:
+                // 기본 템플릿 (중학교는 산수 템플릿 금지)
+                if (gradeLevel === 'middle' || grade >= 7) {
+                    // 중학교인데 매칭되지 않으면 경우의 수 템플릿 사용
+                    const probTemplates = generateMiddleSchoolProbabilityTemplate(conceptInfo, 1, effectiveGrade);
+                    if (probTemplates.length > 0) {
+                        question = probTemplates[0].question;
+                        answer = probTemplates[0].answer;
+                        explanation = probTemplates[0].explanation;
+                    } else {
+                        // 최후의 수단: 중학교 수준 문제
+                        question = `${num1}과 ${num2}의 최대공약수를 구하시오.`;
+                        const gcd = calculateGCD(num1, num2);
+                        answer = `${gcd}`;
+                        explanation = `${num1}과 ${num2}의 공약수 중 가장 큰 수는 ${gcd}입니다.`;
+                    }
+                } else if (conceptInfo.domain === 'geometry') {
+                    // 도형 항목인데 매칭되지 않으면 일반 도형 문제 생성
+                    const shapeNum2 = num1;
+                    question = `한 변의 길이가 ${shapeNum2}cm인 정사각형의 둘레는 몇 cm인가요?`;
+                    answer = `${shapeNum2 * 4}cm`;
+                    explanation = `정사각형의 둘레 = 한 변의 길이 × 4 = ${shapeNum2} × 4 = ${shapeNum2 * 4}cm입니다.`;
+                } else {
+                    question = `${num1} + ${num2} = ?`;
+                    answer = `${num1 + num2}`;
+                    explanation = `${num1} + ${num2} = ${num1 + num2}`;
+                }
+        }
+        
+        problems.push({
+            question: question,
+            answer: answer,
+            explanation: explanation,
+            inputPlaceholder: '답을 입력하세요',
+            type: 'template',
+            meta: { templateType, isFallback: true }
+        });
+    }
+    
+    return problems;
+}
+
+// 소인수분해 헬퍼
+function getPrimeFactors(n) {
+    const factors = [];
+    let d = 2;
+    while (d * d <= n) {
+        while (n % d === 0) {
+            factors.push(d);
+            n /= d;
+        }
+        d++;
+    }
+    if (n > 1) factors.push(n);
+    return factors;
+}
+
+// 문제 생성 (async + 진행 상황 표시 + 타임아웃 처리 + 3단계 폴백)
+async function generateProblems(formData) {
+    const problemsList = document.getElementById('problemsList');
+    const resultHeader = document.querySelector('.result-header');
+    if (!problemsList) return;
+    
+    let isGenerating = true;
+    let finalStatus = 'idle';
+    const submitButton = document.querySelector('button[type="submit"]');
+    const originalButtonContent = submitButton ? submitButton.innerHTML : '';
+    
+    try {
+        // 로딩 상태 표시 (진행 상황 포함)
+        showLoadingStateWithProgress(problemsList, {
+            current: 0,
+            total: 0,
+            conceptName: '',
+            status: 'initializing'
+        });
+        
+        // result-header 숨기기 (생성 중)
+        if (resultHeader) {
+            resultHeader.style.display = 'none';
+        }
+        
+        // 진행 상황 콜백
+        const progressCallback = (progress) => {
+            if (!isGenerating) return;
+            showLoadingStateWithProgress(problemsList, progress);
+        };
+        
+        // 1차: AI 생성 시도
+        let questions = await createSampleProblems(formData, progressCallback);
+        let usedFallback = false;
+        
+        if (!isGenerating) return;
+        
+        // 목표 문제 수 계산
+        const concepts = formData.concepts || [];
+        const perConceptCount = parseInt(formData.problemCount || 3);
+        const targetTotal = concepts.length * perConceptCount;
+        const minTotal = Math.min(3, targetTotal); // 최소 1~3개
+        
+        // 2차: 부족한 경우 재시도 또는 템플릿으로 채우기
+        if (questions.length < minTotal || questions.length < targetTotal) {
+            console.log(`⚠️ 문제 부족: ${questions.length}개 (목표: ${targetTotal}개, 최소: ${minTotal}개)`);
+            
+            const need = Math.max(minTotal - questions.length, targetTotal - questions.length);
+            
+            // 3차: 로컬 템플릿으로 부족분 채우기
+            if (need > 0) {
+                console.log(`📦 템플릿으로 ${need}개 문제 생성 중...`);
+                usedFallback = true;
+                
+                const schoolLevel = formData.schoolLevel === 'elementary' ? '초등학교' : '중학교';
+                const rawGrade = formData.grade || 5;
+                let effectiveGrade;
+                if (schoolLevel === '중학교') {
+                    effectiveGrade = Math.max(5, rawGrade + 4);
+                    if (effectiveGrade > 6) effectiveGrade = 6;
+                } else {
+                    effectiveGrade = rawGrade;
+                }
+                
+                // 선택된 개념 목록 재구성
+                let selectedConceptList = [];
+                if (schoolLevel === '중학교' && window.MIDDLE_SCHOOL_TOC) {
+                    const gradeKey = `${rawGrade}학년`;
+                    const semesterKey = `${formData.semester || 1}학기`;
+                    const tocData = window.MIDDLE_SCHOOL_TOC[gradeKey];
+                    
+                    if (tocData && tocData[semesterKey]) {
+                        const units = tocData[semesterKey];
+                        const topicIds = concepts.filter(c => typeof c === 'string' && c.startsWith('T|'));
+                        
+                        topicIds.forEach(id => {
+                            const parts = id.split('|');
+                            if (parts.length === 6) {
+                                const uIdx = parseInt(parts[3]);
+                                const sIdx = parseInt(parts[4]);
+                                const tIdx = parseInt(parts[5]);
+                                const unit = units[uIdx];
+                                if (unit && unit.subunits && unit.subunits[sIdx] && unit.subunits[sIdx].topics) {
+                                    const topic = unit.subunits[sIdx].topics[tIdx];
+                                    if (topic) {
+                                        selectedConceptList.push({
+                                            id: id,
+                                            text: topic,
+                                            unitTitle: unit.title,
+                                            subunitTitle: unit.subunits[sIdx].title
+                                        });
+                                    }
+                                }
+                            }
+                        });
+                    }
+                } else {
+                    concepts.forEach(concept => {
+                        selectedConceptList.push({
+                            id: concept,
+                            text: conceptToText(concept) || concept,
+                            unitTitle: '',
+                            subunitTitle: ''
+                        });
+                    });
+                }
+                
+                // 부족분을 항목별로 균등 분배하여 템플릿 생성
+                const perConceptNeed = Math.ceil(need / selectedConceptList.length);
+                let globalQuestionNumber = questions.length + 1;
+                
+                selectedConceptList.forEach((conceptInfo, conceptIndex) => {
+                    const countForThis = Math.min(perConceptNeed, need - (questions.length - (conceptIndex * perConceptNeed)));
+                    if (countForThis > 0) {
+                        const templateProblems = fallbackGenerate(conceptInfo, countForThis, effectiveGrade);
+                        
+                        templateProblems.forEach((tp, i) => {
+                            const question = {
+                                id: `template-${Date.now()}-${conceptIndex}-${i}-${Math.random().toString(36).substr(2, 9)}`,
+                                type: tp.type || 'template',
+                                number: globalQuestionNumber++,
+                                question: tp.question,
+                                answer: tp.answer,
+                                explanation: tp.explanation || '',
+                                inputPlaceholder: tp.inputPlaceholder || '답을 입력하세요',
+                                meta: { ...tp.meta, isFallback: true },
+                                concept: conceptInfo.text,
+                                problemType: formData.problemType || '기본형',
+                                sourceConcept: conceptInfo.id,
+                                sourceConceptText: conceptInfo.text,
+                                unitTitle: conceptInfo.unitTitle,
+                                subunitTitle: conceptInfo.subunitTitle
+                            };
+                            questions.push(question);
+                        });
+                    }
+                });
+            }
+        }
+        
+        // 최종 검증: questions.length > 0 강제
+        if (questions.length === 0) {
+            console.error('❌ 최종 검증 실패: questions.length === 0, 강제 템플릿 생성');
+            // 최소 1개는 무조건 생성
+            const defaultConcept = {
+                text: '수학',
+                keywords: ['수학'],
+                unitTitle: '',
+                subunitTitle: ''
+            };
+            const defaultProblems = fallbackGenerate(defaultConcept, 1, 5);
+            questions = defaultProblems.map((tp, i) => ({
+                id: `forced-${Date.now()}-${i}`,
+                type: 'template',
+                number: i + 1,
+                question: tp.question,
+                answer: tp.answer,
+                explanation: tp.explanation || '',
+                inputPlaceholder: tp.inputPlaceholder || '답을 입력하세요',
+                meta: { isFallback: true, isForced: true },
+                concept: '수학',
+                problemType: formData.problemType || '기본형',
+                sourceConcept: 'default',
+                sourceConceptText: '수학'
+            }));
+            usedFallback = true;
+        }
+        
+        // 상태 결정
+        if (questions.length > 0) {
+            finalStatus = usedFallback ? 'fallback' : 'success';
+        } else {
+            finalStatus = 'fallback'; // 이론상 도달 불가능하지만 안전장치
+        }
+        
+        console.log(`✅ 최종 결과: ${questions.length}개 문제, 상태: ${finalStatus}`);
+        
+        // 문제 표시 (무조건 questions.length > 0)
+        displayProblems(questions, formData, finalStatus);
+        
+    } catch (error) {
+        console.error('Error in generateProblems:', error);
+        
+        // 에러 발생 시에도 템플릿으로 최소 1개 생성
+        try {
+            const defaultConcept = {
+                text: '수학',
+                keywords: ['수학'],
+                unitTitle: '',
+                subunitTitle: ''
+            };
+            const defaultProblems = fallbackGenerate(defaultConcept, 1, 5);
+            const questions = defaultProblems.map((tp, i) => ({
+                id: `error-fallback-${Date.now()}-${i}`,
+                type: 'template',
+                number: i + 1,
+                question: tp.question,
+                answer: tp.answer,
+                explanation: tp.explanation || '',
+                inputPlaceholder: tp.inputPlaceholder || '답을 입력하세요',
+                meta: { isFallback: true, isErrorFallback: true },
+                concept: '수학',
+                problemType: formData.problemType || '기본형',
+                sourceConcept: 'default',
+                sourceConceptText: '수학'
+            }));
+            
+            displayProblems(questions, formData, 'fallback');
+        } catch (fallbackError) {
+            console.error('Fallback generation also failed:', fallbackError);
+            // 최후의 수단: 정적 문제 1개
+            const problemsList = document.getElementById('problemsList');
+            if (problemsList) {
+                problemsList.innerHTML = `
+                    <div class="problem-item">
+                        <div class="problem-number">문제 1</div>
+                        <div class="problem-stem">5 + 3 = ?</div>
+                        <div class="problem-answer-input">
+                            <input type="text" placeholder="답을 입력하세요" class="answer-input">
+                        </div>
+                        <div class="problem-actions">
+                            <button class="btn-toggle-answer" onclick="toggleAnswer('static-1')">
+                                <span class="toggle-icon">✓</span>
+                                <span class="toggle-text">정답 보기</span>
+                            </button>
+                        </div>
+                        <div class="problem-answer" id="answer-static-1" style="display: none;">
+                            <div class="answer-title">정답</div>
+                            <div class="answer-content">8</div>
+                        </div>
+                    </div>
+                `;
+                if (resultHeader) resultHeader.style.display = 'block';
+            }
+        }
+    } finally {
+        // 무조건 로딩 상태 종료
+        isGenerating = false;
+        
+        // 제출 버튼 복원
+        if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.innerHTML = originalButtonContent;
+        }
+    }
+}
+
+// 로딩 상태 표시 (기본)
 function showLoadingState(container) {
     container.innerHTML = `
         <div class="loading-state">
             <div class="loading-message">문제 생성 중...</div>
             <div class="skeleton-list">
+                ${Array(3).fill(0).map(() => `
+                    <div class="skeleton-item">
+                        <div class="skeleton-line skeleton-title"></div>
+                        <div class="skeleton-line skeleton-content"></div>
+                        <div class="skeleton-line skeleton-content short"></div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+}
+
+// 로딩 상태 표시 (진행 상황 포함)
+function showLoadingStateWithProgress(container, progress = {}) {
+    const { current = 0, total = 0, conceptName = '', status = 'generating', successCount = 0, failureCount = 0 } = progress;
+    
+    let statusText = '문제 생성 중...';
+    let statusIcon = '⏳';
+    let progressBar = '';
+    let conceptInfo = '';
+    
+    if (total > 0) {
+        const percentage = Math.round((current / total) * 100);
+        progressBar = `
+            <div class="progress-bar-container" style="margin: 20px 0;">
+                <div class="progress-bar" style="width: ${percentage}%; background: #4f46e5; height: 8px; border-radius: 4px; transition: width 0.3s;"></div>
+                <div class="progress-text" style="margin-top: 8px; font-size: 0.9rem; color: #666;">
+                    진행: ${current} / ${total} 항목 생성 중
+                </div>
+            </div>
+        `;
+        
+        if (conceptName) {
+            conceptInfo = `
+                <div class="current-concept" style="margin: 10px 0; padding: 12px; background: #f0f9ff; border-radius: 8px; border-left: 4px solid #4f46e5;">
+                    <div style="font-weight: 600; color: #1e40af; margin-bottom: 4px;">현재 항목</div>
+                    <div style="color: #1e3a8a;">${escapeHtml(conceptName)}</div>
+                    ${successCount > 0 || failureCount > 0 ? `
+                        <div style="margin-top: 8px; font-size: 0.85rem; color: #666;">
+                            성공: ${successCount}개 / 실패: ${failureCount}개
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+        
+        if (status === 'completed') {
+            statusText = `항목 "${conceptName}" 완료`;
+            statusIcon = '✅';
+        } else if (status === 'partial') {
+            statusText = `항목 "${conceptName}" 부분 완료 (일부 실패)`;
+            statusIcon = '⚠️';
+        }
+    }
+    
+    container.innerHTML = `
+        <div class="loading-state">
+            <div class="loading-message">
+                ${statusIcon} ${statusText}
+            </div>
+            ${progressBar}
+            ${conceptInfo}
+            <div class="skeleton-list" style="margin-top: 20px;">
                 ${Array(3).fill(0).map(() => `
                     <div class="skeleton-item">
                         <div class="skeleton-line skeleton-title"></div>
@@ -1425,8 +2338,78 @@ function generatePatternProblem(grade) {
     };
 }
 
-// 7종 문제 형식 중 하나를 랜덤 생성
-function generateProblemByType(type, grade) {
+// 6학년 수준 도형 문제 생성 (각기둥, 각뿔 등)
+function generateGeometryProblem(grade, conceptText) {
+    const conceptLower = (conceptText || '').toLowerCase();
+    
+    // 각기둥 관련
+    if (conceptLower.includes('각기둥')) {
+        const base = 3 + Math.floor(grade / 2);
+        const height = 4 + Math.floor(grade / 2);
+        const volume = base * base * height;
+        return {
+            type: 'geometry',
+            question: `밑면이 한 변의 길이가 ${base}cm인 정사각형이고, 높이가 ${height}cm인 정사각기둥의 부피는 몇 ㎤인가요?`,
+            answer: `${volume}㎤`,
+            explanation: `정사각기둥의 부피 = 밑면의 넓이 × 높이 = (${base} × ${base}) × ${height} = ${base * base} × ${height} = ${volume}㎤입니다.`,
+            inputPlaceholder: '답을 입력하세요 (예: 48㎤)',
+            meta: { base, height, volume, shape: '각기둥' }
+        };
+    }
+    
+    // 원기둥 관련
+    if (conceptLower.includes('원기둥')) {
+        const radius = 3 + Math.floor(grade / 2);
+        const height = 5 + Math.floor(grade / 2);
+        const volume = Math.floor(Math.PI * radius * radius * height);
+        return {
+            type: 'geometry',
+            question: `밑면의 반지름이 ${radius}cm이고, 높이가 ${height}cm인 원기둥의 부피는 약 몇 ㎤인가요? (원주율은 3.14로 계산)`,
+            answer: `약 ${volume}㎤`,
+            explanation: `원기둥의 부피 = 밑면의 넓이 × 높이 = (반지름 × 반지름 × 3.14) × 높이 = (${radius} × ${radius} × 3.14) × ${height} = ${Math.floor(radius * radius * 3.14)} × ${height} = 약 ${volume}㎤입니다.`,
+            inputPlaceholder: '답을 입력하세요 (예: 약 141㎤)',
+            meta: { radius, height, volume, shape: '원기둥' }
+        };
+    }
+    
+    // 비와 비율 (6학년 수준)
+    if (conceptLower.includes('비') || conceptLower.includes('비율')) {
+        const a = 12 + grade * 2;
+        const b = 18 + grade * 3;
+        const gcd = calculateGCD(a, b);
+        return {
+            type: 'geometry',
+            question: `${a} : ${b}를 가장 간단한 자연수의 비로 나타내시오.`,
+            answer: `${a / gcd} : ${b / gcd}`,
+            explanation: `${a}과 ${b}의 최대공약수는 ${gcd}입니다. ${a} : ${b} = ${a / gcd} : ${b / gcd}입니다.`,
+            inputPlaceholder: '답을 입력하세요 (예: 2 : 3)',
+            meta: { a, b, gcd, ratio: `${a / gcd}:${b / gcd}` }
+        };
+    }
+    
+    // 기본 도형 문제
+    const side = 5 + grade;
+    return {
+        type: 'geometry',
+        question: `한 변의 길이가 ${side}cm인 정육면체의 부피는 몇 ㎤인가요?`,
+        answer: `${side * side * side}㎤`,
+        explanation: `정육면체의 부피 = 한 변의 길이 × 한 변의 길이 × 한 변의 길이 = ${side} × ${side} × ${side} = ${side * side * side}㎤입니다.`,
+        inputPlaceholder: '답을 입력하세요',
+        meta: { side, volume: side * side * side, shape: '정육면체' }
+    };
+}
+
+// 7종 문제 형식 중 하나를 랜덤 생성 (개념 텍스트 추가로 도형 문제 생성 가능)
+function generateProblemByType(type, grade, conceptText = '') {
+    // 도형 항목이고 5학년 이상이면 도형 전용 문제 생성
+    if (conceptText && (conceptText.includes('각기둥') || conceptText.includes('각뿔') || 
+        conceptText.includes('원기둥') || conceptText.includes('원뿔') || conceptText.includes('구') ||
+        conceptText.includes('입체도형') || conceptText.includes('직육면체') || conceptText.includes('정육면체'))) {
+        if (grade >= 5) {
+            return generateGeometryProblem(grade, conceptText);
+        }
+    }
+    
     switch (type) {
         case PROBLEM_TYPES.DIVISOR:
             return generateDivisorProblem(grade);
@@ -1447,10 +2430,46 @@ function generateProblemByType(type, grade) {
     }
 }
 
-// 개념에 맞는 문제 형식 매핑
+// 개념에 맞는 문제 형식 매핑 (학년별 + 항목별 난이도 반영)
 function getProblemTypesForConcept(conceptText, grade) {
     const conceptLower = conceptText.toLowerCase();
     const types = [];
+    
+    // 도형 관련 (각기둥, 각뿔, 원기둥, 원뿔, 구 등)
+    if (conceptLower.includes('각기둥') || conceptLower.includes('각뿔') || conceptLower.includes('원기둥') || 
+        conceptLower.includes('원뿔') || conceptLower.includes('구') || conceptLower.includes('입체도형') ||
+        conceptLower.includes('직육면체') || conceptLower.includes('정육면체')) {
+        // 도형 항목은 특별한 문제 형식이 필요하므로 별도 처리
+        // 6학년 수준: 각기둥의 전개도, 부피, 겉넓이 등
+        if (grade >= 5) {
+            // 고급 문제 형식 사용 (실제로는 도형 전용 생성 함수 필요)
+            types.push(PROBLEM_TYPES.MIXED_CALC); // 임시로 혼합 계산 사용
+        }
+    }
+    
+    // 평면도형 관련
+    if (conceptLower.includes('평면도형') || conceptLower.includes('도형') && 
+        (conceptLower.includes('뒤집') || conceptLower.includes('돌리') || conceptLower.includes('이동'))) {
+        // 도형 이동/변환 문제
+        if (grade >= 4) {
+            types.push(PROBLEM_TYPES.PATTERN); // 패턴 문제 형식 사용
+        }
+    }
+    
+    // 원의 넓이, 원주율
+    if (conceptLower.includes('원의 넓이') || conceptLower.includes('원주율') || conceptLower.includes('원주')) {
+        if (grade >= 5) {
+            types.push(PROBLEM_TYPES.MIXED_CALC); // 원의 넓이 계산
+        }
+    }
+    
+    // 비와 비율
+    if (conceptLower.includes('비') || conceptLower.includes('비율') || conceptLower.includes('비례')) {
+        if (grade >= 5) {
+            types.push(PROBLEM_TYPES.FRACTION_SIMPLIFY); // 비율 간단히 하기
+            types.push(PROBLEM_TYPES.MIXED_CALC);
+        }
+    }
     
     // 약수 관련
     if (conceptLower.includes('약수') || conceptLower.includes('배수') || conceptLower.includes('공약수') || 
@@ -1492,8 +2511,11 @@ function getProblemTypesForConcept(conceptText, grade) {
     
     // 기본적으로 모든 형식 사용 가능 (개념이 명확하지 않을 때)
     if (types.length === 0) {
-        // 학년에 맞는 기본 형식 제공
-        if (grade >= 5) {
+        // 학년에 맞는 기본 형식 제공 (6학년은 고급 문제)
+        if (grade >= 6) {
+            // 6학년: 약수, 공약수, 분수, 혼합 계산 등 고급 문제
+            types.push(PROBLEM_TYPES.DIVISOR, PROBLEM_TYPES.COMMON_DIVISOR, PROBLEM_TYPES.FRACTION_SIMPLIFY, PROBLEM_TYPES.MIXED_CALC);
+        } else if (grade >= 5) {
             types.push(PROBLEM_TYPES.DIVISOR, PROBLEM_TYPES.COMMON_DIVISOR, PROBLEM_TYPES.FRACTION_SIMPLIFY);
         }
         if (grade >= 3) {
@@ -1511,8 +2533,392 @@ function getProblemTypesForConcept(conceptText, grade) {
     return types;
 }
 
-// 실제 문제 생성 (선택한 개념과 틀린 이유 기반) - questions 배열 반환
-function createSampleProblems(formData) {
+// 순수 연산 문제 판정 (초등 산수 차단)
+function isPureArithmetic(text) {
+    const normalizedText = text.replace(/\s+/g, ' ');
+    // 숫자 연산 패턴 (예: "14 + 19 = ?", "16 + 21 = ?")
+    const hasOp = /[\d)\]]\s*[\+\-\×\*\/÷]\s*[\d(]/.test(normalizedText);
+    // 도형/기하 관련 단어가 있는지 확인
+    const hasGeometryWord = /(도형|격자|대칭|뒤집|회전|돌리|각|이동|평행이동|시계방향|반시계방향|좌표|점|선|면|원|삼각형|사각형|직사각형|평행사변형|다각형|대칭축|대칭선|거울|위아래|좌우)/.test(normalizedText);
+    // 중학교 수준 키워드 확인
+    const hasMiddleSchoolWord = /(경우의 수|나열|곱셈원리|합의 원리|덧셈원리|중복|순서|조건|분류|표|트리|포함|확률|소인수분해|최대공약수|최소공배수|일차방정식|일차함수|이차방정식|인수분해|유리수|정수|방정식|함수|그래프|좌표|기울기|절편)/.test(normalizedText);
+    // 분수 관련 키워드 확인
+    const hasFractionWord = /(분수|분자|분모|약분|통분|크기|같은|비교|\\frac|\\dfrac)/.test(normalizedText);
+    // 두 자리 수 덧셈/뺄셈 패턴 (초등 산수)
+    const isTwoDigitArithmetic = /\d{2}\s*[\+\-]\s*\d{2}\s*=\s*\?/.test(normalizedText);
+    
+    // 분수 항목인 경우: 분수 키워드가 없으면 순수 산수로 판정
+    if (hasOp && !hasFractionWord && !hasGeometryWord && !hasMiddleSchoolWord) {
+        return true;
+    }
+    
+    // 중학교인 경우: 두 자리 덧셈/뺄셈만 있으면 무조건 실패
+    if (isTwoDigitArithmetic && !hasMiddleSchoolWord && !hasFractionWord) {
+        return true;
+    }
+    
+    return false;
+}
+
+// 중학교 난이도 가드레일 (저 수준 문제 전면 차단)
+function validateMiddleSchoolDifficulty(questionText, explanationText, conceptInfo) {
+    const allText = `${questionText} ${explanationText}`.toLowerCase();
+    const { mustIncludeAny = [], unitTitle = '', conceptTitle = '' } = conceptInfo;
+    
+    // 1. 순수 산수 문제 차단
+    if (isPureArithmetic(allText)) {
+        return {
+            valid: false,
+            reason: '초등 산수 문제는 중학교에서 금지됩니다.'
+        };
+    }
+    
+    // 2. 항목별 필수 키워드 확인
+    if (mustIncludeAny && mustIncludeAny.length > 0) {
+        const matched = mustIncludeAny.filter(k => allText.includes(k.toLowerCase()));
+        if (matched.length < 2) {
+            return {
+                valid: false,
+                reason: `필수 키워드 부족: ${matched.length}개 매칭 (최소 2개 필요). 필수 키워드: ${mustIncludeAny.join(', ')}`
+            };
+        }
+    }
+    
+    // 3. 중학교 수준 키워드 확인 (특정 단원별)
+    const conceptLower = (conceptTitle || '').toLowerCase();
+    if (conceptLower.includes('경우의 수') || conceptLower.includes('확률')) {
+        const requiredKeywords = ['경우의 수', '나열', '곱셈원리', '합의 원리', '덧셈원리', '중복', '순서', '조건', '분류', '표', '트리', '포함'];
+        const matched = requiredKeywords.filter(k => allText.includes(k));
+        if (matched.length < 2) {
+            return {
+                valid: false,
+                reason: `경우의 수 키워드 부족: ${matched.length}개 매칭 (최소 2개 필요). 필수 키워드: ${requiredKeywords.join(', ')}`
+            };
+        }
+    }
+    
+    return { valid: true };
+}
+
+// 중복 문제 체크
+function isDuplicateQuestion(newQuestion, existingQuestions) {
+    if (!existingQuestions || existingQuestions.length === 0) return false;
+    
+    // 정규화: 공백, 기호 제거, 소문자 변환
+    const normalize = (text) => {
+        return (text || '').toLowerCase()
+            .replace(/\s+/g, '')
+            .replace(/[^\w가-힣]/g, '');
+    };
+    
+    const newNormalized = normalize(newQuestion.question || newQuestion.stem || '');
+    
+    // 완전 동일 체크
+    for (const existing of existingQuestions) {
+        const existingNormalized = normalize(existing.question || existing.stem || '');
+        if (newNormalized === existingNormalized && newNormalized.length > 0) {
+            return true;
+        }
+    }
+    
+    // 숫자만 바뀐 유사 문항 체크 (핵심 키워드 비교)
+    const extractKeywords = (text) => {
+        const normalized = normalize(text);
+        // 숫자 제거 후 남은 키워드 추출
+        const withoutNumbers = normalized.replace(/\d+/g, '');
+        // 핵심 단어 추출 (2글자 이상)
+        return withoutNumbers.match(/[가-힣]{2,}/g) || [];
+    };
+    
+    const newKeywords = extractKeywords(newQuestion.question || newQuestion.stem || '');
+    
+    for (const existing of existingQuestions) {
+        const existingKeywords = extractKeywords(existing.question || existing.stem || '');
+        
+        // 키워드 유사도 체크 (80% 이상 일치하면 중복으로 간주)
+        if (newKeywords.length > 0 && existingKeywords.length > 0) {
+            const commonKeywords = newKeywords.filter(k => existingKeywords.includes(k));
+            const similarity = commonKeywords.length / Math.max(newKeywords.length, existingKeywords.length);
+            
+            if (similarity >= 0.8) {
+                return true;
+            }
+        }
+    }
+    
+    return false;
+}
+
+// 항목별 문제 검증 (도형 항목 강화)
+function validateQuestionByConcept(qText, explanationText, concept) {
+    const allText = `${qText} ${explanationText}`.replace(/\s+/g, ' ');
+    
+    // 도형 항목인 경우 순수 연산 문제 차단
+    if (concept.domain === 'geometry') {
+        if (isPureArithmetic(allText)) {
+            return {
+                valid: false,
+                reason: '순수 연산 문제는 도형 항목에서 금지됩니다.'
+            };
+        }
+        
+        // mustIncludeAny 중 최소 2개 포함 확인
+        if (concept.mustIncludeAny && concept.mustIncludeAny.length > 0) {
+            const matched = concept.mustIncludeAny.filter(k => allText.includes(k));
+            if (matched.length < 2) {
+                return {
+                    valid: false,
+                    reason: `도형 키워드 부족: ${matched.length}개 매칭 (최소 2개 필요). 필수 키워드: ${concept.mustIncludeAny.join(', ')}`
+                };
+            }
+        }
+    }
+    
+    // mustAvoidAny 확인
+    if (concept.mustAvoidAny && concept.mustAvoidAny.length > 0) {
+        const found = concept.mustAvoidAny.filter(k => allText.includes(k));
+        if (found.length > 0) {
+            return {
+                valid: false,
+                reason: `금지어 포함: ${found.join(', ')}`
+            };
+        }
+    }
+    
+    return { valid: true };
+}
+
+// 항목에서 키워드 추출 (항목 텍스트 기반) - domain, mustIncludeAny, mustAvoidAny 추가
+function extractConceptKeywords(conceptText, unitTitle = '', subunitTitle = '') {
+    const keywords = [];
+    const mustInclude = [];
+    const mustAvoid = [];
+    let domain = 'number'; // 기본값: 수와 연산
+    
+    const text = (conceptText || '').toLowerCase();
+    const unit = (unitTitle || '').toLowerCase();
+    const subunit = (subunitTitle || '').toLowerCase();
+    
+    // 핵심 키워드 추출 (3~8개)
+    const allText = `${text} ${unit} ${subunit}`;
+    
+    // 수학 용어 키워드 매핑
+    const termMap = {
+        '소인수분해': ['소인수분해', '소수', '합성수', '거듭제곱', '약수'],
+        '최대공약수': ['최대공약수', '공약수', '약수', '최대공약수'],
+        '최소공배수': ['최소공배수', '공배수', '배수', '최소공배수'],
+        '약수': ['약수', '나누어떨어지다', '나누어떨어짐'],
+        '배수': ['배수', '곱하기', '곱셈'],
+        '분수': ['분수', '분자', '분모', '약분', '통분'],
+        '직사각형': ['직사각형', '넓이', '가로', '세로', 'cm', 'cm²'],
+        '정수': ['정수', '양수', '음수', '0'],
+        '유리수': ['유리수', '정수', '분수'],
+        '일차방정식': ['일차방정식', '방정식', '해', 'x', '미지수'],
+        '곱셈': ['곱셈', '곱하기', '×', '곱'],
+        '나눗셈': ['나눗셈', '나누기', '÷', '몫', '나머지'],
+        '덧셈': ['덧셈', '더하기', '+', '합'],
+        '뺄셈': ['뺄셈', '빼기', '-', '차']
+    };
+    
+    // 텍스트에서 키워드 매칭
+    for (const [term, words] of Object.entries(termMap)) {
+        if (allText.includes(term) || text.includes(term)) {
+            keywords.push(...words);
+        }
+    }
+    
+    // 텍스트에서 직접 추출
+    const directKeywords = text.match(/[가-힣]{2,}/g) || [];
+    keywords.push(...directKeywords.slice(0, 5));
+    
+    // 중복 제거 및 정리
+    const uniqueKeywords = [...new Set(keywords)].slice(0, 8);
+    
+    // mustInclude: 핵심 용어 1~3개
+    if (text.includes('소인수분해')) mustInclude.push('소인수분해');
+    if (text.includes('최대공약수')) mustInclude.push('최대공약수');
+    if (text.includes('최소공배수')) mustInclude.push('최소공배수');
+    if (text.includes('넓이')) mustInclude.push('넓이');
+    if (text.includes('직사각형')) mustInclude.push('직사각형');
+    if (text.includes('일차방정식')) mustInclude.push('일차방정식');
+    
+    // mustAvoid: 다른 항목과 혼동될 수 있는 용어
+    if (text.includes('소인수분해') && !text.includes('최대공약수')) {
+        mustAvoid.push('최대공약수', '최소공배수');
+    }
+    if (text.includes('직사각형') && text.includes('넓이')) {
+        mustAvoid.push('원', '삼각형', '원의 넓이');
+    }
+    
+    return {
+        keywords: uniqueKeywords.length > 0 ? uniqueKeywords : [text],
+        mustInclude: mustInclude.length > 0 ? mustInclude : (uniqueKeywords.length > 0 ? [uniqueKeywords[0]] : []),
+        mustAvoid: mustAvoid
+    };
+}
+
+// 문제가 항목과 일치하는지 검증 (강화 버전 + 중학교 난이도 가드레일)
+function validateProblemMatchesConcept(problem, conceptInfo, existingQuestions = []) {
+    const { 
+        keywords = [], 
+        mustInclude = [], 
+        mustIncludeAny = [], 
+        mustAvoid = [], 
+        mustAvoidAny = [], 
+        domain = 'number', 
+        gradeLevel = 'elementary',
+        difficultyTag = 'elem',
+        grade = 1 
+    } = conceptInfo;
+    
+    const questionText = problem.question || problem.stem || '';
+    const explanationText = problem.explanation || '';
+    const allText = `${questionText} ${explanationText}`.toLowerCase();
+    
+    // 중복 체크 (먼저 수행)
+    if (isDuplicateQuestion(problem, existingQuestions)) {
+        return {
+            valid: false,
+            reason: '중복 문제입니다.'
+        };
+    }
+    
+    // 중학교 난이도 가드레일 (저 수준 문제 전면 차단)
+    if (gradeLevel === 'middle' || difficultyTag === 'middle' || grade >= 7) {
+        const middleSchoolValidation = validateMiddleSchoolDifficulty(questionText, explanationText, conceptInfo);
+        if (!middleSchoolValidation.valid) {
+            return middleSchoolValidation;
+        }
+    }
+    
+    // domain이 unknown이면 절대 통과시키지 않음
+    if (domain === 'unknown' || !domain) {
+        return {
+            valid: false,
+            reason: `domain이 unknown이거나 비어있습니다. 정규화가 필요합니다.`
+        };
+    }
+    
+    // mustIncludeAny가 비어있으면 검증 실패 (정규화가 필요)
+    if (!mustIncludeAny || mustIncludeAny.length === 0) {
+        return {
+            valid: false,
+            reason: `mustIncludeAny가 비어있습니다. 정규화가 필요합니다.`
+        };
+    }
+    
+    // mustIncludeAny 검증 (최소 매칭 수 확인)
+    const mustIncludeMinHit = conceptInfo.mustIncludeMinHit || 2;
+    if (mustIncludeAny && mustIncludeAny.length > 0) {
+        const matched = mustIncludeAny.filter(k => allText.includes(k.toLowerCase()));
+        if (matched.length < mustIncludeMinHit) {
+            return {
+                valid: false,
+                reason: `필수 키워드 부족: ${matched.length}개 매칭 (최소 ${mustIncludeMinHit}개 필요). 필수 키워드: ${mustIncludeAny.join(', ')}`
+            };
+        }
+    }
+    
+    // mustAvoidAny 확인
+    if (mustAvoidAny && mustAvoidAny.length > 0) {
+        const found = mustAvoidAny.filter(k => allText.includes(k.toLowerCase()));
+        if (found.length > 0) {
+            return {
+                valid: false,
+                reason: `금지어 포함: ${found.join(', ')}`
+            };
+        }
+    }
+    
+    // 도형 항목 강화 검증
+    if (domain === 'geometry') {
+        const geometryValidation = validateQuestionByConcept(questionText, explanationText, {
+            domain: 'geometry',
+            mustIncludeAny: mustIncludeAny.length > 0 ? mustIncludeAny : mustInclude,
+            mustAvoidAny: mustAvoidAny.length > 0 ? mustAvoidAny : mustAvoid
+        });
+        
+        if (!geometryValidation.valid) {
+            return geometryValidation;
+        }
+    }
+    
+    // 확률 항목 강화 검증
+    if (domain === 'probability') {
+        const requiredKeywords = ['경우의 수', '나열', '곱셈원리', '합의 원리', '덧셈원리', '중복', '순서', '조건', '분류', '표', '트리', '포함'];
+        const matched = requiredKeywords.filter(k => allText.includes(k));
+        if (matched.length < 2) {
+            return {
+                valid: false,
+                reason: `확률 키워드 부족: ${matched.length}개 매칭 (최소 2개 필요). 필수 키워드: ${requiredKeywords.join(', ')}`
+            };
+        }
+    }
+    
+    // 분수 항목 강화 검증
+    const conceptTitleLower = (conceptInfo.conceptTitle || conceptInfo.text || '').toLowerCase();
+    const unitTitleLower = (conceptInfo.unitTitle || '').toLowerCase();
+    const hasFractionInTitle = conceptTitleLower.includes('분수') || unitTitleLower.includes('분수');
+    const hasFractionInMustInclude = mustIncludeAny && mustIncludeAny.some(k => k.includes('분수') || k.includes('분자') || k.includes('분모'));
+    
+    if (hasFractionInTitle || hasFractionInMustInclude) {
+        const fractionKeywords = ['분수', '분자', '분모', '약분', '통분', '크기', '같은', '비교', '\\frac', '\\dfrac', 'frac'];
+        const matched = fractionKeywords.filter(k => allText.includes(k.toLowerCase()));
+        if (matched.length < 2) {
+            return {
+                valid: false,
+                reason: `분수 키워드 부족: ${matched.length}개 매칭 (최소 2개 필요). 필수 키워드: ${fractionKeywords.join(', ')}`
+            };
+        }
+        
+        // 순수 산수 문제 차단 (분수 항목인데 덧셈만 있으면 실패)
+        if (isPureArithmetic(allText)) {
+            return {
+                valid: false,
+                reason: '분수 항목인데 순수 산수 문제입니다.'
+            };
+        }
+    }
+    
+    // keywords 중 최소 2개 이상 포함 확인 (도형/확률/분수가 아닌 경우)
+    if (domain !== 'geometry' && domain !== 'probability' && !hasFractionInTitle && !hasFractionInMustInclude && keywords.length > 0) {
+        const matchedKeywords = keywords.filter(kw => allText.includes(kw.toLowerCase()));
+        if (matchedKeywords.length < 2) {
+            return {
+                valid: false,
+                reason: `키워드 부족: ${matchedKeywords.length}개 매칭 (최소 2개 필요). 키워드: ${keywords.join(', ')}`
+            };
+        }
+    }
+    
+    // mustInclude 필수 포함 확인
+    if (mustInclude.length > 0 && domain !== 'geometry' && domain !== 'probability') {
+        const missingRequired = mustInclude.filter(req => !allText.includes(req.toLowerCase()));
+        if (missingRequired.length > 0) {
+            return {
+                valid: false,
+                reason: `필수 키워드 누락: ${missingRequired.join(', ')}`
+            };
+        }
+    }
+    
+    // mustAvoid 금지어 확인
+    const avoidList = mustAvoidAny.length > 0 ? mustAvoidAny : mustAvoid;
+    if (avoidList.length > 0) {
+        const foundForbidden = avoidList.filter(forbidden => allText.includes(forbidden.toLowerCase()));
+        if (foundForbidden.length > 0) {
+            return {
+                valid: false,
+                reason: `금지어 포함: ${foundForbidden.join(', ')}`
+            };
+        }
+    }
+    
+    return { valid: true };
+}
+
+// 실제 문제 생성 (항목별로 N개씩 생성, async + 검증 + 재시도) - questions 배열 반환
+async function createSampleProblems(formData, progressCallback = null) {
     const questions = [];
     const concepts = formData.concepts || [];
     const mistakes = formData.mistakes || [];
@@ -1520,7 +2926,13 @@ function createSampleProblems(formData) {
     const rawGrade = formData.grade || 5;
     const semester = formData.semester || 1;
     const problemType = formData.problemType || '기본형';
-    const problemCount = formData.problemCount || 3;
+    const perConceptCount = parseInt(formData.problemCount || 3); // 항목당 문제 수
+    
+    // 선택된 개념이 없으면 에러
+    if (concepts.length === 0) {
+        console.error('No concepts selected');
+        return questions;
+    }
     
     // 학교급에 따라 학년을 난이도로 변환
     // 중학교는 초등학교보다 높은 난이도로 처리
@@ -1538,7 +2950,7 @@ function createSampleProblems(formData) {
     }
     
     // 중학교인 경우 선택된 토픽 ID를 실제 토픽 텍스트로 변환
-    let selectedTopicLabels = [];
+    let selectedConceptList = [];
     if (schoolLevel === '중학교' && window.MIDDLE_SCHOOL_TOC) {
         const gradeKey = `${rawGrade}학년`;
         const semesterKey = `${semester}학기`;
@@ -1561,100 +2973,370 @@ function createSampleProblems(formData) {
                     if (unit && unit.subunits && unit.subunits[sIdx] && unit.subunits[sIdx].topics) {
                         const topic = unit.subunits[sIdx].topics[tIdx];
                         if (topic) {
-                            selectedTopicLabels.push(topic);
+                            selectedConceptList.push({
+                                id: id,
+                                text: topic,
+                                unitTitle: unit.title,
+                                subunitTitle: unit.subunits[sIdx].title
+                            });
                         }
                     }
                 }
             });
             
-            console.log('Selected topic labels:', selectedTopicLabels);
+            console.log('Selected concepts:', selectedConceptList.length);
         }
+    } else {
+        // 초등학교인 경우
+        concepts.forEach(concept => {
+            selectedConceptList.push({
+                id: concept,
+                text: conceptToText(concept) || concept,
+                unitTitle: '',
+                subunitTitle: ''
+            });
+        });
     }
     
-    // 선택된 개념이 없으면 기본 개념 사용
-    if (concepts.length === 0) {
-        console.warn('No concepts selected, using default');
-    }
-    
-    // 문제 개수만큼 생성
-    for (let i = 0; i < problemCount; i++) {
-        try {
-            let selectedType;
-            let conceptText = '수학';
-            
-            // 선택된 개념에 맞는 문제 형식 선택
-            if (concepts.length > 0) {
-                const concept = concepts[i % concepts.length];
-                
-                // 중학교인 경우 토픽 텍스트 사용, 아니면 기존 방식
-                if (schoolLevel === '중학교' && selectedTopicLabels.length > 0) {
-                    conceptText = selectedTopicLabels[i % selectedTopicLabels.length] || '수학';
-                } else {
-                    conceptText = conceptToText(concept) || '수학';
-                }
-                
-                // 개념에 맞는 문제 형식 목록 가져오기 (effectiveGrade 사용)
-                const availableTypes = getProblemTypesForConcept(conceptText, effectiveGrade);
-                
-                // 사용 가능한 형식 중에서 선택 (7종이 모두 나오도록 순환)
-                if (availableTypes.length > 0) {
-                    selectedType = availableTypes[i % availableTypes.length];
-                } else {
-                    // 사용 가능한 형식이 없으면 기본 형식 사용
-                    const allTypes = Object.values(PROBLEM_TYPES);
-                    selectedType = allTypes[i % allTypes.length];
-                }
+    // 개념 데이터 자동 보정(normalize) 함수
+    function normalizeConcept(conceptInfo) {
+        const conceptTitle = (conceptInfo.conceptTitle || conceptInfo.text || '').toLowerCase();
+        const unitTitle = (conceptInfo.unitTitle || '').toLowerCase();
+        const pathText = conceptInfo.pathText || '';
+        const pathTextLower = pathText.toLowerCase();
+        
+        // 1. domain 자동 추정
+        let domain = conceptInfo.domain || 'number';
+        if (domain === 'unknown' || !domain) {
+            if (conceptTitle.includes('분수') || pathTextLower.includes('분수')) {
+                domain = 'fraction';
+            } else if (conceptTitle.includes('도형') || conceptTitle.includes('각') || conceptTitle.includes('대칭') || 
+                      conceptTitle.includes('회전') || conceptTitle.includes('이동') || pathTextLower.includes('도형')) {
+                domain = 'geometry';
+            } else if (conceptTitle.includes('확률') || conceptTitle.includes('경우의 수') || pathTextLower.includes('확률')) {
+                domain = 'probability';
+            } else if (conceptTitle.includes('방정식') || conceptTitle.includes('함수') || conceptTitle.includes('식')) {
+                domain = 'algebra';
+            } else if (conceptTitle.includes('통계') || conceptTitle.includes('그래프')) {
+                domain = 'statistics';
+            } else if (conceptTitle.includes('측정') || conceptTitle.includes('넓이') || conceptTitle.includes('부피')) {
+                domain = 'measurement';
             } else {
-                // 개념이 없으면 7종 중에서 순환
-                const allTypes = Object.values(PROBLEM_TYPES);
-                selectedType = allTypes[i % allTypes.length];
+                domain = 'number';
+            }
+        }
+        
+        // 2. mustIncludeAny 자동 주입
+        let mustIncludeAny = conceptInfo.mustIncludeAny || [];
+        if (mustIncludeAny.length === 0) {
+            // 도메인별 기본 키워드
+            if (domain === 'fraction') {
+                // 분수 항목
+                if (conceptTitle.includes('크기가 같은') || conceptTitle.includes('같은 분수')) {
+                    mustIncludeAny = ['분수', '크기가 같은', '동치', '같은 크기', '통분', '기약분수', '분모', '분자'];
+                } else if (conceptTitle.includes('덧셈') || conceptTitle.includes('더하기')) {
+                    mustIncludeAny = ['분수', '분자', '분모', '통분', '덧셈', '더하기'];
+                } else if (conceptTitle.includes('뺄셈') || conceptTitle.includes('빼기')) {
+                    mustIncludeAny = ['분수', '분자', '분모', '통분', '뺄셈', '빼기'];
+                } else {
+                    mustIncludeAny = ['분수', '분자', '분모', '약분', '통분'];
+                }
+            } else if (domain === 'geometry') {
+                if (conceptTitle.includes('뒤집') || conceptTitle.includes('대칭')) {
+                    mustIncludeAny = ['뒤집', '대칭', '선대칭', '거울', '좌우', '위아래', '격자', '점'];
+                } else if (conceptTitle.includes('돌리') || conceptTitle.includes('회전')) {
+                    mustIncludeAny = ['돌리', '회전', '시계방향', '반시계방향', '90도', '180도', '270도', '각'];
+                } else if (conceptTitle.includes('이동')) {
+                    mustIncludeAny = ['이동', '평행이동', '몇 칸', '격자', '무늬', '반복', '규칙'];
+                } else {
+                    mustIncludeAny = ['도형', '각', '격자', '점', '선'];
+                }
+            } else if (domain === 'probability') {
+                mustIncludeAny = ['경우의 수', '나열', '곱셈원리', '덧셈원리', '조건', '분류', '표', '트리', '중복', '순서'];
+            } else {
+                // number 도메인 - 키워드 추출
+                const keywordData = extractConceptKeywords(conceptInfo.conceptTitle || conceptInfo.text, conceptInfo.unitTitle, conceptInfo.subunitTitle);
+                mustIncludeAny = keywordData.mustInclude || keywordData.keywords.slice(0, 3) || [];
+            }
+        }
+        
+        // 3. mustIncludeMinHit 설정
+        const mustIncludeMinHit = conceptInfo.mustIncludeMinHit || 2;
+        
+        return {
+            ...conceptInfo,
+            domain: domain,
+            mustIncludeAny: mustIncludeAny,
+            mustIncludeMinHit: mustIncludeMinHit,
+            // 하위 호환성
+            gradeLevel: conceptInfo.schoolLevel === 'middle' || conceptInfo.schoolLevel === '중학교' ? 'middle' : 'elementary',
+            difficulty: conceptInfo.difficultyTag === 'middle' ? 'middle' : 'elementary'
+        };
+    }
+    
+    // 각 항목에 keywords 추가 및 정규화 (normalizeConcept 함수 사용)
+    const enrichedConceptList = selectedConceptList.map(conceptInfo => {
+        // 먼저 정규화 (domain, mustIncludeAny 자동 보정)
+        const normalized = normalizeConcept(conceptInfo);
+        
+        // keywords 추출
+        const keywordData = extractConceptKeywords(normalized.conceptTitle || normalized.text, normalized.unitTitle, normalized.subunitTitle);
+        
+        return {
+            ...normalized,
+            keywords: keywordData.keywords || [],
+            mustInclude: keywordData.mustInclude || [],
+            mustAvoid: keywordData.mustAvoid || [],
+            mustAvoidAny: normalized.mustIncludeAny.length > 0 ? normalized.mustIncludeAny : (keywordData.mustInclude || []),
+            mustAvoidAny: normalized.mustAvoidAny || keywordData.mustAvoid || []
+        };
+    });
+    
+    // 디버그 로그
+    if (console && console.log) {
+        console.log('📊 문제 생성 시작:', {
+            항목수: enrichedConceptList.length,
+            항목당문제수: perConceptCount,
+            총예상문제수: enrichedConceptList.length * perConceptCount,
+            학년: rawGrade,
+            학기: semester
+        });
+    }
+    
+    // 각 항목별로 N개씩 문제 생성 (순차 처리, 타임아웃 + 검증 + 재시도)
+    let globalQuestionNumber = 1;
+    const conceptResults = []; // 항목별 결과 저장
+    
+    for (let conceptIndex = 0; conceptIndex < enrichedConceptList.length; conceptIndex++) {
+        const conceptInfo = enrichedConceptList[conceptIndex];
+        const conceptText = conceptInfo.text;
+        
+        // 진행 상황 업데이트
+        if (progressCallback) {
+            progressCallback({
+                current: conceptIndex + 1,
+                total: enrichedConceptList.length,
+                conceptName: conceptText,
+                status: 'generating'
+            });
+        }
+        
+        const conceptQuestions = [];
+        let successCount = 0;
+        let failureCount = 0;
+        
+        // 각 항목당 perConceptCount개씩 생성 (검증 + 재시도)
+        for (let i = 0; i < perConceptCount; i++) {
+            let problemData = null;
+            let validationResult = null;
+            let attempts = 0;
+            const maxAttempts = 3; // 최대 3회 시도
+            
+            while (attempts < maxAttempts && !validationResult?.valid) {
+                attempts++;
+                
+                try {
+                    // 타임아웃 설정 (25초)
+                    const timeoutPromise = new Promise((_, reject) => {
+                        setTimeout(() => reject(new Error('타임아웃: 25초 초과')), 25000);
+                    });
+                    
+                    // 문제 생성 (동기 함수이므로 Promise로 감싸기)
+                    const generatePromise = new Promise((resolve) => {
+                        try {
+                            let selectedType;
+                            
+                            // 개념에 맞는 문제 형식 목록 가져오기
+                            const availableTypes = getProblemTypesForConcept(conceptText, effectiveGrade);
+                            
+                            if (availableTypes.length > 0) {
+                                selectedType = availableTypes[i % availableTypes.length];
+                            } else {
+                                const allTypes = Object.values(PROBLEM_TYPES);
+                                selectedType = allTypes[i % allTypes.length];
+                            }
+                            
+                            // 문제 생성 (개념 텍스트 전달로 도형 문제 생성 가능)
+                            const generated = generateProblemByType(selectedType, effectiveGrade, conceptText);
+                            
+                            // 기본 검증
+                            if (!generated || !generated.question || !generated.answer) {
+                                const fallback = generateDivisorProblem(effectiveGrade);
+                                resolve(fallback);
+                            } else {
+                                resolve(generated);
+                            }
+                        } catch (err) {
+                            console.error('Generation error:', err);
+                            resolve(generateDivisorProblem(effectiveGrade));
+                        }
+                    });
+                    
+                    // 타임아웃과 함께 실행
+                    problemData = await Promise.race([generatePromise, timeoutPromise]);
+                    
+                    // 항목 일치 검증 (중복 체크 포함)
+                    validationResult = validateProblemMatchesConcept(problemData, conceptInfo, conceptQuestions);
+                    
+                    if (!validationResult.valid) {
+                        if (attempts < maxAttempts) {
+                            // 디버그 로그
+                            if (console && console.warn) {
+                                console.warn(`⚠️ 검증 실패 (시도 ${attempts}/${maxAttempts}):`, {
+                                    항목: conceptText,
+                                    문제번호: i + 1,
+                                    사유: validationResult.reason
+                                });
+                            }
+                            // 재시도 전 잠시 대기
+                            await new Promise(resolve => setTimeout(resolve, 500));
+                        }
+                    }
+                } catch (error) {
+                    console.error(`❌ 문제 생성 오류 (항목: ${conceptText}, 시도: ${attempts}):`, error);
+                    
+                    if (attempts >= maxAttempts) {
+                        // 최대 시도 횟수 초과
+                        validationResult = {
+                            valid: false,
+                            reason: error.message || '생성 실패'
+                        };
+                    } else {
+                        // 재시도
+                        await new Promise(resolve => setTimeout(resolve, 1000));
+                    }
+                }
             }
             
-            // 문제 생성 (effectiveGrade 사용 - 학교급 반영)
-            const problemData = generateProblemByType(selectedType, effectiveGrade);
-            
-            // 문제 데이터 검증
-            if (!problemData || !problemData.question || !problemData.answer) {
-                console.error('Problem generation failed for type:', selectedType);
-                // 기본 문제로 대체
-                const fallbackProblem = generateDivisorProblem(effectiveGrade);
-                problemData = fallbackProblem;
+            // 최종 결과 처리
+            if (validationResult?.valid && problemData) {
+                // 키워드 매칭 개수 계산 (디버그용)
+                const allText = `${problemData.question || ''} ${problemData.explanation || ''}`.toLowerCase();
+                const matchedKeywords = (conceptInfo.mustIncludeAny || []).filter(k => allText.includes(k.toLowerCase())).length;
+                const totalKeywords = conceptInfo.mustIncludeAny?.length || 0;
+                
+                // 문제 객체 생성 (LaTeX 분리)
+                const questionLatex = problemData.questionLatex || (problemData.question && (problemData.question.includes('\\frac') || problemData.question.includes('\\dfrac')) ? problemData.question : null);
+                const questionText = problemData.questionText || (questionLatex ? null : problemData.question);
+                const answerLatex = problemData.answerLatex || (problemData.answer && (problemData.answer.includes('\\frac') || problemData.answer.includes('\\dfrac')) ? problemData.answer : null);
+                const answerText = problemData.answerText || (answerLatex ? null : problemData.answer);
+                
+                const question = {
+                    id: `problem-${Date.now()}-${conceptIndex}-${i}-${Math.random().toString(36).substr(2, 9)}`,
+                    type: problemData.type,
+                    number: globalQuestionNumber++,
+                    question: questionText || questionLatex || problemData.question, // 하위 호환성
+                    questionText: questionText,
+                    questionLatex: questionLatex,
+                    answer: answerText || answerLatex || problemData.answer, // 하위 호환성
+                    answerText: answerText,
+                    answerLatex: answerLatex,
+                    explanation: problemData.explanation || '',
+                    inputPlaceholder: problemData.inputPlaceholder || '답을 입력하세요',
+                    meta: problemData.meta || {},
+                    concept: conceptText,
+                    problemType: problemType,
+                    sourceConcept: conceptInfo.conceptId || conceptInfo.id,
+                    sourceConceptText: conceptText,
+                    pathText: conceptInfo.pathText || '',
+                    unitTitle: conceptInfo.unitTitle || '',
+                    subunitTitle: conceptInfo.subunitTitle || '',
+                    domain: conceptInfo.domain || 'number',
+                    matchedKeywords: matchedKeywords,
+                    totalKeywords: totalKeywords,
+                    conceptIndex: conceptIndex,
+                    problemIndex: i + 1
+                };
+                
+                conceptQuestions.push(question);
+                questions.push(question);
+                successCount++;
+            } else {
+                // 실패 처리: 템플릿으로 대체
+                failureCount++;
+                if (console && console.error) {
+                    console.error(`❌ 항목 "${conceptText}" 문제 ${i + 1} 생성 실패:`, validationResult?.reason || '알 수 없는 오류');
+                }
+                
+                // 템플릿으로 대체 시도
+                try {
+                    const templateProblems = fallbackGenerate(conceptInfo, 1, effectiveGrade);
+                    if (templateProblems && templateProblems.length > 0) {
+                        const templateProblem = templateProblems[0];
+                        // 템플릿 문제도 검증
+                        const templateValidation = validateProblemMatchesConcept(templateProblem, conceptInfo, conceptQuestions);
+                        if (templateValidation.valid) {
+                            // 키워드 매칭 개수 계산 (디버그용)
+                            const allText = `${templateProblem.question || ''} ${templateProblem.explanation || ''}`.toLowerCase();
+                            const matchedKeywords = (conceptInfo.mustIncludeAny || []).filter(k => allText.includes(k.toLowerCase())).length;
+                            const totalKeywords = conceptInfo.mustIncludeAny?.length || 0;
+                            
+                            const question = {
+                                id: `problem-${Date.now()}-${conceptIndex}-${i}-${Math.random().toString(36).substr(2, 9)}`,
+                                type: templateProblem.type || 'template',
+                                number: globalQuestionNumber++,
+                                question: templateProblem.question,
+                                answer: templateProblem.answer,
+                                explanation: templateProblem.explanation || '',
+                                inputPlaceholder: templateProblem.inputPlaceholder || '답을 입력하세요',
+                                meta: { ...templateProblem.meta, isFallback: true },
+                                concept: conceptText,
+                                problemType: problemType,
+                                sourceConcept: conceptInfo.conceptId || conceptInfo.id,
+                                sourceConceptText: conceptText,
+                                pathText: conceptInfo.pathText || '',
+                                unitTitle: conceptInfo.unitTitle || '',
+                                subunitTitle: conceptInfo.subunitTitle || '',
+                                domain: conceptInfo.domain || 'number',
+                                matchedKeywords: matchedKeywords,
+                                totalKeywords: totalKeywords,
+                                conceptIndex: conceptIndex,
+                                problemIndex: i + 1
+                            };
+                            
+                            conceptQuestions.push(question);
+                            questions.push(question);
+                            successCount++;
+                            failureCount--;
+                        }
+                    }
+                } catch (err) {
+                    console.error('템플릿 생성 오류:', err);
+                }
             }
-            
-            // 문제 객체 생성
-            const question = {
-                id: `problem-${Date.now()}-${i}-${Math.random().toString(36).substr(2, 9)}`,
-                type: problemData.type,
-                number: i + 1,
-                question: problemData.question,
-                answer: problemData.answer,
-                explanation: problemData.explanation || '',
-                inputPlaceholder: problemData.inputPlaceholder || '답을 입력하세요',
-                meta: problemData.meta || {},
-                concept: conceptText,
-                problemType: problemType
-            };
-            
-            questions.push(question);
-        } catch (error) {
-            console.error('Error generating problem:', error);
-            // 에러 발생 시 기본 문제 생성
-            const fallbackProblem = generateDivisorProblem(effectiveGrade);
-            const question = {
-                id: `problem-${Date.now()}-${i}-fallback`,
-                type: PROBLEM_TYPES.DIVISOR,
-                number: i + 1,
-                question: fallbackProblem.question,
-                answer: fallbackProblem.answer,
-                explanation: fallbackProblem.explanation,
-                inputPlaceholder: fallbackProblem.inputPlaceholder,
-                meta: fallbackProblem.meta,
-                concept: concepts.length > 0 ? conceptToText(concepts[i % concepts.length]) : '수학',
-                problemType: problemType
-            };
-            questions.push(question);
+        }
+        
+        // 항목별 결과 저장
+        conceptResults.push({
+            conceptInfo: conceptInfo,
+            successCount: successCount,
+            failureCount: failureCount,
+            questions: conceptQuestions
+        });
+        
+        // 진행 상황 업데이트 (완료)
+        if (progressCallback) {
+            progressCallback({
+                current: conceptIndex + 1,
+                total: enrichedConceptList.length,
+                conceptName: conceptText,
+                status: failureCount > 0 ? 'partial' : 'completed',
+                successCount: successCount,
+                failureCount: failureCount
+            });
         }
     }
+    
+    // 최종 로그
+    const totalSuccess = conceptResults.reduce((sum, r) => sum + r.successCount, 0);
+    const totalFailure = conceptResults.reduce((sum, r) => sum + r.failureCount, 0);
+    
+    console.log(`✅ 문제 생성 완료:`, {
+        총생성: questions.length,
+        성공: totalSuccess,
+        실패: totalFailure,
+        항목수: enrichedConceptList.length
+    });
     
     return questions;
 }
@@ -1956,47 +3638,210 @@ function generateMiddleSchoolQuestion(concept, mistake, grade, problemType) {
 */
 
 // 문제 표시 (questions 배열 기반)
-function displayProblems(questions, formData) {
+function displayProblems(questions, formData, status = 'success') {
     const problemsList = document.getElementById('problemsList');
+    const resultHeader = document.querySelector('.result-header');
+    const resultHeaderTitle = resultHeader ? resultHeader.querySelector('h2') : null;
+    
     if (!problemsList) return;
     
+    // questions.length > 0 강제 검증
     if (!questions || questions.length === 0) {
-        showEmptyState(problemsList);
+        console.error('❌ displayProblems 호출 시 questions.length === 0, 이는 절대 발생하면 안 됨');
+        // 이론상 도달 불가능하지만 안전장치: 즉시 폴백 생성
         return;
     }
     
-    problemsList.innerHTML = questions.map((question, index) => {
-        // 문제 본문 가져오기 (question 필드 우선, 없으면 stem)
-        const questionText = question.question || question.stem || questionToPrompt(question) || '문제 생성에 실패했습니다. 다시 생성해 주세요.';
+    // result-header 표시 (questions.length > 0이므로 무조건 표시)
+    if (resultHeader) {
+        resultHeader.style.display = 'block';
         
-        return `
-        <div class="problem-item" data-question-id="${question.id}">
-            <div class="problem-number">문제 ${question.number || index + 1}</div>
-            <div class="problem-stem">${escapeHtml(questionText)}</div>
-            <div class="problem-answer-input">
-                <input type="text" placeholder="${escapeHtml(question.inputPlaceholder || '답을 입력하세요')}" class="answer-input" id="answer-input-${question.id}">
+        // 상태에 따른 배너 문구 변경
+        if (resultHeaderTitle) {
+            if (status === 'success') {
+                resultHeaderTitle.textContent = '✔ 맞춤형 변형문제가 생성되었습니다!';
+            } else if (status === 'partial' || status === 'fallback') {
+                resultHeaderTitle.textContent = '✔ 문제가 생성되었습니다!';
+            } else {
+                resultHeaderTitle.textContent = '✔ 맞춤형 변형문제가 생성되었습니다!';
+            }
+        }
+    }
+    
+    // 총합 정보 계산
+    const totalConcepts = new Set(questions.map(q => q.sourceConcept || q.concept)).size;
+    const totalProblems = questions.length;
+    const perConceptCount = formData.problemCount || 3;
+    
+    // 항목별로 그룹화
+    const groupedByConcept = {};
+    questions.forEach(question => {
+        const conceptKey = question.sourceConcept || question.concept || '기타';
+        if (!groupedByConcept[conceptKey]) {
+            groupedByConcept[conceptKey] = {
+                conceptText: question.sourceConceptText || question.concept || '기타',
+                unitTitle: question.unitTitle || '',
+                subunitTitle: question.subunitTitle || '',
+                problems: []
+            };
+        }
+        groupedByConcept[conceptKey].problems.push(question);
+    });
+    
+    // 항목별로 HTML 생성
+    let html = '';
+    
+    // 총합 표시 추가
+    html += `
+    <div class="total-summary" style="margin-bottom: 30px; padding: 15px; background: #f0f9ff; border-radius: 8px; border-left: 4px solid #4f46e5;">
+        <div style="font-weight: 600; color: #1e40af; margin-bottom: 8px;">생성된 문제 요약</div>
+        <div style="color: #1e3a8a; font-size: 0.95rem;">
+            선택 항목: <strong>${totalConcepts}개</strong> / 항목당: <strong>${perConceptCount}개</strong> / 총 문제: <strong>${totalProblems}개</strong>
+        </div>
+    </div>
+    `;
+    Object.keys(groupedByConcept).forEach((conceptKey, groupIndex) => {
+        const group = groupedByConcept[conceptKey];
+        
+        // pathText 사용 (없으면 생성)
+        let conceptDisplayName = group.pathText || '';
+        if (!conceptDisplayName) {
+            if (group.unitTitle && group.subunitTitle) {
+                conceptDisplayName = `${group.unitTitle} > ${group.subunitTitle} > ${group.conceptText}`;
+            } else if (group.unitTitle) {
+                conceptDisplayName = `${group.unitTitle} > ${group.conceptText}`;
+            } else if (group.subunitTitle) {
+                conceptDisplayName = `${group.subunitTitle} > ${group.conceptText}`;
+            } else {
+                conceptDisplayName = group.conceptText;
+            }
+        }
+        
+        html += `
+        <div class="concept-group" data-concept-key="${escapeHtml(conceptKey)}">
+            <div class="concept-group-header">
+                <h4 class="concept-group-title">${groupIndex + 1}) ${escapeHtml(conceptDisplayName)} (총 ${group.problems.length}문제)</h4>
             </div>
-            <div class="problem-actions">
-                <button class="btn-toggle-answer" onclick="toggleAnswer('${question.id}')" aria-expanded="false" aria-controls="answer-${question.id}">
-                    <span class="toggle-icon">✓</span>
-                    <span class="toggle-text" id="answer-toggle-text-${question.id}">정답 보기</span>
-                </button>
-                <button class="btn-toggle-explanation" onclick="toggleExplanation('${question.id}')" aria-expanded="false" aria-controls="explanation-${question.id}">
-                    <span class="toggle-icon">💡</span>
-                    <span class="toggle-text" id="explanation-toggle-text-${question.id}">해설 보기</span>
-                </button>
+            <div class="concept-group-problems">
+        `;
+        
+        group.problems.forEach((question, index) => {
+            const questionText = question.question || question.stem || questionToPrompt(question) || '문제 생성에 실패했습니다. 다시 생성해 주세요.';
+            const questionLatex = question.questionLatex || question.question; // LaTeX가 있으면 사용
+            
+            // 개발 모드: 디버그 정보 추가 (기본 숨김)
+            const isDevMode = (() => {
+                // URL 쿼리 파라미터 확인
+                const urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.get('debug') === '1') return true;
+                // localStorage 확인
+                if (localStorage.getItem('debug') === '1') return true;
+                return false;
+            })();
+            
+            let debugInfo = '';
+            if (isDevMode) {
+                const pathText = question.pathText || conceptDisplayName;
+                const domain = question.domain || group.domain || 'unknown';
+                const matchedKeywords = question.matchedKeywords || 0;
+                const totalKeywords = question.totalKeywords || 0;
+                debugInfo = `
+                <div class="debug-info" style="font-size: 0.75rem; color: #666; margin-bottom: 8px; padding: 4px 8px; background: #f5f5f5; border-radius: 4px;">
+                    <strong>디버그:</strong> pathText: ${escapeHtml(pathText)} | domain: ${domain} | 키워드 매칭: ${matchedKeywords}/${totalKeywords}
+                </div>
+                `;
+            }
+            
+            // LaTeX 렌더링 여부 확인
+            const hasLatex = questionLatex && (questionLatex.includes('\\frac') || questionLatex.includes('\\dfrac'));
+            const questionDisplay = hasLatex 
+                ? `<div class="math-display" data-latex="${escapeHtml(questionLatex)}"></div>`
+                : `<div class="problem-stem">${escapeHtml(questionText)}</div>`;
+            
+            html += `
+            <div class="problem-item" data-question-id="${question.id}">
+                ${debugInfo}
+                <div class="problem-number">문제 ${question.number || (groupIndex * 100 + index + 1)}</div>
+                ${questionDisplay}
+                <div class="problem-answer-input">
+                    <input type="text" placeholder="${escapeHtml(question.inputPlaceholder || '답을 입력하세요')}" class="answer-input" id="answer-input-${question.id}">
+                </div>
+                <div class="problem-actions">
+                    <button class="btn-toggle-answer" onclick="toggleAnswer('${question.id}')" aria-expanded="false" aria-controls="answer-${question.id}">
+                        <span class="toggle-icon">✓</span>
+                        <span class="toggle-text" id="answer-toggle-text-${question.id}">정답 보기</span>
+                    </button>
+                    <button class="btn-toggle-explanation" onclick="toggleExplanation('${question.id}')" aria-expanded="false" aria-controls="explanation-${question.id}">
+                        <span class="toggle-icon">💡</span>
+                        <span class="toggle-text" id="explanation-toggle-text-${question.id}">해설 보기</span>
+                    </button>
+                </div>
+                <div class="problem-answer" id="answer-${question.id}" style="display: none;" role="region" aria-labelledby="answer-toggle-text-${question.id}">
+                    <div class="answer-title">정답</div>
+                    <div class="answer-content">
+                        ${(() => {
+                            const answerText = question.answer || '정답이 없습니다.';
+                            const answerLatex = question.answerLatex || (answerText && (answerText.includes('\\frac') || answerText.includes('\\dfrac')) ? answerText : null);
+                            if (answerLatex) {
+                                return `<div class="math-display" data-latex="${escapeHtml(answerLatex)}"></div>`;
+                            }
+                            return escapeHtml(answerText);
+                        })()}
+                    </div>
+                </div>
+                <div class="problem-explanation" id="explanation-${question.id}" style="display: none;" role="region" aria-labelledby="explanation-toggle-text-${question.id}">
+                    <div class="explanation-title">해설</div>
+                    <div class="explanation-content">
+                        ${(() => {
+                            const explText = question.explanation || '해설이 없습니다.';
+                            // 해설 내 LaTeX 수식 렌더링
+                            return explText.split('\n').map(line => {
+                                if (line.includes('\\frac') || line.includes('\\dfrac')) {
+                                    return `<div class="math-display" data-latex="${escapeHtml(line)}"></div>`;
+                                }
+                                return escapeHtml(line) + '<br>';
+                            }).join('');
+                        })()}
+                    </div>
+                </div>
             </div>
-            <div class="problem-answer" id="answer-${question.id}" style="display: none;" role="region" aria-labelledby="answer-toggle-text-${question.id}">
-                <div class="answer-title">정답</div>
-                <div class="answer-content">${escapeHtml(question.answer || '정답이 없습니다.')}</div>
-            </div>
-            <div class="problem-explanation" id="explanation-${question.id}" style="display: none;" role="region" aria-labelledby="explanation-toggle-text-${question.id}">
-                <div class="explanation-title">해설</div>
-                <div class="explanation-content">${escapeHtml(question.explanation || '해설이 없습니다.')}</div>
+            `;
+        });
+        
+        html += `
             </div>
         </div>
-    `;
-    }).join('');
+        `;
+    });
+    
+    problemsList.innerHTML = html;
+    
+    // KaTeX 렌더링 적용
+    if (window.katex) {
+        document.querySelectorAll('.math-display[data-latex]').forEach(el => {
+            try {
+                const latex = el.getAttribute('data-latex');
+                katex.render(latex, el, {
+                    throwOnError: false,
+                    displayMode: false
+                });
+            } catch (e) {
+                console.error('KaTeX 렌더링 오류:', e);
+                el.textContent = el.getAttribute('data-latex');
+            }
+        });
+    } else if (window.renderMathInElement) {
+        // auto-render 사용
+        renderMathInElement(problemsList, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\[', right: '\\]', display: true},
+                {left: '\\(', right: '\\)', display: false}
+            ],
+            throwOnError: false
+        });
+    }
     
     // 결과 정보 업데이트
     const resultInfo = document.getElementById('resultInfo');
@@ -2009,6 +3854,11 @@ function displayProblems(questions, formData) {
     // 세션 스토리지에 문제 데이터 저장
     sessionStorage.setItem('generatedProblems', JSON.stringify(questions));
     sessionStorage.setItem('currentFormData', JSON.stringify(formData));
+}
+
+// GCD 계산 (최대공약수) - 기존 gcd 함수 사용
+function calculateGCD(a, b) {
+    return gcd(a, b);
 }
 
 // 정답 토글
@@ -2155,7 +4005,7 @@ function adjustDifficulty(direction) {
 }
 
 // 문제 재생성
-function regenerate() {
+async function regenerate() {
     const formData = JSON.parse(sessionStorage.getItem('problemFormData') || '{}');
     if (Object.keys(formData).length === 0) {
         alert('데이터를 찾을 수 없습니다. 처음부터 다시 시작해주세요.');
@@ -2165,7 +4015,7 @@ function regenerate() {
     
     // 결과 페이지에서 재생성하는 경우
     if (document.getElementById('problemsList')) {
-        generateProblems(formData);
+        await generateProblems(formData);
     } else {
         // create 페이지로 이동
         window.location.href = 'create.html';

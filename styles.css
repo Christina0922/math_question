@@ -5,6 +5,29 @@
     box-sizing: border-box;
 }
 
+/* ===== 가로 밀림(오버플로우) 원천 차단 ===== */
+html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* 이미지/캔버스/표 등 큰 요소가 튀지 않게 */
+img, svg, canvas, video {
+    max-width: 100%;
+    height: auto;
+}
+
+/* 긴 문자열(수식/긴 URL/영문) 때문에 튀는 것 방지 */
+* {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
 :root {
     --primary-color: #4F46E5;
     --primary-hover: #4338CA;
@@ -17,13 +40,13 @@
     --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
     
-    /* 타이포그래피 스케일 (PC) */
-    --fs-body: 18px;
-    --fs-small: 16px;
-    --fs-h1: 44px;
-    --fs-h2: 28px;
-    --fs-h3: 20px;
-    --fs-h4: 18px;
+    /* 타이포그래피 스케일 (rem 기반) */
+    --fs-body: 1rem;
+    --fs-small: 0.9rem;
+    --fs-h1: 1.8rem;
+    --fs-h2: 1.5rem;
+    --fs-h3: 1.25rem;
+    --fs-h4: 1rem;
     
     /* 줄간격 */
     --lh-body: 1.6;
@@ -38,22 +61,57 @@
     --card-min-height: 180px;
 }
 
+/* ✅ 실물 비례 폰트: 화면이 작으면 작아지고, 크면 커지되 과하지 않게 제한 */
+html {
+    /* 모바일(360px 근처) ≈ 14px, 태블릿/노트북은 15~16px로 자연스럽게 */
+    font-size: clamp(14px, 0.9vw + 11px, 16px);
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-    font-size: var(--fs-body);
+    font-size: 1rem;
     color: var(--text-color);
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
-    line-height: var(--lh-body);
+    line-height: 1.6;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* 제목/카드/버튼 폰트를 전부 rem 기반으로 통일 */
+h1 { 
+    font-size: 1.8rem; 
+    line-height: 1.25; 
+}
+
+h2 { 
+    font-size: 1.5rem; 
+    line-height: 1.3; 
+}
+
+h3 { 
+    font-size: 1.25rem; 
+    line-height: 1.35; 
+}
+
+p, li, label, input, button {
+    font-size: 1rem; /* 기본은 1rem */
+}
+
+small {
+    font-size: 0.9rem;
 }
 
 .container {
-    max-width: var(--container-max-width);
+    width: min(1100px, 100%);
+    max-width: 100%;
     margin: 0 auto;
-    padding: 0 var(--container-padding);
+    padding: 0 16px;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
 }
 
 /* Hero 섹션 */
@@ -872,6 +930,34 @@ header h1 {
     margin-bottom: 40px;
 }
 
+/* 항목별 그룹 스타일 */
+.concept-group {
+    margin-bottom: 40px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid #e9ecef;
+}
+
+.concept-group-header {
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.concept-group-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.concept-group-problems {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 .problem-item {
     background: var(--bg-light);
     border-radius: 12px;
@@ -1639,19 +1725,19 @@ footer,
 /* 반응형 디자인 */
 @media (max-width: 768px) {
     :root {
-        --fs-body: 16px;
-        --fs-h1: 32px;
-        --fs-h2: 24px;
-        --fs-h3: 18px;
+        --fs-body: 1rem;
+        --fs-h1: 1.8rem;
+        --fs-h2: 1.5rem;
+        --fs-h3: 1.25rem;
         --section-spacing: 48px;
     }
     
     .container {
-        padding: 0 20px;
+        padding: 0 16px;
     }
     
     header h1 {
-        font-size: var(--fs-h1);
+        font-size: clamp(1.5rem, 4vw, 2.5rem);
     }
 
     .subtitle {
@@ -1767,9 +1853,10 @@ body {
 }
 
 main, .container, .wrapper, .app {
-    max-width: 1400px;
-    width: calc(100% - 48px);
+    max-width: min(1400px, 100%);
+    width: 100%;
     margin: 0 auto;
+    overflow-x: hidden;
 }
 
 /* STEP4 체크리스트를 2~3열로 자동 배치 (오른쪽 공백 활용) - 주석 처리: 래퍼 div에 그리드 적용하도록 변경 */
@@ -2235,7 +2322,7 @@ main, .container, .wrapper, .app {
   font-weight: 700 !important;
   color: #2f5bff !important;
   margin: 4px 0 10px !important;
-  font-size: 16px !important;
+  font-size: 1rem !important;
   padding-bottom: 8px !important;
   border-bottom: 2px solid #e5e7eb !important;
 }
@@ -2289,7 +2376,7 @@ main, .container, .wrapper, .app {
 #conceptGroup .unit-title{
   font-weight: 700;
   margin-bottom: 12px;
-  font-size: 16px;
+  font-size: 1rem;
   color: #4F46E5;
   padding-bottom: 8px;
   border-bottom: 2px solid #e5e7eb;
@@ -2321,7 +2408,7 @@ main, .container, .wrapper, .app {
 
 /* STEP4: 개념 선택 가독성 개선 */
 .concept-selector {
-  font-size: 18px;              /* 전체 기본 글씨 (STEP5와 동일) */
+  font-size: 1rem;
   line-height: 1.55;
 }
 
@@ -2343,22 +2430,22 @@ main, .container, .wrapper, .app {
 
 /* 단원(큰 제목) */
 .concept-selector .unit-title {
-  font-size: 20px !important;
+  font-size: 1.15rem !important;
   font-weight: 800 !important;
   margin-bottom: 8px !important;
 }
 
 /* 소단원(중간 제목) */
 .concept-selector .subunit-title {
-  font-size: 18px !important;
+  font-size: 1.05rem !important;
   font-weight: 700 !important;
   margin-top: 10px !important;
   margin-bottom: 6px !important;
 }
 
-/* 세부 항목(토픽) - STEP5 항목과 동일한 크기 */
+/* 세부 항목(토픽) */
 .concept-selector .topic-title {
-  font-size: 18px !important;
+  font-size: 0.98rem !important;
   font-weight: 500 !important;
 }
 
@@ -2370,14 +2457,14 @@ main, .container, .wrapper, .app {
 
 /* 단원 라벨 스타일 */
 .concept-selector label:has(.unit-title) {
-  font-size: 18px;
+  font-size: 1.15rem;
   font-weight: 800;
   margin-bottom: 12px;
 }
 
 /* 소단원 라벨 스타일 */
 .concept-selector label:has(.subunit-title) {
-  font-size: 16px;
+  font-size: 1.05rem;
   font-weight: 700;
   margin-top: 10px;
   margin-bottom: 8px;
@@ -2385,7 +2472,7 @@ main, .container, .wrapper, .app {
 
 /* 토픽 라벨 스타일 */
 .concept-selector label:has(.topic-title) {
-  font-size: 15px;
+  font-size: 0.98rem;
   font-weight: 500;
   margin-bottom: 4px;
 }
@@ -2400,6 +2487,55 @@ main, .container, .wrapper, .app {
 .concept-selector .subunits-container > div {
   margin-bottom: 14px !important;
 }
+
+/* ===== 모바일 반응형: 카드 그리드를 1열로 강제 ===== */
+@media (max-width: 768px) {
+    /* 3단계 카드, 샘플 미리보기, 기능 카드 등 모든 그리드를 1열로 */
+    .steps-grid,
+    .sample-grid,
+    .cards-grid,
+    .features,
+    .process-steps,
+    .sample-problems,
+    .sample-problems-list {
+        grid-template-columns: 1fr !important;
+    }
+
+    .steps-row,
+    .sample-row,
+    .cards-row {
+        flex-direction: column !important;
+    }
+
+    /* 컨테이너 패딩 조정 */
+    .container {
+        padding: 0 16px;
+    }
+
+    .form-container,
+    .result-container {
+        padding: 0 16px;
+    }
+
+    /* 큰 패딩 제거 */
+    .form-step {
+        padding: 20px 16px;
+    }
+
+    .hero-section {
+        padding: 60px 16px 40px;
+    }
+
+    /* 고정 폭 제거 */
+    .save-menu {
+        min-width: auto;
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+/* 디버그용: 튀는 요소 찾기 (확인 후 삭제) */
+/* * { outline: 1px solid rgba(255,0,0,0.25); } */
 
 /* 인쇄 스타일 */
 @media print {

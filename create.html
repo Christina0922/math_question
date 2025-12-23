@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>변형문제 생성 - 우등생이 되는 수학 변형문제</title>
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -160,22 +160,30 @@
                         </div>
                     </div>
 
-                    <!-- STEP 7: 문제 개수 선택 -->
+                    <!-- STEP 7: 항목당 문제 수 선택 -->
                     <div class="form-step">
-                        <h3>STEP 7. 문제 개수 선택</h3>
+                        <h3>STEP 7. 항목당 문제 수 선택</h3>
                         <div class="radio-group">
                             <label for="problemCount-3" class="radio-label">
                                 <input id="problemCount-3" type="radio" name="problemCount" value="3" checked required>
-                                <span>3개</span>
+                                <span>항목당 3개</span>
                             </label>
                             <label for="problemCount-5" class="radio-label">
                                 <input id="problemCount-5" type="radio" name="problemCount" value="5">
-                                <span>5개</span>
+                                <span>항목당 5개</span>
                             </label>
                             <label for="problemCount-7" class="radio-label">
                                 <input id="problemCount-7" type="radio" name="problemCount" value="7">
-                                <span>7개</span>
+                                <span>항목당 7개</span>
                             </label>
+                        </div>
+                        <div id="totalQuestionsDisplay" style="margin-top: 15px; padding: 12px; background: #f0f9ff; border-radius: 8px; border-left: 4px solid #4f46e5; display: none;">
+                            <div style="font-weight: 600; color: #1e40af; margin-bottom: 4px;">총 문제 수 미리보기</div>
+                            <div style="color: #1e3a8a; font-size: 0.95rem;">
+                                선택 항목: <span id="selectedConceptsCount">0</span>개 / 
+                                항목당: <span id="perConceptCount">3</span>개 / 
+                                총 문제: <span id="totalQuestionsCount">0</span>개
+                            </div>
                         </div>
                     </div>
 
