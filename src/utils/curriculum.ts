@@ -1,7 +1,7 @@
 import curriculumRaw from "../data/curriculum_1_3.json";
 
 export type Semester = 1 | 2;
-export type Grade = 1 | 2 | 3;
+export type Grade = 1 | 2 | 3 | 4 | 5 | 6;
 
 export type CurriculumUnit = {
   unit: string;
@@ -10,13 +10,16 @@ export type CurriculumUnit = {
 
 export type CurriculumBySemester = {
   "1학기": CurriculumUnit[];
-  "2학기": CurriculumUnit[];
+  "2학기"?: CurriculumUnit[]; // 5-2, 6-2는 데이터 없음
 };
 
 export type Curriculum = {
   "1학년": CurriculumBySemester;
   "2학년": CurriculumBySemester;
   "3학년": CurriculumBySemester;
+  "4학년": CurriculumBySemester;
+  "5학년": CurriculumBySemester;
+  "6학년": CurriculumBySemester;
 };
 
 const curriculum = curriculumRaw as unknown as Curriculum;
@@ -40,9 +43,12 @@ export type ConceptItem = {
 };
 
 export function getCurriculumUnits(grade: Grade, semester: Semester): CurriculumUnit[] {
-  const gKey = `${grade}학년` as const;
-  const sKey = `${semester}학기` as const;
-  return curriculum[gKey][sKey];
+  const gKey = `${grade}학년` as keyof Curriculum;
+  const sKey = `${semester}학기` as keyof CurriculumBySemester;
+  const gradeData = curriculum[gKey];
+  if (!gradeData) return [];
+  const semesterData = gradeData[sKey];
+  return semesterData || [];
 }
 
 export function getConceptItems(grade: Grade, semester: Semester): ConceptItem[] {
@@ -64,5 +70,37 @@ export function getConceptItems(grade: Grade, semester: Semester): ConceptItem[]
   });
 
   return result;
+}
+
+/**
+ * 개념 ID를 파싱하여 학년, 학기, 단원, 소단원 정보를 추출
+ * 형식: G{grade}-S{semester}-U{unit}-T{topic}
+ */
+export function parseConceptId(conceptId: string): {
+  grade: Grade;
+  semester: Semester;
+  unitNo: number;
+  topicNo: number;
+  unitId: string;
+  subunitId: string;
+  conceptId: string;
+} | null {
+  const match = conceptId.match(/^G(\d+)-S(\d+)-U(\d+)-T(\d+)$/);
+  if (!match) return null;
+  
+  const grade = parseInt(match[1]) as Grade;
+  const semester = parseInt(match[2]) as Semester;
+  const unitNo = parseInt(match[3]);
+  const topicNo = parseInt(match[4]);
+  
+  return {
+    grade,
+    semester,
+    unitNo,
+    topicNo,
+    unitId: `G${grade}-S${semester}-U${unitNo}`,
+    subunitId: `G${grade}-S${semester}-U${unitNo}`, // 소단원은 단원과 동일하게 처리
+    conceptId: conceptId
+  };
 }
 
