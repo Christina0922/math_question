@@ -2208,6 +2208,8 @@ main, .container, .wrapper, .app {
   display: block !important;
   width: 100% !important;
   max-width: none !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 /* STEP4 안의 요소들은 기본적으로 줄바꿈(전체 폭) */
@@ -2226,6 +2228,8 @@ main, .container, .wrapper, .app {
   max-width: none !important;
   grid-template-columns: none !important; /* 기존 그리드 규칙 제거 */
   grid: none !important; /* 모든 그리드 속성 제거 */
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 /* 래퍼 div에 2열 그리드 - 제거됨: .unit-grid로 대체 */
