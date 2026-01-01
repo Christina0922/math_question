@@ -19,6 +19,21 @@ Thumbs.db
 # import 폴더 (문제/자료 보관용, GitHub 제외)
 /import_from_Math_Questions/
 
+# 추출된 페이지 데이터 (대용량, GitHub 제외)
+extracted_pages/
+extracted_pages_png/
+
+# 임시 출력 파일
+*.json
+!data_index.json
+!package.json
+!package-lock.json
+
+# Python 관련
+__pycache__/
+*.pyc
+.venv/
+venv/
 
 교사용 교재 업로드.txt
 

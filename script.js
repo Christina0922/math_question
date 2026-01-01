@@ -1581,7 +1581,7 @@ function generateMiddleSchoolProbabilityTemplate(conceptInfo, count, effectiveGr
  * Emergency Generator: 템플릿 생성 실패 시 해당 학년 수준의 기본 문제 생성
  * 2학년 문제로 돌아가지 않고, unitTitle과 conceptTitle을 분석하여 학년 적합한 문제 생성
  */
-function emergencyGenerator(conceptInfo, effectiveGrade) {
+function emergencyGenerator(conceptInfo, effectiveGrade, existingQuestions = []) {
     const { text: conceptText = '', unitTitle = '', conceptTitle = '', domain = 'number', grade = effectiveGrade, problemType = '기본형' } = conceptInfo;
     // grade가 없으면 effectiveGrade 사용
     const actualGrade = grade || effectiveGrade || 5;
@@ -1697,7 +1697,7 @@ function emergencyGenerator(conceptInfo, effectiveGrade) {
         
         // 혼합 계산 (단, 5학년 이상에서는 최소한의 난이도 보장)
         if (conceptLower.includes('혼합') || conceptLower.includes('계산')) {
-            return generateMixedCalcProblem(effectiveGrade, 'elementary', effectiveGrade);
+            return generateMixedCalcProblem(effectiveGrade, 'elementary', effectiveGrade, existingQuestions);
         }
         
         // 5학년 이상에서 매칭되지 않으면, 학년에 맞는 기본 문제 생성 (단순 덧셈 금지)
@@ -1734,7 +1734,7 @@ function emergencyGenerator(conceptInfo, effectiveGrade) {
         } else if (conceptLower.includes('삼각형')) {
             return generateTriangleClassifyProblem(effectiveGrade);
         } else if (conceptLower.includes('각도')) {
-            return generateMixedCalcProblem(effectiveGrade, 'elementary', effectiveGrade);
+            return generateMixedCalcProblem(effectiveGrade, 'elementary', effectiveGrade, existingQuestions);
         }
     }
     
@@ -1775,7 +1775,7 @@ function emergencyGenerator(conceptInfo, effectiveGrade) {
     }
     
     // 4학년 이하는 혼합 계산 허용
-    return generateMixedCalcProblem(effectiveGrade, 'elementary', effectiveGrade);
+    return generateMixedCalcProblem(effectiveGrade, 'elementary', effectiveGrade, existingQuestions);
 }
 
 // Deprecated: fallbackGenerate는 emergencyGenerator로 대체됨 (하위 호환성 유지)
@@ -3723,8 +3723,98 @@ function generateAreaProblem(grade, conceptText = '', existingQuestions = []) {
     };
 }
 
+// 초등 1학년 덧셈/뺄셈 문제 생성 (나눗셈/곱셈 없음)
+function generateGrade1AdditionSubtractionProblem(existingQuestions = []) {
+    // 1학년 수준: 10까지의 수, 한 자리 수 덧셈/뺄셈
+    const problems = [
+        // 덧셈 (한 자리 수)
+        { expr: '3 + 2', result: 5 },
+        { expr: '4 + 3', result: 7 },
+        { expr: '5 + 4', result: 9 },
+        { expr: '6 + 2', result: 8 },
+        { expr: '7 + 1', result: 8 },
+        { expr: '8 + 2', result: 10 },
+        { expr: '2 + 5', result: 7 },
+        { expr: '3 + 6', result: 9 },
+        { expr: '4 + 5', result: 9 },
+        { expr: '2 + 6', result: 8 },
+        { expr: '1 + 7', result: 8 },
+        { expr: '5 + 3', result: 8 },
+        { expr: '6 + 1', result: 7 },
+        { expr: '4 + 4', result: 8 },
+        { expr: '2 + 3', result: 5 },
+        { expr: '3 + 4', result: 7 },
+        { expr: '5 + 2', result: 7 },
+        { expr: '1 + 9', result: 10 },
+        { expr: '7 + 2', result: 9 },
+        { expr: '6 + 3', result: 9 },
+        // 뺄셈 (한 자리 수, 결과가 양수)
+        { expr: '5 - 2', result: 3 },
+        { expr: '7 - 3', result: 4 },
+        { expr: '8 - 4', result: 4 },
+        { expr: '9 - 5', result: 4 },
+        { expr: '6 - 1', result: 5 },
+        { expr: '10 - 3', result: 7 },
+        { expr: '9 - 2', result: 7 },
+        { expr: '8 - 1', result: 7 },
+        { expr: '7 - 2', result: 5 },
+        { expr: '9 - 4', result: 5 },
+        { expr: '10 - 4', result: 6 },
+        { expr: '8 - 3', result: 5 },
+        { expr: '6 - 2', result: 4 },
+        { expr: '10 - 2', result: 8 },
+        { expr: '9 - 3', result: 6 },
+        { expr: '7 - 4', result: 3 },
+        { expr: '8 - 5', result: 3 },
+        { expr: '10 - 5', result: 5 },
+        { expr: '9 - 6', result: 3 },
+        { expr: '8 - 6', result: 2 }
+    ];
+    
+    // 이미 생성된 문제의 식 추출
+    const usedExpressions = new Set();
+    if (existingQuestions && existingQuestions.length > 0) {
+        existingQuestions.forEach(q => {
+            const questionText = q.question || q.stem || '';
+            // "X + Y의 값을 구하세요." 또는 "X - Y의 값을 구하세요." 형식에서 식 추출
+            const match = questionText.match(/(\d+\s*[+\-]\s*\d+)/);
+            if (match) {
+                // 공백 제거하고 정규화 (예: "3 + 2" → "3+2")
+                const normalizedExpr = match[1].replace(/\s+/g, '');
+                usedExpressions.add(normalizedExpr);
+            }
+            // meta 정보에서도 확인
+            if (q.meta && q.meta.expression) {
+                const normalizedExpr = q.meta.expression.replace(/\s+/g, '');
+                usedExpressions.add(normalizedExpr);
+            }
+        });
+    }
+    
+    // 사용되지 않은 문제 필터링
+    const availableProblems = problems.filter(p => {
+        const normalizedExpr = p.expr.replace(/\s+/g, '');
+        return !usedExpressions.has(normalizedExpr);
+    });
+    
+    // 사용 가능한 문제가 없으면 전체 문제 풀에서 랜덤 선택 (중복 허용)
+    const problemsToChoose = availableProblems.length > 0 ? availableProblems : problems;
+    const selected = problemsToChoose[Math.floor(Math.random() * problemsToChoose.length)];
+    
+    return {
+        type: PROBLEM_TYPES.MIXED_CALC,
+        question: `${selected.expr}의 값을 구하세요.`,
+        questionLatex: null,
+        answer: `${selected.result}`,
+        answerLatex: null,
+        explanation: `${selected.expr} = ${selected.result}입니다.`,
+        inputPlaceholder: '답을 입력하세요',
+        meta: { expression: selected.expr, result: selected.result, grade: 1 }
+    };
+}
+
 // (D) 곱셈·나눗셈이 섞인 식 계산 문제 생성
-function generateMixedCalcProblem(grade, schoolLevel = 'elementary', rawGrade = null) {
+function generateMixedCalcProblem(grade, schoolLevel = 'elementary', rawGrade = null, existingQuestions = []) {
     // 중학교에서는 절대 호출되면 안 됨 - 차단
     const isMiddleSchool = schoolLevel === 'middle' || schoolLevel === '중학교' || rawGrade >= 7 || grade >= 7;
     if (isMiddleSchool) {
@@ -3732,10 +3822,15 @@ function generateMixedCalcProblem(grade, schoolLevel = 'elementary', rawGrade = 
         return null;
     }
     
+    // 초등 1학년은 덧셈/뺄셈만 (나눗셈/곱셈 없음)
+    if (rawGrade === 1 || (rawGrade === null && grade === 1)) {
+        return generateGrade1AdditionSubtractionProblem(existingQuestions);
+    }
+    
     // 학년에 따라 식의 난이도 조절
     let expressions;
     if (grade <= 3) {
-        // 1-3학년: 작은 수
+        // 2-3학년: 작은 수 (나눗셈/곱셈 포함, 하지만 1학년은 위에서 이미 처리됨)
         expressions = [
             { expr: '12 ÷ 3 × 4', result: 16 },
             { expr: '16 ÷ 4 × 3', result: 12 },
@@ -3767,7 +3862,36 @@ function generateMixedCalcProblem(grade, schoolLevel = 'elementary', rawGrade = 
             { expr: '60 ÷ 5 × 4', result: 48 }
         ];
     }
-    const selected = expressions[Math.floor(Math.random() * expressions.length)];
+    
+    // 이미 생성된 문제의 식 추출
+    const usedExpressions = new Set();
+    if (existingQuestions && existingQuestions.length > 0) {
+        existingQuestions.forEach(q => {
+            const questionText = q.question || q.stem || '';
+            // "X ÷ Y × Z의 값을 구하세요." 형식에서 식 추출
+            const match = questionText.match(/(\d+\s*[÷×]\s*\d+\s*[÷×]\s*\d+)/);
+            if (match) {
+                // 공백 제거하고 정규화
+                const normalizedExpr = match[1].replace(/\s+/g, '');
+                usedExpressions.add(normalizedExpr);
+            }
+            // meta 정보에서도 확인
+            if (q.meta && q.meta.expression) {
+                const normalizedExpr = q.meta.expression.replace(/\s+/g, '');
+                usedExpressions.add(normalizedExpr);
+            }
+        });
+    }
+    
+    // 사용되지 않은 문제 필터링
+    const availableExpressions = expressions.filter(e => {
+        const normalizedExpr = e.expr.replace(/\s+/g, '');
+        return !usedExpressions.has(normalizedExpr);
+    });
+    
+    // 사용 가능한 문제가 없으면 전체 문제 풀에서 랜덤 선택 (중복 허용)
+    const expressionsToChoose = availableExpressions.length > 0 ? availableExpressions : expressions;
+    const selected = expressionsToChoose[Math.floor(Math.random() * expressionsToChoose.length)];
     
     return {
         type: PROBLEM_TYPES.MIXED_CALC,
@@ -5250,6 +5374,10 @@ function generateProblemByType(type, grade, conceptText = '', conceptId = '', sc
                     return generateMiddleSchoolGrade1Problem(grade, conceptText, idString, problemType);
                 }
             }
+            // 초등 1학년은 덧셈/뺄셈만 (나눗셈/곱셈 없음)
+            if (rawGrade === 1) {
+                return generateGrade1AdditionSubtractionProblem();
+            }
             // 도형 넓이 문제인 경우 generateAreaProblem 사용 (넓이 단위 포함)
             if (conceptText && (conceptText.includes('마름모') || conceptText.includes('사다리꼴') || 
                 conceptText.includes('평행사변형') || conceptText.includes('둘레') ||
@@ -5259,7 +5387,7 @@ function generateProblemByType(type, grade, conceptText = '', conceptId = '', sc
                 return generateAreaProblem(grade, conceptText, existingQuestions || []);
             }
             // MIXED_CALC 타입이지만 넓이/단위와 관련 없으면 일반 혼합 계산
-            return generateMixedCalcProblem(grade, schoolLevel, rawGrade);
+            return generateMixedCalcProblem(grade, schoolLevel, rawGrade, existingQuestions || []);
         case PROBLEM_TYPES.SKIP_COUNT:
             return generateSkipCountProblem(grade);
         case PROBLEM_TYPES.TWO_DIGIT_DIV:
@@ -8844,7 +8972,11 @@ async function createSampleProblems(formData, progressCallback = null) {
                                 selectedType = availableTypes[generatedCount % availableTypes.length];
                             } else {
                                 // CONCEPT_TEMPLATE_MAP에서 찾지 못한 경우 emergencyGenerator 사용
-                                const emergency = emergencyGenerator(conceptInfo, effectiveGrade);
+                                const existingQuestionsForEmergency = conceptQuestions.map(q => ({
+                                    question: q.question || q.questionText || '',
+                                    meta: q.meta || {}
+                                }));
+                                const emergency = emergencyGenerator(conceptInfo, effectiveGrade, existingQuestionsForEmergency);
                                 if (emergency) {
                                     // emergency 문제에도 schoolLevel 명시적으로 추가
                                     if (!emergency.meta) {
@@ -8877,7 +9009,11 @@ async function createSampleProblems(formData, progressCallback = null) {
                             // 기본 검증
                             if (!generated || !generated.question || !generated.answer) {
                                 // emergencyGenerator 사용 (2학년 문제 금지)
-                                const emergency = emergencyGenerator(conceptInfo, effectiveGrade);
+                                const existingQuestionsForEmergency = conceptQuestions.map(q => ({
+                                    question: q.question || q.questionText || '',
+                                    meta: q.meta || {}
+                                }));
+                                const emergency = emergencyGenerator(conceptInfo, effectiveGrade, existingQuestionsForEmergency);
                                 if (emergency) {
                                     // emergency 문제에도 schoolLevel 명시적으로 추가
                                     if (!emergency.meta) {
@@ -8927,7 +9063,11 @@ async function createSampleProblems(formData, progressCallback = null) {
                         } catch (err) {
                             console.error('Generation error:', err);
                             // emergencyGenerator 사용
-                            let emergency = emergencyGenerator(conceptInfo, effectiveGrade);
+                            const existingQuestionsForEmergency2 = conceptQuestions.map(q => ({
+                                question: q.question || q.questionText || '',
+                                meta: q.meta || {}
+                            }));
+                            let emergency = emergencyGenerator(conceptInfo, effectiveGrade, existingQuestionsForEmergency2);
                             if (emergency) {
                                 // emergency 문제에도 schoolLevel 명시적으로 추가
                                 if (!emergency.meta) {
@@ -9103,7 +9243,11 @@ async function createSampleProblems(formData, progressCallback = null) {
                     // 최대 재시도 후에도 실패하면 emergency 문제 강제 생성 (검증 완화)
                     const finalSchoolLevel = conceptInfo.schoolLevel || conceptInfo.gradeLevel || 
                                             (schoolLevel === '중학교' ? 'middle' : 'elementary');
-                    const emergency = emergencyGenerator(conceptInfo, effectiveGrade);
+                    const existingQuestionsForEmergency3 = conceptQuestions.map(q => ({
+                        question: q.question || q.questionText || '',
+                        meta: q.meta || {}
+                    }));
+                    const emergency = emergencyGenerator(conceptInfo, effectiveGrade, existingQuestionsForEmergency3);
                     if (emergency) {
                         // emergency 문제에 schoolLevel 추가
                         if (!emergency.meta) {

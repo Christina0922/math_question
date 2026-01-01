@@ -1,0 +1,482 @@
+[
+  {
+    "pack": "ES_PACK01_Principle",
+    "pdf_key": "1-1",
+    "grade": 1,
+    "unit": 1,
+    "page_count": 136,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK01_Principle\\1-1",
+    "png_dir": null,
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK01_Principle",
+    "pdf_key": "1-2",
+    "grade": 1,
+    "unit": 2,
+    "page_count": 152,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK01_Principle\\1-2",
+    "png_dir": null,
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK01_Principle",
+    "pdf_key": "2-1",
+    "grade": 2,
+    "unit": 1,
+    "page_count": 160,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK01_Principle\\2-1",
+    "png_dir": null,
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK01_Principle",
+    "pdf_key": "2-2",
+    "grade": 2,
+    "unit": 2,
+    "page_count": 168,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK01_Principle\\2-2",
+    "png_dir": null,
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK01_Principle",
+    "pdf_key": "3-1",
+    "grade": 3,
+    "unit": 1,
+    "page_count": 203,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK01_Principle\\3-1",
+    "png_dir": null,
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK01_Principle",
+    "pdf_key": "3-2",
+    "grade": 3,
+    "unit": 2,
+    "page_count": 160,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK01_Principle\\3-2",
+    "png_dir": null,
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK01_Principle",
+    "pdf_key": "4-1",
+    "grade": 4,
+    "unit": 1,
+    "page_count": 203,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK01_Principle\\4-1",
+    "png_dir": null,
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK01_Principle",
+    "pdf_key": "4-2",
+    "grade": 4,
+    "unit": 2,
+    "page_count": 160,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK01_Principle\\4-2",
+    "png_dir": null,
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK01_Principle",
+    "pdf_key": "5-1",
+    "grade": 5,
+    "unit": 1,
+    "page_count": 168,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK01_Principle\\5-1",
+    "png_dir": null,
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK01_Principle",
+    "pdf_key": "6-1",
+    "grade": 6,
+    "unit": 1,
+    "page_count": 160,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK01_Principle\\6-1",
+    "png_dir": null,
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK02_Basics",
+    "pdf_key": "1-1",
+    "grade": 1,
+    "unit": 1,
+    "page_count": 216,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK02_Basics\\1-1",
+    "png_dir": "D:\\1000_b_project\\math_question\\extracted_pages_png\\ES_PACK02_Basics\\1-1",
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK02_Basics",
+    "pdf_key": "1-2",
+    "grade": 1,
+    "unit": 2,
+    "page_count": 240,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK02_Basics\\1-2",
+    "png_dir": null,
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK02_Basics",
+    "pdf_key": "2-1",
+    "grade": 2,
+    "unit": 1,
+    "page_count": 272,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK02_Basics\\2-1",
+    "png_dir": null,
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK02_Basics",
+    "pdf_key": "2-2",
+    "grade": 2,
+    "unit": 2,
+    "page_count": 256,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK02_Basics\\2-2",
+    "png_dir": null,
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK02_Basics",
+    "pdf_key": "3-1",
+    "grade": 3,
+    "unit": 1,
+    "page_count": 254,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK02_Basics\\3-1",
+    "png_dir": null,
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK02_Basics",
+    "pdf_key": "3-2",
+    "grade": 3,
+    "unit": 2,
+    "page_count": 254,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK02_Basics\\3-2",
+    "png_dir": null,
+    "sample": "25초등수학(기본)3-2본0(001-005)ok2.indd 1 2025-02-03 오후 4:18:45"
+  },
+  {
+    "pack": "ES_PACK02_Basics",
+    "pdf_key": "4-1",
+    "grade": 4,
+    "unit": 1,
+    "page_count": 248,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK02_Basics\\4-1",
+    "png_dir": null,
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK02_Basics",
+    "pdf_key": "4-2",
+    "grade": 4,
+    "unit": 2,
+    "page_count": 243,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK02_Basics\\4-2",
+    "png_dir": null,
+    "sample": "24초등수학(기본)4-2본문(001-005)0-초ok.indd 1 2025-02-03 오후 6:07:36"
+  },
+  {
+    "pack": "ES_PACK02_Basics",
+    "pdf_key": "5-1",
+    "grade": 5,
+    "unit": 1,
+    "page_count": 248,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK02_Basics\\5-1",
+    "png_dir": null,
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK02_Basics",
+    "pdf_key": "6-1",
+    "grade": 6,
+    "unit": 1,
+    "page_count": 238,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK02_Basics\\6-1",
+    "png_dir": null,
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK03_Application",
+    "pdf_key": "3-1",
+    "grade": 3,
+    "unit": 1,
+    "page_count": 223,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK03_Application\\3-1",
+    "png_dir": null,
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK03_Application",
+    "pdf_key": "3-2",
+    "grade": 3,
+    "unit": 2,
+    "page_count": 222,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK03_Application\\3-2",
+    "png_dir": null,
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK03_Application",
+    "pdf_key": "4-1",
+    "grade": 4,
+    "unit": 1,
+    "page_count": 224,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK03_Application\\4-1",
+    "png_dir": null,
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK03_Application",
+    "pdf_key": "4-2",
+    "grade": 4,
+    "unit": 2,
+    "page_count": 224,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK03_Application\\4-2",
+    "png_dir": null,
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK03_Application",
+    "pdf_key": "5-1",
+    "grade": 5,
+    "unit": 1,
+    "page_count": 214,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK03_Application\\5-1",
+    "png_dir": null,
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK03_Application",
+    "pdf_key": "6-1",
+    "grade": 6,
+    "unit": 1,
+    "page_count": 214,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK03_Application\\6-1",
+    "png_dir": null,
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK04_TypesOfQuestions",
+    "pdf_key": "3-1",
+    "grade": 3,
+    "unit": 1,
+    "page_count": 176,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK04_TypesOfQuestions\\3-1",
+    "png_dir": "D:\\1000_b_project\\math_question\\extracted_pages_png\\ES_PACK04_TypesOfQuestions\\3-1",
+    "sample": "수학 좀 한다면 초등수학 문제유형 상위권 도전, 유형 정복 3 - 1"
+  },
+  {
+    "pack": "ES_PACK04_TypesOfQuestions",
+    "pdf_key": "3-2",
+    "grade": 3,
+    "unit": 2,
+    "page_count": 176,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK04_TypesOfQuestions\\3-2",
+    "png_dir": "D:\\1000_b_project\\math_question\\extracted_pages_png\\ES_PACK04_TypesOfQuestions\\3-2",
+    "sample": "수학 좀 한다면 초등수학 문제유형 상위권 도전, 유형 정복 3 - 2"
+  },
+  {
+    "pack": "ES_PACK04_TypesOfQuestions",
+    "pdf_key": "4-1",
+    "grade": 4,
+    "unit": 1,
+    "page_count": 176,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK04_TypesOfQuestions\\4-1",
+    "png_dir": "D:\\1000_b_project\\math_question\\extracted_pages_png\\ES_PACK04_TypesOfQuestions\\4-1",
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK04_TypesOfQuestions",
+    "pdf_key": "4-2",
+    "grade": 4,
+    "unit": 2,
+    "page_count": 176,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK04_TypesOfQuestions\\4-2",
+    "png_dir": "D:\\1000_b_project\\math_question\\extracted_pages_png\\ES_PACK04_TypesOfQuestions\\4-2",
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK04_TypesOfQuestions",
+    "pdf_key": "5-1",
+    "grade": 5,
+    "unit": 1,
+    "page_count": 174,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK04_TypesOfQuestions\\5-1",
+    "png_dir": "D:\\1000_b_project\\math_question\\extracted_pages_png\\ES_PACK04_TypesOfQuestions\\5-1",
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK04_TypesOfQuestions",
+    "pdf_key": "6-1",
+    "grade": 6,
+    "unit": 1,
+    "page_count": 128,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK04_TypesOfQuestions\\6-1",
+    "png_dir": "D:\\1000_b_project\\math_question\\extracted_pages_png\\ES_PACK04_TypesOfQuestions\\6-1",
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK05_PracticalApplication",
+    "pdf_key": "1-1",
+    "grade": 1,
+    "unit": 1,
+    "page_count": 224,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK05_PracticalApplication\\1-1",
+    "png_dir": "D:\\1000_b_project\\math_question\\extracted_pages_png\\ES_PACK05_PracticalApplication\\1-1",
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK05_PracticalApplication",
+    "pdf_key": "1-2",
+    "grade": 1,
+    "unit": 2,
+    "page_count": 256,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK05_PracticalApplication\\1-2",
+    "png_dir": "D:\\1000_b_project\\math_question\\extracted_pages_png\\ES_PACK05_PracticalApplication\\1-2",
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK05_PracticalApplication",
+    "pdf_key": "2-1",
+    "grade": 2,
+    "unit": 1,
+    "page_count": 253,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK05_PracticalApplication\\2-1",
+    "png_dir": "D:\\1000_b_project\\math_question\\extracted_pages_png\\ES_PACK05_PracticalApplication\\2-1",
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK05_PracticalApplication",
+    "pdf_key": "2-2",
+    "grade": 2,
+    "unit": 2,
+    "page_count": 264,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK05_PracticalApplication\\2-2",
+    "png_dir": "D:\\1000_b_project\\math_question\\extracted_pages_png\\ES_PACK05_PracticalApplication\\2-2",
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK05_PracticalApplication",
+    "pdf_key": "3-1",
+    "grade": 3,
+    "unit": 1,
+    "page_count": 254,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK05_PracticalApplication\\3-1",
+    "png_dir": "D:\\1000_b_project\\math_question\\extracted_pages_png\\ES_PACK05_PracticalApplication\\3-1",
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK05_PracticalApplication",
+    "pdf_key": "3-2",
+    "grade": 3,
+    "unit": 2,
+    "page_count": 253,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK05_PracticalApplication\\3-2",
+    "png_dir": "D:\\1000_b_project\\math_question\\extracted_pages_png\\ES_PACK05_PracticalApplication\\3-2",
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK05_PracticalApplication",
+    "pdf_key": "4-1",
+    "grade": 4,
+    "unit": 1,
+    "page_count": 237,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK05_PracticalApplication\\4-1",
+    "png_dir": "D:\\1000_b_project\\math_question\\extracted_pages_png\\ES_PACK05_PracticalApplication\\4-1",
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK05_PracticalApplication",
+    "pdf_key": "4-2",
+    "grade": 4,
+    "unit": 2,
+    "page_count": 253,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK05_PracticalApplication\\4-2",
+    "png_dir": "D:\\1000_b_project\\math_question\\extracted_pages_png\\ES_PACK05_PracticalApplication\\4-2",
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK05_PracticalApplication",
+    "pdf_key": "5-1",
+    "grade": 5,
+    "unit": 1,
+    "page_count": 248,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK05_PracticalApplication\\5-1",
+    "png_dir": "D:\\1000_b_project\\math_question\\extracted_pages_png\\ES_PACK05_PracticalApplication\\5-1",
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK05_PracticalApplication",
+    "pdf_key": "6-1",
+    "grade": 6,
+    "unit": 1,
+    "page_count": 237,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK05_PracticalApplication\\6-1",
+    "png_dir": "D:\\1000_b_project\\math_question\\extracted_pages_png\\ES_PACK05_PracticalApplication\\6-1",
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK06_BasicType",
+    "pdf_key": "1-1",
+    "grade": 1,
+    "unit": 1,
+    "page_count": 200,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK06_BasicType\\1-1",
+    "png_dir": "D:\\1000_b_project\\math_question\\extracted_pages_png\\ES_PACK06_BasicType\\1-1",
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK06_BasicType",
+    "pdf_key": "1-2",
+    "grade": 1,
+    "unit": 2,
+    "page_count": 224,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK06_BasicType\\1-2",
+    "png_dir": "D:\\1000_b_project\\math_question\\extracted_pages_png\\ES_PACK06_BasicType\\1-2",
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK06_BasicType",
+    "pdf_key": "2-1",
+    "grade": 2,
+    "unit": 1,
+    "page_count": 236,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK06_BasicType\\2-1",
+    "png_dir": "D:\\1000_b_project\\math_question\\extracted_pages_png\\ES_PACK06_BasicType\\2-1",
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK06_BasicType",
+    "pdf_key": "2-2",
+    "grade": 2,
+    "unit": 2,
+    "page_count": 232,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK06_BasicType\\2-2",
+    "png_dir": "D:\\1000_b_project\\math_question\\extracted_pages_png\\ES_PACK06_BasicType\\2-2",
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK06_BasicType",
+    "pdf_key": "3-1",
+    "grade": 3,
+    "unit": 1,
+    "page_count": 224,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK06_BasicType\\3-1",
+    "png_dir": "D:\\1000_b_project\\math_question\\extracted_pages_png\\ES_PACK06_BasicType\\3-1",
+    "sample": ""
+  },
+  {
+    "pack": "ES_PACK06_BasicType",
+    "pdf_key": "3-2",
+    "grade": 3,
+    "unit": 2,
+    "page_count": 141,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK06_BasicType\\3-2",
+    "png_dir": "D:\\1000_b_project\\math_question\\extracted_pages_png\\ES_PACK06_BasicType\\3-2",
+    "sample": "수학 좀 한다면 초등수학 기본+유형 상위권으로 가는 유형반복 학습서 3 - 2"
+  }
+]
