@@ -969,7 +969,7 @@ header h1 {
 .problem-number {
     font-size: 1.2rem;
     font-weight: 700;
-    color: var(--primary-color);
+    color: #1F2937 !important;
     margin-bottom: 15px;
 }
 
@@ -1100,10 +1100,24 @@ header h1 {
 .problem-stem {
     font-size: 1.2rem;
     line-height: 1.8;
-    color: var(--text-color);
+    color: #1F2937 !important;
     margin-bottom: 20px;
     white-space: pre-line;
     font-weight: 500;
+}
+
+/* KaTeX 렌더링된 수식 색상 강제 설정 */
+.math-display,
+.math-display .katex,
+.math-display .katex * {
+    color: #1F2937 !important;
+}
+
+/* 문제 텍스트 내 모든 요소 색상 강제 */
+.problem-item .problem-stem,
+.problem-item .math-display,
+.problem-item .math-display * {
+    color: #1F2937 !important;
 }
 
 .problem-choices {

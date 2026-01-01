@@ -527,6 +527,137 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
+// 숫자를 한글로 변환하는 함수
+function numberToKorean(num) {
+    const koreanNumbers = ['', '일', '이', '삼', '사', '오', '육', '칠', '팔', '구', '십'];
+    if (num <= 10) {
+        return koreanNumbers[num];
+    } else if (num < 20) {
+        return '십' + (num % 10 > 0 ? koreanNumbers[num % 10] : '');
+    } else if (num < 100) {
+        const tens = Math.floor(num / 10);
+        const ones = num % 10;
+        return koreanNumbers[tens] + '십' + (ones > 0 ? koreanNumbers[ones] : '');
+    }
+    return String(num); // 100 이상은 숫자 그대로
+}
+
+// 숫자를 윗첨자로 변환하는 함수
+function numberToSuperscript(num) {
+    const superscripts = ['⁰', '¹', '²', '³', '⁴', '⁵', '⁶', '⁷', '⁸', '⁹'];
+    if (num === 0) return superscripts[0];
+    let result = '';
+    while (num > 0) {
+        result = superscripts[num % 10] + result;
+        num = Math.floor(num / 10);
+    }
+    return result;
+}
+
+// 숫자와 한글 혼용 제거 (예: "정8각형" -> "정팔각형", "5각형" -> "오각형")
+function normalizeNumberKorean(text) {
+    if (!text) return text;
+    // "정${n}각형" 패턴 처리
+    text = text.replace(/정(\d+)각형/g, (match, num) => {
+        const n = parseInt(num);
+        return '정' + numberToKorean(n) + '각형';
+    });
+    // "${n}각형" 패턴 처리
+    text = text.replace(/(\d+)각형/g, (match, num) => {
+        const n = parseInt(num);
+        return numberToKorean(n) + '각형';
+    });
+    // "${n}개" 패턴 처리 (필요한 경우)
+    text = text.replace(/(\d+)개/g, (match, num) => {
+        const n = parseInt(num);
+        return numberToKorean(n) + '개';
+    });
+    return text;
+}
+
+// LaTeX 명령어를 한글 문자로 변환 (모든 LaTeX 명령어 제거)
+function convertLatexToText(text) {
+    if (!text) return text;
+    
+    // \begin{cases} ... \end{cases} 패턴을 한글로 변환
+    text = text.replace(/\\begin\{cases\}(.*?)\\end\{cases\}/gs, (match, content) => {
+        // 내용에서 방정식 추출
+        const equations = content.split('\\\\').map(eq => eq.trim());
+        if (equations.length === 2) {
+            return `${equations[0]}과 ${equations[1]}`;
+        }
+        return equations.join(', ');
+    });
+    
+    // 단일 $...$ 패턴 처리 (수식 내용만 추출)
+    text = text.replace(/\$([^$]+)\$/g, '$1');
+    text = text.replace(/\$\$([^$]+)\$\$/g, '$1');
+    
+    // x^{2} 패턴을 x²로 변환 (^{숫자} 형식)
+    text = text.replace(/\^\{(\d+)\}/g, (match, num) => {
+        return numberToSuperscript(parseInt(num));
+    });
+    
+    // x^2 패턴을 x²로 변환 (^숫자 형식)
+    text = text.replace(/\^(\d+)/g, (match, num) => {
+        return numberToSuperscript(parseInt(num));
+    });
+    
+    // LaTeX 명령어를 한글 문자로 변환
+    text = text.replace(/\\leq/g, '≤');
+    text = text.replace(/\\geq/g, '≥');
+    text = text.replace(/\\neq/g, '≠');
+    text = text.replace(/\\pm/g, '±');
+    text = text.replace(/\\times/g, '×');
+    text = text.replace(/\\div/g, '÷');
+    text = text.replace(/\\cdot/g, '·');
+    text = text.replace(/\\approx/g, '≈');
+    text = text.replace(/\\infty/g, '∞');
+    // \sqrt{숫자} 패턴을 √숫자로 변환 (중괄호 제거 전에 처리)
+    text = text.replace(/\\sqrt\{([^}]+)\}/g, '√$1');
+    text = text.replace(/\\sqrt([^\s\\])/g, '√$1');
+    text = text.replace(/\\sqrt/g, '√');
+    
+    text = text.replace(/\\dfrac\{([^}]+)\}\{([^}]+)\}/g, '($1)/($2)');
+    text = text.replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, '($1)/($2)');
+    text = text.replace(/\\\\/g, ', ');
+    text = text.replace(/\\begin/g, '');
+    text = text.replace(/\\end/g, '');
+    text = text.replace(/\\cases/g, '');
+    
+    // 남은 중괄호 제거 (^{숫자}는 이미 윗첨자로 변환됨)
+    text = text.replace(/\{([^}]+)\}/g, '$1'); // 중괄호 내용만 추출
+    text = text.replace(/\{/g, '');
+    text = text.replace(/\}/g, '');
+    
+    // 달러 기호 제거
+    text = text.replace(/\$/g, '');
+    
+    // 연속된 공백 정리
+    text = text.replace(/\s+/g, ' ').trim();
+    
+    return text;
+}
+
+// LaTeX 달러 기호 제거 및 정리
+function cleanLatexDollars(text) {
+    if (!text) return text;
+    // 단순한 숫자 리스트의 $...$ 제거 (예: "$10, 7, 12$" -> "10, 7, 12")
+    text = text.replace(/\$(\d+(?:\s*,\s*\d+)*)\$/g, '$1');
+    // LaTeX 수식이 아닌 단순 텍스트의 $ 제거
+    text = text.replace(/\$([^$]+)\$/g, (match, content) => {
+        // 실제 LaTeX 명령어가 있으면 유지, 없으면 제거
+        if (content.includes('\\frac') || content.includes('\\dfrac') || content.includes('\\sqrt') || 
+            content.includes('\\begin') || content.includes('\\cases')) {
+            return match; // 복잡한 LaTeX 수식이면 유지
+        }
+        // 단순 LaTeX 명령어는 한글로 변환
+        content = convertLatexToText(content);
+        return content; // 단순 텍스트면 $ 제거하고 변환된 내용 반환
+    });
+    return text;
+}
+
 // 선택 가능한 카드 생성 유틸리티 (프로젝트 표준: label이 컨테이너, id+htmlFor 사용)
 function createSelectableCard({ id, type, name, value, checked, label, onChange, className = '', dataAttributes = {} }) {
     const inputId = id || `selectable-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
@@ -1540,7 +1671,10 @@ function emergencyGenerator(conceptInfo, effectiveGrade) {
         // 도형 넓이 관련 (5학년: 마름모, 사다리꼴, 평행사변형 등)
         if (conceptLower.includes('넓이') || conceptLower.includes('마름모') || 
             conceptLower.includes('사다리꼴') || conceptLower.includes('평행사변형') ||
-            conceptLower.includes('직사각형') || conceptLower.includes('삼각형')) {
+            conceptLower.includes('직사각형') || conceptLower.includes('삼각형') ||
+            conceptLower.includes('다각형') || conceptLower.includes('둘레') ||
+            unitLower.includes('넓이') || unitLower.includes('둘레') ||
+            unitLower.includes('다각형')) {
             return generateAreaProblem(effectiveGrade, conceptText);
         }
         
@@ -1567,14 +1701,27 @@ function emergencyGenerator(conceptInfo, effectiveGrade) {
         }
         
         // 5학년 이상에서 매칭되지 않으면, 학년에 맞는 기본 문제 생성 (단순 덧셈 금지)
-        // 5학년: 분수 문제 우선
+        // 5학년: 분수 문제 우선 (하지만 넓이는 제외 - 이미 위에서 처리됨)
         if (effectiveGrade === 5) {
-            return generateFractionSimplifyProblem(effectiveGrade);
+            // 넓이나 도형이 아니면 분수 문제
+            if (!conceptLower.includes('넓이') && !conceptLower.includes('둘레') && 
+                !conceptLower.includes('다각형') && !unitLower.includes('넓이') && 
+                !unitLower.includes('둘레')) {
+                return generateFractionSimplifyProblem(effectiveGrade);
+            }
+            // 넓이나 도형이면 넓이 문제
+            return generateAreaProblem(effectiveGrade, conceptText);
         }
         
         // 6학년: 비율 문제 우선
         if (effectiveGrade === 6) {
-            return generateRatioProblem(effectiveGrade);
+            if (!conceptLower.includes('넓이') && !conceptLower.includes('둘레') && 
+                !conceptLower.includes('다각형') && !unitLower.includes('넓이') && 
+                !unitLower.includes('둘레')) {
+                return generateRatioProblem(effectiveGrade);
+            }
+            // 넓이나 도형이면 넓이 문제
+            return generateAreaProblem(effectiveGrade, conceptText);
         }
     }
     
@@ -1602,7 +1749,32 @@ function emergencyGenerator(conceptInfo, effectiveGrade) {
         }
     }
     
-    // 기본: 학년에 맞는 혼합 계산 (5학년 이상에서는 단순 덧셈 금지)
+    // 기본: 학년에 맞는 문제 생성 (5학년 이상에서는 단순 산수 금지)
+    // 5학년 이상에서는 반드시 분수, 소수, 넓이, 비율 중 하나여야 함
+    if (effectiveGrade >= 5) {
+        // 넓이나 도형이 있으면 넓이 문제 생성
+        if (conceptLower.includes('넓이') || conceptLower.includes('둘레') || 
+            conceptLower.includes('다각형') || unitLower.includes('넓이') || 
+            unitLower.includes('둘레') || unitLower.includes('다각형')) {
+            return generateAreaProblem(effectiveGrade, conceptText);
+        }
+        // 분수가 있으면 분수 문제
+        if (conceptLower.includes('분수') || unitLower.includes('분수')) {
+            return generateFractionSimplifyProblem(effectiveGrade);
+        }
+        // 소수가 있으면 소수 문제
+        if (conceptLower.includes('소수') || unitLower.includes('소수')) {
+            return generateDecimalMultiplyProblem(effectiveGrade);
+        }
+        // 5학년은 분수, 6학년은 비율 (기본값)
+        if (effectiveGrade === 5) {
+            return generateFractionSimplifyProblem(effectiveGrade);
+        } else if (effectiveGrade === 6) {
+            return generateRatioProblem(effectiveGrade);
+        }
+    }
+    
+    // 4학년 이하는 혼합 계산 허용
     return generateMixedCalcProblem(effectiveGrade, 'elementary', effectiveGrade);
 }
 
@@ -2037,6 +2209,7 @@ async function generateProblems(formData) {
         const concepts = formData.concepts || [];
         const perConceptCount = parseInt(formData.problemCount || 3);
         const targetTotal = concepts.length * perConceptCount;
+        const expectedTotal = concepts.length * perConceptCount; // 기대 문제 수
         const minTotal = Math.min(3, targetTotal); // 최소 1~3개
         
         // 2차: 부족한 경우 재시도 또는 템플릿으로 채우기
@@ -2210,29 +2383,60 @@ async function generateProblems(formData) {
             displayProblems(questions, formData, 'fallback');
         } catch (fallbackError) {
             console.error('Fallback generation also failed:', fallbackError);
-            // 최후의 수단: 정적 문제 1개
+            // 최후의 수단: emergency 문제 생성 (선택한 개념 기반)
             const problemsList = document.getElementById('problemsList');
             if (problemsList) {
+                // 선택한 개념에 맞는 문제 생성 시도
+                const firstConcept = formData.concepts?.[0] || { text: '수학', grade: formData.grade || 5, semester: formData.semester || 1 };
+                const emergencyConcept = {
+                    text: firstConcept.text || '수학',
+                    conceptTitle: firstConcept.conceptTitle || firstConcept.text,
+                    unitTitle: firstConcept.unitTitle || '',
+                    grade: firstConcept.grade || formData.grade || 5,
+                    semester: firstConcept.semester || formData.semester || 1,
+                    schoolLevel: firstConcept.schoolLevel || (formData.schoolLevel === '중학교' ? 'middle' : 'elementary'),
+                    domain: 'number'
+                };
+                const emergencyProblem = emergencyGenerator(emergencyConcept, emergencyConcept.grade);
+                
+                if (emergencyProblem) {
+                    questions = [{
+                        id: `emergency-${Date.now()}`,
+                        type: emergencyProblem.type,
+                        number: 1,
+                        question: emergencyProblem.question || emergencyProblem.questionText || emergencyProblem.questionLatex,
+                        questionText: emergencyProblem.questionText || (emergencyProblem.questionLatex ? null : emergencyProblem.question),
+                        questionLatex: emergencyProblem.questionLatex || null,
+                        answer: emergencyProblem.answer || emergencyProblem.answerText || emergencyProblem.answerLatex,
+                        answerText: emergencyProblem.answerText || (emergencyProblem.answerLatex ? null : emergencyProblem.answer),
+                        answerLatex: emergencyProblem.answerLatex || null,
+                        explanation: emergencyProblem.explanation || '',
+                        inputPlaceholder: emergencyProblem.inputPlaceholder || '답을 입력하세요',
+                        meta: {
+                            ...(emergencyProblem.meta || {}),
+                            isEmergency: true,
+                            schoolLevel: emergencyConcept.schoolLevel,
+                            grade: emergencyConcept.grade,
+                            semester: emergencyConcept.semester
+                        },
+                        concept: emergencyConcept.text,
+                        problemType: formData.problemType || '기본형',
+                        sourceConcept: '',
+                        sourceConceptText: emergencyConcept.text,
+                        schoolLevel: emergencyConcept.schoolLevel,
+                        grade: emergencyConcept.grade,
+                        semester: emergencyConcept.semester
+                    }];
+                    displayProblems(questions, formData, 'partial');
+                } else {
+                    // emergency도 실패하면 오류 메시지
                 problemsList.innerHTML = `
-                    <div class="problem-item">
-                        <div class="problem-number">문제 1</div>
-                        <div class="problem-stem">5 + 3 = ?</div>
-                        <div class="problem-answer-input">
-                            <input type="text" placeholder="답을 입력하세요" class="answer-input">
-                        </div>
-                        <div class="problem-actions">
-                            <button class="btn-toggle-answer" onclick="toggleAnswer('static-1')">
-                                <span class="toggle-icon">✓</span>
-                                <span class="toggle-text">정답 보기</span>
-                            </button>
-                        </div>
-                        <div class="problem-answer" id="answer-static-1" style="display: none;">
-                            <div class="answer-title">정답</div>
-                            <div class="answer-content">8</div>
-                        </div>
+                        <div class="alert alert-danger">
+                            문제 생성에 실패했습니다. 선택한 항목과 학년/학기를 확인해 주세요.
                     </div>
                 `;
                 if (resultHeader) resultHeader.style.display = 'block';
+                }
             }
         }
     } finally {
@@ -2394,6 +2598,8 @@ const PROBLEM_TYPES = {
     SOLID_VOLUME: 'solid_volume',  // (M) 입체도형 부피
     LINEAR_EQUATION: 'linear_equation', // (N) 일차방정식
     LINEAR_FUNCTION: 'linear_function', // (O) 일차함수
+    LINEAR_INEQUALITY: 'linear_inequality', // (R) 일차부등식
+    SYSTEM_OF_EQUATIONS: 'system_of_equations', // (S) 연립일차방정식
     PROBABILITY: 'probability',    // (P) 확률
     GEOMETRY_DRAWING: 'geometry_drawing' // (Q) 도형 및 각도 시각화
 };
@@ -3312,7 +3518,7 @@ function generateFractionSimplifyProblem(grade) {
 /**
  * 도형 넓이 문제 생성 (5학년: 마름모, 사다리꼴, 평행사변형 등)
  */
-function generateAreaProblem(grade, conceptText = '') {
+function generateAreaProblem(grade, conceptText = '', existingQuestions = []) {
     const conceptLower = (conceptText || '').toLowerCase();
     
     // 마름모 넓이
@@ -3393,6 +3599,114 @@ function generateAreaProblem(grade, conceptText = '') {
             explanation: `직사각형의 넓이 = 가로 × 세로 = ${width} × ${height} = ${area}cm²입니다.`,
             inputPlaceholder: '답을 입력하세요 (예: 20cm²)',
             meta: { grade, concept: 'rectangle_area', width, height, area }
+        };
+    }
+    
+    // 다각형의 둘레
+    if (conceptLower.includes('둘레') || conceptLower.includes('다각형') || conceptLower.includes('둘레 구하기')) {
+        const sides = [4, 5, 6][Math.floor(Math.random() * 3)]; // 사각형, 오각형, 육각형
+        const sideLength = 5 + Math.floor(Math.random() * 5); // 5~9cm
+        const perimeter = sides * sideLength;
+        
+        const shapeNames = { 4: '사각형', 5: '오각형', 6: '육각형' };
+        return {
+            type: PROBLEM_TYPES.MIXED_CALC,
+            question: `한 변의 길이가 ${sideLength}cm인 정${shapeNames[sides]}의 둘레는 몇 cm인가요?`,
+            answer: `${perimeter}cm`,
+            explanation: `정${shapeNames[sides]}은 모든 변의 길이가 같으므로, 둘레 = 한 변의 길이 × 변의 개수 = ${sideLength} × ${sides} = ${perimeter}cm입니다.`,
+            inputPlaceholder: '답을 입력하세요 (예: 20cm)',
+            meta: { grade, concept: 'polygon_perimeter', sides, sideLength, perimeter }
+        };
+    }
+    
+    // 1 cm² 보다 더 큰 넓이의 단위 알아보기 (m², km² 등)
+    if ((conceptLower.includes('더 큰') && conceptLower.includes('단위') && conceptLower.includes('넓이')) ||
+        (conceptLower.includes('넓이') && conceptLower.includes('단위') && !conceptLower.includes('직사각형'))) {
+        // 5학년 수준에 맞는 넓이 단위 변환 문제만 생성 (m², km² 중심, 'a'/'ha' 제외)
+        const unitTypes = [
+            { from: 'cm²', to: 'm²', factor: 10000, examples: [10000, 25000, 50000, 75000] },
+            { from: 'm²', to: 'km²', factor: 1000000, examples: [1000000, 3000000, 5000000] },
+            { from: 'km²', to: 'm²', factor: 1000000, examples: [1, 2, 3, 5] } // 역변환
+        ];
+        
+        // 모든 가능한 문제 조합 생성 (중복 방지)
+        const allQuestions = [];
+        unitTypes.forEach(unitType => {
+            unitType.examples.forEach(value => {
+                const converted = value / unitType.factor;
+                
+                // 각 단위 조합에 대해 여러 문제 템플릿 생성
+                allQuestions.push({
+                    question: `${value}${unitType.from}는 몇 ${unitType.to}인가요?`,
+                    answer: `${converted}${unitType.to}`,
+                    explanation: `1${unitType.to} = ${unitType.factor}${unitType.from}이므로, ${value}${unitType.from} = ${value} ÷ ${unitType.factor} = ${converted}${unitType.to}입니다.`
+                });
+                
+                allQuestions.push({
+                    question: `1${unitType.to}는 몇 ${unitType.from}인가요?`,
+                    answer: `${unitType.factor}${unitType.from}`,
+                    explanation: `1${unitType.to} = ${unitType.factor}${unitType.from}입니다.`
+                });
+                
+                allQuestions.push({
+                    question: `넓이가 ${value}${unitType.from}인 직사각형 모양의 땅을 ${unitType.to}로 나타내면 얼마인가요?`,
+                    answer: `${converted}${unitType.to}`,
+                    explanation: `1${unitType.to} = ${unitType.factor}${unitType.from}이므로, ${value}${unitType.from} = ${value} ÷ ${unitType.factor} = ${converted}${unitType.to}입니다.`
+                });
+            });
+        });
+        
+        // 중복 방지: 이미 생성된 문제와 비교
+        const usedQuestions = new Set();
+        existingQuestions.forEach(q => {
+            const qText = (q.question || q.stem || q.questionText || '').trim();
+            if (qText) {
+                usedQuestions.add(qText.toLowerCase());
+            }
+        });
+        
+        // 사용되지 않은 문제만 필터링
+        const availableProblems = allQuestions.filter(p => !usedQuestions.has(p.question.toLowerCase()));
+        
+        // 사용 가능한 문제가 없으면 전체 문제에서 선택 (최후의 수단)
+        const problemPool = availableProblems.length > 0 ? availableProblems : allQuestions;
+        
+        // 순차적으로 선택하거나 랜덤 선택
+        const index = existingQuestions.length < allQuestions.length ? existingQuestions.length : Math.floor(Math.random() * problemPool.length);
+        const selectedProblem = problemPool[index % problemPool.length];
+        
+        // 메타데이터에서 from/to 추출 (문제 텍스트에서)
+        let metaFrom = 'm²', metaTo = 'km²', metaFactor = 1000000;
+        unitTypes.forEach(unitType => {
+            if (selectedProblem.question.includes(unitType.from) && selectedProblem.question.includes(unitType.to)) {
+                metaFrom = unitType.from;
+                metaTo = unitType.to;
+                metaFactor = unitType.factor;
+            }
+        });
+        
+        return {
+            type: PROBLEM_TYPES.MIXED_CALC,
+            question: selectedProblem.question,
+            answer: selectedProblem.answer,
+            explanation: selectedProblem.explanation,
+            inputPlaceholder: `답을 입력하세요 (예: ${selectedProblem.answer})`,
+            meta: { grade, concept: 'area_unit_conversion', from: metaFrom, to: metaTo, factor: metaFactor }
+        };
+    }
+    
+    // 1 cm² 알아보기 (직사각형 넓이)
+    if (conceptLower.includes('1 cm²') || conceptLower.includes('1cm²')) {
+        const width = 5 + Math.floor(Math.random() * 5); // 5~9
+        const height = 4 + Math.floor(Math.random() * 4); // 4~7
+        const area = width * height;
+        return {
+            type: PROBLEM_TYPES.MIXED_CALC,
+            question: `가로가 ${width}cm, 세로가 ${height}cm인 직사각형의 넓이는 몇 cm²인가요?`,
+            answer: `${area}cm²`,
+            explanation: `직사각형의 넓이 = 가로 × 세로 = ${width} × ${height} = ${area}cm²입니다.`,
+            inputPlaceholder: '답을 입력하세요 (예: 20cm²)',
+            meta: { grade, concept: 'area_unit', width, height, area }
         };
     }
     
@@ -3961,10 +4275,12 @@ function generateLinearEquationProblem(grade) {
     return {
         type: PROBLEM_TYPES.LINEAR_EQUATION,
         question: `${coef}x + ${constTerm} = ${result}일 때, x의 값은?`,
+        questionLatex: `$${coef}x + ${constTerm} = ${result}$일 때, $x$의 값은?`,
         answer: `${solution}`,
-        explanation: `${coef}x = ${result} - ${constTerm} = ${result - constTerm}, x = ${(result - constTerm)} ÷ ${coef} = ${solution}입니다.`,
+        answerLatex: `${solution}`,
+        explanation: `$${coef}x = ${result} - ${constTerm} = ${result - constTerm}$, $x = \\dfrac{${result - constTerm}}{${coef}} = ${solution}$입니다.`,
         inputPlaceholder: '답을 입력하세요',
-        meta: { grade, concept: 'linear_equation', coefficient: coef, constant: constTerm, solution }
+        meta: { grade, concept: 'linear_equation', coefficient: coef, constant: constTerm, solution, schoolLevel: 'middle' }
     };
 }
 
@@ -3980,10 +4296,12 @@ function generateLinearFunctionProblem(grade) {
     return {
         type: PROBLEM_TYPES.LINEAR_FUNCTION,
         question: `일차함수 y = ${a}x + ${b}에서 x = ${x}일 때, y의 값은?`,
+        questionLatex: `일차함수 $y = ${a}x + ${b}$에서 $x = ${x}$일 때, $y$의 값은?`,
         answer: `${y}`,
-        explanation: `y = ${a} × ${x} + ${b} = ${a * x} + ${b} = ${y}입니다.`,
+        answerLatex: `${y}`,
+        explanation: `$y = ${a} \\times ${x} + ${b} = ${a * x} + ${b} = ${y}$입니다.`,
         inputPlaceholder: '답을 입력하세요',
-        meta: { grade, concept: 'linear_function', slope: a, intercept: b, x, y }
+        meta: { grade, concept: 'linear_function', slope: a, intercept: b, x, y, schoolLevel: 'middle' }
     };
 }
 
@@ -4350,7 +4668,7 @@ function generateGraphProblem(grade, conceptText = '', conceptId = '') {
 /**
  * 중학교 수준 도형 문제 생성 (이등변삼각형, 외심, 내심, 평행사변형, 닮음, 피타고라스 등)
  */
-function generateMiddleSchoolGeometryProblem(grade, conceptText = '', conceptId = '') {
+function generateMiddleSchoolGeometryProblem(grade, conceptText = '', conceptId = '', existingQuestions = []) {
     const conceptLower = (conceptText || '').toLowerCase();
     const idLower = (conceptId || '').toLowerCase();
     
@@ -4482,6 +4800,253 @@ function generateMiddleSchoolGeometryProblem(grade, conceptText = '', conceptId 
         };
     }
     
+    // 다각형의 성질 (다각형의 뜻, 내각과 외각, 대각선, 정다각형)
+    if (conceptLower.includes('다각형') || idLower.includes('u2-s1')) {
+        // 다각형의 뜻 (중학교 수준으로 향상)
+        if (conceptLower.includes('뜻') || conceptLower.includes('정의') || conceptLower.includes('의미')) {
+            // 중학교 수준: 다각형의 정의와 성질을 묻는 문제
+            const problems = [
+                {
+                    question: '다각형의 정의를 바르게 설명한 것은?',
+                    answer: '3개 이상의 선분으로 둘러싸인 도형',
+                    explanation: '다각형은 3개 이상의 선분으로 둘러싸인 도형입니다. 각 선분은 다각형의 변이 되고, 변과 변이 만나는 점은 꼭짓점이 됩니다.'
+                },
+                {
+                    question: '다음 중 다각형이 아닌 것은?',
+                    answer: '원',
+                    explanation: '원은 곡선으로 이루어진 도형이므로 다각형이 아닙니다. 다각형은 선분으로 둘러싸인 도형이어야 합니다.'
+                },
+                {
+                    question: '다각형에서 변의 개수가 n개일 때, 꼭짓점의 개수는?',
+                    answer: 'n개',
+                    explanation: '다각형에서 변의 개수와 꼭짓점의 개수는 같습니다. 예를 들어 삼각형은 변 3개, 꼭짓점 3개입니다.'
+                },
+                {
+                    question: '다각형의 변과 꼭짓점의 관계를 바르게 설명한 것은?',
+                    answer: '변의 개수와 꼭짓점의 개수는 항상 같다',
+                    explanation: '다각형에서 변의 개수와 꼭짓점의 개수는 항상 같습니다. 한 변은 두 꼭짓점을 연결하므로, 변의 개수와 꼭짓점의 개수가 일치합니다.'
+                },
+                {
+                    question: '다각형은 어떤 도형인가?',
+                    answer: '3개 이상의 선분으로 둘러싸인 평면도형',
+                    explanation: '다각형은 3개 이상의 선분으로 둘러싸인 평면도형입니다. 삼각형, 사각형, 오각형 등이 모두 다각형의 예입니다.'
+                },
+                {
+                    question: '다음 중 다각형인 것은?',
+                    answer: '삼각형, 사각형, 오각형 모두',
+                    explanation: '삼각형, 사각형, 오각형 모두 선분으로 둘러싸인 도형이므로 다각형입니다.'
+                }
+            ];
+            // 이미 생성된 문제와 비교하여 중복 방지
+            const usedQuestions = new Set();
+            existingQuestions.forEach(q => {
+                const qText = (q.question || q.stem || q.questionText || '').trim();
+                if (qText) {
+                    usedQuestions.add(qText.toLowerCase());
+                }
+            });
+            
+            // 사용되지 않은 문제만 필터링
+            const availableProblems = problems.filter(p => !usedQuestions.has(p.question.toLowerCase()));
+            
+            // 사용 가능한 문제가 없으면 전체 문제에서 선택 (최후의 수단)
+            const problemPool = availableProblems.length > 0 ? availableProblems : problems;
+            
+            // 순차적으로 선택하거나 랜덤 선택
+            const index = existingQuestions.length < problems.length ? existingQuestions.length : Math.floor(Math.random() * problemPool.length);
+            const selected = problemPool[index % problemPool.length];
+            
+            return {
+                type: PROBLEM_TYPES.TRIANGLE_CLASSIFY,
+                question: selected.question,
+                answer: selected.answer,
+                explanation: selected.explanation,
+                inputPlaceholder: '답을 입력하세요',
+                meta: { grade, concept: 'polygon_definition' }
+            };
+        }
+        
+        // 다각형의 내각과 외각
+        if (conceptLower.includes('내각') || conceptLower.includes('외각')) {
+            const n = 5 + Math.floor(Math.random() * 4); // 5~8각형
+            const nKorean = numberToKorean(n);
+            const interiorSum = (n - 2) * 180;
+            const exteriorSum = 360;
+            const oneInterior = interiorSum / n;
+            const oneExterior = 360 / n;
+            
+            const problems = [
+                {
+                    question: `${nKorean}각형의 내각의 크기의 합은 몇 도인가요?`,
+                    answer: `${interiorSum}°`,
+                    explanation: `n각형의 내각의 크기의 합은 (n-2) × 180° = (${n}-2) × 180° = ${n-2} × 180° = ${interiorSum}°입니다.`
+                },
+                {
+                    question: `${nKorean}각형의 외각의 크기의 합은 몇 도인가요?`,
+                    answer: `${exteriorSum}°`,
+                    explanation: `모든 다각형의 외각의 크기의 합은 항상 360°입니다.`
+                },
+                {
+                    question: `정${nKorean}각형의 한 내각의 크기는 몇 도인가요?`,
+                    answer: `${oneInterior}°`,
+                    explanation: `정${nKorean}각형의 내각의 크기의 합은 ${interiorSum}°이므로, 한 내각의 크기는 ${interiorSum}° ÷ ${n} = ${oneInterior}°입니다.`
+                },
+                {
+                    question: `정${nKorean}각형의 한 외각의 크기는 몇 도인가요?`,
+                    answer: `${oneExterior}°`,
+                    explanation: `정${nKorean}각형의 외각의 크기의 합은 360°이므로, 한 외각의 크기는 360° ÷ ${n} = ${oneExterior}°입니다.`
+                }
+            ];
+            
+            const selected = problems[Math.floor(Math.random() * problems.length)];
+            return {
+                type: PROBLEM_TYPES.TRIANGLE_CLASSIFY,
+                question: selected.question,
+                answer: selected.answer,
+                explanation: selected.explanation,
+                inputPlaceholder: '답을 입력하세요 (예: 180°)',
+                meta: { grade, concept: 'polygon_angle', n, interiorSum, exteriorSum }
+            };
+        }
+        
+        // 다각형의 대각선
+        if (conceptLower.includes('대각선')) {
+            const n = 5 + Math.floor(Math.random() * 4); // 5~8각형
+            const nKorean = numberToKorean(n);
+            const diagonalCount = (n * (n - 3)) / 2;
+            const diagonalCountKorean = numberToKorean(diagonalCount);
+            return {
+                type: PROBLEM_TYPES.TRIANGLE_CLASSIFY,
+                question: `${nKorean}각형의 대각선의 개수는 몇 개인가요?`,
+                answer: `${diagonalCountKorean}개`,
+                explanation: `n각형의 대각선의 개수는 n(n-3)/2 = ${n}(${n}-3)/2 = ${n} × ${n-3} / 2 = ${diagonalCount}개입니다.`,
+                inputPlaceholder: '답을 입력하세요 (예: 오개)',
+                meta: { grade, concept: 'polygon_diagonal', n, diagonalCount }
+            };
+        }
+        
+        // 정다각형
+        if (conceptLower.includes('정다각형') || conceptLower.includes('정 다각형')) {
+            const shapes = ['정삼각형', '정사각형', '정오각형', '정육각형'];
+            const shape = shapes[Math.floor(Math.random() * shapes.length)];
+            const n = shape === '정삼각형' ? 3 : shape === '정사각형' ? 4 : shape === '정오각형' ? 5 : 6;
+            const interiorSum = (n - 2) * 180;
+            const oneInterior = interiorSum / n;
+            
+            return {
+                type: PROBLEM_TYPES.TRIANGLE_CLASSIFY,
+                question: `${shape}의 한 내각의 크기는 몇 도인가요?`,
+                answer: `${oneInterior}°`,
+                explanation: `${shape}의 내각의 크기의 합은 (${n}-2) × 180° = ${n-2} × 180° = ${interiorSum}°이므로, 한 내각의 크기는 ${interiorSum}° ÷ ${n} = ${oneInterior}°입니다.`,
+                inputPlaceholder: '답을 입력하세요 (예: 120°)',
+                meta: { grade, concept: 'regular_polygon', shape, n, oneInterior }
+            };
+        }
+        
+        // 기본: 다각형의 정의
+        return {
+            type: PROBLEM_TYPES.TRIANGLE_CLASSIFY,
+            question: `다각형은 몇 개 이상의 변으로 둘러싸인 도형인가요?`,
+            answer: '3개',
+            explanation: '다각형은 3개 이상의 변으로 둘러싸인 도형입니다.',
+            inputPlaceholder: '답을 입력하세요',
+            meta: { grade, concept: 'polygon_basic' }
+        };
+    }
+    
+    return null;
+}
+
+// 통계 문제 생성 함수
+function generateMiddleSchoolStatisticsProblem(grade, conceptText = '', conceptId = '') {
+    const conceptLower = (conceptText || '').toLowerCase();
+    const idLower = (conceptId || '').toLowerCase();
+    
+    // 대푯값과 평균
+    if (conceptLower.includes('대푯값') || conceptLower.includes('평균')) {
+        const dataSets = [
+            [85, 90, 78, 92, 88],
+            [72, 85, 90, 78, 95],
+            [88, 92, 85, 90, 87],
+            [75, 82, 90, 88, 85]
+        ];
+        const data = dataSets[Math.floor(Math.random() * dataSets.length)];
+        const sum = data.reduce((a, b) => a + b, 0);
+        const mean = sum / data.length;
+        
+        return {
+            type: PROBLEM_TYPES.PATTERN,
+            question: `다음 자료의 평균을 구하시오.\n${data.join(', ')}`,
+            answer: `${mean}`,
+            explanation: `평균 = (${data.join(' + ')}) ÷ ${data.length} = ${sum} ÷ ${data.length} = ${mean}입니다.`,
+            inputPlaceholder: '답을 입력하세요',
+            meta: { grade, concept: 'statistics_mean', data, mean }
+        };
+    }
+    
+    // 최빈값
+    if (conceptLower.includes('최빈값')) {
+        const dataSets = [
+            [3, 5, 3, 7, 3, 5, 3],
+            [2, 4, 2, 6, 4, 2, 4],
+            [1, 3, 1, 5, 3, 1, 3],
+            [4, 6, 4, 8, 6, 4, 6]
+        ];
+        const data = dataSets[Math.floor(Math.random() * dataSets.length)];
+        const frequency = {};
+        data.forEach(num => {
+            frequency[num] = (frequency[num] || 0) + 1;
+        });
+        const maxFreq = Math.max(...Object.values(frequency));
+        const mode = Object.keys(frequency).filter(k => frequency[k] === maxFreq).map(Number);
+        
+        return {
+            type: PROBLEM_TYPES.PATTERN,
+            question: `다음 자료의 최빈값을 구하시오.\n${data.join(', ')}`,
+            answer: mode.length === 1 ? `${mode[0]}` : mode.join(', '),
+            explanation: `각 값의 빈도를 세면 ${Object.entries(frequency).map(([k, v]) => `${k}: ${v}번`).join(', ')}입니다. 가장 많이 나타나는 값은 ${mode.join(', ')}이므로 최빈값은 ${mode.length === 1 ? mode[0] : mode.join(', ')}입니다.`,
+            inputPlaceholder: '답을 입력하세요',
+            meta: { grade, concept: 'statistics_mode', data, mode }
+        };
+    }
+    
+    // 중앙값
+    if (conceptLower.includes('중앙값')) {
+        const dataSets = [
+            [15, 20, 18, 25, 22],
+            [30, 35, 28, 40, 32],
+            [10, 15, 12, 20, 18],
+            [50, 55, 48, 60, 52]
+        ];
+        const data = dataSets[Math.floor(Math.random() * dataSets.length)];
+        const sorted = [...data].sort((a, b) => a - b);
+        const median = sorted.length % 2 === 0 
+            ? (sorted[sorted.length / 2 - 1] + sorted[sorted.length / 2]) / 2
+            : sorted[Math.floor(sorted.length / 2)];
+        
+        return {
+            type: PROBLEM_TYPES.PATTERN,
+            question: `다음 자료를 크기 순으로 나열한 후 중앙값을 구하시오.\n${data.join(', ')}`,
+            answer: `${median}`,
+            explanation: `크기 순으로 나열하면 ${sorted.join(', ')}입니다. 자료의 개수가 ${sorted.length}개이므로 중앙값은 ${sorted.length % 2 === 0 ? `${sorted[sorted.length / 2 - 1]}와 ${sorted[sorted.length / 2]}의 평균인 ${median}` : `${sorted[Math.floor(sorted.length / 2)]}`}입니다.`,
+            inputPlaceholder: '답을 입력하세요',
+            meta: { grade, concept: 'statistics_median', data, sorted, median }
+        };
+    }
+    
+    // 기본: 평균 문제
+    const data = [80, 85, 90, 75, 88];
+    const sum = data.reduce((a, b) => a + b, 0);
+    const mean = sum / data.length;
+    return {
+        type: PROBLEM_TYPES.PATTERN,
+        question: `다음 자료의 평균을 구하시오.\n${data.join(', ')}`,
+        answer: `${mean}`,
+        explanation: `평균 = (${data.join(' + ')}) ÷ ${data.length} = ${sum} ÷ ${data.length} = ${mean}입니다.`,
+        inputPlaceholder: '답을 입력하세요',
+        meta: { grade, concept: 'statistics_basic', data, mean }
+    };
+    
     // 사각형 (직사각형, 마름모, 정사각형)
     if (conceptLower.includes('사각형') || idLower.includes('u2-s2')) {
         const shapeTypes = ['직사각형', '마름모', '정사각형'];
@@ -4599,7 +5164,7 @@ function generateMiddleSchoolNumberProblem(grade, conceptText = '', conceptId = 
 }
 
 // 문제 형식 중 하나를 랜덤 생성 (개념 텍스트 추가로 도형 문제 생성 가능)
-function generateProblemByType(type, grade, conceptText = '', conceptId = '', schoolLevel = 'elementary', rawGrade = null, problemType = '기본형') {
+function generateProblemByType(type, grade, conceptText = '', conceptId = '', schoolLevel = 'elementary', rawGrade = null, problemType = '기본형', existingQuestions = []) {
     // conceptId 정규화 (객체 처리 강화)
     const idString = normalizeConceptId(conceptId);
     
@@ -4685,12 +5250,15 @@ function generateProblemByType(type, grade, conceptText = '', conceptId = '', sc
                     return generateMiddleSchoolGrade1Problem(grade, conceptText, idString, problemType);
                 }
             }
-            // 도형 넓이 문제인 경우 generateAreaProblem 사용
+            // 도형 넓이 문제인 경우 generateAreaProblem 사용 (넓이 단위 포함)
             if (conceptText && (conceptText.includes('마름모') || conceptText.includes('사다리꼴') || 
-                conceptText.includes('평행사변형') || (conceptText.includes('넓이') && conceptText.includes('삼각형')) ||
-                (conceptText.includes('넓이') && conceptText.includes('직사각형')))) {
-                return generateAreaProblem(grade, conceptText);
+                conceptText.includes('평행사변형') || conceptText.includes('둘레') ||
+                (conceptText.includes('넓이') && conceptText.includes('단위')) ||
+                (conceptText.includes('넓이') && conceptText.includes('더 큰')) ||
+                conceptText.includes('넓이의 단위'))) {
+                return generateAreaProblem(grade, conceptText, existingQuestions || []);
             }
+            // MIXED_CALC 타입이지만 넓이/단위와 관련 없으면 일반 혼합 계산
             return generateMixedCalcProblem(grade, schoolLevel, rawGrade);
         case PROBLEM_TYPES.SKIP_COUNT:
             return generateSkipCountProblem(grade);
@@ -4730,10 +5298,20 @@ function generateProblemByType(type, grade, conceptText = '', conceptId = '', sc
             return generateLinearEquationProblem(grade);
         case PROBLEM_TYPES.LINEAR_FUNCTION:
             return generateLinearFunctionProblem(grade);
+        case PROBLEM_TYPES.LINEAR_INEQUALITY:
+            return generateLinearInequalityProblem(grade);
+        case PROBLEM_TYPES.SYSTEM_OF_EQUATIONS:
+            return generateSystemOfEquationsProblem(grade, existingQuestions || []);
         case PROBLEM_TYPES.PROBABILITY:
             return generateProbabilityProblem(grade);
         case PROBLEM_TYPES.GEOMETRY_DRAWING:
             return generateGeometryDrawingProblem(grade, conceptText, idString);
+        case PROBLEM_TYPES.TRIANGLE_CLASSIFY:
+            // 중학교인 경우 중학교 도형 문제 생성
+            if (isMiddleSchool) {
+                return generateMiddleSchoolGeometryProblem(grade, conceptText, idString, existingQuestions);
+            }
+            return generateTriangleClassifyProblem(grade);
         default:
             // 중학교인 경우 기본 문제 타입도 차단
             if (isMiddleSchool) {
@@ -4864,6 +5442,140 @@ function drawProtracter(size, centerX, centerY) {
     }).join('')}
 </g>`;
     return svg;
+}
+
+/**
+ * 통합 SVG 시각화 엔진 - 도형, 각도, 그래프 렌더링
+ * @param {string} type - 도형 타입 ('triangle', 'rectangle', 'angle', 'bar_graph', 'line_graph', 'circle')
+ * @param {Object} data - 도형 데이터
+ * @returns {string} SVG 문자열
+ */
+function drawGeometry(type, data) {
+    const defaultSize = 300;
+    const size = data.size || defaultSize;
+    
+    switch (type) {
+        case 'triangle':
+            return drawTriangle(data.sides, data.angles, data.options || {});
+        
+        case 'rectangle':
+        case 'square':
+            const width = data.width || (data.side || 5);
+            const height = data.height || (data.side || 5);
+            const rectOptions = data.options || {};
+            const showLabels = rectOptions.showLabels !== false;
+            const labels = rectOptions.labels || ['A', 'B', 'C', 'D'];
+            
+            const rectX = size * 0.2;
+            const rectY = size * 0.3;
+            const rectWidth = width * 10;
+            const rectHeight = height * 10;
+            
+            let rectSvg = `<svg width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg" style="display: block; margin: 20px auto;">
+    <rect x="${rectX}" y="${rectY}" width="${rectWidth}" height="${rectHeight}" stroke="#333" stroke-width="2.5" fill="none" />
+    ${showLabels ? `
+    <circle cx="${rectX}" cy="${rectY}" r="4" fill="#333" />
+    <text x="${rectX - 12}" y="${rectY - 8}" font-family="Arial, sans-serif" font-size="14" fill="#333" font-weight="bold">${labels[0]}</text>
+    <circle cx="${rectX + rectWidth}" cy="${rectY}" r="4" fill="#333" />
+    <text x="${rectX + rectWidth + 8}" y="${rectY - 8}" font-family="Arial, sans-serif" font-size="14" fill="#333" font-weight="bold">${labels[1]}</text>
+    <circle cx="${rectX + rectWidth}" cy="${rectY + rectHeight}" r="4" fill="#333" />
+    <text x="${rectX + rectWidth + 8}" y="${rectY + rectHeight + 20}" font-family="Arial, sans-serif" font-size="14" fill="#333" font-weight="bold">${labels[2]}</text>
+    <circle cx="${rectX}" cy="${rectY + rectHeight}" r="4" fill="#333" />
+    <text x="${rectX - 12}" y="${rectY + rectHeight + 20}" font-family="Arial, sans-serif" font-size="14" fill="#333" font-weight="bold">${labels[3]}</text>
+    ` : ''}
+    ${rectOptions.showMeasurements !== false ? `
+    <text x="${rectX + rectWidth / 2}" y="${rectY - 12}" font-family="Arial, sans-serif" font-size="12" fill="#4f46e5" font-weight="bold" text-anchor="middle">${width}cm</text>
+    <text x="${rectX + rectWidth + 12}" y="${rectY + rectHeight / 2}" font-family="Arial, sans-serif" font-size="12" fill="#4f46e5" font-weight="bold" text-anchor="middle">${height}cm</text>
+    ` : ''}
+</svg>`;
+            return rectSvg;
+        
+        case 'angle':
+            return drawAngle(data.degree || 90, data.options || {});
+        
+        case 'bar_graph':
+        case 'barGraph':
+            const barData = data.data || [];
+            const barWidth = size / (barData.length * 2);
+            const maxValue = Math.max(...barData.map(d => d.value || d));
+            const scale = (size * 0.6) / maxValue;
+            const barLabels = barData.map(d => d.label || d);
+            const barValues = barData.map(d => d.value !== undefined ? d.value : d);
+            
+            let barSvg = `<svg width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg" style="display: block; margin: 20px auto;">
+    ${barData.map((item, i) => {
+        const value = barValues[i];
+        const barHeight = value * scale;
+        const x = size * 0.2 + i * barWidth * 1.5;
+        const y = size * 0.8 - barHeight;
+        return `
+    <rect x="${x}" y="${y}" width="${barWidth * 0.8}" height="${barHeight}" fill="#4f46e5" stroke="#333" stroke-width="1" />
+    <text x="${x + barWidth * 0.4}" y="${y - 5}" font-family="Arial, sans-serif" font-size="11" fill="#333" text-anchor="middle" font-weight="bold">${value}</text>
+    <text x="${x + barWidth * 0.4}" y="${size * 0.85}" font-family="Arial, sans-serif" font-size="10" fill="#666" text-anchor="middle">${barLabels[i]}</text>`;
+    }).join('')}
+    <line x1="${size * 0.15}" y1="${size * 0.8}" x2="${size * 0.85}" y2="${size * 0.8}" stroke="#333" stroke-width="2" />
+    <line x1="${size * 0.15}" y1="${size * 0.2}" x2="${size * 0.15}" y2="${size * 0.8}" stroke="#333" stroke-width="2" />
+</svg>`;
+            return barSvg;
+        
+        case 'line_graph':
+        case 'lineGraph':
+            const lineData = data.data || [];
+            const lineMaxValue = Math.max(...lineData.map(d => d.value || d));
+            const lineScale = (size * 0.6) / lineMaxValue;
+            const lineLabels = lineData.map(d => d.label || '');
+            const lineValues = lineData.map(d => d.value !== undefined ? d.value : d);
+            const pointRadius = 4;
+            
+            // 좌표 계산
+            const points = lineData.map((item, i) => {
+                const x = size * 0.2 + (i / (lineData.length - 1)) * (size * 0.65);
+                const y = size * 0.8 - lineValues[i] * lineScale;
+                return { x, y };
+            });
+            
+            // 선 그리기
+            const pathData = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ');
+            
+            let lineSvg = `<svg width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg" style="display: block; margin: 20px auto;">
+    <path d="${pathData}" stroke="#4f46e5" stroke-width="2.5" fill="none" />
+    ${points.map((p, i) => `
+    <circle cx="${p.x}" cy="${p.y}" r="${pointRadius}" fill="#4f46e5" stroke="#fff" stroke-width="1.5" />
+    <text x="${p.x}" y="${p.y - 10}" font-family="Arial, sans-serif" font-size="10" fill="#333" text-anchor="middle" font-weight="bold">${lineValues[i]}</text>
+    <text x="${p.x}" y="${size * 0.85}" font-family="Arial, sans-serif" font-size="9" fill="#666" text-anchor="middle">${lineLabels[i] || i + 1}</text>
+    `).join('')}
+    <line x1="${size * 0.15}" y1="${size * 0.8}" x2="${size * 0.85}" y2="${size * 0.8}" stroke="#333" stroke-width="2" />
+    <line x1="${size * 0.15}" y1="${size * 0.2}" x2="${size * 0.15}" y2="${size * 0.8}" stroke="#333" stroke-width="2" />
+</svg>`;
+            return lineSvg;
+        
+        case 'circle':
+            const radius = data.radius || 50;
+            const centerX = size / 2;
+            const centerY = size / 2;
+            const circleOptions = data.options || {};
+            const showRadius = circleOptions.showRadius !== false;
+            const showDiameter = circleOptions.showDiameter !== false;
+            
+            let circleSvg = `<svg width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg" style="display: block; margin: 20px auto;">
+    <circle cx="${centerX}" cy="${centerY}" r="${radius}" stroke="#333" stroke-width="2.5" fill="none" />
+    ${showRadius ? `
+    <line x1="${centerX}" y1="${centerY}" x2="${centerX + radius}" y2="${centerY}" stroke="#4f46e5" stroke-width="2" stroke-dasharray="5,5" />
+    <text x="${centerX + radius / 2}" y="${centerY - 8}" font-family="Arial, sans-serif" font-size="12" fill="#4f46e5" font-weight="bold" text-anchor="middle">${radius}cm</text>
+    ` : ''}
+    ${showDiameter ? `
+    <line x1="${centerX - radius}" y1="${centerY}" x2="${centerX + radius}" y2="${centerY}" stroke="#4f46e5" stroke-width="2" stroke-dasharray="3,3" />
+    <text x="${centerX}" y="${centerY - 15}" font-family="Arial, sans-serif" font-size="11" fill="#666" text-anchor="middle">직경: ${radius * 2}cm</text>
+    ` : ''}
+    <circle cx="${centerX}" cy="${centerY}" r="3" fill="#333" />
+    <text x="${centerX + 8}" y="${centerY + 5}" font-family="Arial, sans-serif" font-size="12" fill="#333" font-weight="bold">O</text>
+</svg>`;
+            return circleSvg;
+        
+        default:
+            // 기본값: 삼각형
+            return drawTriangle({ a: 5, b: 6, c: 7 }, null, {});
+    }
 }
 
 /**
@@ -5361,6 +6073,25 @@ function generateMiddleSchoolGrade1Problem(grade, conceptText = '', conceptId = 
     const idLower = (conceptId || '').toLowerCase();
     const isAdvanced = problemType === '응용 심화형' || problemType === 'basic+application';
     const isHighest = problemType === '최상위' || problemType === 'highest' || problemType === '응용 심화형'; // 최상위 수준도 응용 심화형에 포함
+    
+    // 통계 개념은 통계 전용 함수로 처리
+    if (conceptLower.includes('통계') || conceptLower.includes('대푯값') || conceptLower.includes('평균') ||
+        conceptLower.includes('최빈값') || conceptLower.includes('중앙값') || conceptLower.includes('도수분포표') ||
+        conceptLower.includes('상대도수') || idLower.includes('u4')) {
+        return generateMiddleSchoolStatisticsProblem(grade, conceptText, conceptId);
+    }
+    
+    // 도형 개념은 generateMiddleSchoolGeometryProblem으로 처리
+    if (conceptLower.includes('다각형') || conceptLower.includes('도형') || conceptLower.includes('평면') ||
+        conceptLower.includes('내각') || conceptLower.includes('외각') || conceptLower.includes('대각선') ||
+        conceptLower.includes('정다각형') || conceptLower.includes('이등변') || conceptLower.includes('직각') ||
+        conceptLower.includes('외심') || conceptLower.includes('내심') || conceptLower.includes('피타고라스') ||
+        conceptLower.includes('닮음') || conceptLower.includes('평행사변형') || conceptLower.includes('사각형') ||
+        idLower.includes('u1') || idLower.includes('u2') || idLower.includes('u3')) {
+        // existingQuestions는 generateProblemByType에서 전달받을 수 없으므로 빈 배열 사용
+        // 실제로는 createSampleProblems에서 이미 생성된 문제를 체크하므로 여기서는 빈 배열로 충분
+        return generateMiddleSchoolGeometryProblem(grade, conceptText, conceptId, []);
+    }
     
     // 최상위 수준 문제 생성 (복잡한 조건부 문제, 여러 개념 결합)
     if (isHighest) {
@@ -6135,7 +6866,7 @@ function generateMiddleSchoolGrade1Problem(grade, conceptText = '', conceptId = 
                 explanation: `어떤 수를 x라고 하면, x = ${divisor1} × ${quotient} + ${remainder1} = ${num}입니다. ${num}을 ${divisor2}로 나누면 몫은 ${Math.floor(num / divisor2)}, 나머지는 ${remainder2}입니다.`,
             inputPlaceholder: '답을 입력하세요',
                 meta: { grade, concept: 'linear_equation_application', num, divisor1, divisor2, quotient, remainder1, remainder2 }
-            };
+        };
         } else {
             // 기본 문제 수준: 간단한 일차방정식
             const coef = Math.floor(Math.random() * 4) + 2; // 2~5
@@ -6251,7 +6982,7 @@ function generateMiddleSchoolGrade2Problem(grade, conceptText = '', conceptId = 
     
     // 연립방정식 문제
     if (conceptLower.includes('연립') || conceptLower.includes('연립방정식') || idLower.includes('system')) {
-        return generateSystemOfEquationsProblem(grade);
+        return generateSystemOfEquationsProblem(grade, []);
     }
     
     // 일차함수와 그래프
@@ -6261,7 +6992,7 @@ function generateMiddleSchoolGrade2Problem(grade, conceptText = '', conceptId = 
     
     // 기본: 연립방정식, 일차부등식, 일차함수 중 랜덤 선택
     const types = [
-        () => generateSystemOfEquationsProblem(grade),
+        () => generateSystemOfEquationsProblem(grade, []),
         () => generateLinearInequalityProblem(grade),
         () => generateLinearFunctionWithGraphProblem(grade)
     ];
@@ -6290,11 +7021,11 @@ function generateMiddleSchoolGrade3Problem(grade, conceptText = '', conceptId = 
         
         return {
             type: PROBLEM_TYPES.LINEAR_EQUATION,
-            question: `$\\sqrt{${num}}$의 값을 구하시오.`,
-            questionLatex: `$\\sqrt{${num}}$의 값을 구하시오.`,
+            question: `√${num}의 값을 구하시오.`,
+            questionLatex: null, // LaTeX 사용 안 함
             answer: `${root}`,
-            answerLatex: `${root}`,
-            explanation: `$\\sqrt{${num}} = ${root}$입니다. (${root} × ${root} = ${num})`,
+            answerLatex: null,
+            explanation: `√${num} = ${root}입니다. (${root} × ${root} = ${num})`,
             inputPlaceholder: '답을 입력하세요',
             meta: { grade, concept: 'square_root', num, root }
         };
@@ -6312,11 +7043,11 @@ function generateMiddleSchoolGrade3Problem(grade, conceptText = '', conceptId = 
                 
                 return {
                     type: PROBLEM_TYPES.LINEAR_EQUATION,
-                    question: `$\\sqrt{${a}} ${op === '+' ? '+' : '-'} \\sqrt{${b}}$의 값을 구하시오.`,
-                    questionLatex: `$\\sqrt{${a}} ${op === '+' ? '+' : '-'} \\sqrt{${b}}$의 값을 구하시오.`,
+                    question: `√${a} ${op === '+' ? '+' : '-'} √${b}의 값을 구하시오.`,
+                    questionLatex: null, // LaTeX 사용 안 함
                     answer: `${result}`,
-                    answerLatex: `${result}`,
-                    explanation: `$\\sqrt{${a}} = ${sqrtA}$, $\\sqrt{${b}} = ${sqrtB}$이므로 $\\sqrt{${a}} ${op === '+' ? '+' : '-'} \\sqrt{${b}} = ${sqrtA} ${op === '+' ? '+' : '-'} ${sqrtB} = ${result}$입니다.`,
+                    answerLatex: null,
+                    explanation: `√${a} = ${sqrtA}, √${b} = ${sqrtB}이므로 √${a} ${op === '+' ? '+' : '-'} √${b} = ${sqrtA} ${op === '+' ? '+' : '-'} ${sqrtB} = ${result}입니다.`,
                     inputPlaceholder: '답을 입력하세요',
                     meta: { grade, concept: 'square_root_operation', a, b, result }
                 };
@@ -6337,11 +7068,11 @@ function generateMiddleSchoolGrade3Problem(grade, conceptText = '', conceptId = 
         
         return {
             type: PROBLEM_TYPES.LINEAR_EQUATION,
-            question: `$x^{2} + ${middle}x + ${constant}$를 인수분해하시오.`,
-            questionLatex: `$x^{2} + ${middle}x + ${constant}$를 인수분해하시오.`,
+            question: `x² + ${middle}x + ${constant}를 인수분해하시오.`,
+            questionLatex: null, // LaTeX 사용 안 함
             answer: `(x + ${b})(x + ${c})`,
             answerLatex: `(x + ${b})(x + ${c})`,
-            explanation: `$x^{2} + ${middle}x + ${constant} = (x + ${b})(x + ${c})$입니다.`,
+            explanation: `x² + ${middle}x + ${constant} = (x + ${b})(x + ${c})입니다.`,
             inputPlaceholder: '답을 입력하세요 (예: (x+2)(x+3))',
             meta: { grade, concept: 'factorization', a, b, c }
         };
@@ -6358,11 +7089,11 @@ function generateMiddleSchoolGrade3Problem(grade, conceptText = '', conceptId = 
         if (b * b - 4 * a * c >= 0) {
             return {
                 type: PROBLEM_TYPES.LINEAR_EQUATION,
-                question: `이차방정식 $x^{2} ${b >= 0 ? '+' : ''}${b}x + ${c} = 0$의 해를 구하시오.`,
-                questionLatex: `이차방정식 $x^{2} ${b >= 0 ? '+' : ''}${b}x + ${c} = 0$의 해를 구하시오.`,
+                question: `이차방정식 x² ${b >= 0 ? '+' : ''} ${b}x + ${c} = 0의 해를 구하시오.`,
+                questionLatex: null, // LaTeX 사용 안 함
                 answer: `x = ${solution1}, x = ${solution2}`,
                 answerLatex: `x = ${solution1}, x = ${solution2}`,
-                explanation: `근의 공식을 사용하면 $x = \\dfrac{-${-b} \\pm \\sqrt{${b * b - 4 * a * c}}}{2} = ${solution1}, ${solution2}$입니다.`,
+                explanation: `근의 공식을 사용하면 x = (-${-b} ± √${b * b - 4 * a * c}) / 2 = ${solution1}, ${solution2}입니다.`,
                 inputPlaceholder: '답을 입력하세요 (예: x = 2, x = 3)',
                 meta: { grade, concept: 'quadratic_equation', a, b, c, solution1, solution2 }
             };
@@ -6403,11 +7134,11 @@ function generateMiddleSchoolGrade3Problem(grade, conceptText = '', conceptId = 
                 
                 return {
                     type: PROBLEM_TYPES.LINEAR_EQUATION,
-                    question: `$\\sqrt{${num}}$의 값을 구하시오.`,
-                    questionLatex: `$\\sqrt{${num}}$의 값을 구하시오.`,
+                    question: `√${num}의 값을 구하시오.`,
+                    questionLatex: null, // LaTeX 사용 안 함
                     answer: `${root}`,
-                    answerLatex: `${root}`,
-                    explanation: `$\\sqrt{${num}} = ${root}$입니다.`,
+                    answerLatex: null,
+                    explanation: `√${num} = ${root}입니다.`,
                     inputPlaceholder: '답을 입력하세요',
                     meta: { grade, concept: 'square_root', num, root }
                 };
@@ -6426,11 +7157,11 @@ function generateMiddleSchoolGrade3Problem(grade, conceptText = '', conceptId = 
                 
                 return {
                     type: PROBLEM_TYPES.LINEAR_EQUATION,
-                    question: `$x^{2} + ${middle}x + ${constant}$를 인수분해하시오.`,
-                    questionLatex: `$x^{2} + ${middle}x + ${constant}$를 인수분해하시오.`,
+                    question: `x² + ${middle}x + ${constant}를 인수분해하시오.`,
+                    questionLatex: null, // LaTeX 사용 안 함
                     answer: `(x + ${pattern.b})(x + ${pattern.d})`,
                     answerLatex: `(x + ${pattern.b})(x + ${pattern.d})`,
-                    explanation: `$x^{2} + ${middle}x + ${constant} = (x + ${pattern.b})(x + ${pattern.d})$입니다.`,
+                    explanation: `x² + ${middle}x + ${constant} = (x + ${pattern.b})(x + ${pattern.d})입니다.`,
                     inputPlaceholder: '답을 입력하세요 (예: (x+2)(x+3))',
                     meta: { grade, concept: 'factorization', pattern }
                 };
@@ -6445,8 +7176,8 @@ function generateMiddleSchoolGrade3Problem(grade, conceptText = '', conceptId = 
                 
                 return {
                     type: PROBLEM_TYPES.LINEAR_EQUATION,
-                    question: `이차방정식 $x^{2} - ${sum}x + ${product} = 0$의 해를 구하시오.`,
-                    questionLatex: `이차방정식 $x^{2} - ${sum}x + ${product} = 0$의 해를 구하시오.`,
+                    question: `이차방정식 x² - ${sum}x + ${product} = 0의 해를 구하시오.`,
+                    questionLatex: null, // LaTeX 사용 안 함
                     answer: `x = ${root1}, x = ${root2}`,
                     answerLatex: `x = ${root1}, x = ${root2}`,
                     explanation: `인수분해하면 $(x - ${root1})(x - ${root2}) = 0$이므로 $x = ${root1}$ 또는 $x = ${root2}$입니다.`,
@@ -6470,11 +7201,11 @@ function generateMiddleSchoolGrade3Problem(grade, conceptText = '', conceptId = 
     
     return {
         type: PROBLEM_TYPES.LINEAR_EQUATION,
-        question: `$\\sqrt{${num}}$의 값을 구하시오.`,
-        questionLatex: `$\\sqrt{${num}}$의 값을 구하시오.`,
+        question: `√${num}의 값을 구하시오.`,
+        questionLatex: null, // LaTeX 사용 안 함
         answer: `${root}`,
-        answerLatex: `${root}`,
-        explanation: `$\\sqrt{${num}} = ${root}$입니다.`,
+        answerLatex: null,
+        explanation: `√${num} = ${root}입니다.`,
         inputPlaceholder: '답을 입력하세요',
         meta: { grade, concept: 'square_root', num, root }
     };
@@ -6496,40 +7227,159 @@ function generateLinearInequalityProblem(grade) {
     ];
     const selected = inequalityTypes[Math.floor(Math.random() * inequalityTypes.length)];
     
+    // question에는 한글 부등호 사용 (일반 텍스트용), questionLatex는 사용하지 않음 (복잡한 분수만 LaTeX 사용)
+    const explanationText = `${coef}x ${selected.symbol} ${result} - ${constTerm} = ${result - constTerm}, x ${selected.symbol} ${(result - constTerm) / coef} = ${solution}입니다.`;
+    
     return {
-        type: PROBLEM_TYPES.LINEAR_EQUATION,
-        question: `일차부등식 $${coef}x + ${constTerm} ${selected.latex} ${result}$의 해를 구하시오.`,
-        questionLatex: `일차부등식 $${coef}x + ${constTerm} ${selected.latex} ${result}$의 해를 구하시오.`,
+        type: PROBLEM_TYPES.LINEAR_INEQUALITY,
+        question: `일차부등식 ${coef}x + ${constTerm} ${selected.symbol} ${result}의 해를 구하시오.`,
+        questionLatex: null, // LaTeX 사용하지 않음 (한글 문자 사용)
         answer: `x ${selected.symbol} ${solution}`,
-        answerLatex: `x ${selected.latex} ${solution}`,
-        explanation: `$${coef}x ${selected.latex} ${result} - ${constTerm} = ${result - constTerm}$, $x ${selected.latex} \\dfrac{${result - constTerm}}{${coef}} = ${solution}$입니다.`,
+        answerLatex: null,
+        explanation: explanationText,
         inputPlaceholder: `답을 입력하세요 (예: x ${selected.symbol} ${solution})`,
-        meta: { grade, concept: 'linear_inequality', coefficient: coef, constant: constTerm, solution, inequality: selected.symbol }
+        meta: { grade, concept: 'linear_inequality', coefficient: coef, constant: constTerm, solution, inequality: selected.symbol, schoolLevel: 'middle' }
     };
 }
 
-// 연립방정식 문제 생성 (LaTeX 사용)
-function generateSystemOfEquationsProblem(grade) {
-    const a1 = Math.floor(Math.random() * 5) + 2; // 2~6
-    const b1 = Math.floor(Math.random() * 5) + 2;
-    const a2 = Math.floor(Math.random() * 5) + 2;
-    const b2 = Math.floor(Math.random() * 5) + 2;
+// 연립방정식 문제 생성 (LaTeX 사용, 다양한 템플릿 및 중복 방지)
+function generateSystemOfEquationsProblem(grade, existingQuestions = []) {
+    // 이미 생성된 문제의 고유 키를 Set에 저장 (더 정확한 중복 체크)
+    const usedKeys = new Set();
+    existingQuestions.forEach(q => {
+        const qLatex = q.questionLatex || q.question || '';
+        const qText = q.question || '';
+        // 계수와 해를 추출하여 고유 키 생성
+        const match = qLatex.match(/(\d+)x\s*\+\s*(\d+)y\s*=\s*(\d+).*?(\d+)x\s*\+\s*(\d+)y\s*=\s*(\d+)/);
+        if (match) {
+            const key = `${match[1]},${match[2]},${match[3]},${match[4]},${match[5]},${match[6]}`;
+            usedKeys.add(key);
+        } else {
+            // LaTeX가 없으면 텍스트에서 추출
+            const textMatch = qText.match(/(\d+)x\s*\+\s*(\d+)y\s*=\s*(\d+).*?(\d+)x\s*\+\s*(\d+)y\s*=\s*(\d+)/);
+            if (textMatch) {
+                const key = `${textMatch[1]},${textMatch[2]},${textMatch[3]},${textMatch[4]},${textMatch[5]},${textMatch[6]}`;
+                usedKeys.add(key);
+            }
+        }
+    });
     
-    // 간단한 해를 가지도록 조정
-    const x = Math.floor(Math.random() * 5) + 1; // 1~5
-    const y = Math.floor(Math.random() * 5) + 1; // 1~5
-    const c1 = a1 * x + b1 * y;
-    const c2 = a2 * x + b2 * y;
+    // 랜덤하게 문제 생성 (더 다양한 조합)
+    const maxAttempts = 100;
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+        const x = Math.floor(Math.random() * 5) + 1; // 1~5
+        const y = Math.floor(Math.random() * 5) + 1; // 1~5
+        
+        // 다양한 계수 조합 (랜덤 선택)
+        const coefficientSets = [
+            { a1: 2, b1: 3, a2: 4, b2: 5 },
+            { a1: 3, b1: 2, a2: 5, b2: 4 },
+            { a1: 2, b1: 5, a2: 3, b2: 4 },
+            { a1: 4, b1: 2, a2: 6, b2: 3 },
+            { a1: 5, b1: 4, a2: 2, b2: 3 },
+            { a1: 6, b1: 2, a2: 4, b2: 6 },
+            { a1: 3, b1: 5, a2: 2, b2: 2 },
+            { a1: 5, b1: 2, a2: 4, b2: 2 },
+            { a1: 2, b1: 2, a2: 3, b2: 6 },
+            { a1: 4, b1: 3, a2: 3, b2: 6 },
+            { a1: 3, b1: 4, a2: 2, b2: 5 },
+            { a1: 5, b1: 3, a2: 3, b2: 4 },
+            { a1: 2, b1: 4, a2: 5, b2: 3 },
+            { a1: 4, b1: 5, a2: 2, b2: 3 },
+            { a1: 6, b1: 3, a2: 3, b2: 5 }
+        ];
+        
+        const coef = coefficientSets[Math.floor(Math.random() * coefficientSets.length)];
+        const c1 = coef.a1 * x + coef.b1 * y;
+        const c2 = coef.a2 * x + coef.b2 * y;
+        
+        // 고유 키 생성
+        const uniqueKey = `${coef.a1},${coef.b1},${c1},${coef.a2},${coef.b2},${c2}`;
+        
+        // 이미 사용된 키인지 확인
+        if (usedKeys.has(uniqueKey)) {
+            continue; // 다음 시도
+        }
+        
+        // 사용된 키에 추가
+        usedKeys.add(uniqueKey);
+        
+        // 다양한 문제 템플릿 중 랜덤 선택
+        const templateIndex = Math.floor(Math.random() * 10);
+        let question, questionLatex, explanation;
+        
+        switch (templateIndex) {
+            case 0:
+                question = `연립방정식 $\\begin{cases} ${coef.a1}x + ${coef.b1}y = ${c1} \\\\ ${coef.a2}x + ${coef.b2}y = ${c2} \\end{cases}$의 해를 구하시오.`;
+                questionLatex = `연립방정식 $\\begin{cases} ${coef.a1}x + ${coef.b1}y = ${c1} \\\\ ${coef.a2}x + ${coef.b2}y = ${c2} \\end{cases}$의 해를 구하시오.`;
+                explanation = `첫 번째 식에서 $${coef.a1}x = ${c1} - ${coef.b1}y$를 구하고, 두 번째 식에 대입하여 $y = ${y}$를 구한 후 $x = ${x}$를 구합니다.`;
+                break;
+            case 1:
+                question = `다음 연립방정식의 해를 구하시오.\n$$\\begin{cases} ${coef.a1}x + ${coef.b1}y = ${c1} \\\\ ${coef.a2}x + ${coef.b2}y = ${c2} \\end{cases}$$`;
+                questionLatex = `다음 연립방정식의 해를 구하시오.\n$$\\begin{cases} ${coef.a1}x + ${coef.b1}y = ${c1} \\\\ ${coef.a2}x + ${coef.b2}y = ${c2} \\end{cases}$$`;
+                explanation = `가감법을 사용하여 $y = ${y}$를 구한 후, 첫 번째 식에 대입하여 $x = ${x}$를 구합니다.`;
+                break;
+            case 2:
+                question = `다음 연립방정식을 풀어보세요.\n$$\\begin{cases} ${coef.a1}x + ${coef.b1}y = ${c1} \\\\ ${coef.a2}x + ${coef.b2}y = ${c2} \\end{cases}$$`;
+                questionLatex = `다음 연립방정식을 풀어보세요.\n$$\\begin{cases} ${coef.a1}x + ${coef.b1}y = ${c1} \\\\ ${coef.a2}x + ${coef.b2}y = ${c2} \\end{cases}$$`;
+                explanation = `대입법을 사용하여 $x = ${x}$, $y = ${y}$를 구합니다.`;
+                break;
+            case 3:
+                question = `$\\begin{cases} ${coef.a1}x + ${coef.b1}y = ${c1} \\\\ ${coef.a2}x + ${coef.b2}y = ${c2} \\end{cases}$를 만족하는 $x$, $y$의 값을 구하시오.`;
+                questionLatex = `$\\begin{cases} ${coef.a1}x + ${coef.b1}y = ${c1} \\\\ ${coef.a2}x + ${coef.b2}y = ${c2} \\end{cases}$를 만족하는 $x$, $y$의 값을 구하시오.`;
+                explanation = `두 식을 연립하여 풀면 $x = ${x}$, $y = ${y}$입니다.`;
+                break;
+            case 4:
+                question = `다음 두 식을 동시에 만족하는 $x$와 $y$의 값을 구하시오.\n$${coef.a1}x + ${coef.b1}y = ${c1}$, $${coef.a2}x + ${coef.b2}y = ${c2}$`;
+                questionLatex = `다음 두 식을 동시에 만족하는 $x$와 $y$의 값을 구하시오.\n$${coef.a1}x + ${coef.b1}y = ${c1}$, $${coef.a2}x + ${coef.b2}y = ${c2}$`;
+                explanation = `두 식을 연립하여 풀면 $x = ${x}$, $y = ${y}$입니다.`;
+                break;
+            case 5:
+                question = `$${coef.a1}x + ${coef.b1}y = ${c1}$과 $${coef.a2}x + ${coef.b2}y = ${c2}$를 만족하는 $x$, $y$를 구하시오.`;
+                questionLatex = `$${coef.a1}x + ${coef.b1}y = ${c1}$과 $${coef.a2}x + ${coef.b2}y = ${c2}$를 만족하는 $x$, $y$를 구하시오.`;
+                explanation = `연립방정식을 풀면 $x = ${x}$, $y = ${y}$입니다.`;
+                break;
+            case 6:
+                question = `다음 연립방정식 $\\begin{cases} ${coef.a1}x + ${coef.b1}y = ${c1} \\\\ ${coef.a2}x + ${coef.b2}y = ${c2} \\end{cases}$에서 $x$와 $y$의 값을 구하시오.`;
+                questionLatex = `다음 연립방정식 $\\begin{cases} ${coef.a1}x + ${coef.b1}y = ${c1} \\\\ ${coef.a2}x + ${coef.b2}y = ${c2} \\end{cases}$에서 $x$와 $y$의 값을 구하시오.`;
+                explanation = `가감법 또는 대입법을 사용하여 $x = ${x}$, $y = ${y}$를 구합니다.`;
+                break;
+            case 7:
+                question = `$\\begin{cases} ${coef.a1}x + ${coef.b1}y = ${c1} \\\\ ${coef.a2}x + ${coef.b2}y = ${c2} \\end{cases}$의 해를 구하시오.`;
+                questionLatex = `$\\begin{cases} ${coef.a1}x + ${coef.b1}y = ${c1} \\\\ ${coef.a2}x + ${coef.b2}y = ${c2} \\end{cases}$의 해를 구하시오.`;
+                explanation = `연립방정식을 풀면 $(x, y) = (${x}, ${y})$입니다.`;
+                break;
+            case 8:
+                question = `두 일차방정식 $${coef.a1}x + ${coef.b1}y = ${c1}$과 $${coef.a2}x + ${coef.b2}y = ${c2}$를 동시에 만족하는 순서쌍 $(x, y)$를 구하시오.`;
+                questionLatex = `두 일차방정식 $${coef.a1}x + ${coef.b1}y = ${c1}$과 $${coef.a2}x + ${coef.b2}y = ${c2}$를 동시에 만족하는 순서쌍 $(x, y)$를 구하시오.`;
+                explanation = `연립방정식을 풀면 $(x, y) = (${x}, ${y})$입니다.`;
+                break;
+            default:
+                question = `연립방정식 $${coef.a1}x + ${coef.b1}y = ${c1}$, $${coef.a2}x + ${coef.b2}y = ${c2}$의 해를 구하시오.`;
+                questionLatex = `연립방정식 $${coef.a1}x + ${coef.b1}y = ${c1}$, $${coef.a2}x + ${coef.b2}y = ${c2}$의 해를 구하시오.`;
+                explanation = `두 식을 연립하여 $x = ${x}$, $y = ${y}$를 구합니다.`;
+        }
+        
+        return {
+            question: question,
+            questionLatex: questionLatex,
+            answer: `x = ${x}, y = ${y}`,
+            answerLatex: `x = ${x}, y = ${y}`,
+            explanation: explanation,
+            inputPlaceholder: '답을 입력하세요 (예: x = 2, y = 3)',
+            meta: { grade, concept: 'system_of_equations', a1: coef.a1, b1: coef.b1, c1, a2: coef.a2, b2: coef.b2, c2, x, y, schoolLevel: 'middle' }
+        };
+    }
     
+    // 최후의 수단: 기본 문제 반환
     return {
-        type: PROBLEM_TYPES.LINEAR_EQUATION,
-        question: `연립방정식 $\\begin{cases} ${a1}x + ${b1}y = ${c1} \\\\ ${a2}x + ${b2}y = ${c2} \\end{cases}$의 해를 구하시오.`,
-        questionLatex: `연립방정식 $\\begin{cases} ${a1}x + ${b1}y = ${c1} \\\\ ${a2}x + ${b2}y = ${c2} \\end{cases}$의 해를 구하시오.`,
-        answer: `x = ${x}, y = ${y}`,
-        answerLatex: `x = ${x}, y = ${y}`,
-        explanation: `첫 번째 식에서 $${a1}x = ${c1} - ${b1}y$를 구하고, 두 번째 식에 대입하여 $y = ${y}$를 구한 후 $x = ${x}$를 구합니다.`,
+        question: `연립방정식 $\\begin{cases} 2x + 3y = 7 \\\\ 4x + 5y = 13 \\end{cases}$의 해를 구하시오.`,
+        questionLatex: `연립방정식 $\\begin{cases} 2x + 3y = 7 \\\\ 4x + 5y = 13 \\end{cases}$의 해를 구하시오.`,
+        answer: `x = 1, y = 1`,
+        answerLatex: `x = 1, y = 1`,
+        explanation: `두 식을 연립하여 풀면 $x = 1$, $y = 1$입니다.`,
         inputPlaceholder: '답을 입력하세요 (예: x = 2, y = 3)',
-        meta: { grade, concept: 'system_of_equations', x, y }
+        meta: { grade, concept: 'system_of_equations', a1: 2, b1: 3, c1: 7, a2: 4, b2: 5, c2: 13, x: 1, y: 1, schoolLevel: 'middle' }
     };
 }
 
@@ -6593,28 +7443,63 @@ function generateMiddleSchoolProbabilityProblem(grade, conceptText = '') {
 
 // 개념에 맞는 문제 형식 매핑 (CONCEPT_TEMPLATE_MAP 기반)
 function getProblemTypesForConcept(conceptText, grade, conceptId = '', schoolLevel = 'elementary', rawGrade = null) {
+    // schoolLevel 기본값 처리 및 정규화 (매개변수 재할당 방지)
+    let normalizedSchoolLevel = schoolLevel;
+    if (!normalizedSchoolLevel || normalizedSchoolLevel === undefined || normalizedSchoolLevel === 'undefined') {
+        normalizedSchoolLevel = 'elementary';
+    }
+    if (normalizedSchoolLevel === '중학교') {
+        normalizedSchoolLevel = 'middle';
+    }
+    if (normalizedSchoolLevel === '초등학교') {
+        normalizedSchoolLevel = 'elementary';
+    }
+    
     // conceptId 정규화 (객체 처리 강화)
     const idString = normalizeConceptId(conceptId);
-    const idLower = (idString || '').toLowerCase();
+    let idLower = '';
+    if (idString) {
+        idLower = idString.toLowerCase();
+    }
     
-    // 중학교 판단
-    const isMiddleSchool = schoolLevel === 'middle' || schoolLevel === '중학교' || 
-                           grade >= 7 || (idString && idString.startsWith('M'));
-    const isMiddleSchoolGrade2 = rawGrade === 2 || (idString && idString.includes('G2'));
+    // 중학교 판단 (정규화된 schoolLevel 사용)
+    const isMiddleSchool = normalizedSchoolLevel === 'middle' || 
+                           grade >= 7 || 
+                           (idString && idString.startsWith('M'));
+    const isMiddleSchoolGrade2 = rawGrade === 2 || (idString && idString.includes('M2') || idString && idString.includes('G2'));
     
     // CONCEPT_TEMPLATE_MAP에서 직접 조회
-    if (idString && CONCEPT_TEMPLATE_MAP[idString]) {
+    if (idString && CONCEPT_TEMPLATE_MAP && CONCEPT_TEMPLATE_MAP[idString]) {
         const templateInfo = CONCEPT_TEMPLATE_MAP[idString];
-        if (templateInfo && templateInfo.templates && templateInfo.templates.length > 0) {
+        if (templateInfo && templateInfo.templates && Array.isArray(templateInfo.templates) && templateInfo.templates.length > 0) {
             // 중학교인 경우 MIXED_CALC 타입 제거
-            let templates = templateInfo.templates;
+            let templates = [...templateInfo.templates]; // 배열 복사
             if (isMiddleSchool) {
                 templates = templates.filter(t => t !== PROBLEM_TYPES.MIXED_CALC && 
                                                   t !== PROBLEM_TYPES.SKIP_COUNT && 
                                                   t !== PROBLEM_TYPES.TWO_DIGIT_DIV);
+                // 중학교인 경우: 무조건 미지수, 일차부등식, 연립방정식, 함수 기호 포함
+                if (templates.length === 0 || !templates.some(t => 
+                    t === PROBLEM_TYPES.LINEAR_EQUATION || 
+                    t === PROBLEM_TYPES.LINEAR_FUNCTION || 
+                    t === PROBLEM_TYPES.SYSTEM_OF_EQUATIONS ||
+                    t === PROBLEM_TYPES.LINEAR_INEQUALITY)) {
+                    templates = [
+                        PROBLEM_TYPES.LINEAR_EQUATION, 
+                        PROBLEM_TYPES.LINEAR_FUNCTION, 
+                        PROBLEM_TYPES.SYSTEM_OF_EQUATIONS,
+                        PROBLEM_TYPES.LINEAR_INEQUALITY
+                    ];
+                }
                 // 중학교 2학년인 경우 중등 수준 타입만 허용
                 if (isMiddleSchoolGrade2 && templates.length === 0) {
-                    templates = [PROBLEM_TYPES.LINEAR_EQUATION, PROBLEM_TYPES.LINEAR_FUNCTION, PROBLEM_TYPES.PROBABILITY];
+                    templates = [
+                        PROBLEM_TYPES.LINEAR_EQUATION, 
+                        PROBLEM_TYPES.LINEAR_FUNCTION, 
+                        PROBLEM_TYPES.SYSTEM_OF_EQUATIONS,
+                        PROBLEM_TYPES.LINEAR_INEQUALITY,
+                        PROBLEM_TYPES.PROBABILITY
+                    ];
                 }
             }
             return templates.length > 0 ? templates : templateInfo.templates;
@@ -6636,9 +7521,18 @@ function getProblemTypesForConcept(conceptText, grade, conceptId = '', schoolLev
         }
     }
     
-    // 평면도형 관련
-    if (conceptLower.includes('평면도형') || conceptLower.includes('도형') && 
-        (conceptLower.includes('뒤집') || conceptLower.includes('돌리') || conceptLower.includes('이동'))) {
+    // 중학교 도형 관련 (우선 처리)
+    if (isMiddleSchool && (conceptLower.includes('다각형') || conceptLower.includes('평면도형') || 
+        conceptLower.includes('평면') && conceptLower.includes('도형') ||
+        conceptLower.includes('내각') || conceptLower.includes('외각') || conceptLower.includes('대각선') ||
+        conceptLower.includes('정다각형') || idLower.includes('u1') || idLower.includes('u2'))) {
+        // 중학교 도형은 TRIANGLE_CLASSIFY 타입 사용 (generateMiddleSchoolGeometryProblem에서 처리)
+        types.push(PROBLEM_TYPES.TRIANGLE_CLASSIFY);
+    }
+    
+    // 초등학교 평면도형 관련
+    if (!isMiddleSchool && (conceptLower.includes('평면도형') || conceptLower.includes('도형') && 
+        (conceptLower.includes('뒤집') || conceptLower.includes('돌리') || conceptLower.includes('이동')))) {
         // 도형 이동/변환 문제
         if (grade >= 4) {
             types.push(PROBLEM_TYPES.PATTERN); // 패턴 문제 형식 사용
@@ -6653,7 +7547,12 @@ function getProblemTypesForConcept(conceptText, grade, conceptId = '', schoolLev
     
     // 삼각형 관련 (SVG 렌더링 사용)
     if (conceptLower.includes('삼각형') || conceptLower.includes('삼각형 분류') || idLower.includes('triangle')) {
-        types.push(PROBLEM_TYPES.GEOMETRY_DRAWING);
+        // 중학교 도형은 TRIANGLE_CLASSIFY 타입 사용 (generateMiddleSchoolGeometryProblem에서 처리)
+        if (isMiddleSchool) {
+            types.push(PROBLEM_TYPES.TRIANGLE_CLASSIFY);
+        } else {
+            types.push(PROBLEM_TYPES.GEOMETRY_DRAWING);
+        }
     }
     
     // 원의 넓이, 원주율 (중학교에서는 제외)
@@ -6798,20 +7697,64 @@ function isPureArithmetic(text) {
 
 // 중학교 난이도 가드레일 (저 수준 문제 전면 차단)
 function validateMiddleSchoolDifficulty(questionText, explanationText, conceptInfo) {
-    const allText = `${questionText} ${explanationText}`.toLowerCase();
+    const allText = `${questionText} ${explanationText}`;
+    const allTextLower = allText.toLowerCase();
     const { mustIncludeAny = [], unitTitle = '', conceptTitle = '' } = conceptInfo;
     
-    // 1. 순수 산수 문제 차단
-    if (isPureArithmetic(allText)) {
+    // 1. 순수 산수 문제 완전 차단 (초등 산수 패턴)
+    if (isPureArithmetic(allTextLower)) {
         return {
             valid: false,
-            reason: '초등 산수 문제는 중학교에서 금지됩니다.'
+            reason: '초등 산수 문제는 중학교에서 금지됩니다. (예: 60 ÷ 5 × 4 같은 단순 계산)'
         };
     }
     
-    // 2. 항목별 필수 키워드 확인
+    // 2. 중등 수학 필수 요소 확인 (미지수, 부등식, 연립방정식, 함수 기호)
+    const hasVariable = /[xyzabc]|미지수|변수|문자/.test(allTextLower) || 
+                        /x\s*[+\-=]|y\s*[+\-=]|z\s*[+\-=]/.test(allText) ||
+                        /\$\{.*[xyz].*\}/.test(allText) || // LaTeX 변수
+                        /\\[a-zA-Z]/.test(allText); // LaTeX 명령어
+    const hasInequality = /부등식|>[=]?|<[=]?|≥|≤|≥|≤/.test(allText) ||
+                         /[xyz]\s*[><=]+/.test(allText) ||
+                         /\\geq|\\leq|\\neq/.test(allText); // LaTeX 부등식
+    const hasSystem = /연립|시스템|두\s*방정식|세\s*방정식/.test(allTextLower);
+    const hasFunction = /함수|f\(|g\(|y\s*=\s*[a-z]\(|일차함수|이차함수/.test(allTextLower) ||
+                       /y\s*=\s*\d+[xyz]/.test(allText) ||
+                       /f\(x\)|g\(x\)/.test(allText);
+    const hasLatexMath = /\\dfrac|\\frac|\\sqrt|\\times|\\div|\\pm/.test(allText);
+    
+    // 중학교 문제는 반드시 다음 중 하나 이상 포함해야 함
+    const hasMiddleSchoolElement = hasVariable || hasInequality || hasSystem || hasFunction || hasLatexMath;
+    
+    if (!hasMiddleSchoolElement) {
+        // 단순 숫자 계산 패턴 확인 (예: "60 ÷ 5 × 4 = ?")
+        const simpleCalcPattern = /^\s*\d+\s*[+\-×÷*/]\s*\d+\s*([+\-×÷*/]\s*\d+)*\s*=?\s*\??/;
+        if (simpleCalcPattern.test(questionText.trim().replace(/\s/g, ''))) {
+            return {
+                valid: false,
+                reason: '중학교 문제에는 미지수(x, y), 부등식, 연립방정식, 함수 기호 중 하나 이상이 포함되어야 합니다. 단순 산수 계산은 금지됩니다.'
+            };
+        }
+        
+        // 숫자만 있는 사칙연산 확인
+        const onlyNumbersAndOps = /^[\d\s+\-×÷*/=()?]+$/.test(questionText.replace(/[^0-9+\-×÷*/=()?\s]/g, ''));
+        if (onlyNumbersAndOps && questionText.length < 50) {
+            return {
+                valid: false,
+                reason: '중학교 문제에는 미지수(x, y), 부등식, 연립방정식, 함수 기호 중 하나 이상이 포함되어야 합니다.'
+            };
+        }
+    }
+    
+    // 3. 항목별 필수 키워드 확인
     if (mustIncludeAny && mustIncludeAny.length > 0) {
-        const matched = mustIncludeAny.filter(k => allText.includes(k.toLowerCase()));
+        const matched = mustIncludeAny.filter(k => {
+            const keyword = k.toLowerCase().trim();
+            if (allTextLower.includes(keyword)) return true;
+            // 조사 제거하여 매칭
+            const keywordBase = keyword.replace(/[을를이가은는]$/, '').trim();
+            return allTextLower.includes(keywordBase);
+        });
         if (matched.length < 2) {
             return {
                 valid: false,
@@ -6820,15 +7763,34 @@ function validateMiddleSchoolDifficulty(questionText, explanationText, conceptIn
         }
     }
     
-    // 3. 중학교 수준 키워드 확인 (특정 단원별)
+    // 4. 중학교 수준 키워드 확인 (특정 단원별)
     const conceptLower = (conceptTitle || '').toLowerCase();
     if (conceptLower.includes('경우의 수') || conceptLower.includes('확률')) {
         const requiredKeywords = ['경우의 수', '나열', '곱셈원리', '합의 원리', '덧셈원리', '중복', '순서', '조건', '분류', '표', '트리', '포함'];
-        const matched = requiredKeywords.filter(k => allText.includes(k));
+        const matched = requiredKeywords.filter(k => allTextLower.includes(k));
         if (matched.length < 2) {
             return {
                 valid: false,
                 reason: `경우의 수 키워드 부족: ${matched.length}개 매칭 (최소 2개 필요). 필수 키워드: ${requiredKeywords.join(', ')}`
+            };
+        }
+    }
+    
+    // 5. 일차방정식/일차함수 단원인 경우 반드시 미지수 또는 함수 기호 포함
+    if (conceptLower.includes('일차방정식') || conceptLower.includes('방정식')) {
+        if (!hasVariable && !hasLatexMath) {
+            return {
+                valid: false,
+                reason: '일차방정식 단원 문제에는 반드시 미지수(x, y 등) 또는 수식 기호가 포함되어야 합니다.'
+            };
+        }
+    }
+    
+    if (conceptLower.includes('일차함수') || conceptLower.includes('함수')) {
+        if (!hasFunction && !hasVariable && !hasLatexMath) {
+            return {
+                valid: false,
+                reason: '일차함수 단원 문제에는 반드시 함수 기호(f(x), y=ax+b 등) 또는 미지수가 포함되어야 합니다.'
             };
         }
     }
@@ -7386,7 +8348,7 @@ async function createSampleProblems(formData, progressCallback = null) {
                                     schoolLevel: 'middle',
                                     grade: rawGrade,
                                     semester: semester
-                                });
+                            });
                             } else if (parts.length === 6) {
                                 // T|로 시작하면 토픽 제목 사용 (6개 파트: T|grade|semester|uIdx|sIdx|tIdx)
                                 const tIdx = parseInt(parts[5]);
@@ -7500,7 +8462,7 @@ async function createSampleProblems(formData, progressCallback = null) {
                         schoolLevel: 'elementary',
                         grade: rawGrade,
                         semester: semester
-                    });
+            });
                 }
             }
         });
@@ -7696,7 +8658,7 @@ async function createSampleProblems(formData, progressCallback = null) {
                     if (conceptTitle.includes('분류') || conceptTitle.includes('변의 길이')) {
                         mustIncludeAny = ['삼각형', '변', '길이', '분류', '이등변', '정삼각형', '직각', '세 변'];
                     } else {
-                        mustIncludeAny = ['삼각형', '각', '변', '꼭짓점', '이등변', '정삼각형', '직각'];
+                    mustIncludeAny = ['삼각형', '각', '변', '꼭짓점', '이등변', '정삼각형', '직각'];
                     }
                 } else {
                     mustIncludeAny = ['도형', '각', '격자', '점', '선', '변', '꼭짓점'];
@@ -7729,17 +8691,34 @@ async function createSampleProblems(formData, progressCallback = null) {
                     } else {
                         mustIncludeAny = ['대응', '관계', '식', '양', '사이'];
                     }
+                } else if (conceptTitle.includes('규칙') || conceptTitle.includes('배열')) {
+                    // 규칙 찾기 항목
+                    if (conceptTitle.includes('모양') || conceptTitle.includes('모양의')) {
+                        mustIncludeAny = ['규칙', '배열', '모양', '패턴', '다음', '번째'];
+                    } else if (conceptTitle.includes('수의')) {
+                        mustIncludeAny = ['규칙', '배열', '수', '패턴', '다음', '번째'];
+                    } else if (conceptTitle.includes('계산식') || conceptTitle.includes('식의')) {
+                        mustIncludeAny = ['규칙', '배열', '계산식', '식', '패턴', '다음', '번째'];
+                    } else {
+                        mustIncludeAny = ['규칙', '배열', '패턴', '다음', '번째'];
+                    }
+                } else if (conceptTitle.includes('단위') && conceptTitle.includes('넓이')) {
+                    // 넓이 단위 항목 (1 cm² 보다 더 큰 넓이의 단위 알아보기)
+                    mustIncludeAny = ['넓이', '단위', 'm²', 'km²', '제곱미터', '제곱킬로미터', '아르', '헥타르'];
                 } else {
                     // 일반 number 도메인 - 키워드 추출
-                    const keywordData = extractConceptKeywords(conceptInfo.conceptTitle || conceptInfo.text, conceptInfo.unitTitle, conceptInfo.subunitTitle);
-                    mustIncludeAny = keywordData.mustInclude || keywordData.keywords.slice(0, 3) || ['수', '계산', '연산'];
+                const keywordData = extractConceptKeywords(conceptInfo.conceptTitle || conceptInfo.text, conceptInfo.unitTitle, conceptInfo.subunitTitle);
+                mustIncludeAny = keywordData.mustInclude || keywordData.keywords.slice(0, 3) || ['수', '계산', '연산'];
                 }
             }
         }
         
         // 3. mustIncludeMinHit 설정
         // 도형 항목은 키워드 매칭이 어려울 수 있으므로 1개로 완화 (단, 도형 관련 키워드는 필수)
-        const mustIncludeMinHit = conceptInfo.mustIncludeMinHit || (domain === 'geometry' ? 1 : 2);
+        // 규칙 찾기 항목도 키워드 매칭이 어려울 수 있으므로 1개로 완화
+        const mustIncludeMinHit = conceptInfo.mustIncludeMinHit || 
+                                   (domain === 'geometry' ? 1 : 
+                                    (conceptTitle.includes('규칙') || conceptTitle.includes('배열') ? 1 : 2));
         
         return {
             ...conceptInfo,
@@ -7867,6 +8846,16 @@ async function createSampleProblems(formData, progressCallback = null) {
                                 // CONCEPT_TEMPLATE_MAP에서 찾지 못한 경우 emergencyGenerator 사용
                                 const emergency = emergencyGenerator(conceptInfo, effectiveGrade);
                                 if (emergency) {
+                                    // emergency 문제에도 schoolLevel 명시적으로 추가
+                                    if (!emergency.meta) {
+                                        emergency.meta = {};
+                                    }
+                                    emergency.meta.schoolLevel = finalSchoolLevel;
+                                    emergency.meta.grade = rawGrade;
+                                    emergency.meta.semester = semester;
+                                    emergency.schoolLevel = finalSchoolLevel;
+                                    emergency.grade = rawGrade;
+                                    emergency.semester = semester;
                                     resolve(emergency);
                                     return;
                                 }
@@ -7877,13 +8866,29 @@ async function createSampleProblems(formData, progressCallback = null) {
                             // 문제 생성 (conceptId 정규화하여 전달)
                             const finalConceptId = conceptIdString;
                             // rawGrade 전달 (중학교 2학년 판단을 위해 필요)
-                            let generated = generateProblemByType(selectedType, effectiveGrade, conceptText, finalConceptId, finalSchoolLevel, rawGrade, problemType);
+                            // 이미 생성된 문제 목록 전달 (중복 방지)
+                            const existingQuestionsForConcept = conceptQuestions.map(q => ({
+                                question: q.question || q.questionText || '',
+                                questionText: q.questionText || '',
+                                stem: q.stem || ''
+                            }));
+                            let generated = generateProblemByType(selectedType, effectiveGrade, conceptText, finalConceptId, finalSchoolLevel, rawGrade, problemType, existingQuestionsForConcept);
                             
                             // 기본 검증
                             if (!generated || !generated.question || !generated.answer) {
                                 // emergencyGenerator 사용 (2학년 문제 금지)
                                 const emergency = emergencyGenerator(conceptInfo, effectiveGrade);
                                 if (emergency) {
+                                    // emergency 문제에도 schoolLevel 명시적으로 추가
+                                    if (!emergency.meta) {
+                                        emergency.meta = {};
+                                    }
+                                    emergency.meta.schoolLevel = finalSchoolLevel;
+                                    emergency.meta.grade = rawGrade;
+                                    emergency.meta.semester = semester;
+                                    emergency.schoolLevel = finalSchoolLevel;
+                                    emergency.grade = rawGrade;
+                                    emergency.semester = semester;
                                     generated = emergency;
                                 } else {
                                     resolve(null); // 재시도 유도
@@ -7891,10 +8896,32 @@ async function createSampleProblems(formData, progressCallback = null) {
                                 }
                             }
                             
+                            // 문제 메타데이터에 schoolLevel, grade, semester 명시적으로 추가 (필수)
+                            if (!generated.meta) {
+                                generated.meta = {};
+                            }
+                            generated.meta.schoolLevel = finalSchoolLevel;
+                            generated.meta.grade = rawGrade;
+                            generated.meta.semester = semester;
+                            generated.schoolLevel = finalSchoolLevel;
+                            generated.grade = rawGrade;
+                            generated.semester = semester;
+                            
                             // 오답 유형 기반 변형 적용 (학기 정보 포함)
                             if (mistakes && mistakes.length > 0) {
                                 generated = applyMistakeBasedVariation(generated, mistakes, schoolLevel, rawGrade, semester);
                             }
+                            
+                            // 변형 후에도 schoolLevel 보장
+                            if (!generated.meta) {
+                                generated.meta = {};
+                            }
+                            generated.meta.schoolLevel = finalSchoolLevel;
+                            generated.meta.grade = rawGrade;
+                            generated.meta.semester = semester;
+                            generated.schoolLevel = finalSchoolLevel;
+                            generated.grade = rawGrade;
+                            generated.semester = semester;
                             
                             resolve(generated);
                         } catch (err) {
@@ -7902,10 +8929,33 @@ async function createSampleProblems(formData, progressCallback = null) {
                             // emergencyGenerator 사용
                             let emergency = emergencyGenerator(conceptInfo, effectiveGrade);
                             if (emergency) {
+                                // emergency 문제에도 schoolLevel 명시적으로 추가
+                                if (!emergency.meta) {
+                                    emergency.meta = {};
+                                }
+                                emergency.meta.schoolLevel = finalSchoolLevel;
+                                emergency.meta.grade = rawGrade;
+                                emergency.meta.semester = semester;
+                                emergency.schoolLevel = finalSchoolLevel;
+                                emergency.grade = rawGrade;
+                                emergency.semester = semester;
+                                
                                 // 오답 유형 기반 변형 적용 (학기 정보 포함)
                                 if (mistakes && mistakes.length > 0) {
                                     emergency = applyMistakeBasedVariation(emergency, mistakes, schoolLevel, rawGrade, semester);
                                 }
+                                
+                                // 변형 후에도 schoolLevel 보장
+                                if (!emergency.meta) {
+                                    emergency.meta = {};
+                                }
+                                emergency.meta.schoolLevel = finalSchoolLevel;
+                                emergency.meta.grade = rawGrade;
+                                emergency.meta.semester = semester;
+                                emergency.schoolLevel = finalSchoolLevel;
+                                emergency.grade = rawGrade;
+                                emergency.semester = semester;
+                                
                                 resolve(emergency);
                             } else {
                                 resolve(null); // 재시도 유도
@@ -7914,7 +8964,26 @@ async function createSampleProblems(formData, progressCallback = null) {
                     });
                     
                     // 타임아웃과 함께 실행
+                    try {
                     problemData = await Promise.race([generatePromise, timeoutPromise]);
+                    } catch (timeoutError) {
+                        // 타임아웃 발생 시 null 처리
+                        problemData = null;
+                        validationResult = {
+                            valid: false,
+                            reason: '생성 타임아웃 (25초 초과)'
+                        };
+                        continue; // 다음 시도로
+                    }
+                    
+                    // problemData가 null이면 검증하지 않음
+                    if (!problemData) {
+                        validationResult = {
+                            valid: false,
+                            reason: '문제 생성 실패 (null 반환)'
+                        };
+                        continue; // 다음 시도로
+                    }
                     
                     // 항목 일치 검증 (중복 체크 포함)
                     validationResult = validateProblemMatchesConcept(problemData, conceptInfo, conceptQuestions);
@@ -8024,16 +9093,165 @@ async function createSampleProblems(formData, progressCallback = null) {
                 successCount++;
                 generatedCount++; // 생성 성공 카운트 증가
             } else {
-                // 실패 처리: 최대 시도 횟수 초과 시 실패로 기록
+                // 실패 처리: 최대 시도 횟수 초과 시 emergency 문제 강제 사용
                 if (attempts >= maxAttemptsPerProblem) {
                 failureCount++;
                 if (console && console.error) {
                         console.error(`❌ 항목 "${conceptText}" 문제 생성 실패 (${generatedCount + 1}/${perConceptCount}):`, validationResult?.reason || '알 수 없는 오류');
-                    }
-                    // 실패했지만 계속 시도 (다음 문제 생성)
-                    // generatedCount는 증가하지 않음
                 }
-                // attempts < maxAttemptsPerProblem이면 계속 재시도
+                
+                    // 최대 재시도 후에도 실패하면 emergency 문제 강제 생성 (검증 완화)
+                    const finalSchoolLevel = conceptInfo.schoolLevel || conceptInfo.gradeLevel || 
+                                            (schoolLevel === '중학교' ? 'middle' : 'elementary');
+                    const emergency = emergencyGenerator(conceptInfo, effectiveGrade);
+                    if (emergency) {
+                        // emergency 문제에 schoolLevel 추가
+                        if (!emergency.meta) {
+                            emergency.meta = {};
+                        }
+                        emergency.meta.schoolLevel = finalSchoolLevel;
+                        emergency.meta.grade = rawGrade;
+                        emergency.meta.semester = semester;
+                        emergency.meta.isEmergency = true;
+                        emergency.schoolLevel = finalSchoolLevel;
+                        emergency.grade = rawGrade;
+                        emergency.semester = semester;
+                        
+                        // emergency 문제를 그대로 사용 (검증 완화)
+                        problemData = emergency;
+                        
+                        // 문제 객체 생성 및 추가 (검증 없이)
+                        const questionLatex = emergency.questionLatex || (emergency.question && (emergency.question.includes('\\frac') || emergency.question.includes('\\dfrac')) ? emergency.question : null);
+                        const questionText = emergency.questionText || (questionLatex ? null : emergency.question);
+                        const answerLatex = emergency.answerLatex || (emergency.answer && (emergency.answer.includes('\\frac') || emergency.answer.includes('\\dfrac')) ? emergency.answer : null);
+                        const answerText = emergency.answerText || (answerLatex ? null : emergency.answer);
+                        
+                        const questionGrade = conceptInfo.grade || rawGrade;
+                        const questionSemester = conceptInfo.semester || semester;
+                        const questionSchoolLevel = finalSchoolLevel;
+                            
+                            const question = {
+                            id: `problem-emergency-${Date.now()}-${conceptIndex}-${generatedCount}-${Math.random().toString(36).substr(2, 9)}`,
+                            type: emergency.type,
+                                number: globalQuestionNumber++,
+                            question: questionText || questionLatex || emergency.question,
+                            questionText: questionText,
+                            questionLatex: questionLatex,
+                            answer: answerText || answerLatex || emergency.answer,
+                            answerText: answerText,
+                            answerLatex: answerLatex,
+                            explanation: emergency.explanation || '',
+                            inputPlaceholder: emergency.inputPlaceholder || '답을 입력하세요',
+                            meta: {
+                                ...(emergency.meta || {}),
+                                schoolLevel: questionSchoolLevel,
+                                grade: questionGrade,
+                                semester: questionSemester,
+                                conceptId: normalizeConceptId(conceptInfo.id || conceptInfo.conceptId || ''),
+                                isEmergency: true
+                            },
+                                concept: conceptText,
+                                problemType: problemType,
+                                sourceConcept: normalizeConceptId(conceptInfo.id || conceptInfo.conceptId || ''),
+                                sourceConceptText: conceptText,
+                                pathText: conceptInfo.pathText || '',
+                                unitTitle: conceptInfo.unitTitle || '',
+                                subunitTitle: conceptInfo.subunitTitle || '',
+                                domain: conceptInfo.domain || 'number',
+                            schoolLevel: questionSchoolLevel,
+                            grade: questionGrade,
+                            semester: questionSemester
+                            };
+                            
+                            conceptQuestions.push(question);
+                            questions.push(question);
+                            successCount++;
+                        generatedCount++; // emergency 문제로도 카운트 증가
+                        console.log(`⚠️ [createSampleProblems] emergency 문제 사용: "${conceptText}" (검증 실패 후 강제 사용)`);
+                    } else {
+                        // emergency도 실패하면 최소한의 기본 문제라도 생성 (무한 루프 방지)
+                        console.error(`❌ emergency 문제 생성도 실패: ${conceptText}, 최소 기본 문제 생성`);
+                        
+                        // 최소한의 기본 문제 생성 (무한 루프 방지)
+                        const finalSchoolLevel = conceptInfo.schoolLevel || conceptInfo.gradeLevel || 
+                                                (schoolLevel === '중학교' ? 'middle' : 'elementary');
+                        const questionGrade = conceptInfo.grade || rawGrade;
+                        const questionSemester = conceptInfo.semester || semester;
+                        
+                        // 학년에 맞는 최소 기본 문제
+                        let basicQuestion = '';
+                        let basicAnswer = '';
+                        
+                        if (finalSchoolLevel === 'middle') {
+                            // 중학교 기본 문제: 일차방정식
+                            const coef = 3 + Math.floor(Math.random() * 3); // 3~5
+                            const constTerm = 5 + Math.floor(Math.random() * 10); // 5~14
+                            const solution = 2 + Math.floor(Math.random() * 5); // 2~6
+                            const result = coef * solution + constTerm;
+                            basicQuestion = `일차방정식 $${coef}x + ${constTerm} = ${result}$의 해를 구하시오.`;
+                            basicAnswer = `${solution}`;
+                        } else if (questionGrade >= 5) {
+                            // 5학년 이상: 분수 문제
+                            const num1 = 1 + Math.floor(Math.random() * 4); // 1~4
+                            const den1 = num1 + 1 + Math.floor(Math.random() * 3); // num1+1 ~ num1+3
+                            const num2 = 1 + Math.floor(Math.random() * 4);
+                            const den2 = num2 + 1 + Math.floor(Math.random() * 3);
+                            basicQuestion = `분수 $\\frac{${num1}}{${den1}}$과 $\\frac{${num2}}{${den2}}$ 중 더 큰 분수를 찾으시오.`;
+                            basicAnswer = num1 * den2 > num2 * den1 ? `$\\frac{${num1}}{${den1}}$` : `$\\frac{${num2}}{${den2}}$`;
+                        } else {
+                            // 4학년 이하: 혼합 계산
+                            const a = 10 + Math.floor(Math.random() * 20); // 10~29
+                            const b = 5 + Math.floor(Math.random() * 15); // 5~19
+                            const op = Math.random() < 0.5 ? '+' : '-';
+                            const c = op === '+' ? a + b : a - b;
+                            basicQuestion = `$${a} ${op === '+' ? '+' : '-'} ${b} = $?`;
+                            basicAnswer = `${c}`;
+                        }
+                        
+                        const question = {
+                            id: `problem-basic-${Date.now()}-${conceptIndex}-${generatedCount}-${Math.random().toString(36).substr(2, 9)}`,
+                            type: 'basic',
+                            number: globalQuestionNumber++,
+                            question: basicQuestion,
+                            questionText: null,
+                            questionLatex: basicQuestion,
+                            answer: basicAnswer,
+                            answerText: null,
+                            answerLatex: basicAnswer,
+                            explanation: '기본 문제입니다.',
+                            inputPlaceholder: '답을 입력하세요',
+                            meta: {
+                                schoolLevel: finalSchoolLevel,
+                                grade: questionGrade,
+                                semester: questionSemester,
+                                conceptId: normalizeConceptId(conceptInfo.id || conceptInfo.conceptId || ''),
+                                isEmergency: true,
+                                isBasic: true
+                            },
+                            concept: conceptText,
+                            problemType: problemType,
+                            sourceConcept: normalizeConceptId(conceptInfo.id || conceptInfo.conceptId || ''),
+                            sourceConceptText: conceptText,
+                            pathText: conceptInfo.pathText || '',
+                            unitTitle: conceptInfo.unitTitle || '',
+                            subunitTitle: conceptInfo.subunitTitle || '',
+                            domain: conceptInfo.domain || 'number',
+                            schoolLevel: finalSchoolLevel,
+                            grade: questionGrade,
+                            semester: questionSemester
+                        };
+                        
+                        conceptQuestions.push(question);
+                        questions.push(question);
+                        successCount++;
+                        generatedCount++; // 기본 문제로도 카운트 증가
+                        console.log(`⚠️ [createSampleProblems] 기본 문제 생성 (emergency 실패 후): "${conceptText}"`);
+                    }
+                } else {
+                    // attempts < maxAttemptsPerProblem이면 계속 재시도
+                    // 하지만 루프가 종료되었는데 attempts < maxAttemptsPerProblem이면 문제가 있음
+                    console.warn(`⚠️ [createSampleProblems] 루프 종료되었지만 attempts(${attempts}) < maxAttemptsPerProblem(${maxAttemptsPerProblem}), validationResult?.valid: ${validationResult?.valid}`);
+                }
             }
         }
         
@@ -8073,7 +9291,7 @@ async function createSampleProblems(formData, progressCallback = null) {
                 status: failureCount > 0 ? 'partial' : 'completed',
                 successCount: successCount,
                 failureCount: failureCount,
-                attemptCount: perConceptCount * maxAttempts // 대략적인 시도 횟수
+                attemptCount: perConceptCount * maxAttemptsPerProblem // 대략적인 시도 횟수
             });
         }
     }
@@ -8565,9 +9783,14 @@ function displayProblems(questions, formData, status = 'success') {
     const expectedTotal = firstQuestion?._meta?.expectedTotal;
     const missingCount = firstQuestion?._meta?.missingCount;
     const failedConcepts = firstQuestion?._meta?.failedConcepts || [];
+    // validQuestions가 정의된 후이므로 안전하게 사용 가능
+    const totalProblems = validQuestions.length;
+    const totalConcepts = formData?.concepts?.length || questions.length || totalProblems;
     const requestedCount = firstQuestion?._meta?.requestedCount || totalConcepts;
     const resolvedCount = firstQuestion?._meta?.resolvedCount || totalConcepts;
     const matchFailure = firstQuestion?._meta?.matchFailure || false;
+    // perConceptCount를 formData에서 가져오기
+    const perConceptCount = parseInt(formData?.problemCount || 3);
     
     let summaryBgColor = '#f0f9ff';
     let summaryBorderColor = '#4f46e5';
@@ -8641,8 +9864,20 @@ function displayProblems(questions, formData, status = 'success') {
         `;
         
         group.problems.forEach((question, index) => {
-            const questionText = question.question || question.stem || questionToPrompt(question) || '문제 생성에 실패했습니다. 다시 생성해 주세요.';
-            const questionLatex = question.questionLatex || question.question; // LaTeX가 있으면 사용
+            let questionText = question.question || question.stem || questionToPrompt(question) || '문제 생성에 실패했습니다. 다시 생성해 주세요.';
+            let questionLatex = question.questionLatex; // 명시적으로 LaTeX가 있을 때만 사용
+            
+            // 모든 LaTeX 명령어를 한글로 변환 (무조건 변환)
+            questionText = convertLatexToText(questionText);
+            questionText = cleanLatexDollars(questionText);
+            questionText = normalizeNumberKorean(questionText);
+            
+            // questionLatex도 무조건 한글로 변환 (LaTeX 렌더링 사용 안 함)
+            if (questionLatex) {
+                questionLatex = convertLatexToText(questionLatex);
+                questionLatex = cleanLatexDollars(questionLatex);
+                questionLatex = null; // LaTeX 사용 안 함, questionText만 사용
+            }
             
             // 개발 모드: 디버그 정보 추가 (기본 숨김)
             const isDevMode = (() => {
@@ -8669,9 +9904,8 @@ function displayProblems(questions, formData, status = 'success') {
             
             // SVG 렌더링 여부 확인
             const hasSvg = question.questionSvg || question.svg;
-            // LaTeX 렌더링 여부 확인
-            const hasLatex = questionLatex && (questionLatex.includes('\\frac') || questionLatex.includes('\\dfrac'));
             
+            // LaTeX 렌더링 사용 안 함 - 모든 텍스트를 한글로 변환하여 표시
             let questionDisplay = '';
             if (hasSvg) {
                 // SVG가 있으면 SVG를 먼저 표시하고 그 아래에 문제 텍스트 표시
@@ -8679,17 +9913,16 @@ function displayProblems(questions, formData, status = 'success') {
                 <div class="geometry-svg-container" style="margin: 20px 0; text-align: center; background: #fafafa; padding: 20px; border-radius: 8px;">
                     ${question.questionSvg || question.svg}
                 </div>
-                <div class="problem-stem" style="margin-top: 15px;">${escapeHtml(questionText)}</div>`;
-            } else if (hasLatex) {
-                questionDisplay = `<div class="math-display" data-latex="${escapeHtml(questionLatex)}"></div>`;
+                <div class="problem-stem" style="margin-top: 15px; color: #1F2937 !important;">${escapeHtml(questionText)}</div>`;
             } else {
-                questionDisplay = `<div class="problem-stem">${escapeHtml(questionText)}</div>`;
+                // 일반 텍스트 (모든 LaTeX 명령어 제거됨)
+                questionDisplay = `<div class="problem-stem" style="color: #1F2937 !important;">${escapeHtml(questionText)}</div>`;
             }
             
             html += `
             <div class="problem-item" data-question-id="${question.id}">
                 ${debugInfo}
-                <div class="problem-number">문제 ${question.number || (groupIndex * 100 + index + 1)}</div>
+                <div class="problem-number" style="color: #1F2937 !important;">문제 ${question.number || (groupIndex * 100 + index + 1)}</div>
                 ${questionDisplay}
                 <div class="problem-answer-input">
                     <input type="text" placeholder="${escapeHtml(question.inputPlaceholder || '답을 입력하세요')}" class="answer-input" id="answer-input-${question.id}">
@@ -8721,12 +9954,13 @@ function displayProblems(questions, formData, status = 'success') {
                     <div class="explanation-title">해설</div>
                     <div class="explanation-content">
                         ${(() => {
-                            const explText = question.explanation || '해설이 없습니다.';
-                            // 해설 내 LaTeX 수식 렌더링
+                            let explText = question.explanation || '해설이 없습니다.';
+                            // 해설 내 모든 LaTeX 명령어를 한글로 변환 (무조건 변환)
+                            explText = convertLatexToText(explText);
+                            explText = cleanLatexDollars(explText);
+                            
+                            // 해설 표시 (LaTeX 렌더링 사용 안 함)
                             return explText.split('\n').map(line => {
-                                if (line.includes('\\frac') || line.includes('\\dfrac')) {
-                                    return `<div class="math-display" data-latex="${escapeHtml(line)}"></div>`;
-                                }
                                 return escapeHtml(line) + '<br>';
                             }).join('');
                         })()}
@@ -8744,32 +9978,17 @@ function displayProblems(questions, formData, status = 'success') {
     
     problemsList.innerHTML = html;
     
-    // KaTeX 렌더링 적용
-    if (window.katex) {
-        document.querySelectorAll('.math-display[data-latex]').forEach(el => {
-            try {
-                const latex = el.getAttribute('data-latex');
-                katex.render(latex, el, {
-                    throwOnError: false,
-                    displayMode: false
-                });
-            } catch (e) {
-                console.error('KaTeX 렌더링 오류:', e);
-                el.textContent = el.getAttribute('data-latex');
-            }
-        });
-    } else if (window.renderMathInElement) {
-        // auto-render 사용
-        renderMathInElement(problemsList, {
-            delimiters: [
-                {left: '$$', right: '$$', display: true},
-                {left: '$', right: '$', display: false},
-                {left: '\\[', right: '\\]', display: true},
-                {left: '\\(', right: '\\)', display: false}
-            ],
-            throwOnError: false
-        });
-    }
+    // KaTeX 렌더링 사용 안 함 - 모든 LaTeX 명령어를 한글로 변환하여 표시
+    // .math-display 요소가 있으면 모두 한글로 변환
+    document.querySelectorAll('.math-display[data-latex]').forEach(el => {
+        let latex = el.getAttribute('data-latex');
+        if (!latex) return;
+        
+        // LaTeX 명령어를 한글로 변환
+        let convertedText = convertLatexToText(latex);
+        el.textContent = convertedText.trim();
+        el.className = 'problem-stem'; // 클래스 변경
+    });
     
     // 결과 정보 업데이트
     const resultInfo = document.getElementById('resultInfo');
