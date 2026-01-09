@@ -618,8 +618,8 @@ function convertLatexToText(text) {
     text = text.replace(/\\sqrt([^\s\\])/g, '√$1');
     text = text.replace(/\\sqrt/g, '√');
     
-    text = text.replace(/\\dfrac\{([^}]+)\}\{([^}]+)\}/g, '($1)/($2)');
-    text = text.replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, '($1)/($2)');
+    // 분수는 변환하지 않고 그대로 유지 (나중에 KaTeX로 렌더링됨)
+    // 분수를 시각적으로 보이게 하기 위해 변환하지 않음
     text = text.replace(/\\\\/g, ', ');
     text = text.replace(/\\begin/g, '');
     text = text.replace(/\\end/g, '');
@@ -8381,7 +8381,15 @@ async function createSampleProblems(formData, progressCallback = null) {
     const rawGrade = formData.grade || 5;
     const semester = formData.semester || 1;
     const problemType = formData.problemType || '기본형';
-    const perConceptCount = parseInt(formData.problemCount || 3); // 항목당 문제 수
+    let perConceptCount = parseInt(formData.problemCount || 3); // 항목당 문제 수
+    
+    // 응용심화형은 문제를 다중으로 생성 (2배)
+    const isAdvanced = problemType === '응용 심화형' || problemType === 'basic+application' || problemType === 'highest' || problemType === '최상위';
+    if (isAdvanced) {
+        const originalCount = perConceptCount;
+        perConceptCount = perConceptCount * 2; // 응용심화형은 기본 개수의 2배
+        console.log(`📊 [createSampleProblems] 응용심화형 감지: 문제 개수를 ${originalCount}개 → ${perConceptCount}개로 증가`);
+    }
     
     // [GEN][IN] 추적 로그 2: 생성 함수 진입 시점
     const selectedIds = concepts.map(c => c.id || c.conceptId || c.value || c);
@@ -8900,22 +8908,21 @@ async function createSampleProblems(formData, progressCallback = null) {
         const conceptInfo = enrichedConceptList[conceptIndex];
         const conceptText = conceptInfo.text;
         
+        // displayName을 루프 시작 부분에서 정의 (스코프 문제 해결)
+        let displayName = conceptText;
+        if (conceptText && (conceptText.includes('|') || conceptText.startsWith('S|') || conceptText.startsWith('T|'))) {
+            // ID 형식이면 conceptInfo에서 실제 텍스트 찾기
+            displayName = conceptInfo.conceptTitle || conceptInfo.text || conceptInfo.subunitTitle || conceptInfo.unitTitle || conceptText;
+            // 여전히 ID 형식이면 getConceptLabelFromId 사용
+            if (displayName.includes('|')) {
+                displayName = getConceptLabelFromId(displayName, schoolLevel === '중학교' ? 'middle' : 'elementary') || displayName;
+            }
+        }
+        // 내부 코드 제거
+        displayName = sanitizeDisplayText(displayName) || '항목';
+        
         // 진행 상황 업데이트 (currentIndex 기반으로 통일)
         if (progressCallback) {
-            // conceptText가 ID 형식이면 실제 이름으로 변환
-            let displayName = conceptText;
-            if (conceptText && (conceptText.includes('|') || conceptText.startsWith('S|') || conceptText.startsWith('T|'))) {
-                // ID 형식이면 conceptInfo에서 실제 텍스트 찾기
-                displayName = conceptInfo.conceptTitle || conceptInfo.text || conceptInfo.subunitTitle || conceptInfo.unitTitle || conceptText;
-                // 여전히 ID 형식이면 getConceptLabelFromId 사용
-                if (displayName.includes('|')) {
-                    displayName = getConceptLabelFromId(displayName, schoolLevel === '중학교' ? 'middle' : 'elementary') || displayName;
-                }
-            }
-            
-            // 내부 코드 제거
-            displayName = sanitizeDisplayText(displayName) || '항목';
-            
             // currentIndex = conceptIndex + 1 (1부터 시작)
             const currentIndex = conceptIndex + 1;
             const totalCount = enrichedConceptList.length;
@@ -8939,21 +8946,57 @@ async function createSampleProblems(formData, progressCallback = null) {
         
         // 각 항목당 perConceptCount개씩 생성 (검증 + 재시도) - 반드시 perConceptCount개 채우기
         let generatedCount = 0; // 현재 항목에서 생성된 문제 수
-        const maxAttemptsPerProblem = 3; // 문제당 최대 시도 횟수
+        const maxAttemptsPerProblem = 5; // 문제당 최대 시도 횟수 증가 (3 → 5)
+        const maxTotalAttempts = perConceptCount * 10; // 전체 최대 시도 횟수 (무한 루프 방지)
+        let totalAttemptsForConcept = 0; // 현재 항목에 대한 전체 시도 횟수
         
-        while (generatedCount < perConceptCount) {
+        while (generatedCount < perConceptCount && totalAttemptsForConcept < maxTotalAttempts) {
+            totalAttemptsForConcept++;
             let problemData = null;
             let validationResult = null;
             let attempts = 0;
+            
+            // 진행 상황 업데이트 (각 문제 생성 시작 시)
+            if (progressCallback) {
+                progressCallback({
+                    currentIndex: conceptIndex + 1,
+                    totalCount: enrichedConceptList.length,
+                    conceptName: displayName || conceptText,
+                    status: 'generating',
+                    current: conceptIndex + 1,
+                    total: enrichedConceptList.length,
+                    successCount: questions.length,
+                    failureCount: attempts,
+                    currentProblem: generatedCount + 1,
+                    totalProblems: perConceptCount
+                });
+            }
             
             // 이 문제를 생성하기 위한 시도
             while (attempts < maxAttemptsPerProblem && !validationResult?.valid) {
                 attempts++;
                 
+                // 진행 상황 업데이트 (재시도 시)
+                if (progressCallback && attempts > 1) {
+                    progressCallback({
+                        currentIndex: conceptIndex + 1,
+                        totalCount: enrichedConceptList.length,
+                        conceptName: displayName || conceptText,
+                        status: 'retrying',
+                        current: conceptIndex + 1,
+                        total: enrichedConceptList.length,
+                        successCount: questions.length,
+                        failureCount: attempts - 1,
+                        attemptCount: attempts,
+                        currentProblem: generatedCount + 1,
+                        totalProblems: perConceptCount
+                    });
+                }
+                
                 try {
-                    // 타임아웃 설정 (25초)
+                    // 타임아웃 설정 (10초로 단축하여 빠른 피드백)
                     const timeoutPromise = new Promise((_, reject) => {
-                        setTimeout(() => reject(new Error('타임아웃: 25초 초과')), 25000);
+                        setTimeout(() => reject(new Error('타임아웃: 10초 초과')), 10000);
                     });
                     
                     // 문제 생성 (동기 함수이므로 Promise로 감싸기)
@@ -9114,7 +9157,7 @@ async function createSampleProblems(formData, progressCallback = null) {
                         problemData = null;
                         validationResult = {
                             valid: false,
-                            reason: '생성 타임아웃 (25초 초과)'
+                            reason: '생성 타임아웃 (10초 초과)'
                         };
                         continue; // 다음 시도로
                     }
@@ -9142,8 +9185,24 @@ async function createSampleProblems(formData, progressCallback = null) {
                                     사유: validationResult.reason
                                 });
                             }
-                            // 재시도 전 잠시 대기
-                            await new Promise(resolve => setTimeout(resolve, 500));
+                            // 재시도 전 잠시 대기 (더 짧게)
+                            await new Promise(resolve => setTimeout(resolve, 200));
+                        }
+                    } else {
+                        // 성공 시 진행 상황 즉시 업데이트
+                        if (progressCallback) {
+                            progressCallback({
+                                currentIndex: conceptIndex + 1,
+                                totalCount: enrichedConceptList.length,
+                                conceptName: conceptText,
+                                status: 'generating',
+                                current: conceptIndex + 1,
+                                total: enrichedConceptList.length,
+                                successCount: questions.length + 1,
+                                failureCount: attempts - 1,
+                                currentProblem: generatedCount + 1,
+                                totalProblems: perConceptCount
+                            });
                         }
                     }
                 } catch (error) {
@@ -9237,11 +9296,11 @@ async function createSampleProblems(formData, progressCallback = null) {
                 generatedCount++; // 생성 성공 카운트 증가
             } else {
                 // 실패 처리: 최대 시도 횟수 초과 시 emergency 문제 강제 사용
-                if (attempts >= maxAttemptsPerProblem) {
-                failureCount++;
-                if (console && console.error) {
-                        console.error(`❌ 항목 "${conceptText}" 문제 생성 실패 (${generatedCount + 1}/${perConceptCount}):`, validationResult?.reason || '알 수 없는 오류');
-                }
+                if (attempts >= maxAttemptsPerProblem || !validationResult?.valid) {
+                    failureCount++;
+                    if (console && console.warn) {
+                        console.warn(`⚠️ 항목 "${conceptText}" 문제 생성 시도 실패 (${generatedCount}/${perConceptCount}):`, validationResult?.reason || '검증 실패');
+                    }
                 
                     // 최대 재시도 후에도 실패하면 emergency 문제 강제 생성 (검증 완화)
                     const finalSchoolLevel = conceptInfo.schoolLevel || conceptInfo.gradeLevel || 
@@ -9314,10 +9373,10 @@ async function createSampleProblems(formData, progressCallback = null) {
                             questions.push(question);
                             successCount++;
                         generatedCount++; // emergency 문제로도 카운트 증가
-                        console.log(`⚠️ [createSampleProblems] emergency 문제 사용: "${conceptText}" (검증 실패 후 강제 사용)`);
+                        console.log(`✅ [createSampleProblems] emergency 문제 사용: "${conceptText}" (${generatedCount}/${perConceptCount})`);
                     } else {
                         // emergency도 실패하면 최소한의 기본 문제라도 생성 (무한 루프 방지)
-                        console.error(`❌ emergency 문제 생성도 실패: ${conceptText}, 최소 기본 문제 생성`);
+                        console.warn(`⚠️ emergency 문제 생성 실패: ${conceptText}, 기본 문제 생성 시도 (${generatedCount}/${perConceptCount})`);
                         
                         // 최소한의 기본 문제 생성 (무한 루프 방지)
                         const finalSchoolLevel = conceptInfo.schoolLevel || conceptInfo.gradeLevel || 
@@ -9402,10 +9461,77 @@ async function createSampleProblems(formData, progressCallback = null) {
             }
         }
         
-        // 항목별 생성 결과 확인
+        // 항목별 생성 결과 확인 및 부족분 채우기
         if (generatedCount < perConceptCount) {
             const missingCount = perConceptCount - generatedCount;
-            console.warn(`⚠️ [createSampleProblems] 항목 "${conceptText}"에서 ${missingCount}개 문제 생성 실패 (목표: ${perConceptCount}개, 생성: ${generatedCount}개)`);
+            console.warn(`⚠️ [createSampleProblems] 항목 "${conceptText}"에서 ${missingCount}개 문제 부족 (목표: ${perConceptCount}개, 생성: ${generatedCount}개), 부족분 채우기 시도`);
+            
+            // 부족한 문제를 emergency로 채우기
+            const finalSchoolLevel = conceptInfo.schoolLevel || conceptInfo.gradeLevel || 
+                                    (schoolLevel === '중학교' ? 'middle' : 'elementary');
+            const questionGrade = conceptInfo.grade || rawGrade;
+            const questionSemester = conceptInfo.semester || semester;
+            
+            for (let i = generatedCount; i < perConceptCount; i++) {
+                // emergency 문제 생성 시도
+                const existingQuestionsForFinal = conceptQuestions.map(q => ({
+                    question: q.question || q.questionText || '',
+                    meta: q.meta || {}
+                }));
+                const emergency = emergencyGenerator(conceptInfo, effectiveGrade, existingQuestionsForFinal);
+                
+                if (emergency) {
+                    // emergency 문제를 추가
+                    const questionLatex = emergency.questionLatex || (emergency.question && (emergency.question.includes('\\frac') || emergency.question.includes('\\dfrac')) ? emergency.question : null);
+                    const questionText = emergency.questionText || (questionLatex ? null : emergency.question);
+                    const answerLatex = emergency.answerLatex || (emergency.answer && (emergency.answer.includes('\\frac') || emergency.answer.includes('\\dfrac')) ? emergency.answer : null);
+                    const answerText = emergency.answerText || (answerLatex ? null : emergency.answer);
+                    
+                    const question = {
+                        id: `problem-emergency-fill-${Date.now()}-${conceptIndex}-${i}-${Math.random().toString(36).substr(2, 9)}`,
+                        type: emergency.type || 'mixed_calc',
+                        number: globalQuestionNumber++,
+                        question: questionText || questionLatex || emergency.question,
+                        questionText: questionText,
+                        questionLatex: questionLatex,
+                        answer: answerText || answerLatex || emergency.answer,
+                        answerText: answerText,
+                        answerLatex: answerLatex,
+                        explanation: emergency.explanation || '',
+                        inputPlaceholder: emergency.inputPlaceholder || '답을 입력하세요',
+                        meta: {
+                            ...(emergency.meta || {}),
+                            schoolLevel: finalSchoolLevel,
+                            grade: questionGrade,
+                            semester: questionSemester,
+                            conceptId: normalizeConceptId(conceptInfo.id || conceptInfo.conceptId || ''),
+                            isEmergency: true
+                        },
+                        concept: conceptText,
+                        problemType: problemType,
+                        sourceConcept: normalizeConceptId(conceptInfo.id || conceptInfo.conceptId || ''),
+                        sourceConceptText: conceptText,
+                        schoolLevel: finalSchoolLevel,
+                        grade: questionGrade,
+                        semester: questionSemester
+                    };
+                    
+                    conceptQuestions.push(question);
+                    questions.push(question);
+                    successCount++;
+                    generatedCount++;
+                    console.log(`✅ [createSampleProblems] 부족분 emergency 문제 추가: "${conceptText}" (${generatedCount}/${perConceptCount})`);
+                } else {
+                    break; // emergency도 실패하면 중단
+                }
+            }
+        }
+        
+        // 최종 확인 로그
+        if (generatedCount < perConceptCount) {
+            console.error(`❌ [createSampleProblems] 항목 "${conceptText}" 최종 부족: ${perConceptCount - generatedCount}개 (목표: ${perConceptCount}개, 생성: ${generatedCount}개)`);
+        } else {
+            console.log(`✅ [createSampleProblems] 항목 "${conceptText}" 완료: ${generatedCount}개 생성`);
         }
         
         // 항목별 결과 저장
@@ -10014,17 +10140,36 @@ function displayProblems(questions, formData, status = 'success') {
             let questionText = question.question || question.stem || questionToPrompt(question) || '문제 생성에 실패했습니다. 다시 생성해 주세요.';
             let questionLatex = question.questionLatex; // 명시적으로 LaTeX가 있을 때만 사용
             
-            // 모든 LaTeX 명령어를 한글로 변환 (무조건 변환)
-            questionText = convertLatexToText(questionText);
-            questionText = cleanLatexDollars(questionText);
-            questionText = normalizeNumberKorean(questionText);
+            // 분수가 있는지 확인
+            const hasFraction = questionText.includes('\\frac') || questionText.includes('\\dfrac') || 
+                                (questionLatex && (questionLatex.includes('\\frac') || questionLatex.includes('\\dfrac')));
             
-            // questionLatex도 무조건 한글로 변환 (LaTeX 렌더링 사용 안 함)
-            if (questionLatex) {
-                questionLatex = convertLatexToText(questionLatex);
-                questionLatex = cleanLatexDollars(questionLatex);
-                questionLatex = null; // LaTeX 사용 안 함, questionText만 사용
+            if (hasFraction) {
+                // 분수가 있으면 LaTeX로 렌더링 (분수를 시각적으로 보이게)
+                if (!questionLatex && (questionText.includes('\\frac') || questionText.includes('\\dfrac'))) {
+                    questionLatex = questionText; // questionText에 분수가 있으면 LaTeX로 사용
+                }
+                // 분수를 제외한 다른 LaTeX 명령어만 변환
+                let tempText = questionText;
+                // 분수 패턴을 임시로 보호
+                const fractionPatterns = [];
+                tempText = tempText.replace(/(\\dfrac\{[^}]+\}\{[^}]+\}|\\frac\{[^}]+\}\{[^}]+\})/g, (match) => {
+                    const placeholder = `__FRACTION_${fractionPatterns.length}__`;
+                    fractionPatterns.push(match);
+                    return placeholder;
+                });
+                // 다른 LaTeX 명령어 변환
+                tempText = convertLatexToText(tempText);
+                tempText = cleanLatexDollars(tempText);
+                // 분수 패턴 복원
+                tempText = tempText.replace(/__FRACTION_(\d+)__/g, (match, idx) => fractionPatterns[parseInt(idx)]);
+                questionText = tempText;
+            } else {
+                // 분수가 없으면 기존대로 모든 LaTeX 명령어를 한글로 변환
+                questionText = convertLatexToText(questionText);
+                questionText = cleanLatexDollars(questionText);
             }
+            questionText = normalizeNumberKorean(questionText);
             
             // 개발 모드: 디버그 정보 추가 (기본 숨김)
             const isDevMode = (() => {
@@ -10052,7 +10197,7 @@ function displayProblems(questions, formData, status = 'success') {
             // SVG 렌더링 여부 확인
             const hasSvg = question.questionSvg || question.svg;
             
-            // LaTeX 렌더링 사용 안 함 - 모든 텍스트를 한글로 변환하여 표시
+            // 분수가 있으면 LaTeX로 렌더링, 없으면 일반 텍스트 표시
             let questionDisplay = '';
             if (hasSvg) {
                 // SVG가 있으면 SVG를 먼저 표시하고 그 아래에 문제 텍스트 표시
@@ -10060,10 +10205,17 @@ function displayProblems(questions, formData, status = 'success') {
                 <div class="geometry-svg-container" style="margin: 20px 0; text-align: center; background: #fafafa; padding: 20px; border-radius: 8px;">
                     ${question.questionSvg || question.svg}
                 </div>
-                <div class="problem-stem" style="margin-top: 15px; color: #1F2937 !important;">${escapeHtml(questionText)}</div>`;
+                <div class="problem-stem" style="margin-top: 15px; color: #1F2937 !important;">
+                    ${questionLatex ? `<div class="math-display" data-latex="${escapeHtml(questionLatex)}"></div>` : escapeHtml(questionText)}
+                </div>`;
             } else {
-                // 일반 텍스트 (모든 LaTeX 명령어 제거됨)
-                questionDisplay = `<div class="problem-stem" style="color: #1F2937 !important;">${escapeHtml(questionText)}</div>`;
+                // 분수가 있으면 LaTeX로 렌더링
+                if (questionLatex || hasFraction) {
+                    questionDisplay = `<div class="problem-stem" style="color: #1F2937 !important;"><div class="math-display" data-latex="${escapeHtml(questionLatex || questionText)}"></div></div>`;
+                } else {
+                    // 일반 텍스트
+                    questionDisplay = `<div class="problem-stem" style="color: #1F2937 !important;">${escapeHtml(questionText)}</div>`;
+                }
             }
             
             html += `
@@ -10102,14 +10254,58 @@ function displayProblems(questions, formData, status = 'success') {
                     <div class="explanation-content">
                         ${(() => {
                             let explText = question.explanation || '해설이 없습니다.';
-                            // 해설 내 모든 LaTeX 명령어를 한글로 변환 (무조건 변환)
-                            explText = convertLatexToText(explText);
-                            explText = cleanLatexDollars(explText);
+                            const hasFractionInExplanation = explText.includes('\\frac') || explText.includes('\\dfrac');
                             
-                            // 해설 표시 (LaTeX 렌더링 사용 안 함)
-                            return explText.split('\n').map(line => {
-                                return escapeHtml(line) + '<br>';
-                            }).join('');
+                            if (hasFractionInExplanation) {
+                                // 분수가 있으면 HTML로 변환
+                                let html = explText;
+                                // 먼저 분수 부분을 임시 플레이스홀더로 보호
+                                const fractionPlaceholders = [];
+                                let placeholderIndex = 0;
+                                
+                                html = html.replace(/(\d+)\\dfrac\{([^}]+)\}\{([^}]+)\}/g, (match, whole, num, den) => {
+                                    const placeholder = `__FRAC_PLACEHOLDER_${placeholderIndex}__`;
+                                    fractionPlaceholders[placeholderIndex] = 
+                                        '<span style="display: inline-block; vertical-align: middle; margin: 0 2px;">' + escapeHtml(whole) + '</span>' +
+                                        '<span style="display: inline-block; vertical-align: middle; text-align: center; margin: 0 2px;"><span style="display: block; border-bottom: 1.5px solid #000; padding: 0 4px; font-size: 1em; line-height: 1.2;">' + escapeHtml(num) + '</span><span style="display: block; padding: 0 4px; font-size: 1em; line-height: 1.2;">' + escapeHtml(den) + '</span></span>';
+                                    placeholderIndex++;
+                                    return placeholder;
+                                });
+                                
+                                html = html.replace(/\\dfrac\{([^}]+)\}\{([^}]+)\}/g, (match, num, den) => {
+                                    const placeholder = `__FRAC_PLACEHOLDER_${placeholderIndex}__`;
+                                    fractionPlaceholders[placeholderIndex] = 
+                                        '<span style="display: inline-block; vertical-align: middle; text-align: center; margin: 0 2px;"><span style="display: block; border-bottom: 1.5px solid #000; padding: 0 4px; font-size: 1em; line-height: 1.2;">' + escapeHtml(num) + '</span><span style="display: block; padding: 0 4px; font-size: 1em; line-height: 1.2;">' + escapeHtml(den) + '</span></span>';
+                                    placeholderIndex++;
+                                    return placeholder;
+                                });
+                                
+                                html = html.replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, (match, num, den) => {
+                                    const placeholder = `__FRAC_PLACEHOLDER_${placeholderIndex}__`;
+                                    fractionPlaceholders[placeholderIndex] = 
+                                        '<span style="display: inline-block; vertical-align: middle; text-align: center; margin: 0 2px;"><span style="display: block; border-bottom: 1.5px solid #000; padding: 0 4px; font-size: 1em; line-height: 1.2;">' + escapeHtml(num) + '</span><span style="display: block; padding: 0 4px; font-size: 1em; line-height: 1.2;">' + escapeHtml(den) + '</span></span>';
+                                    placeholderIndex++;
+                                    return placeholder;
+                                });
+                                
+                                // 나머지 텍스트를 이스케이프하고 LaTeX 변환
+                                html = escapeHtml(html);
+                                html = convertLatexToText(html);
+                                html = cleanLatexDollars(html);
+                                
+                                // 플레이스홀더를 HTML로 복원
+                                fractionPlaceholders.forEach((fractionHtml, idx) => {
+                                    html = html.replace(`__FRAC_PLACEHOLDER_${idx}__`, fractionHtml);
+                                });
+                                
+                                // 줄바꿈 처리
+                                return html.split('\n').map(line => line + '<br>').join('');
+                            } else {
+                                // 분수가 없으면 기존대로 변환
+                                explText = convertLatexToText(explText);
+                                explText = cleanLatexDollars(explText);
+                                return explText.split('\n').map(line => escapeHtml(line) + '<br>').join('');
+                            }
                         })()}
                     </div>
                 </div>
@@ -10125,16 +10321,44 @@ function displayProblems(questions, formData, status = 'success') {
     
     problemsList.innerHTML = html;
     
-    // KaTeX 렌더링 사용 안 함 - 모든 LaTeX 명령어를 한글로 변환하여 표시
-    // .math-display 요소가 있으면 모두 한글로 변환
+    // 분수가 있으면 HTML로 시각적으로 렌더링, 없으면 한글로 변환
     document.querySelectorAll('.math-display[data-latex]').forEach(el => {
         let latex = el.getAttribute('data-latex');
         if (!latex) return;
         
-        // LaTeX 명령어를 한글로 변환
-        let convertedText = convertLatexToText(latex);
-        el.textContent = convertedText.trim();
-        el.className = 'problem-stem'; // 클래스 변경
+        // 분수가 있는지 확인
+        const hasFraction = latex.includes('\\frac') || latex.includes('\\dfrac');
+        
+        if (hasFraction) {
+            // 분수를 HTML로 변환하여 시각적으로 보이게 함
+            let html = latex;
+            
+            // 대분수 처리 (예: 2\dfrac{1}{3})
+            html = html.replace(/(\d+)\\dfrac\{([^}]+)\}\{([^}]+)\}/g, 
+                '<span style="display: inline-block; vertical-align: middle; margin: 0 2px;">$1</span>' +
+                '<span style="display: inline-block; vertical-align: middle; text-align: center; margin: 0 2px;"><span style="display: block; border-bottom: 1.5px solid #000; padding: 0 4px; font-size: 1em; line-height: 1.2;">$2</span><span style="display: block; padding: 0 4px; font-size: 1em; line-height: 1.2;">$3</span></span>');
+            
+            // \dfrac{}{} 패턴 처리
+            html = html.replace(/\\dfrac\{([^}]+)\}\{([^}]+)\}/g, 
+                '<span style="display: inline-block; vertical-align: middle; text-align: center; margin: 0 2px;"><span style="display: block; border-bottom: 1.5px solid #000; padding: 0 4px; font-size: 1em; line-height: 1.2;">$1</span><span style="display: block; padding: 0 4px; font-size: 1em; line-height: 1.2;">$2</span></span>');
+            
+            // \frac{}{} 패턴 처리
+            html = html.replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, 
+                '<span style="display: inline-block; vertical-align: middle; text-align: center; margin: 0 2px;"><span style="display: block; border-bottom: 1.5px solid #000; padding: 0 4px; font-size: 1em; line-height: 1.2;">$1</span><span style="display: block; padding: 0 4px; font-size: 1em; line-height: 1.2;">$2</span></span>');
+            
+            // 나머지 LaTeX 명령어를 한글로 변환
+            html = convertLatexToText(html);
+            html = cleanLatexDollars(html);
+            
+            el.innerHTML = html;
+            el.style.color = '#1F2937';
+        } else {
+            // 분수가 없으면 한글로 변환
+            let convertedText = convertLatexToText(latex);
+            convertedText = cleanLatexDollars(convertedText);
+            el.textContent = convertedText.trim();
+            el.className = 'problem-stem'; // 클래스 변경
+        }
     });
     
     // 결과 정보 업데이트
