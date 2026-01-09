@@ -5,6 +5,8 @@
 참고: PDF 추출은 Python 스크립트(tools/extract_pages_pack.py 등)에서 수행하며,
       반드시 _OCR.pdf 파일만 사용됩니다. 원본 PDF는 무시됩니다.
       내부적으로는 _OCR을 제거한 정규화된 이름(예: 1-1.pdf)으로 학년/단원 매핑이 수행됩니다.
+      
+      초등학교(ES_PACK**)와 중학교(JH_PACK**) 모두 자동으로 스캔됩니다.
 """
 import os, json, re
 
@@ -15,11 +17,24 @@ OUT_FILE = r"D:\1000_b_project\math_question\data_index.json"
 pdf_pat = re.compile(r"^(\d+)-(\d+)$")  # 예: 3-2 -> grade=3, unit=2
 
 index = []
+elementary_count = 0
+junior_count = 0
+
+print("=" * 60)
+print("인덱스 생성 시작 (초등/중등 모두 스캔)")
+print("=" * 60)
+
 for pack in sorted(os.listdir(ROOT_TXT)):
     pack_dir = os.path.join(ROOT_TXT, pack)
     if not os.path.isdir(pack_dir):
         continue
 
+    # 초등/중등 판단
+    is_junior = pack.startswith('JH_')
+    school_type = "[JH] 중등" if is_junior else "[ES] 초등"
+    
+    pack_pdf_count = 0
+    
     for pdf_name in sorted(os.listdir(pack_dir)):  # 예: 3-2
         pdf_dir = os.path.join(pack_dir, pdf_name)
         if not os.path.isdir(pdf_dir):
@@ -56,8 +71,22 @@ for pack in sorted(os.listdir(ROOT_TXT)):
             "png_dir": png_dir if has_png else None,
             "sample": sample
         })
+        
+        pack_pdf_count += 1
+    
+    if is_junior:
+        junior_count += pack_pdf_count
+        print(f"{school_type} pack: {pack} ({pack_pdf_count}개 PDF)")
+    else:
+        elementary_count += pack_pdf_count
+        print(f"{school_type} pack: {pack} ({pack_pdf_count}개 PDF)")
 
 with open(OUT_FILE, "w", encoding="utf-8") as f:
     json.dump(index, f, ensure_ascii=False, indent=2)
 
-print("완료:", OUT_FILE, "항목수:", len(index))
+print("=" * 60)
+print(f"완료: {OUT_FILE}")
+print(f"  초등학교: {elementary_count}개 항목")
+print(f"  중학교: {junior_count}개 항목")
+print(f"  전체 항목수: {len(index)}개")
+print("=" * 60)

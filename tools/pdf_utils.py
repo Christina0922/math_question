@@ -1,6 +1,14 @@
 """
 PDF 파일 처리 공통 유틸리티
 _OCR.pdf 파일만 처리하고, 정규화된 이름으로 매핑
+
+사용 규칙:
+- 포함: *_OCR.pdf 파일만 처리
+- 제외: _OCR.pdf가 아닌 모든 PDF 파일
+- 매핑: _OCR을 제거한 정규화된 이름으로 학년/학기 추출
+  예: FundamentalConcept_1-1_OCR.pdf -> 논리 이름 FundamentalConcept_1-1.pdf -> (1, 1) 추출
+
+초등학교(ES_PACK**)와 중학교(JH_PACK**) 모두 지원됩니다.
 """
 import os
 from typing import List, Tuple, Optional

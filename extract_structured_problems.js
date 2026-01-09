@@ -1,4 +1,4 @@
-// 초등 수학 문제 구조화 및 변형문제 생성 스크립트 (개선판)
+// 초등/중등 수학 문제 구조화 및 변형문제 생성 스크립트 (개선판)
 //
 // 사용 방법 (Usage):
 // 
@@ -6,10 +6,14 @@
 // const result = extractAndStructureProblems(2, 2, 'ES_PACK02_Basics');
 // console.log(JSON.stringify(result, null, 2));
 //
+// // 중등 1학년 1단원 문제 추출 (JH_PACK01_FundamentalConcept 폴더 내 1-1_OCR.pdf 존재)
+// const result = extractAndStructureProblems(1, 1, 'JH_PACK01_FundamentalConcept');
+// console.log(JSON.stringify(result, null, 2));
+//
 // 매개변수:
 //   - grade: 학년 (예: 2)
 //   - unit: 단원 (예: 2)
-//   - packName: 패키지 이름 (예: 'ES_PACK02_Basics'), 선택사항
+//   - packName: 패키지 이름 (예: 'ES_PACK02_Basics' 또는 'JH_PACK01_FundamentalConcept'), 선택사항
 //   - maxPages: 최대 읽을 페이지 수 (기본값: 5)
 //
 // 주의사항:
@@ -18,6 +22,7 @@
 //   - 이 스크립트는 이미 추출된 .txt 파일을 읽습니다. PDF 추출은 Python 스크립트(tools/)에서 수행합니다.
 //   - PDF 추출 시 반드시 _OCR.pdf 파일만 사용됩니다. 원본 PDF는 무시됩니다.
 //   - 내부적으로는 _OCR을 제거한 정규화된 이름(예: 2-2.pdf)으로 학년/단원 매핑이 수행됩니다.
+//   - 초등학교(ES_PACK**)와 중학교(JH_PACK**) 모두 지원됩니다.
 
 const fs = require('fs');
 const path = require('path');
@@ -599,9 +604,11 @@ if (require.main === module) {
     console.log(`Extracting problems for Grade ${grade}, Unit ${unit} (${pack})...\n`);
     console.log(`⚠️  참고: 이 스크립트는 이미 추출된 .txt 파일을 읽습니다.`);
     console.log(`   PDF 추출은 Python 스크립트(tools/extract_pages_pack.py)에서 수행하며,`);
-    console.log(`   반드시 _OCR.pdf 파일만 사용됩니다.\n`);
+    console.log(`   반드시 _OCR.pdf 파일만 사용됩니다.`);
+    console.log(`   초등학교(ES_PACK**)와 중학교(JH_PACK**) 모두 지원됩니다.\n`);
     
     // 초등 2학년 2단원 문제 추출 (ES_PACK02_Basics 폴더 내 2-2_OCR.pdf 존재)
+    // 또는 중등 1학년 1단원 문제 추출 (JH_PACK01_FundamentalConcept 폴더 내 1-1_OCR.pdf 존재)
     const result = extractAndStructureProblems(grade, unit, pack, 5);
     
     // JSON 출력

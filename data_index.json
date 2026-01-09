@@ -478,5 +478,55 @@
     "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\ES_PACK06_BasicType\\3-2",
     "png_dir": "D:\\1000_b_project\\math_question\\extracted_pages_png\\ES_PACK06_BasicType\\3-2",
     "sample": "수학 좀 한다면 초등수학 기본+유형 상위권으로 가는 유형반복 학습서 3 - 2"
+  },
+  {
+    "pack": "JH_PACK01_FundamentalConcept",
+    "pdf_key": "1-1",
+    "grade": 1,
+    "unit": 1,
+    "page_count": 208,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\JH_PACK01_FundamentalConcept\\1-1",
+    "png_dir": null,
+    "sample": "개념기본 개 중 념 중학 수학은 개념의 연결과 확장이다. 북 II"
+  },
+  {
+    "pack": "JH_PACK01_FundamentalConcept",
+    "pdf_key": "1-2",
+    "grade": 1,
+    "unit": 2,
+    "page_count": 304,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\JH_PACK01_FundamentalConcept\\1-2",
+    "png_dir": null,
+    "sample": "빠 수학은 개념이다! 개념기본 ^2； 중 03 중학 수학은 개념의 연결과 확장이다. 2 2022 개정 교육과정 째 02"
+  },
+  {
+    "pack": "JH_PACK01_FundamentalConcept",
+    "pdf_key": "2-1",
+    "grade": 2,
+    "unit": 1,
+    "page_count": 252,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\JH_PACK01_FundamentalConcept\\2-1",
+    "png_dir": null,
+    "sample": "수학은 개념이다! 9 蟲 (1 0"
+  },
+  {
+    "pack": "JH_PACK01_FundamentalConcept",
+    "pdf_key": "2-2",
+    "grade": 2,
+    "unit": 2,
+    "page_count": 340,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\JH_PACK01_FundamentalConcept\\2-2",
+    "png_dir": null,
+    "sample": "수학은 개념이다! 개념기본 2 개 념 중학 수학은 개념의 연결과 확장이다. 북 冗|0 II"
+  },
+  {
+    "pack": "JH_PACK01_FundamentalConcept",
+    "pdf_key": "3-1",
+    "grade": 3,
+    "unit": 1,
+    "page_count": 296,
+    "txt_dir": "D:\\1000_b_project\\math_question\\extracted_pages\\JH_PACK01_FundamentalConcept\\3-1",
+    "png_dir": null,
+    "sample": "수학은 개념이다! 1 중 1 수학은 개념의 연결과 확장이다. 2022 개정 교육과정"
   }
 ]

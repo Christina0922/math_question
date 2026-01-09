@@ -3,17 +3,27 @@ import sys
 import pdfplumber
 from pdf_utils import list_ocr_pdfs, validate_ocr_only, extract_grade_unit_from_name
 
-BASE = r"D:\1000_b_project\math_question\import_from_Math_Questions\_question_bank_only\Elementary_school"
+# 초등/중등 루트 경로
+BASE_ELEMENTARY = r"D:\1000_b_project\math_question\import_from_Math_Questions\_question_bank_only\Elementary_school"
+BASE_JUNIOR = r"D:\1000_b_project\math_question\import_from_Math_Questions\_question_bank_only\Junior_high_school"
 OUT_BASE = r"D:\1000_b_project\math_question\extracted_pages_png"
 
 DPI = 200  # 150~250 사이 추천 (클수록 선명하지만 용량 증가)
 
 def main():
     if len(sys.argv) < 2:
-        print("사용법: py export_page_png_pack.py ES_PACK02_Basics")
+        print("사용법: py export_page_png_pack.py <팩이름>")
+        print("  예: py export_page_png_pack.py ES_PACK02_Basics (초등)")
+        print("  예: py export_page_png_pack.py JH_PACK01_FundamentalConcept (중등)")
         raise SystemExit
 
     pack = sys.argv[1].strip()
+    
+    # 초등/중등 자동 판단 (팩 이름으로)
+    is_junior = pack.startswith('JH_')
+    BASE = BASE_JUNIOR if is_junior else BASE_ELEMENTARY
+    school_type = "[JH] 중등" if is_junior else "[ES] 초등"
+    
     src_dir = os.path.join(BASE, pack)
     out_root = os.path.join(OUT_BASE, pack)
 
@@ -30,7 +40,9 @@ def main():
         print("   원본 PDF는 무시되며, _OCR.pdf만 처리됩니다.")
         raise SystemExit
 
-    print(f"\n📁 {pack} 폴더에서 OCR PDF {len(pdf_entries)}개 발견")
+    print(f"\n{school_type} root scanned: {BASE}")
+    print(f"{school_type} pack found: {pack} (OCR pdf count: {len(pdf_entries)})")
+    print(f"\n[{pack}] 폴더에서 OCR PDF {len(pdf_entries)}개 발견")
     print("처리할 파일 (샘플 3개):")
     for entry in pdf_entries[:3]:
         print(f"  - {entry.basename} -> {entry.logical_basename}")
@@ -70,13 +82,13 @@ def main():
                     out_path = os.path.join(out_dir, f"{i:04d}.png")
                     img.save(out_path)
 
-            print(f"✅ 완료: {entry.basename} -> {out_dir}")
+            print(f"[완료] {entry.basename} -> {out_dir}")
             processed_count += 1
         except Exception as e:
-            print(f"❌ 오류: {entry.basename} 처리 실패 - {e}")
+            print(f"[오류] {entry.basename} 처리 실패 - {e}")
             skipped_count += 1
 
-    print(f"\n📊 처리 완료: {processed_count}개 성공, {skipped_count}개 스킵")
+    print(f"\n[처리 완료] {processed_count}개 성공, {skipped_count}개 스킵")
     print(f"전체 완료: {out_root}")
 
 if __name__ == "__main__":
