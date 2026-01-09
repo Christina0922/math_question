@@ -5846,6 +5846,8 @@ function getQuestionBankFolder(mistakes, schoolLevel) {
 
 /**
  * 학년-학기에 따른 PDF 파일명 생성
+ * 참고: 실제로는 _OCR.pdf 파일만 사용되며, 내부적으로는 _OCR을 제거한 정규화된 이름으로 매핑됩니다.
+ * 예: Basics_1-1_OCR.pdf -> 논리적으로는 1-1.pdf로 간주
  */
 function getQuestionBankFileName(grade, semester) {
     return `${grade}-${semester}.pdf`;
@@ -8600,6 +8602,7 @@ async function createSampleProblems(formData, progressCallback = null) {
     
     // manifest 기반 매칭 검증 (문제은행 파일 존재 여부 확인)
     // 파일명 패턴: {grade}-{semester}.pdf (예: 6-1.pdf는 초6-1에 해당)
+    // 참고: 실제 PDF는 _OCR.pdf 파일만 사용되며, 내부적으로는 정규화된 이름으로 매핑됩니다.
     // conceptId 형식: G{grade}-S{semester}-U{unitNo}-T{topicNo}
     // 매칭 규칙: conceptId의 grade와 semester로 파일명 생성하여 manifest에서 확인
     let manifestMatchedCount = 0;

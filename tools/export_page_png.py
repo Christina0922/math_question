@@ -1,31 +1,67 @@
 import os
-import glob
 import pdfplumber
+from pdf_utils import list_ocr_pdfs, validate_ocr_only, extract_grade_unit_from_name
 
 SRC_DIR = r"D:\1000_b_project\math_question\import_from_Math_Questions\_question_bank_only\Elementary_school\ES_PACK01_Principle"
 OUT_ROOT = r"D:\1000_b_project\math_question\extracted_pages_png\ES_PACK01_Principle"
 
 os.makedirs(OUT_ROOT, exist_ok=True)
 
-pdf_paths = sorted(glob.glob(os.path.join(SRC_DIR, "*.pdf")))
-if not pdf_paths:
-    print("PDF가 없습니다:", SRC_DIR)
+# _OCR.pdf 파일만 찾기
+pdf_entries = list_ocr_pdfs(SRC_DIR)
+if not pdf_entries:
+    print(f"⚠️  경고: {SRC_DIR}에 _OCR.pdf 파일이 없습니다.")
+    print("   원본 PDF는 무시되며, _OCR.pdf만 처리됩니다.")
     raise SystemExit
+
+print(f"\n📁 {os.path.basename(SRC_DIR)} 폴더에서 OCR PDF {len(pdf_entries)}개 발견")
+print("처리할 파일 (샘플 3개):")
+for entry in pdf_entries[:3]:
+    print(f"  - {entry.basename} -> {entry.logical_basename}")
+if len(pdf_entries) > 3:
+    print(f"  ... 외 {len(pdf_entries) - 3}개")
 
 # 필요하면 해상도 조절 (값이 클수록 선명하지만 용량 증가)
 DPI = 200
 
-for pdf_path in pdf_paths:
-    pdf_name = os.path.splitext(os.path.basename(pdf_path))[0]  # 예: 1-1
+processed_count = 0
+skipped_count = 0
+
+for entry in pdf_entries:
+    # 안전장치: _OCR.pdf가 아니면 스킵
+    if not validate_ocr_only(entry.original_path):
+        print(f"⚠️  경고: {entry.basename}는 _OCR.pdf가 아닙니다. 스킵합니다.")
+        skipped_count += 1
+        continue
+
+    # 정규화된 이름으로 출력 디렉토리 생성
+    grade_unit = extract_grade_unit_from_name(entry.logical_name)
+    if grade_unit:
+        pdf_name = f"{grade_unit[0]}-{grade_unit[1]}"
+    else:
+        logical_basename = os.path.splitext(entry.logical_basename)[0]
+        import re
+        match = re.search(r'(\d+-\d+)$', logical_basename)
+        if match:
+            pdf_name = match.group(1)
+        else:
+            pdf_name = logical_basename
+
     out_dir = os.path.join(OUT_ROOT, pdf_name)
     os.makedirs(out_dir, exist_ok=True)
 
-    with pdfplumber.open(pdf_path) as pdf:
-        for i, page in enumerate(pdf.pages, start=1):
-            img = page.to_image(resolution=DPI).original
-            out_path = os.path.join(out_dir, f"{i:04d}.png")
-            img.save(out_path)
+    try:
+        with pdfplumber.open(entry.original_path) as pdf:
+            for i, page in enumerate(pdf.pages, start=1):
+                img = page.to_image(resolution=DPI).original
+                out_path = os.path.join(out_dir, f"{i:04d}.png")
+                img.save(out_path)
 
-    print("완료:", os.path.basename(pdf_path), "->", out_dir)
+        print(f"✅ 완료: {entry.basename} -> {out_dir}")
+        processed_count += 1
+    except Exception as e:
+        print(f"❌ 오류: {entry.basename} 처리 실패 - {e}")
+        skipped_count += 1
 
-print("\n전체 완료:", OUT_ROOT)
+print(f"\n📊 처리 완료: {processed_count}개 성공, {skipped_count}개 스킵")
+print(f"전체 완료: {OUT_ROOT}")

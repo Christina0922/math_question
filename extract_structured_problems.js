@@ -2,7 +2,7 @@
 //
 // 사용 방법 (Usage):
 // 
-// // 초등 2학년 2단원 문제 추출 (ES_PACK02_Basics 폴더 내 2-2.pdf 존재)
+// // 초등 2학년 2단원 문제 추출 (ES_PACK02_Basics 폴더 내 2-2_OCR.pdf 존재)
 // const result = extractAndStructureProblems(2, 2, 'ES_PACK02_Basics');
 // console.log(JSON.stringify(result, null, 2));
 //
@@ -12,8 +12,12 @@
 //   - packName: 패키지 이름 (예: 'ES_PACK02_Basics'), 선택사항
 //   - maxPages: 최대 읽을 페이지 수 (기본값: 5)
 //
-// 주의: grade와 unit은 반드시 해당 pack 폴더 내에 실제 존재하는 pdf_key와 일치해야 합니다.
-//       예를 들어, ES_PACK02_Basics에는 2-2.pdf가 존재하므로 grade=2, unit=2가 올바른 조합입니다.
+// 주의사항:
+//   - grade와 unit은 반드시 해당 pack 폴더 내에 실제 존재하는 pdf_key와 일치해야 합니다.
+//   - 예를 들어, ES_PACK02_Basics에는 2-2_OCR.pdf가 존재하므로 grade=2, unit=2가 올바른 조합입니다.
+//   - 이 스크립트는 이미 추출된 .txt 파일을 읽습니다. PDF 추출은 Python 스크립트(tools/)에서 수행합니다.
+//   - PDF 추출 시 반드시 _OCR.pdf 파일만 사용됩니다. 원본 PDF는 무시됩니다.
+//   - 내부적으로는 _OCR을 제거한 정규화된 이름(예: 2-2.pdf)으로 학년/단원 매핑이 수행됩니다.
 
 const fs = require('fs');
 const path = require('path');
@@ -587,14 +591,17 @@ function extractAndStructureProblems(grade, unit, packName = null, maxPages = 5)
 
 // 실행 예시
 if (require.main === module) {
-    // 테스트: 초등 2학년 2단원 (ES_PACK02_Basics 폴더 내 2-2.pdf 존재)
+    // 테스트: 초등 2학년 2단원 (ES_PACK02_Basics 폴더 내 2-2_OCR.pdf 존재)
     const grade = 2;
     const unit = 2;
     const pack = 'ES_PACK02_Basics';
     
     console.log(`Extracting problems for Grade ${grade}, Unit ${unit} (${pack})...\n`);
+    console.log(`⚠️  참고: 이 스크립트는 이미 추출된 .txt 파일을 읽습니다.`);
+    console.log(`   PDF 추출은 Python 스크립트(tools/extract_pages_pack.py)에서 수행하며,`);
+    console.log(`   반드시 _OCR.pdf 파일만 사용됩니다.\n`);
     
-    // 초등 2학년 2단원 문제 추출 (ES_PACK02_Basics 폴더 내 2-2.pdf 존재)
+    // 초등 2학년 2단원 문제 추출 (ES_PACK02_Basics 폴더 내 2-2_OCR.pdf 존재)
     const result = extractAndStructureProblems(grade, unit, pack, 5);
     
     // JSON 출력

@@ -1,3 +1,11 @@
+"""
+인덱스 생성 스크립트
+이미 추출된 .txt 파일을 기반으로 data_index.json을 생성합니다.
+
+참고: PDF 추출은 Python 스크립트(tools/extract_pages_pack.py 등)에서 수행하며,
+      반드시 _OCR.pdf 파일만 사용됩니다. 원본 PDF는 무시됩니다.
+      내부적으로는 _OCR을 제거한 정규화된 이름(예: 1-1.pdf)으로 학년/단원 매핑이 수행됩니다.
+"""
 import os, json, re
 
 ROOT_TXT = r"D:\1000_b_project\math_question\extracted_pages"
