@@ -1,0 +1,538 @@
+{
+  "pack": "ES_PACK02_Basics",
+  "grade": 6,
+  "semester": 1,
+  "unit": 1,
+  "pdf_key": "6-1",
+  "title": "분수의 나눗셈, 각기둥과 각뿔, 소수의 나눗셈, 비와 비율, 원의 넓이, 공간과 입체",
+  "total_problems": 180,
+  "categories": [
+    {
+      "id": "1",
+      "name": "분수의 나눗셈",
+      "range": [1, 30],
+      "subcategories": [
+        {
+          "name": "① 기본 계산",
+          "range": [1, 10],
+          "problems": [
+            {"id": 1, "question": "3/4 ÷ 1/2의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "하"},
+            {"id": 2, "question": "5/6 ÷ 5/6의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "하"},
+            {"id": 3, "question": "2/3 ÷ 1/3의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "하"},
+            {"id": 4, "question": "7/8 ÷ 1/4의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "하"},
+            {"id": 5, "question": "4/5 ÷ 2의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "하"},
+            {"id": 6, "question": "1 ÷ 1/5의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "하"},
+            {"id": 7, "question": "6/7 ÷ 1의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "하"},
+            {"id": 8, "question": "9/10 ÷ 3/10의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "하"},
+            {"id": 9, "question": "1/2 ÷ 1/4의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "하"},
+            {"id": 10, "question": "8/9 ÷ 2/3의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "하"}
+          ]
+        },
+        {
+          "name": "② 자연수·분수 혼합",
+          "range": [11, 20],
+          "problems": [
+            {"id": 11, "question": "3 ÷ 1/3의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "중"},
+            {"id": 12, "question": "2 ÷ 2/5의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "중"},
+            {"id": 13, "question": "3/4 ÷ 3의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "중"},
+            {"id": 14, "question": "5 ÷ 5/6의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "중"},
+            {"id": 15, "question": "10/3 ÷ 2/3의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "중"},
+            {"id": 16, "question": "4 ÷ 1/8의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "중"},
+            {"id": 17, "question": "6/5 ÷ 2의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "중"},
+            {"id": 18, "question": "7 ÷ 7/4의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "중"},
+            {"id": 19, "question": "9/2 ÷ 3의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "중"},
+            {"id": 20, "question": "6 ÷ 3/2의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "중"}
+          ]
+        },
+        {
+          "name": "③ 상황·판단",
+          "range": [21, 30],
+          "problems": [
+            {"id": 21, "question": "1/2L씩 나누면 3L는 몇 번 나눌 수 있습니까?", "concept": "분수 나눗셈 활용", "difficulty": "중"},
+            {"id": 22, "question": "2/3m씩 자르면 4m는 몇 조각입니까?", "concept": "분수 나눗셈 활용", "difficulty": "중"},
+            {"id": 23, "question": "어떤 수에 1/4를 나누었더니 8이 되었습니다. 원래 수를 구하세요.", "concept": "분수 나눗셈 역추론", "difficulty": "상"},
+            {"id": 24, "question": "3/5 ÷ 3/5의 결과는 항상 1입니까? (O/X)", "concept": "분수 나눗셈의 성질", "difficulty": "중"},
+            {"id": 25, "question": "나누는 수가 1보다 작으면 몫은 어떻게 됩니까?", "concept": "분수 나눗셈의 성질", "difficulty": "중"},
+            {"id": 26, "question": "a/b ÷ c/d의 값은 무엇입니까?", "concept": "분수 나눗셈 공식", "difficulty": "상"},
+            {"id": 27, "question": "분수를 나눌 때 바뀌는 연산을 쓰세요.", "concept": "분수 나눗셈", "difficulty": "중"},
+            {"id": 28, "question": "나눗셈 결과가 가장 큰 식을 고르세요.", "concept": "분수 나눗셈 비교", "difficulty": "중"},
+            {"id": 29, "question": "몫이 자연수가 되는 식을 하나 쓰세요.", "concept": "분수 나눗셈", "difficulty": "중"},
+            {"id": 30, "question": "분수의 나눗셈이 필요한 상황을 하나 쓰세요.", "concept": "분수 나눗셈의 활용", "difficulty": "하"}
+          ]
+        }
+      ],
+      "problems": [
+        {"id": 1, "question": "3/4 ÷ 1/2의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "하"},
+        {"id": 2, "question": "5/6 ÷ 5/6의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "하"},
+        {"id": 3, "question": "2/3 ÷ 1/3의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "하"},
+        {"id": 4, "question": "7/8 ÷ 1/4의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "하"},
+        {"id": 5, "question": "4/5 ÷ 2의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "하"},
+        {"id": 6, "question": "1 ÷ 1/5의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "하"},
+        {"id": 7, "question": "6/7 ÷ 1의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "하"},
+        {"id": 8, "question": "9/10 ÷ 3/10의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "하"},
+        {"id": 9, "question": "1/2 ÷ 1/4의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "하"},
+        {"id": 10, "question": "8/9 ÷ 2/3의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "하"},
+        {"id": 11, "question": "3 ÷ 1/3의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "중"},
+        {"id": 12, "question": "2 ÷ 2/5의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "중"},
+        {"id": 13, "question": "3/4 ÷ 3의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "중"},
+        {"id": 14, "question": "5 ÷ 5/6의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "중"},
+        {"id": 15, "question": "10/3 ÷ 2/3의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "중"},
+        {"id": 16, "question": "4 ÷ 1/8의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "중"},
+        {"id": 17, "question": "6/5 ÷ 2의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "중"},
+        {"id": 18, "question": "7 ÷ 7/4의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "중"},
+        {"id": 19, "question": "9/2 ÷ 3의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "중"},
+        {"id": 20, "question": "6 ÷ 3/2의 값을 구하세요.", "concept": "분수 나눗셈", "difficulty": "중"},
+        {"id": 21, "question": "1/2L씩 나누면 3L는 몇 번 나눌 수 있습니까?", "concept": "분수 나눗셈 활용", "difficulty": "중"},
+        {"id": 22, "question": "2/3m씩 자르면 4m는 몇 조각입니까?", "concept": "분수 나눗셈 활용", "difficulty": "중"},
+        {"id": 23, "question": "어떤 수에 1/4를 나누었더니 8이 되었습니다. 원래 수를 구하세요.", "concept": "분수 나눗셈 역추론", "difficulty": "상"},
+        {"id": 24, "question": "3/5 ÷ 3/5의 결과는 항상 1입니까? (O/X)", "concept": "분수 나눗셈의 성질", "difficulty": "중"},
+        {"id": 25, "question": "나누는 수가 1보다 작으면 몫은 어떻게 됩니까?", "concept": "분수 나눗셈의 성질", "difficulty": "중"},
+        {"id": 26, "question": "a/b ÷ c/d의 값은 무엇입니까?", "concept": "분수 나눗셈 공식", "difficulty": "상"},
+        {"id": 27, "question": "분수를 나눌 때 바뀌는 연산을 쓰세요.", "concept": "분수 나눗셈", "difficulty": "중"},
+        {"id": 28, "question": "나눗셈 결과가 가장 큰 식을 고르세요.", "concept": "분수 나눗셈 비교", "difficulty": "중"},
+        {"id": 29, "question": "몫이 자연수가 되는 식을 하나 쓰세요.", "concept": "분수 나눗셈", "difficulty": "중"},
+        {"id": 30, "question": "분수의 나눗셈이 필요한 상황을 하나 쓰세요.", "concept": "분수 나눗셈의 활용", "difficulty": "하"}
+      ]
+    },
+    {
+      "id": "2",
+      "name": "각기둥과 각뿔",
+      "range": [31, 60],
+      "subcategories": [
+        {
+          "name": "① 기본 성질",
+          "range": [31, 40],
+          "problems": [
+            {"id": 31, "question": "각기둥의 밑면은 몇 개입니까?", "concept": "각기둥의 성질", "difficulty": "하"},
+            {"id": 32, "question": "각기둥의 옆면은 어떤 모양입니까?", "concept": "각기둥의 성질", "difficulty": "하"},
+            {"id": 33, "question": "각뿔의 밑면은 몇 개입니까?", "concept": "각뿔의 성질", "difficulty": "하"},
+            {"id": 34, "question": "각뿔의 옆면은 어떤 도형입니까?", "concept": "각뿔의 성질", "difficulty": "하"},
+            {"id": 35, "question": "삼각기둥의 밑면은 어떤 도형입니까?", "concept": "각기둥의 성질", "difficulty": "하"},
+            {"id": 36, "question": "사각기둥의 옆면 개수를 구하세요.", "concept": "각기둥의 성질", "difficulty": "중"},
+            {"id": 37, "question": "삼각뿔의 꼭짓점 수를 구하세요.", "concept": "각뿔의 성질", "difficulty": "중"},
+            {"id": 38, "question": "사각뿔의 모서리 수를 구하세요.", "concept": "각뿔의 성질", "difficulty": "중"},
+            {"id": 39, "question": "각기둥과 각뿔의 공통점을 하나 쓰세요.", "concept": "각기둥과 각뿔", "difficulty": "중"},
+            {"id": 40, "question": "밑면이 오각형인 각기둥의 이름을 쓰세요.", "concept": "각기둥의 성질", "difficulty": "하"}
+          ]
+        },
+        {
+          "name": "② 개수 계산",
+          "range": [41, 50],
+          "problems": [
+            {"id": 41, "question": "삼각기둥의 꼭짓점 수를 구하세요.", "concept": "각기둥의 성질", "difficulty": "중"},
+            {"id": 42, "question": "사각기둥의 모서리 수를 구하세요.", "concept": "각기둥의 성질", "difficulty": "중"},
+            {"id": 43, "question": "오각기둥의 옆면 수를 구하세요.", "concept": "각기둥의 성질", "difficulty": "중"},
+            {"id": 44, "question": "사각뿔의 옆면 수를 구하세요.", "concept": "각뿔의 성질", "difficulty": "중"},
+            {"id": 45, "question": "삼각뿔의 모서리 수를 구하세요.", "concept": "각뿔의 성질", "difficulty": "중"},
+            {"id": 46, "question": "육각기둥의 밑면 각의 개수를 구하세요.", "concept": "각기둥의 성질", "difficulty": "중"},
+            {"id": 47, "question": "밑면이 n각형인 각기둥의 옆면 수를 쓰세요.", "concept": "각기둥의 성질", "difficulty": "상"},
+            {"id": 48, "question": "밑면이 n각형인 각뿔의 옆면 수를 쓰세요.", "concept": "각뿔의 성질", "difficulty": "상"},
+            {"id": 49, "question": "꼭짓점이 8개인 각기둥의 밑면 모양을 쓰세요.", "concept": "각기둥의 성질", "difficulty": "중"},
+            {"id": 50, "question": "모서리가 12개인 각기둥의 밑면 모양을 쓰세요.", "concept": "각기둥의 성질", "difficulty": "중"}
+          ]
+        },
+        {
+          "name": "③ 분류·판단",
+          "range": [51, 60],
+          "problems": [
+            {"id": 51, "question": "옆면이 모두 삼각형인 입체도형의 이름을 쓰세요.", "concept": "각뿔의 성질", "difficulty": "중"},
+            {"id": 52, "question": "밑면이 서로 평행한 입체도형을 쓰세요.", "concept": "각기둥의 성질", "difficulty": "중"},
+            {"id": 53, "question": "각뿔에는 밑면과 평행한 면이 있습니까? (O/X)", "concept": "각뿔의 성질", "difficulty": "중"},
+            {"id": 54, "question": "각기둥의 높이는 무엇을 의미합니까?", "concept": "각기둥의 성질", "difficulty": "중"},
+            {"id": 55, "question": "각기둥과 각뿔 중 옆면 수가 더 많은 것은 무엇입니까?", "concept": "각기둥과 각뿔", "difficulty": "상"},
+            {"id": 56, "question": "밑면이 사각형인 입체도형을 모두 쓰세요.", "concept": "각기둥과 각뿔", "difficulty": "중"},
+            {"id": 57, "question": "옆면이 직사각형만으로 이루어진 도형을 쓰세요.", "concept": "각기둥의 성질", "difficulty": "중"},
+            {"id": 58, "question": "각뿔의 꼭짓점은 모두 몇 곳에서 만납니까?", "concept": "각뿔의 성질", "difficulty": "중"},
+            {"id": 59, "question": "밑면이 1개인 입체도형을 쓰세요.", "concept": "각뿔의 성질", "difficulty": "하"},
+            {"id": 60, "question": "각기둥과 각뿔의 가장 큰 차이를 쓰세요.", "concept": "각기둥과 각뿔", "difficulty": "중"}
+          ]
+        }
+      ],
+      "problems": [
+        {"id": 31, "question": "각기둥의 밑면은 몇 개입니까?", "concept": "각기둥의 성질", "difficulty": "하"},
+        {"id": 32, "question": "각기둥의 옆면은 어떤 모양입니까?", "concept": "각기둥의 성질", "difficulty": "하"},
+        {"id": 33, "question": "각뿔의 밑면은 몇 개입니까?", "concept": "각뿔의 성질", "difficulty": "하"},
+        {"id": 34, "question": "각뿔의 옆면은 어떤 도형입니까?", "concept": "각뿔의 성질", "difficulty": "하"},
+        {"id": 35, "question": "삼각기둥의 밑면은 어떤 도형입니까?", "concept": "각기둥의 성질", "difficulty": "하"},
+        {"id": 36, "question": "사각기둥의 옆면 개수를 구하세요.", "concept": "각기둥의 성질", "difficulty": "중"},
+        {"id": 37, "question": "삼각뿔의 꼭짓점 수를 구하세요.", "concept": "각뿔의 성질", "difficulty": "중"},
+        {"id": 38, "question": "사각뿔의 모서리 수를 구하세요.", "concept": "각뿔의 성질", "difficulty": "중"},
+        {"id": 39, "question": "각기둥과 각뿔의 공통점을 하나 쓰세요.", "concept": "각기둥과 각뿔", "difficulty": "중"},
+        {"id": 40, "question": "밑면이 오각형인 각기둥의 이름을 쓰세요.", "concept": "각기둥의 성질", "difficulty": "하"},
+        {"id": 41, "question": "삼각기둥의 꼭짓점 수를 구하세요.", "concept": "각기둥의 성질", "difficulty": "중"},
+        {"id": 42, "question": "사각기둥의 모서리 수를 구하세요.", "concept": "각기둥의 성질", "difficulty": "중"},
+        {"id": 43, "question": "오각기둥의 옆면 수를 구하세요.", "concept": "각기둥의 성질", "difficulty": "중"},
+        {"id": 44, "question": "사각뿔의 옆면 수를 구하세요.", "concept": "각뿔의 성질", "difficulty": "중"},
+        {"id": 45, "question": "삼각뿔의 모서리 수를 구하세요.", "concept": "각뿔의 성질", "difficulty": "중"},
+        {"id": 46, "question": "육각기둥의 밑면 각의 개수를 구하세요.", "concept": "각기둥의 성질", "difficulty": "중"},
+        {"id": 47, "question": "밑면이 n각형인 각기둥의 옆면 수를 쓰세요.", "concept": "각기둥의 성질", "difficulty": "상"},
+        {"id": 48, "question": "밑면이 n각형인 각뿔의 옆면 수를 쓰세요.", "concept": "각뿔의 성질", "difficulty": "상"},
+        {"id": 49, "question": "꼭짓점이 8개인 각기둥의 밑면 모양을 쓰세요.", "concept": "각기둥의 성질", "difficulty": "중"},
+        {"id": 50, "question": "모서리가 12개인 각기둥의 밑면 모양을 쓰세요.", "concept": "각기둥의 성질", "difficulty": "중"},
+        {"id": 51, "question": "옆면이 모두 삼각형인 입체도형의 이름을 쓰세요.", "concept": "각뿔의 성질", "difficulty": "중"},
+        {"id": 52, "question": "밑면이 서로 평행한 입체도형을 쓰세요.", "concept": "각기둥의 성질", "difficulty": "중"},
+        {"id": 53, "question": "각뿔에는 밑면과 평행한 면이 있습니까? (O/X)", "concept": "각뿔의 성질", "difficulty": "중"},
+        {"id": 54, "question": "각기둥의 높이는 무엇을 의미합니까?", "concept": "각기둥의 성질", "difficulty": "중"},
+        {"id": 55, "question": "각기둥과 각뿔 중 옆면 수가 더 많은 것은 무엇입니까?", "concept": "각기둥과 각뿔", "difficulty": "상"},
+        {"id": 56, "question": "밑면이 사각형인 입체도형을 모두 쓰세요.", "concept": "각기둥과 각뿔", "difficulty": "중"},
+        {"id": 57, "question": "옆면이 직사각형만으로 이루어진 도형을 쓰세요.", "concept": "각기둥의 성질", "difficulty": "중"},
+        {"id": 58, "question": "각뿔의 꼭짓점은 모두 몇 곳에서 만납니까?", "concept": "각뿔의 성질", "difficulty": "중"},
+        {"id": 59, "question": "밑면이 1개인 입체도형을 쓰세요.", "concept": "각뿔의 성질", "difficulty": "하"},
+        {"id": 60, "question": "각기둥과 각뿔의 가장 큰 차이를 쓰세요.", "concept": "각기둥과 각뿔", "difficulty": "중"}
+      ]
+    },
+    {
+      "id": "3",
+      "name": "소수의 나눗셈",
+      "range": [61, 90],
+      "subcategories": [
+        {
+          "name": "① 기본 계산",
+          "range": [61, 70],
+          "problems": [
+            {"id": 61, "question": "4.8 ÷ 2의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "하"},
+            {"id": 62, "question": "3.6 ÷ 3의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "하"},
+            {"id": 63, "question": "7.2 ÷ 4의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "하"},
+            {"id": 64, "question": "5.4 ÷ 6의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "하"},
+            {"id": 65, "question": "9.0 ÷ 5의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "하"},
+            {"id": 66, "question": "6.3 ÷ 7의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "하"},
+            {"id": 67, "question": "8.4 ÷ 2의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "하"},
+            {"id": 68, "question": "1.2 ÷ 3의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "하"},
+            {"id": 69, "question": "0.9 ÷ 3의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "하"},
+            {"id": 70, "question": "2.4 ÷ 8의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "하"}
+          ]
+        },
+        {
+          "name": "② 소수 ÷ 소수",
+          "range": [71, 80],
+          "problems": [
+            {"id": 71, "question": "3.6 ÷ 0.6의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "중"},
+            {"id": 72, "question": "4.2 ÷ 0.7의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "중"},
+            {"id": 73, "question": "2.5 ÷ 0.5의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "중"},
+            {"id": 74, "question": "6.3 ÷ 0.9의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "중"},
+            {"id": 75, "question": "1.8 ÷ 0.3의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "중"},
+            {"id": 76, "question": "0.84 ÷ 0.7의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "중"},
+            {"id": 77, "question": "2.4 ÷ 0.4의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "중"},
+            {"id": 78, "question": "3.5 ÷ 0.5의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "중"},
+            {"id": 79, "question": "4.8 ÷ 0.6의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "중"},
+            {"id": 80, "question": "0.72 ÷ 0.8의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "중"}
+          ]
+        },
+        {
+          "name": "③ 상황·판단",
+          "range": [81, 90],
+          "problems": [
+            {"id": 81, "question": "6.4m를 0.8m씩 나누면 몇 조각입니까?", "concept": "소수 나눗셈 활용", "difficulty": "중"},
+            {"id": 82, "question": "2.5kg을 0.5kg씩 나누면 몇 묶음입니까?", "concept": "소수 나눗셈 활용", "difficulty": "중"},
+            {"id": 83, "question": "어떤 수를 0.4로 나누었더니 5가 되었습니다. 원래 수를 구하세요.", "concept": "소수 나눗셈 역추론", "difficulty": "상"},
+            {"id": 84, "question": "나누는 수가 1보다 작으면 몫은 커집니까? (O/X)", "concept": "소수 나눗셈의 성질", "difficulty": "중"},
+            {"id": 85, "question": "소수의 나눗셈에서 소수점을 옮기는 이유를 쓰세요.", "concept": "소수 나눗셈", "difficulty": "중"},
+            {"id": 86, "question": "몫이 10이 되는 식을 하나 쓰세요.", "concept": "소수 나눗셈", "difficulty": "중"},
+            {"id": 87, "question": "몫이 1보다 작은 식을 고르세요.", "concept": "소수 나눗셈 비교", "difficulty": "중"},
+            {"id": 88, "question": "계산 결과가 자연수가 되는 식을 고르세요.", "concept": "소수 나눗셈", "difficulty": "중"},
+            {"id": 89, "question": "소수의 나눗셈이 필요한 생활 예를 하나 쓰세요.", "concept": "소수 나눗셈의 활용", "difficulty": "하"},
+            {"id": 90, "question": "소수의 곱셈과 나눗셈의 공통점을 쓰세요.", "concept": "소수 계산", "difficulty": "중"}
+          ]
+        }
+      ],
+      "problems": [
+        {"id": 61, "question": "4.8 ÷ 2의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "하"},
+        {"id": 62, "question": "3.6 ÷ 3의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "하"},
+        {"id": 63, "question": "7.2 ÷ 4의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "하"},
+        {"id": 64, "question": "5.4 ÷ 6의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "하"},
+        {"id": 65, "question": "9.0 ÷ 5의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "하"},
+        {"id": 66, "question": "6.3 ÷ 7의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "하"},
+        {"id": 67, "question": "8.4 ÷ 2의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "하"},
+        {"id": 68, "question": "1.2 ÷ 3의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "하"},
+        {"id": 69, "question": "0.9 ÷ 3의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "하"},
+        {"id": 70, "question": "2.4 ÷ 8의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "하"},
+        {"id": 71, "question": "3.6 ÷ 0.6의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "중"},
+        {"id": 72, "question": "4.2 ÷ 0.7의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "중"},
+        {"id": 73, "question": "2.5 ÷ 0.5의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "중"},
+        {"id": 74, "question": "6.3 ÷ 0.9의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "중"},
+        {"id": 75, "question": "1.8 ÷ 0.3의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "중"},
+        {"id": 76, "question": "0.84 ÷ 0.7의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "중"},
+        {"id": 77, "question": "2.4 ÷ 0.4의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "중"},
+        {"id": 78, "question": "3.5 ÷ 0.5의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "중"},
+        {"id": 79, "question": "4.8 ÷ 0.6의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "중"},
+        {"id": 80, "question": "0.72 ÷ 0.8의 값을 구하세요.", "concept": "소수 나눗셈", "difficulty": "중"},
+        {"id": 81, "question": "6.4m를 0.8m씩 나누면 몇 조각입니까?", "concept": "소수 나눗셈 활용", "difficulty": "중"},
+        {"id": 82, "question": "2.5kg을 0.5kg씩 나누면 몇 묶음입니까?", "concept": "소수 나눗셈 활용", "difficulty": "중"},
+        {"id": 83, "question": "어떤 수를 0.4로 나누었더니 5가 되었습니다. 원래 수를 구하세요.", "concept": "소수 나눗셈 역추론", "difficulty": "상"},
+        {"id": 84, "question": "나누는 수가 1보다 작으면 몫은 커집니까? (O/X)", "concept": "소수 나눗셈의 성질", "difficulty": "중"},
+        {"id": 85, "question": "소수의 나눗셈에서 소수점을 옮기는 이유를 쓰세요.", "concept": "소수 나눗셈", "difficulty": "중"},
+        {"id": 86, "question": "몫이 10이 되는 식을 하나 쓰세요.", "concept": "소수 나눗셈", "difficulty": "중"},
+        {"id": 87, "question": "몫이 1보다 작은 식을 고르세요.", "concept": "소수 나눗셈 비교", "difficulty": "중"},
+        {"id": 88, "question": "계산 결과가 자연수가 되는 식을 고르세요.", "concept": "소수 나눗셈", "difficulty": "중"},
+        {"id": 89, "question": "소수의 나눗셈이 필요한 생활 예를 하나 쓰세요.", "concept": "소수 나눗셈의 활용", "difficulty": "하"},
+        {"id": 90, "question": "소수의 곱셈과 나눗셈의 공통점을 쓰세요.", "concept": "소수 계산", "difficulty": "중"}
+      ]
+    },
+    {
+      "id": "4",
+      "name": "비와 비율",
+      "range": [91, 120],
+      "subcategories": [
+        {
+          "name": "① 비의 기본",
+          "range": [91, 100],
+          "problems": [
+            {"id": 91, "question": "4와 8의 비를 간단히 나타내세요.", "concept": "비", "difficulty": "하"},
+            {"id": 92, "question": "6:9를 가장 간단한 비로 나타내세요.", "concept": "비", "difficulty": "하"},
+            {"id": 93, "question": "10과 5의 비를 쓰세요.", "concept": "비", "difficulty": "하"},
+            {"id": 94, "question": "12:16을 간단히 하세요.", "concept": "비", "difficulty": "하"},
+            {"id": 95, "question": "3과 15의 비를 쓰세요.", "concept": "비", "difficulty": "하"},
+            {"id": 96, "question": "8:4를 간단히 하세요.", "concept": "비", "difficulty": "하"},
+            {"id": 97, "question": "20과 30의 비를 쓰세요.", "concept": "비", "difficulty": "하"},
+            {"id": 98, "question": "9:6을 간단히 하세요.", "concept": "비", "difficulty": "하"},
+            {"id": 99, "question": "5와 1의 비를 쓰세요.", "concept": "비", "difficulty": "하"},
+            {"id": 100, "question": "14:21을 간단히 하세요.", "concept": "비", "difficulty": "하"}
+          ]
+        },
+        {
+          "name": "② 비율 계산",
+          "range": [101, 110],
+          "problems": [
+            {"id": 101, "question": "전체가 20이고 그중 5일 때 비율을 구하세요.", "concept": "비율", "difficulty": "중"},
+            {"id": 102, "question": "전체의 1/4은 몇 %입니까?", "concept": "비율", "difficulty": "중"},
+            {"id": 103, "question": "전체의 0.2는 몇 %입니까?", "concept": "비율", "difficulty": "중"},
+            {"id": 104, "question": "30 중에서 6의 비율을 구하세요.", "concept": "비율", "difficulty": "중"},
+            {"id": 105, "question": "50 중에서 10의 비율을 구하세요.", "concept": "비율", "difficulty": "중"},
+            {"id": 106, "question": "비율이 0.5일 때 %로 나타내세요.", "concept": "비율", "difficulty": "중"},
+            {"id": 107, "question": "비율이 25%일 때 분수로 나타내세요.", "concept": "비율", "difficulty": "중"},
+            {"id": 108, "question": "전체가 40일 때 10은 전체의 몇 배입니까?", "concept": "비율", "difficulty": "중"},
+            {"id": 109, "question": "전체의 75%는 분수로 얼마입니까?", "concept": "비율", "difficulty": "중"},
+            {"id": 110, "question": "비율이 가장 큰 경우를 고르세요.", "concept": "비율 비교", "difficulty": "중"}
+          ]
+        },
+        {
+          "name": "③ 응용 판단",
+          "range": [111, 120],
+          "problems": [
+            {"id": 111, "question": "비율이 1보다 큰 경우가 있습니까? (O/X)", "concept": "비율", "difficulty": "중"},
+            {"id": 112, "question": "3:3의 비율은 얼마입니까?", "concept": "비율", "difficulty": "하"},
+            {"id": 113, "question": "같은 비율을 나타내는 두 비를 쓰세요.", "concept": "비와 비율", "difficulty": "중"},
+            {"id": 114, "question": "비율이 0.25인 경우를 하나 쓰세요.", "concept": "비율", "difficulty": "중"},
+            {"id": 115, "question": "전체가 변하면 비율도 변합니까? (O/X)", "concept": "비율", "difficulty": "중"},
+            {"id": 116, "question": "비와 비율의 차이를 한 가지 쓰세요.", "concept": "비와 비율", "difficulty": "중"},
+            {"id": 117, "question": "20의 30%는 얼마입니까?", "concept": "비율", "difficulty": "중"},
+            {"id": 118, "question": "비율이 같은 두 상황을 쓰세요.", "concept": "비율", "difficulty": "중"},
+            {"id": 119, "question": "비율로 비교하기 좋은 이유를 하나 쓰세요.", "concept": "비율", "difficulty": "중"},
+            {"id": 120, "question": "비가 1:1일 때 의미를 쓰세요.", "concept": "비", "difficulty": "중"}
+          ]
+        }
+      ],
+      "problems": [
+        {"id": 91, "question": "4와 8의 비를 간단히 나타내세요.", "concept": "비", "difficulty": "하"},
+        {"id": 92, "question": "6:9를 가장 간단한 비로 나타내세요.", "concept": "비", "difficulty": "하"},
+        {"id": 93, "question": "10과 5의 비를 쓰세요.", "concept": "비", "difficulty": "하"},
+        {"id": 94, "question": "12:16을 간단히 하세요.", "concept": "비", "difficulty": "하"},
+        {"id": 95, "question": "3과 15의 비를 쓰세요.", "concept": "비", "difficulty": "하"},
+        {"id": 96, "question": "8:4를 간단히 하세요.", "concept": "비", "difficulty": "하"},
+        {"id": 97, "question": "20과 30의 비를 쓰세요.", "concept": "비", "difficulty": "하"},
+        {"id": 98, "question": "9:6을 간단히 하세요.", "concept": "비", "difficulty": "하"},
+        {"id": 99, "question": "5와 1의 비를 쓰세요.", "concept": "비", "difficulty": "하"},
+        {"id": 100, "question": "14:21을 간단히 하세요.", "concept": "비", "difficulty": "하"},
+        {"id": 101, "question": "전체가 20이고 그중 5일 때 비율을 구하세요.", "concept": "비율", "difficulty": "중"},
+        {"id": 102, "question": "전체의 1/4은 몇 %입니까?", "concept": "비율", "difficulty": "중"},
+        {"id": 103, "question": "전체의 0.2는 몇 %입니까?", "concept": "비율", "difficulty": "중"},
+        {"id": 104, "question": "30 중에서 6의 비율을 구하세요.", "concept": "비율", "difficulty": "중"},
+        {"id": 105, "question": "50 중에서 10의 비율을 구하세요.", "concept": "비율", "difficulty": "중"},
+        {"id": 106, "question": "비율이 0.5일 때 %로 나타내세요.", "concept": "비율", "difficulty": "중"},
+        {"id": 107, "question": "비율이 25%일 때 분수로 나타내세요.", "concept": "비율", "difficulty": "중"},
+        {"id": 108, "question": "전체가 40일 때 10은 전체의 몇 배입니까?", "concept": "비율", "difficulty": "중"},
+        {"id": 109, "question": "전체의 75%는 분수로 얼마입니까?", "concept": "비율", "difficulty": "중"},
+        {"id": 110, "question": "비율이 가장 큰 경우를 고르세요.", "concept": "비율 비교", "difficulty": "중"},
+        {"id": 111, "question": "비율이 1보다 큰 경우가 있습니까? (O/X)", "concept": "비율", "difficulty": "중"},
+        {"id": 112, "question": "3:3의 비율은 얼마입니까?", "concept": "비율", "difficulty": "하"},
+        {"id": 113, "question": "같은 비율을 나타내는 두 비를 쓰세요.", "concept": "비와 비율", "difficulty": "중"},
+        {"id": 114, "question": "비율이 0.25인 경우를 하나 쓰세요.", "concept": "비율", "difficulty": "중"},
+        {"id": 115, "question": "전체가 변하면 비율도 변합니까? (O/X)", "concept": "비율", "difficulty": "중"},
+        {"id": 116, "question": "비와 비율의 차이를 한 가지 쓰세요.", "concept": "비와 비율", "difficulty": "중"},
+        {"id": 117, "question": "20의 30%는 얼마입니까?", "concept": "비율", "difficulty": "중"},
+        {"id": 118, "question": "비율이 같은 두 상황을 쓰세요.", "concept": "비율", "difficulty": "중"},
+        {"id": 119, "question": "비율로 비교하기 좋은 이유를 하나 쓰세요.", "concept": "비율", "difficulty": "중"},
+        {"id": 120, "question": "비가 1:1일 때 의미를 쓰세요.", "concept": "비", "difficulty": "중"}
+      ]
+    },
+    {
+      "id": "5",
+      "name": "원의 넓이",
+      "range": [121, 150],
+      "subcategories": [
+        {
+          "name": "① 기본 계산",
+          "range": [121, 130],
+          "problems": [
+            {"id": 121, "question": "반지름이 7cm인 원의 지름을 구하세요.", "concept": "원의 성질", "difficulty": "하"},
+            {"id": 122, "question": "지름이 10cm인 원의 반지름을 구하세요.", "concept": "원의 성질", "difficulty": "하"},
+            {"id": 123, "question": "반지름이 3cm일 때 원주율을 쓰세요.", "concept": "원주율", "difficulty": "하"},
+            {"id": 124, "question": "원의 넓이를 구하는 식을 쓰세요.", "concept": "원의 넓이", "difficulty": "하"},
+            {"id": 125, "question": "반지름이 1cm인 원의 넓이를 구하세요.", "concept": "원의 넓이", "difficulty": "하"},
+            {"id": 126, "question": "반지름이 5cm인 원의 넓이를 구하세요.", "concept": "원의 넓이", "difficulty": "중"},
+            {"id": 127, "question": "지름이 14cm인 원의 반지름을 구하세요.", "concept": "원의 성질", "difficulty": "하"},
+            {"id": 128, "question": "원주율을 3.14로 쓰는 이유를 쓰세요.", "concept": "원주율", "difficulty": "중"},
+            {"id": 129, "question": "반지름이 두 배가 되면 넓이는 어떻게 됩니까?", "concept": "원의 넓이", "difficulty": "중"},
+            {"id": 130, "question": "넓이의 단위를 쓰세요.", "concept": "넓이 단위", "difficulty": "하"}
+          ]
+        },
+        {
+          "name": "② 수치 적용",
+          "range": [131, 140],
+          "problems": [
+            {"id": 131, "question": "반지름이 4cm인 원의 넓이를 구하세요.", "concept": "원의 넓이", "difficulty": "중"},
+            {"id": 132, "question": "반지름이 10cm인 원의 넓이를 구하세요.", "concept": "원의 넓이", "difficulty": "중"},
+            {"id": 133, "question": "지름이 8cm인 원의 넓이를 구하세요.", "concept": "원의 넓이", "difficulty": "중"},
+            {"id": 134, "question": "넓이가 12.56m²일 때 반지름을 구하세요.", "concept": "원의 넓이 역추론", "difficulty": "상"},
+            {"id": 135, "question": "반지름이 6cm인 원의 넓이를 구하세요.", "concept": "원의 넓이", "difficulty": "중"},
+            {"id": 136, "question": "넓이가 28.26m²일 때 반지름을 구하세요.", "concept": "원의 넓이 역추론", "difficulty": "상"},
+            {"id": 137, "question": "반지름이 같은 두 원의 넓이는 어떻습니까?", "concept": "원의 넓이", "difficulty": "하"},
+            {"id": 138, "question": "반지름이 2배이면 넓이는 몇 배입니까?", "concept": "원의 넓이", "difficulty": "상"},
+            {"id": 139, "question": "반지름이 1/2이면 넓이는 몇 배입니까?", "concept": "원의 넓이", "difficulty": "상"},
+            {"id": 140, "question": "원의 넓이가 가장 큰 경우를 고르세요.", "concept": "원의 넓이 비교", "difficulty": "중"}
+          ]
+        },
+        {
+          "name": "③ 응용 판단",
+          "range": [141, 150],
+          "problems": [
+            {"id": 141, "question": "지름으로도 원의 넓이를 구할 수 있습니까? (O/X)", "concept": "원의 넓이", "difficulty": "중"},
+            {"id": 142, "question": "반지름이 커질수록 넓이는 어떻게 됩니까?", "concept": "원의 넓이", "difficulty": "하"},
+            {"id": 143, "question": "같은 반지름인데 넓이가 다를 수 있습니까? (O/X)", "concept": "원의 넓이", "difficulty": "하"},
+            {"id": 144, "question": "원주율이 바뀌면 넓이도 바뀝니까? (O/X)", "concept": "원주율과 넓이", "difficulty": "중"},
+            {"id": 145, "question": "넓이가 0이 되는 경우가 있습니까? (O/X)", "concept": "원의 넓이", "difficulty": "하"},
+            {"id": 146, "question": "원의 넓이를 곱셈으로 구하는 이유를 쓰세요.", "concept": "원의 넓이", "difficulty": "중"},
+            {"id": 147, "question": "반지름 정보가 없으면 넓이를 구할 수 있습니까?", "concept": "원의 넓이", "difficulty": "중"},
+            {"id": 148, "question": "생활 속 원의 넓이 예를 하나 쓰세요.", "concept": "원의 넓이의 활용", "difficulty": "하"},
+            {"id": 149, "question": "정사각형과 원의 넓이 비교가 어려운 이유를 쓰세요.", "concept": "원의 넓이", "difficulty": "중"},
+            {"id": 150, "question": "원의 넓이에서 가장 중요한 정보는 무엇입니까?", "concept": "원의 넓이", "difficulty": "하"}
+          ]
+        }
+      ],
+      "problems": [
+        {"id": 121, "question": "반지름이 7cm인 원의 지름을 구하세요.", "concept": "원의 성질", "difficulty": "하"},
+        {"id": 122, "question": "지름이 10cm인 원의 반지름을 구하세요.", "concept": "원의 성질", "difficulty": "하"},
+        {"id": 123, "question": "반지름이 3cm일 때 원주율을 쓰세요.", "concept": "원주율", "difficulty": "하"},
+        {"id": 124, "question": "원의 넓이를 구하는 식을 쓰세요.", "concept": "원의 넓이", "difficulty": "하"},
+        {"id": 125, "question": "반지름이 1cm인 원의 넓이를 구하세요.", "concept": "원의 넓이", "difficulty": "하"},
+        {"id": 126, "question": "반지름이 5cm인 원의 넓이를 구하세요.", "concept": "원의 넓이", "difficulty": "중"},
+        {"id": 127, "question": "지름이 14cm인 원의 반지름을 구하세요.", "concept": "원의 성질", "difficulty": "하"},
+        {"id": 128, "question": "원주율을 3.14로 쓰는 이유를 쓰세요.", "concept": "원주율", "difficulty": "중"},
+        {"id": 129, "question": "반지름이 두 배가 되면 넓이는 어떻게 됩니까?", "concept": "원의 넓이", "difficulty": "중"},
+        {"id": 130, "question": "넓이의 단위를 쓰세요.", "concept": "넓이 단위", "difficulty": "하"},
+        {"id": 131, "question": "반지름이 4cm인 원의 넓이를 구하세요.", "concept": "원의 넓이", "difficulty": "중"},
+        {"id": 132, "question": "반지름이 10cm인 원의 넓이를 구하세요.", "concept": "원의 넓이", "difficulty": "중"},
+        {"id": 133, "question": "지름이 8cm인 원의 넓이를 구하세요.", "concept": "원의 넓이", "difficulty": "중"},
+        {"id": 134, "question": "넓이가 12.56m²일 때 반지름을 구하세요.", "concept": "원의 넓이 역추론", "difficulty": "상"},
+        {"id": 135, "question": "반지름이 6cm인 원의 넓이를 구하세요.", "concept": "원의 넓이", "difficulty": "중"},
+        {"id": 136, "question": "넓이가 28.26m²일 때 반지름을 구하세요.", "concept": "원의 넓이 역추론", "difficulty": "상"},
+        {"id": 137, "question": "반지름이 같은 두 원의 넓이는 어떻습니까?", "concept": "원의 넓이", "difficulty": "하"},
+        {"id": 138, "question": "반지름이 2배이면 넓이는 몇 배입니까?", "concept": "원의 넓이", "difficulty": "상"},
+        {"id": 139, "question": "반지름이 1/2이면 넓이는 몇 배입니까?", "concept": "원의 넓이", "difficulty": "상"},
+        {"id": 140, "question": "원의 넓이가 가장 큰 경우를 고르세요.", "concept": "원의 넓이 비교", "difficulty": "중"},
+        {"id": 141, "question": "지름으로도 원의 넓이를 구할 수 있습니까? (O/X)", "concept": "원의 넓이", "difficulty": "중"},
+        {"id": 142, "question": "반지름이 커질수록 넓이는 어떻게 됩니까?", "concept": "원의 넓이", "difficulty": "하"},
+        {"id": 143, "question": "같은 반지름인데 넓이가 다를 수 있습니까? (O/X)", "concept": "원의 넓이", "difficulty": "하"},
+        {"id": 144, "question": "원주율이 바뀌면 넓이도 바뀝니까? (O/X)", "concept": "원주율과 넓이", "difficulty": "중"},
+        {"id": 145, "question": "넓이가 0이 되는 경우가 있습니까? (O/X)", "concept": "원의 넓이", "difficulty": "하"},
+        {"id": 146, "question": "원의 넓이를 곱셈으로 구하는 이유를 쓰세요.", "concept": "원의 넓이", "difficulty": "중"},
+        {"id": 147, "question": "반지름 정보가 없으면 넓이를 구할 수 있습니까?", "concept": "원의 넓이", "difficulty": "중"},
+        {"id": 148, "question": "생활 속 원의 넓이 예를 하나 쓰세요.", "concept": "원의 넓이의 활용", "difficulty": "하"},
+        {"id": 149, "question": "정사각형과 원의 넓이 비교가 어려운 이유를 쓰세요.", "concept": "원의 넓이", "difficulty": "중"},
+        {"id": 150, "question": "원의 넓이에서 가장 중요한 정보는 무엇입니까?", "concept": "원의 넓이", "difficulty": "하"}
+      ]
+    },
+    {
+      "id": "6",
+      "name": "공간과 입체",
+      "range": [151, 180],
+      "subcategories": [
+        {
+          "name": "① 기본 개념",
+          "range": [151, 160],
+          "problems": [
+            {"id": 151, "question": "면으로 둘러싸인 입체도형을 무엇이라 합니까?", "concept": "입체도형", "difficulty": "하"},
+            {"id": 152, "question": "각기둥의 밑면은 몇 개입니까?", "concept": "각기둥의 성질", "difficulty": "하"},
+            {"id": 153, "question": "각뿔의 밑면은 몇 개입니까?", "concept": "각뿔의 성질", "difficulty": "하"},
+            {"id": 154, "question": "원기둥의 밑면 모양을 쓰세요.", "concept": "원기둥의 성질", "difficulty": "하"},
+            {"id": 155, "question": "원뿔의 옆면은 어떤 모양입니까?", "concept": "원뿔의 성질", "difficulty": "하"},
+            {"id": 156, "question": "구에는 모서리가 있습니까? (O/X)", "concept": "구의 성질", "difficulty": "하"},
+            {"id": 157, "question": "꼭짓점이 없는 입체도형을 쓰세요.", "concept": "입체도형", "difficulty": "중"},
+            {"id": 158, "question": "옆면이 모두 직사각형인 입체도형을 쓰세요.", "concept": "각기둥의 성질", "difficulty": "하"},
+            {"id": 159, "question": "밑면이 서로 평행한 입체도형을 쓰세요.", "concept": "각기둥의 성질", "difficulty": "중"},
+            {"id": 160, "question": "면의 개수를 셀 수 없는 도형을 쓰세요.", "concept": "구의 성질", "difficulty": "하"}
+          ]
+        },
+        {
+          "name": "② 개수 판단",
+          "range": [161, 170],
+          "problems": [
+            {"id": 161, "question": "삼각기둥의 면의 개수를 구하세요.", "concept": "각기둥의 성질", "difficulty": "중"},
+            {"id": 162, "question": "사각기둥의 모서리 수를 구하세요.", "concept": "각기둥의 성질", "difficulty": "중"},
+            {"id": 163, "question": "원기둥의 면의 개수를 구하세요.", "concept": "원기둥의 성질", "difficulty": "중"},
+            {"id": 164, "question": "원뿔의 면의 개수를 구하세요.", "concept": "원뿔의 성질", "difficulty": "중"},
+            {"id": 165, "question": "구의 면의 개수를 쓰세요.", "concept": "구의 성질", "difficulty": "하"},
+            {"id": 166, "question": "꼭짓점이 6개인 각기둥의 밑면 모양을 쓰세요.", "concept": "각기둥의 성질", "difficulty": "중"},
+            {"id": 167, "question": "모서리가 없는 입체도형을 쓰세요.", "concept": "입체도형", "difficulty": "하"},
+            {"id": 168, "question": "밑면이 2개인 입체도형을 쓰세요.", "concept": "각기둥의 성질", "difficulty": "하"},
+            {"id": 169, "question": "옆면이 곡면인 입체도형을 모두 쓰세요.", "concept": "입체도형", "difficulty": "중"},
+            {"id": 170, "question": "각뿔에는 밑면과 평행한 면이 있습니까? (O/X)", "concept": "각뿔의 성질", "difficulty": "하"}
+          ]
+        },
+        {
+          "name": "③ 응용 분류",
+          "range": [171, 180],
+          "problems": [
+            {"id": 171, "question": "각기둥과 원기둥의 공통점을 하나 쓰세요.", "concept": "각기둥과 원기둥", "difficulty": "중"},
+            {"id": 172, "question": "각뿔과 원뿔의 공통점을 하나 쓰세요.", "concept": "각뿔과 원뿔", "difficulty": "중"},
+            {"id": 173, "question": "구와 원기둥의 차이를 하나 쓰세요.", "concept": "구와 원기둥", "difficulty": "중"},
+            {"id": 174, "question": "옆면이 하나뿐인 도형을 쓰세요.", "concept": "원뿔의 성질", "difficulty": "중"},
+            {"id": 175, "question": "밑면이 없는 도형을 쓰세요.", "concept": "구의 성질", "difficulty": "하"},
+            {"id": 176, "question": "면이 모두 평면인 도형을 쓰세요.", "concept": "각기둥과 각뿔", "difficulty": "중"},
+            {"id": 177, "question": "곡면이 포함된 도형을 모두 쓰세요.", "concept": "입체도형", "difficulty": "중"},
+            {"id": 178, "question": "입체도형을 분류하는 기준을 하나 쓰세요.", "concept": "입체도형", "difficulty": "중"},
+            {"id": 179, "question": "면·모서리·꼭짓점 중 없는 요소를 쓰세요.", "concept": "입체도형", "difficulty": "중"},
+            {"id": 180, "question": "생활 속 입체도형 예를 하나 쓰세요.", "concept": "입체도형의 활용", "difficulty": "하"}
+          ]
+        }
+      ],
+      "problems": [
+        {"id": 151, "question": "면으로 둘러싸인 입체도형을 무엇이라 합니까?", "concept": "입체도형", "difficulty": "하"},
+        {"id": 152, "question": "각기둥의 밑면은 몇 개입니까?", "concept": "각기둥의 성질", "difficulty": "하"},
+        {"id": 153, "question": "각뿔의 밑면은 몇 개입니까?", "concept": "각뿔의 성질", "difficulty": "하"},
+        {"id": 154, "question": "원기둥의 밑면 모양을 쓰세요.", "concept": "원기둥의 성질", "difficulty": "하"},
+        {"id": 155, "question": "원뿔의 옆면은 어떤 모양입니까?", "concept": "원뿔의 성질", "difficulty": "하"},
+        {"id": 156, "question": "구에는 모서리가 있습니까? (O/X)", "concept": "구의 성질", "difficulty": "하"},
+        {"id": 157, "question": "꼭짓점이 없는 입체도형을 쓰세요.", "concept": "입체도형", "difficulty": "중"},
+        {"id": 158, "question": "옆면이 모두 직사각형인 입체도형을 쓰세요.", "concept": "각기둥의 성질", "difficulty": "하"},
+        {"id": 159, "question": "밑면이 서로 평행한 입체도형을 쓰세요.", "concept": "각기둥의 성질", "difficulty": "중"},
+        {"id": 160, "question": "면의 개수를 셀 수 없는 도형을 쓰세요.", "concept": "구의 성질", "difficulty": "하"},
+        {"id": 161, "question": "삼각기둥의 면의 개수를 구하세요.", "concept": "각기둥의 성질", "difficulty": "중"},
+        {"id": 162, "question": "사각기둥의 모서리 수를 구하세요.", "concept": "각기둥의 성질", "difficulty": "중"},
+        {"id": 163, "question": "원기둥의 면의 개수를 구하세요.", "concept": "원기둥의 성질", "difficulty": "중"},
+        {"id": 164, "question": "원뿔의 면의 개수를 구하세요.", "concept": "원뿔의 성질", "difficulty": "중"},
+        {"id": 165, "question": "구의 면의 개수를 쓰세요.", "concept": "구의 성질", "difficulty": "하"},
+        {"id": 166, "question": "꼭짓점이 6개인 각기둥의 밑면 모양을 쓰세요.", "concept": "각기둥의 성질", "difficulty": "중"},
+        {"id": 167, "question": "모서리가 없는 입체도형을 쓰세요.", "concept": "입체도형", "difficulty": "하"},
+        {"id": 168, "question": "밑면이 2개인 입체도형을 쓰세요.", "concept": "각기둥의 성질", "difficulty": "하"},
+        {"id": 169, "question": "옆면이 곡면인 입체도형을 모두 쓰세요.", "concept": "입체도형", "difficulty": "중"},
+        {"id": 170, "question": "각뿔에는 밑면과 평행한 면이 있습니까? (O/X)", "concept": "각뿔의 성질", "difficulty": "하"},
+        {"id": 171, "question": "각기둥과 원기둥의 공통점을 하나 쓰세요.", "concept": "각기둥과 원기둥", "difficulty": "중"},
+        {"id": 172, "question": "각뿔과 원뿔의 공통점을 하나 쓰세요.", "concept": "각뿔과 원뿔", "difficulty": "중"},
+        {"id": 173, "question": "구와 원기둥의 차이를 하나 쓰세요.", "concept": "구와 원기둥", "difficulty": "중"},
+        {"id": 174, "question": "옆면이 하나뿐인 도형을 쓰세요.", "concept": "원뿔의 성질", "difficulty": "중"},
+        {"id": 175, "question": "밑면이 없는 도형을 쓰세요.", "concept": "구의 성질", "difficulty": "하"},
+        {"id": 176, "question": "면이 모두 평면인 도형을 쓰세요.", "concept": "각기둥과 각뿔", "difficulty": "중"},
+        {"id": 177, "question": "곡면이 포함된 도형을 모두 쓰세요.", "concept": "입체도형", "difficulty": "중"},
+        {"id": 178, "question": "입체도형을 분류하는 기준을 하나 쓰세요.", "concept": "입체도형", "difficulty": "중"},
+        {"id": 179, "question": "면·모서리·꼭짓점 중 없는 요소를 쓰세요.", "concept": "입체도형", "difficulty": "중"},
+        {"id": 180, "question": "생활 속 입체도형 예를 하나 쓰세요.", "concept": "입체도형의 활용", "difficulty": "하"}
+      ]
+    }
+  ],
+  "note": "초등 6학년 1학기 기본 문제 은행 (Basics 6-1 OCR 기준) - 단원별 변형문제 180문제",
+  "created_date": "2026-01-09",
+  "source": "Basics_6-1_OCR.pdf",
+  "version": "2.0",
+  "structure": "6개 단원으로 구성 (분수의 나눗셈, 각기둥과 각뿔, 소수의 나눗셈, 비와 비율, 원의 넓이, 공간과 입체)"
+}

@@ -1,0 +1,644 @@
+{
+  "pack": "ES_PACK02_Basics",
+  "grade": 2,
+  "semester": 2,
+  "unit": 2,
+  "pdf_key": "2-2",
+  "title": "네 자리 수 · 자릿값 · 크기 비교 · 뛰어세기",
+  "total_problems": 100,
+  "categories": [
+    {
+      "id": "1",
+      "name": "네 자리 수의 이해",
+      "range": [1, 25],
+      "problems": [
+        {
+          "id": 1,
+          "question": "네 자리 수 중 가장 작은 수는 무엇입니까?",
+          "concept": "네 자리 수",
+          "difficulty": "하"
+        },
+        {
+          "id": 2,
+          "question": "네 자리 수 중 가장 큰 수는 무엇입니까?",
+          "concept": "네 자리 수",
+          "difficulty": "하"
+        },
+        {
+          "id": 3,
+          "question": "천의 자리가 4인 네 자리 수 중 가장 작은 수는?",
+          "concept": "네 자리 수",
+          "difficulty": "하"
+        },
+        {
+          "id": 4,
+          "question": "천의 자리가 7인 네 자리 수 중 가장 큰 수는?",
+          "concept": "네 자리 수",
+          "difficulty": "하"
+        },
+        {
+          "id": 5,
+          "question": "숫자 0이 포함된 네 자리 수 중 가장 작은 수는?",
+          "concept": "네 자리 수, 0",
+          "difficulty": "하"
+        },
+        {
+          "id": 6,
+          "question": "숫자 0이 포함된 네 자리 수 중 가장 큰 수는?",
+          "concept": "네 자리 수, 0",
+          "difficulty": "하"
+        },
+        {
+          "id": 7,
+          "question": "숫자 5가 포함된 네 자리 수 중 가장 작은 수는?",
+          "concept": "네 자리 수",
+          "difficulty": "하"
+        },
+        {
+          "id": 8,
+          "question": "숫자 5가 포함된 네 자리 수 중 가장 큰 수는?",
+          "concept": "네 자리 수",
+          "difficulty": "하"
+        },
+        {
+          "id": 9,
+          "question": "각 자리 숫자가 모두 같은 네 자리 수는 무엇입니까?",
+          "concept": "네 자리 수",
+          "difficulty": "하"
+        },
+        {
+          "id": 10,
+          "question": "각 자리 숫자가 모두 다른 네 자리 수 중 가장 작은 수는?",
+          "concept": "네 자리 수",
+          "difficulty": "중"
+        },
+        {
+          "id": 11,
+          "question": "'사천삼백이십오'로 읽히는 수를 쓰세요.",
+          "concept": "수의 읽기",
+          "difficulty": "하"
+        },
+        {
+          "id": 12,
+          "question": "'육천오십'으로 읽히는 수를 쓰세요.",
+          "concept": "수의 읽기",
+          "difficulty": "하"
+        },
+        {
+          "id": 13,
+          "question": "네 자리 수이면서 100의 자리가 0인 가장 작은 수는?",
+          "concept": "네 자리 수, 자릿값",
+          "difficulty": "중"
+        },
+        {
+          "id": 14,
+          "question": "네 자리 수이면서 10의 자리가 0인 가장 큰 수는?",
+          "concept": "네 자리 수, 자릿값",
+          "difficulty": "중"
+        },
+        {
+          "id": 15,
+          "question": "네 자리 수 중 일의 자리가 0인 수 중 가장 작은 수는?",
+          "concept": "네 자리 수",
+          "difficulty": "하"
+        },
+        {
+          "id": 16,
+          "question": "네 자리 수 중 일의 자리가 0인 수 중 가장 큰 수는?",
+          "concept": "네 자리 수",
+          "difficulty": "하"
+        },
+        {
+          "id": 17,
+          "question": "숫자 9가 한 번만 나오는 네 자리 수 중 가장 작은 수는?",
+          "concept": "네 자리 수",
+          "difficulty": "중"
+        },
+        {
+          "id": 18,
+          "question": "숫자 9가 한 번만 나오는 네 자리 수 중 가장 큰 수는?",
+          "concept": "네 자리 수",
+          "difficulty": "중"
+        },
+        {
+          "id": 19,
+          "question": "천의 자리 숫자가 가장 작은 네 자리 수는?",
+          "concept": "네 자리 수",
+          "difficulty": "하"
+        },
+        {
+          "id": 20,
+          "question": "천의 자리 숫자가 가장 큰 네 자리 수는?",
+          "concept": "네 자리 수",
+          "difficulty": "하"
+        },
+        {
+          "id": 21,
+          "question": "숫자 0이 두 개 들어 있는 네 자리 수 중 가장 작은 수는?",
+          "concept": "네 자리 수, 0",
+          "difficulty": "중"
+        },
+        {
+          "id": 22,
+          "question": "숫자 0이 두 개 들어 있는 네 자리 수 중 가장 큰 수는?",
+          "concept": "네 자리 수, 0",
+          "difficulty": "중"
+        },
+        {
+          "id": 23,
+          "question": "네 자리 수 중 1000의 개수가 5개인 수는 무엇입니까?",
+          "concept": "수의 구성",
+          "difficulty": "중"
+        },
+        {
+          "id": 24,
+          "question": "네 자리 수 중 1000의 개수가 가장 많은 수는?",
+          "concept": "수의 구성",
+          "difficulty": "하"
+        },
+        {
+          "id": 25,
+          "question": "네 자리 수가 되기 위한 조건을 한 가지 쓰세요.",
+          "concept": "네 자리 수",
+          "difficulty": "하"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "자릿값",
+      "range": [26, 50],
+      "problems": [
+        {
+          "id": 26,
+          "question": "숫자 6이 600을 뜻하는 수 중 가장 작은 수는?",
+          "concept": "자릿값",
+          "difficulty": "중"
+        },
+        {
+          "id": 27,
+          "question": "숫자 6이 60을 뜻하는 수 중 가장 큰 수는?",
+          "concept": "자릿값",
+          "difficulty": "중"
+        },
+        {
+          "id": 28,
+          "question": "숫자 6이 6을 뜻하는 네 자리 수 중 가장 작은 수는?",
+          "concept": "자릿값",
+          "difficulty": "중"
+        },
+        {
+          "id": 29,
+          "question": "숫자 4가 400을 뜻하는 수 중 가장 큰 수는?",
+          "concept": "자릿값",
+          "difficulty": "중"
+        },
+        {
+          "id": 30,
+          "question": "숫자 4가 40을 뜻하는 수 중 가장 작은 수는?",
+          "concept": "자릿값",
+          "difficulty": "중"
+        },
+        {
+          "id": 31,
+          "question": "숫자 4가 4를 뜻하는 수 중 가장 큰 수는?",
+          "concept": "자릿값",
+          "difficulty": "중"
+        },
+        {
+          "id": 32,
+          "question": "같은 숫자 3이 3000과 30의 값을 동시에 가지는 수는 가능합니까?",
+          "concept": "자릿값",
+          "difficulty": "상"
+        },
+        {
+          "id": 33,
+          "question": "1000의 자리 숫자가 가장 중요하게 작용하는 이유를 고르세요.",
+          "concept": "자릿값",
+          "difficulty": "중"
+        },
+        {
+          "id": 34,
+          "question": "숫자 0이 0의 값을 가지는 자리는 어디입니까?",
+          "concept": "자릿값, 0",
+          "difficulty": "하"
+        },
+        {
+          "id": 35,
+          "question": "숫자 0이 포함되어 있지만 값에 영향을 주지 않는 예를 하나 쓰세요.",
+          "concept": "자릿값, 0",
+          "difficulty": "중"
+        },
+        {
+          "id": 36,
+          "question": "1000 + 300 + 20 + 4로 나타낸 수는 무엇입니까?",
+          "concept": "자릿값",
+          "difficulty": "하"
+        },
+        {
+          "id": 37,
+          "question": "5000 + 40으로 나타낸 수는 무엇입니까?",
+          "concept": "자릿값",
+          "difficulty": "하"
+        },
+        {
+          "id": 38,
+          "question": "자릿값의 합이 가장 큰 네 자리 수는?",
+          "concept": "자릿값",
+          "difficulty": "중"
+        },
+        {
+          "id": 39,
+          "question": "자릿값의 합이 가장 작은 네 자리 수는?",
+          "concept": "자릿값",
+          "difficulty": "중"
+        },
+        {
+          "id": 40,
+          "question": "같은 숫자라도 자리에 따라 값이 달라지는 예를 하나 쓰세요.",
+          "concept": "자릿값",
+          "difficulty": "하"
+        },
+        {
+          "id": 41,
+          "question": "숫자 8이 가장 큰 값을 가지는 경우는 어느 자리입니까?",
+          "concept": "자릿값",
+          "difficulty": "하"
+        },
+        {
+          "id": 42,
+          "question": "숫자 1이 가장 작은 값을 가지는 경우는 어느 자리입니까?",
+          "concept": "자릿값",
+          "difficulty": "하"
+        },
+        {
+          "id": 43,
+          "question": "자릿값을 잘못 이해했을 때 생길 수 있는 실수를 하나 고르세요.",
+          "concept": "자릿값",
+          "difficulty": "중"
+        },
+        {
+          "id": 44,
+          "question": "천의 자리 숫자만 바꿨을 때 값의 변화가 가장 큰 예는?",
+          "concept": "자릿값",
+          "difficulty": "중"
+        },
+        {
+          "id": 45,
+          "question": "일의 자리 숫자만 바꿨을 때 값의 변화가 가장 작은 예는?",
+          "concept": "자릿값",
+          "difficulty": "하"
+        },
+        {
+          "id": 46,
+          "question": "100의 자리 숫자가 0이면 값에 어떤 영향이 있습니까?",
+          "concept": "자릿값",
+          "difficulty": "하"
+        },
+        {
+          "id": 47,
+          "question": "숫자 7이 700보다 작은 값을 가지는 경우는?",
+          "concept": "자릿값",
+          "difficulty": "중"
+        },
+        {
+          "id": 48,
+          "question": "자릿값을 기준으로 수를 비교할 때 가장 먼저 보는 자리는?",
+          "concept": "자릿값, 크기 비교",
+          "difficulty": "하"
+        },
+        {
+          "id": 49,
+          "question": "네 자리 수를 자릿값으로 풀어 쓰세요.",
+          "concept": "자릿값",
+          "difficulty": "하"
+        },
+        {
+          "id": 50,
+          "question": "자릿값 개념이 필요한 이유를 한 문장으로 쓰세요.",
+          "concept": "자릿값",
+          "difficulty": "중"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "수의 크기 비교",
+      "range": [51, 75],
+      "problems": [
+        {
+          "id": 51,
+          "question": "3560보다 큰 수 중 가장 작은 수는?",
+          "concept": "크기 비교",
+          "difficulty": "하"
+        },
+        {
+          "id": 52,
+          "question": "3560보다 작은 수 중 가장 큰 수는?",
+          "concept": "크기 비교",
+          "difficulty": "하"
+        },
+        {
+          "id": 53,
+          "question": "4100보다 크고 4200보다 작은 수 중 가장 작은 수는?",
+          "concept": "크기 비교",
+          "difficulty": "하"
+        },
+        {
+          "id": 54,
+          "question": "4100보다 크고 4200보다 작은 수 중 가장 큰 수는?",
+          "concept": "크기 비교",
+          "difficulty": "하"
+        },
+        {
+          "id": 55,
+          "question": "다음 중 가장 큰 수를 고르세요: 3980, 4020, 3999",
+          "concept": "크기 비교",
+          "difficulty": "중"
+        },
+        {
+          "id": 56,
+          "question": "다음 중 가장 작은 수를 고르세요: 7001, 6999, 7100",
+          "concept": "크기 비교",
+          "difficulty": "중"
+        },
+        {
+          "id": 57,
+          "question": "천의 자리가 같을 때 다음으로 비교해야 할 자리는?",
+          "concept": "크기 비교",
+          "difficulty": "하"
+        },
+        {
+          "id": 58,
+          "question": "3999와 4000 중 더 큰 수를 고르세요.",
+          "concept": "크기 비교",
+          "difficulty": "하"
+        },
+        {
+          "id": 59,
+          "question": "5000에 가장 가까운 네 자리 수는?",
+          "concept": "크기 비교",
+          "difficulty": "중"
+        },
+        {
+          "id": 60,
+          "question": "1000에 가장 가까운 네 자리 수는?",
+          "concept": "크기 비교",
+          "difficulty": "중"
+        },
+        {
+          "id": 61,
+          "question": "같은 숫자를 사용해 만들 수 있는 가장 큰 수는?",
+          "concept": "크기 비교",
+          "difficulty": "중"
+        },
+        {
+          "id": 62,
+          "question": "같은 숫자를 사용해 만들 수 있는 가장 작은 수는?",
+          "concept": "크기 비교",
+          "difficulty": "중"
+        },
+        {
+          "id": 63,
+          "question": "숫자 0이 들어가도 더 큰 수가 되는 예를 고르세요.",
+          "concept": "크기 비교",
+          "difficulty": "중"
+        },
+        {
+          "id": 64,
+          "question": "백의 자리 숫자가 비교에 영향을 주는 예를 고르세요.",
+          "concept": "크기 비교",
+          "difficulty": "하"
+        },
+        {
+          "id": 65,
+          "question": "일의 자리 숫자만 다른 두 수 중 더 큰 수를 고르세요.",
+          "concept": "크기 비교",
+          "difficulty": "하"
+        },
+        {
+          "id": 66,
+          "question": "4689보다 바로 큰 수는?",
+          "concept": "크기 비교",
+          "difficulty": "하"
+        },
+        {
+          "id": 67,
+          "question": "4689보다 바로 작은 수는?",
+          "concept": "크기 비교",
+          "difficulty": "하"
+        },
+        {
+          "id": 68,
+          "question": "네 자리 수의 중간값에 가장 가까운 수는?",
+          "concept": "크기 비교",
+          "difficulty": "중"
+        },
+        {
+          "id": 69,
+          "question": "크기 비교를 할 때 가장 흔한 실수를 고르세요.",
+          "concept": "크기 비교",
+          "difficulty": "중"
+        },
+        {
+          "id": 70,
+          "question": "다음 중 크기 순서가 맞는 것을 고르세요.",
+          "concept": "크기 비교",
+          "difficulty": "중"
+        },
+        {
+          "id": 71,
+          "question": "같은 천의 자리에서 가장 작은 수는?",
+          "concept": "크기 비교",
+          "difficulty": "하"
+        },
+        {
+          "id": 72,
+          "question": "같은 천의 자리에서 가장 큰 수는?",
+          "concept": "크기 비교",
+          "difficulty": "하"
+        },
+        {
+          "id": 73,
+          "question": "숫자 9가 들어가도 작은 수가 되는 이유는?",
+          "concept": "크기 비교",
+          "difficulty": "중"
+        },
+        {
+          "id": 74,
+          "question": "자릿값을 무시하면 틀리는 비교 예를 하나 고르세요.",
+          "concept": "자릿값, 크기 비교",
+          "difficulty": "중"
+        },
+        {
+          "id": 75,
+          "question": "수의 크기를 비교하는 순서를 쓰세요.",
+          "concept": "크기 비교",
+          "difficulty": "하"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "뛰어 세기",
+      "range": [76, 100],
+      "problems": [
+        {
+          "id": 76,
+          "question": "999 다음에 오는 수는 무엇입니까?",
+          "concept": "뛰어세기",
+          "difficulty": "하"
+        },
+        {
+          "id": 77,
+          "question": "1000 바로 앞의 수는 무엇입니까?",
+          "concept": "뛰어세기",
+          "difficulty": "하"
+        },
+        {
+          "id": 78,
+          "question": "3990에서 10씩 한 번 뛰어 센 수는?",
+          "concept": "뛰어세기",
+          "difficulty": "하"
+        },
+        {
+          "id": 79,
+          "question": "3990에서 10씩 두 번 뛰어 센 수는?",
+          "concept": "뛰어세기",
+          "difficulty": "하"
+        },
+        {
+          "id": 80,
+          "question": "5000에서 100씩 한 번 거꾸로 센 수는?",
+          "concept": "뛰어세기",
+          "difficulty": "하"
+        },
+        {
+          "id": 81,
+          "question": "5000에서 100씩 두 번 거꾸로 센 수는?",
+          "concept": "뛰어세기",
+          "difficulty": "하"
+        },
+        {
+          "id": 82,
+          "question": "1씩 뛰어 세다 네 자리 수가 되는 첫 수는?",
+          "concept": "뛰어세기",
+          "difficulty": "하"
+        },
+        {
+          "id": 83,
+          "question": "1씩 거꾸로 세다 세 자리 수가 되는 첫 수는?",
+          "concept": "뛰어세기",
+          "difficulty": "하"
+        },
+        {
+          "id": 84,
+          "question": "100씩 뛰어 셀 때 천의 자리가 바뀌는 순간은?",
+          "concept": "뛰어세기",
+          "difficulty": "중"
+        },
+        {
+          "id": 85,
+          "question": "10씩 뛰어 셀 때 백의 자리가 바뀌는 순간은?",
+          "concept": "뛰어세기",
+          "difficulty": "중"
+        },
+        {
+          "id": 86,
+          "question": "1씩 뛰어 셀 때 십의 자리가 바뀌는 순간은?",
+          "concept": "뛰어세기",
+          "difficulty": "중"
+        },
+        {
+          "id": 87,
+          "question": "3000에서 100씩 3번 뛰어 센 수는?",
+          "concept": "뛰어세기",
+          "difficulty": "하"
+        },
+        {
+          "id": 88,
+          "question": "4500에서 10씩 5번 거꾸로 센 수는?",
+          "concept": "뛰어세기",
+          "difficulty": "하"
+        },
+        {
+          "id": 89,
+          "question": "9999에서 1을 더하면 어떤 수가 됩니까?",
+          "concept": "뛰어세기",
+          "difficulty": "하"
+        },
+        {
+          "id": 90,
+          "question": "1000에서 1을 빼면 어떤 수가 됩니까?",
+          "concept": "뛰어세기",
+          "difficulty": "하"
+        },
+        {
+          "id": 91,
+          "question": "100씩 뛰어 세기가 필요한 상황을 하나 고르세요.",
+          "concept": "뛰어세기",
+          "difficulty": "중"
+        },
+        {
+          "id": 92,
+          "question": "10씩 뛰어 세기가 가장 편한 경우는 언제입니까?",
+          "concept": "뛰어세기",
+          "difficulty": "중"
+        },
+        {
+          "id": 93,
+          "question": "1씩 뛰어 세기가 필요한 이유는 무엇입니까?",
+          "concept": "뛰어세기",
+          "difficulty": "중"
+        },
+        {
+          "id": 94,
+          "question": "뛰어 세기를 잘못하면 생길 수 있는 실수는?",
+          "concept": "뛰어세기",
+          "difficulty": "중"
+        },
+        {
+          "id": 95,
+          "question": "1000의 배수에서 1씩 세면 어떤 특징이 있습니까?",
+          "concept": "뛰어세기",
+          "difficulty": "중"
+        },
+        {
+          "id": 96,
+          "question": "10의 배수에서 10씩 세면 어떤 특징이 있습니까?",
+          "concept": "뛰어세기",
+          "difficulty": "중"
+        },
+        {
+          "id": 97,
+          "question": "100의 배수에서 100씩 세면 어떤 특징이 있습니까?",
+          "concept": "뛰어세기",
+          "difficulty": "중"
+        },
+        {
+          "id": 98,
+          "question": "가장 빠르게 수를 파악할 수 있는 뛰어 세기는?",
+          "concept": "뛰어세기",
+          "difficulty": "중"
+        },
+        {
+          "id": 99,
+          "question": "상황에 맞는 뛰어 세기를 고르세요.",
+          "concept": "뛰어세기",
+          "difficulty": "중"
+        },
+        {
+          "id": 100,
+          "question": "1씩, 10씩, 100씩 뛰어 세기의 차이를 설명하세요.",
+          "concept": "뛰어세기",
+          "difficulty": "중"
+        }
+      ]
+    }
+  ],
+  "note": "초등 2학년 2학기 기본 문제 은행 (Basics 2-2 OCR 기준) - 단원별 변형문제 100문제",
+  "created_date": "2026-01-09",
+  "source": "Basics_2-2_OCR.pdf",
+  "version": "2.0",
+  "structure": "4개 단원으로 구성 (네 자리 수의 이해, 자릿값, 수의 크기 비교, 뛰어 세기)"
+}

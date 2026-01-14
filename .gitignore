@@ -28,6 +28,7 @@ extracted_pages_png/
 !data_index.json
 !package.json
 !package-lock.json
+!reference_problems/*.json
 
 # Python 관련
 __pycache__/

@@ -1,0 +1,645 @@
+{
+  "pack": "ES_PACK02_Basics",
+  "grade": 3,
+  "semester": 1,
+  "unit": 1,
+  "pdf_key": "3-1",
+  "title": "덧셈과 뺄셈 (세 자리 수), 곱셈, 나눗셈, 길이와 시간",
+  "total_problems": 100,
+  "categories": [
+    {
+      "id": "1",
+      "name": "덧셈과 뺄셈 (세 자리 수)",
+      "range": [1, 25],
+      "problems": [
+        {
+          "id": 1,
+          "question": "378 + 246의 계산 결과에서 백의 자리 숫자는 무엇입니까?",
+          "concept": "세 자리 수 덧셈",
+          "difficulty": "중"
+        },
+        {
+          "id": 2,
+          "question": "524 + □ = 900일 때 □에 들어갈 수는 얼마입니까?",
+          "concept": "덧셈의 역산",
+          "difficulty": "중"
+        },
+        {
+          "id": 3,
+          "question": "600에서 어떤 수를 빼었더니 287이 되었습니다. 뺀 수는 얼마입니까?",
+          "concept": "뺄셈",
+          "difficulty": "중"
+        },
+        {
+          "id": 4,
+          "question": "두 수의 합이 800이고, 한 수가 473일 때 다른 수는 얼마입니까?",
+          "concept": "덧셈의 역산",
+          "difficulty": "중"
+        },
+        {
+          "id": 5,
+          "question": "348 + 259를 계산할 때 받아올림이 몇 번 일어납니까?",
+          "concept": "받아올림",
+          "difficulty": "중"
+        },
+        {
+          "id": 6,
+          "question": "700 − 468의 계산 결과에서 십의 자리 숫자는 무엇입니까?",
+          "concept": "세 자리 수 뺄셈",
+          "difficulty": "중"
+        },
+        {
+          "id": 7,
+          "question": "덧셈 결과가 가장 크게 되는 짝을 고르세요. (① 324+456 ② 398+401 ③ 275+489)",
+          "concept": "덧셈 비교",
+          "difficulty": "중"
+        },
+        {
+          "id": 8,
+          "question": "뺄셈 결과가 가장 작은 식을 고르세요. (① 800−345 ② 900−512 ③ 700−289)",
+          "concept": "뺄셈 비교",
+          "difficulty": "중"
+        },
+        {
+          "id": 9,
+          "question": "어떤 수에 175를 더했더니 600이 되었습니다. 처음 수는 얼마입니까?",
+          "concept": "덧셈의 역산",
+          "difficulty": "중"
+        },
+        {
+          "id": 10,
+          "question": "456 − □ = 278일 때 □는 얼마입니까?",
+          "concept": "뺄셈의 역산",
+          "difficulty": "중"
+        },
+        {
+          "id": 11,
+          "question": "세 자리 수 두 개를 더해 결과가 1000보다 작으면서 가장 크게 되는 경우를 고르세요.",
+          "concept": "덧셈 최적화",
+          "difficulty": "상"
+        },
+        {
+          "id": 12,
+          "question": "500에서 세 자리 수를 빼었을 때 결과가 가장 작아지도록 하려면 어떤 수를 빼야 합니까?",
+          "concept": "뺄셈 최적화",
+          "difficulty": "상"
+        },
+        {
+          "id": 13,
+          "question": "389 + 412의 계산 결과는 800보다 큽니까, 작습니까?",
+          "concept": "덧셈 결과 예상",
+          "difficulty": "중"
+        },
+        {
+          "id": 14,
+          "question": "덧셈에서 받아올림이 생기지 않도록 두 세 자리 수를 하나씩 쓰세요.",
+          "concept": "받아올림",
+          "difficulty": "하"
+        },
+        {
+          "id": 15,
+          "question": "뺄셈에서 받아내림이 반드시 생기도록 식 하나를 만드세요.",
+          "concept": "받아내림",
+          "difficulty": "하"
+        },
+        {
+          "id": 16,
+          "question": "672 − 395를 계산할 때 받아내림은 몇 번 일어납니까?",
+          "concept": "받아내림",
+          "difficulty": "중"
+        },
+        {
+          "id": 17,
+          "question": "덧셈과 뺄셈을 섞어 계산한 결과가 500이 되는 식을 하나 만드세요.",
+          "concept": "혼합 계산",
+          "difficulty": "상"
+        },
+        {
+          "id": 18,
+          "question": "두 수의 차가 250이 되도록 세 자리 수 두 개를 정하세요.",
+          "concept": "뺄셈",
+          "difficulty": "중"
+        },
+        {
+          "id": 19,
+          "question": "계산 결과가 같은 덧셈식과 뺄셈식을 각각 하나씩 만드세요.",
+          "concept": "덧셈과 뺄셈의 관계",
+          "difficulty": "상"
+        },
+        {
+          "id": 20,
+          "question": "400보다 큰 수에서 200보다 작은 수를 빼 결과가 150이 되는 식을 만드세요.",
+          "concept": "뺄셈",
+          "difficulty": "상"
+        },
+        {
+          "id": 21,
+          "question": "348 + 0을 계산하면 왜 값이 변하지 않는지 설명하세요.",
+          "concept": "덧셈의 성질",
+          "difficulty": "하"
+        },
+        {
+          "id": 22,
+          "question": "어떤 수에 300을 더하면 3의 자리 숫자만 바뀌는 이유를 설명하세요.",
+          "concept": "덧셈의 성질",
+          "difficulty": "중"
+        },
+        {
+          "id": 23,
+          "question": "999 − 498의 결과를 쉽게 계산하는 방법을 쓰세요.",
+          "concept": "계산 전략",
+          "difficulty": "중"
+        },
+        {
+          "id": 24,
+          "question": "계산 결과가 가장 큰 식을 고르세요. (① 589+210 ② 470+329 ③ 650+149)",
+          "concept": "덧셈 비교",
+          "difficulty": "중"
+        },
+        {
+          "id": 25,
+          "question": "덧셈과 뺄셈에서 실수하기 쉬운 경우를 하나 고르세요.",
+          "concept": "계산 오류",
+          "difficulty": "중"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "곱셈 (1)",
+      "range": [26, 50],
+      "problems": [
+        {
+          "id": 26,
+          "question": "4×6의 뜻을 말로 설명하세요.",
+          "concept": "곱셈의 의미",
+          "difficulty": "하"
+        },
+        {
+          "id": 27,
+          "question": "7×3과 3×7의 값이 같은 이유를 설명하세요.",
+          "concept": "곱셈의 교환법칙",
+          "difficulty": "중"
+        },
+        {
+          "id": 28,
+          "question": "곱셈의 결과가 24가 되는 식을 두 가지 쓰세요.",
+          "concept": "곱셈",
+          "difficulty": "하"
+        },
+        {
+          "id": 29,
+          "question": "8×□ = 56일 때 □는 얼마입니까?",
+          "concept": "곱셈의 역산",
+          "difficulty": "중"
+        },
+        {
+          "id": 30,
+          "question": "□×9 = 45일 때 □는 얼마입니까?",
+          "concept": "곱셈의 역산",
+          "difficulty": "중"
+        },
+        {
+          "id": 31,
+          "question": "곱셈 결과가 가장 큰 식을 고르세요. (① 6×7 ② 8×5 ③ 9×4)",
+          "concept": "곱셈 비교",
+          "difficulty": "중"
+        },
+        {
+          "id": 32,
+          "question": "곱셈 결과가 가장 작은 식을 고르세요. (① 3×8 ② 4×6 ③ 5×5)",
+          "concept": "곱셈 비교",
+          "difficulty": "중"
+        },
+        {
+          "id": 33,
+          "question": "6을 한 묶음으로 5묶음 있으면 모두 몇 개입니까?",
+          "concept": "곱셈의 의미",
+          "difficulty": "하"
+        },
+        {
+          "id": 34,
+          "question": "같은 수를 여러 번 더하는 계산을 곱셈으로 나타내세요.",
+          "concept": "덧셈과 곱셈",
+          "difficulty": "하"
+        },
+        {
+          "id": 35,
+          "question": "9×4를 10×4를 이용해 계산하는 방법을 설명하세요.",
+          "concept": "계산 전략",
+          "difficulty": "중"
+        },
+        {
+          "id": 36,
+          "question": "곱셈 결과가 30보다 크고 40보다 작은 식을 하나 쓰세요.",
+          "concept": "곱셈",
+          "difficulty": "중"
+        },
+        {
+          "id": 37,
+          "question": "곱셈 결과가 홀수가 되는 식을 하나 쓰세요.",
+          "concept": "곱셈과 홀짝",
+          "difficulty": "중"
+        },
+        {
+          "id": 38,
+          "question": "곱셈 결과가 짝수가 되는 이유를 설명하세요.",
+          "concept": "곱셈과 홀짝",
+          "difficulty": "중"
+        },
+        {
+          "id": 39,
+          "question": "1을 곱했을 때 값이 변하지 않는 이유를 설명하세요.",
+          "concept": "곱셈의 성질",
+          "difficulty": "하"
+        },
+        {
+          "id": 40,
+          "question": "0을 곱했을 때 결과가 0이 되는 이유를 설명하세요.",
+          "concept": "곱셈의 성질",
+          "difficulty": "하"
+        },
+        {
+          "id": 41,
+          "question": "7단에서 가장 큰 결과는 무엇입니까?",
+          "concept": "구구단",
+          "difficulty": "하"
+        },
+        {
+          "id": 42,
+          "question": "5단에서 결과가 20보다 큰 식은 어느 것입니까?",
+          "concept": "구구단",
+          "difficulty": "중"
+        },
+        {
+          "id": 43,
+          "question": "곱셈식을 덧셈식으로 바꾸어 쓰세요.",
+          "concept": "곱셈과 덧셈",
+          "difficulty": "하"
+        },
+        {
+          "id": 44,
+          "question": "덧셈식 4+4+4+4를 곱셈으로 나타내세요.",
+          "concept": "덧셈과 곱셈",
+          "difficulty": "하"
+        },
+        {
+          "id": 45,
+          "question": "곱셈 순서를 바꾸어도 값이 같은 예를 하나 쓰세요.",
+          "concept": "곱셈의 교환법칙",
+          "difficulty": "하"
+        },
+        {
+          "id": 46,
+          "question": "곱셈에서 헷갈리기 쉬운 식을 하나 고르세요.",
+          "concept": "계산 오류",
+          "difficulty": "중"
+        },
+        {
+          "id": 47,
+          "question": "9단을 가장 쉽게 외우는 방법을 설명하세요.",
+          "concept": "구구단",
+          "difficulty": "중"
+        },
+        {
+          "id": 48,
+          "question": "곱셈 결과가 같은 식 두 개를 찾으세요.",
+          "concept": "곱셈",
+          "difficulty": "하"
+        },
+        {
+          "id": 49,
+          "question": "곱셈을 잘못 계산했을 때 생길 수 있는 실수를 하나 고르세요.",
+          "concept": "계산 오류",
+          "difficulty": "중"
+        },
+        {
+          "id": 50,
+          "question": "곱셈이 필요한 생활 속 상황을 하나 고르세요.",
+          "concept": "곱셈의 활용",
+          "difficulty": "하"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "나눗셈 (기초 개념)",
+      "range": [51, 75],
+      "problems": [
+        {
+          "id": 51,
+          "question": "12를 3으로 나눈다는 뜻을 말로 설명하세요.",
+          "concept": "나눗셈의 의미",
+          "difficulty": "하"
+        },
+        {
+          "id": 52,
+          "question": "15÷5의 결과는 무엇입니까?",
+          "concept": "나눗셈",
+          "difficulty": "하"
+        },
+        {
+          "id": 53,
+          "question": "20을 4명에게 똑같이 나누어 주면 한 명당 몇 개입니까?",
+          "concept": "나눗셈의 의미",
+          "difficulty": "하"
+        },
+        {
+          "id": 54,
+          "question": "나눗셈 결과가 4가 되는 식을 하나 쓰세요.",
+          "concept": "나눗셈",
+          "difficulty": "하"
+        },
+        {
+          "id": 55,
+          "question": "나눗셈 결과가 1이 되는 경우를 하나 쓰세요.",
+          "concept": "나눗셈",
+          "difficulty": "하"
+        },
+        {
+          "id": 56,
+          "question": "나누는 수가 커질수록 몫은 어떻게 변합니까?",
+          "concept": "나눗셈의 성질",
+          "difficulty": "중"
+        },
+        {
+          "id": 57,
+          "question": "18÷6을 곱셈으로 바꾸어 나타내세요.",
+          "concept": "나눗셈과 곱셈",
+          "difficulty": "중"
+        },
+        {
+          "id": 58,
+          "question": "나눗셈과 곱셈의 관계를 한 문장으로 설명하세요.",
+          "concept": "나눗셈과 곱셈",
+          "difficulty": "중"
+        },
+        {
+          "id": 59,
+          "question": "24를 나누었더니 몫이 6이 되었습니다. 나누는 수는 얼마입니까?",
+          "concept": "나눗셈의 역산",
+          "difficulty": "중"
+        },
+        {
+          "id": 60,
+          "question": "□÷4=5일 때 □는 얼마입니까?",
+          "concept": "나눗셈의 역산",
+          "difficulty": "중"
+        },
+        {
+          "id": 61,
+          "question": "나눗셈에서 나누어떨어지는 경우의 예를 하나 쓰세요.",
+          "concept": "나눗셈",
+          "difficulty": "하"
+        },
+        {
+          "id": 62,
+          "question": "나누어떨어지지 않는 경우는 왜 생기는지 설명하세요.",
+          "concept": "나눗셈",
+          "difficulty": "중"
+        },
+        {
+          "id": 63,
+          "question": "16÷2와 16÷4의 결과를 비교하세요.",
+          "concept": "나눗셈 비교",
+          "difficulty": "중"
+        },
+        {
+          "id": 64,
+          "question": "나눗셈 결과가 가장 큰 식을 고르세요. (① 12÷3 ② 16÷4 ③ 18÷6)",
+          "concept": "나눗셈 비교",
+          "difficulty": "중"
+        },
+        {
+          "id": 65,
+          "question": "같은 수를 나누는 방법이 달라질 때 결과가 어떻게 달라지는지 설명하세요.",
+          "concept": "나눗셈의 성질",
+          "difficulty": "중"
+        },
+        {
+          "id": 66,
+          "question": "곱셈으로 확인할 수 있는 나눗셈 예를 하나 쓰세요.",
+          "concept": "나눗셈과 곱셈",
+          "difficulty": "중"
+        },
+        {
+          "id": 67,
+          "question": "나눗셈에서 실수하기 쉬운 상황을 하나 고르세요.",
+          "concept": "계산 오류",
+          "difficulty": "중"
+        },
+        {
+          "id": 68,
+          "question": "1로 나누면 결과가 어떻게 되는지 설명하세요.",
+          "concept": "나눗셈의 성질",
+          "difficulty": "하"
+        },
+        {
+          "id": 69,
+          "question": "나눗셈 결과가 0이 될 수 있는지 설명하세요.",
+          "concept": "나눗셈의 성질",
+          "difficulty": "중"
+        },
+        {
+          "id": 70,
+          "question": "나눗셈이 필요한 상황을 하나 고르세요.",
+          "concept": "나눗셈의 활용",
+          "difficulty": "하"
+        },
+        {
+          "id": 71,
+          "question": "20을 두 가지 방법으로 나누는 식을 쓰세요.",
+          "concept": "나눗셈",
+          "difficulty": "하"
+        },
+        {
+          "id": 72,
+          "question": "같은 몫이 나오는 서로 다른 나눗셈식을 두 개 쓰세요.",
+          "concept": "나눗셈",
+          "difficulty": "중"
+        },
+        {
+          "id": 73,
+          "question": "나눗셈을 덧셈으로는 왜 바로 바꾸기 어려운지 설명하세요.",
+          "concept": "나눗셈의 성질",
+          "difficulty": "중"
+        },
+        {
+          "id": 74,
+          "question": "나눗셈 결과를 예상하는 방법을 하나 쓰세요.",
+          "concept": "계산 전략",
+          "difficulty": "중"
+        },
+        {
+          "id": 75,
+          "question": "나눗셈과 곱셈 중 어느 계산이 더 빠른지 설명하세요.",
+          "concept": "나눗셈과 곱셈",
+          "difficulty": "중"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "길이와 시간",
+      "range": [76, 100],
+      "problems": [
+        {
+          "id": 76,
+          "question": "1m는 몇 cm입니까?",
+          "concept": "길이 단위",
+          "difficulty": "하"
+        },
+        {
+          "id": 77,
+          "question": "150cm는 몇 m 몇 cm입니까?",
+          "concept": "길이 단위 환산",
+          "difficulty": "중"
+        },
+        {
+          "id": 78,
+          "question": "2m는 몇 cm입니까?",
+          "concept": "길이 단위",
+          "difficulty": "하"
+        },
+        {
+          "id": 79,
+          "question": "90분은 몇 시간 몇 분입니까?",
+          "concept": "시간 단위 환산",
+          "difficulty": "중"
+        },
+        {
+          "id": 80,
+          "question": "1시간 30분은 몇 분입니까?",
+          "concept": "시간 단위 환산",
+          "difficulty": "하"
+        },
+        {
+          "id": 81,
+          "question": "1km는 몇 m입니까?",
+          "concept": "길이 단위",
+          "difficulty": "하"
+        },
+        {
+          "id": 82,
+          "question": "350m는 몇 km입니까?",
+          "concept": "길이 단위 환산",
+          "difficulty": "중"
+        },
+        {
+          "id": 83,
+          "question": "1시간은 몇 초입니까?",
+          "concept": "시간 단위",
+          "difficulty": "중"
+        },
+        {
+          "id": 84,
+          "question": "2시간은 몇 분입니까?",
+          "concept": "시간 단위",
+          "difficulty": "하"
+        },
+        {
+          "id": 85,
+          "question": "길이를 비교할 때 가장 먼저 단위를 맞추는 이유는 무엇입니까?",
+          "concept": "길이 비교",
+          "difficulty": "중"
+        },
+        {
+          "id": 86,
+          "question": "시간의 길이를 비교할 때 주의할 점을 고르세요.",
+          "concept": "시간 비교",
+          "difficulty": "중"
+        },
+        {
+          "id": 87,
+          "question": "1m와 100cm가 같은 이유를 설명하세요.",
+          "concept": "길이 단위",
+          "difficulty": "하"
+        },
+        {
+          "id": 88,
+          "question": "1분과 60초의 관계를 설명하세요.",
+          "concept": "시간 단위",
+          "difficulty": "하"
+        },
+        {
+          "id": 89,
+          "question": "더 긴 시간을 고르세요. (① 90분 ② 1시간 20분)",
+          "concept": "시간 비교",
+          "difficulty": "중"
+        },
+        {
+          "id": 90,
+          "question": "더 긴 길이를 고르세요. (① 250cm ② 3m)",
+          "concept": "길이 비교",
+          "difficulty": "중"
+        },
+        {
+          "id": 91,
+          "question": "길이 단위를 잘못 사용했을 때 생기는 문제를 설명하세요.",
+          "concept": "길이 단위",
+          "difficulty": "중"
+        },
+        {
+          "id": 92,
+          "question": "시간 단위를 잘못 계산한 예를 하나 고르세요.",
+          "concept": "시간 단위",
+          "difficulty": "중"
+        },
+        {
+          "id": 93,
+          "question": "2km와 1500m 중 어느 쪽이 더 깁니까?",
+          "concept": "길이 비교",
+          "difficulty": "중"
+        },
+        {
+          "id": 94,
+          "question": "1시간보다 짧은 시간을 두 가지 쓰세요.",
+          "concept": "시간 단위",
+          "difficulty": "하"
+        },
+        {
+          "id": 95,
+          "question": "1m보다 긴 길이를 두 가지 쓰세요.",
+          "concept": "길이 단위",
+          "difficulty": "하"
+        },
+        {
+          "id": 96,
+          "question": "시간 계산이 필요한 상황을 하나 고르세요.",
+          "concept": "시간의 활용",
+          "difficulty": "하"
+        },
+        {
+          "id": 97,
+          "question": "길이 계산이 필요한 상황을 하나 고르세요.",
+          "concept": "길이의 활용",
+          "difficulty": "하"
+        },
+        {
+          "id": 98,
+          "question": "단위를 바꾸지 않으면 비교하기 어려운 이유를 설명하세요.",
+          "concept": "단위 환산",
+          "difficulty": "중"
+        },
+        {
+          "id": 99,
+          "question": "길이와 시간의 공통점 한 가지를 쓰세요.",
+          "concept": "측정",
+          "difficulty": "중"
+        },
+        {
+          "id": 100,
+          "question": "단위를 정확히 쓰는 것이 중요한 이유를 설명하세요.",
+          "concept": "단위",
+          "difficulty": "중"
+        }
+      ]
+    }
+  ],
+  "note": "초등 3학년 1학기 기본 문제 은행 (Basics 3-1 OCR 기준) - 단원별 변형문제 100문제",
+  "created_date": "2026-01-09",
+  "source": "Basics_3-1_OCR.pdf",
+  "version": "1.0",
+  "structure": "4개 단원으로 구성 (덧셈과 뺄셈 (세 자리 수), 곱셈 (1), 나눗셈 (기초 개념), 길이와 시간)"
+}
+
