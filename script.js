@@ -2793,11 +2793,11 @@ function expandConceptTemplateMap() {
     // ============================================
     // 4학년 1학기 - 2단원: 각도 (5개 토픽)
     // ============================================
-    expanded['G4-S1-U2-T1'] = { templates: [PROBLEM_TYPES.MIXED_CALC], requiredKeywords: ['각의', '크기', '비교', '재기'], validation: 'basic' }; // 각의 크기 비교, 각의 크기 재기
-    expanded['G4-S1-U2-T2'] = { templates: [PROBLEM_TYPES.MIXED_CALC], requiredKeywords: ['예각', '둔각', '각도'], validation: 'basic' }; // 예각과 둔각 알아보기, 각도 어림하고 재기
-    expanded['G4-S1-U2-T3'] = { templates: [PROBLEM_TYPES.MIXED_CALC], requiredKeywords: ['각도의', '합', '차'], validation: 'basic' }; // 각도의 합과 차
-    expanded['G4-S1-U2-T4'] = { templates: [PROBLEM_TYPES.MIXED_CALC], requiredKeywords: ['삼각형', '세', '각', '합'], validation: 'basic' }; // 삼각형의 세 각의 크기의 합
-    expanded['G4-S1-U2-T5'] = { templates: [PROBLEM_TYPES.MIXED_CALC], requiredKeywords: ['사각형', '네', '각', '합'], validation: 'basic' }; // 사각형의 네 각의 크기의 합
+    expanded['G4-S1-U2-T1'] = { templates: [PROBLEM_TYPES.GEOMETRY_DRAWING], requiredKeywords: ['각의', '크기', '비교', '재기'], validation: 'angle_measure' }; // 각의 크기 비교, 각의 크기 재기
+    expanded['G4-S1-U2-T2'] = { templates: [PROBLEM_TYPES.GEOMETRY_DRAWING], requiredKeywords: ['예각', '둔각', '각도'], validation: 'angle_measure' }; // 예각과 둔각 알아보기, 각도 어림하고 재기
+    expanded['G4-S1-U2-T3'] = { templates: [PROBLEM_TYPES.GEOMETRY_DRAWING], requiredKeywords: ['각도의', '합', '차'], validation: 'angle_measure' }; // 각도의 합과 차
+    expanded['G4-S1-U2-T4'] = { templates: [PROBLEM_TYPES.GEOMETRY_DRAWING], requiredKeywords: ['삼각형', '세', '각', '합'], validation: 'angle_measure' }; // 삼각형의 세 각의 크기의 합
+    expanded['G4-S1-U2-T5'] = { templates: [PROBLEM_TYPES.GEOMETRY_DRAWING], requiredKeywords: ['사각형', '네', '각', '합'], validation: 'angle_measure' }; // 사각형의 네 각의 크기의 합
     
     // ============================================
     // 4학년 1학기 - 3단원: 곱셈과 나눗셈 (5개 토픽)
