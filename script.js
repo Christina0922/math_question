@@ -1779,10 +1779,152 @@ function emergencyGenerator(conceptInfo, effectiveGrade, existingQuestions = [])
 }
 
 // Deprecated: fallbackGenerate는 emergencyGenerator로 대체됨 (하위 호환성 유지)
-function fallbackGenerate(conceptInfo, count, effectiveGrade) {
-    const { text: conceptText, keywords = [], unitTitle = '', subunitTitle = '', domain = 'number', gradeLevel = 'elementary', grade = 1 } = conceptInfo;
+// reference_problems 템플릿 파일 캐시
+let templateCache = {};
+
+// 템플릿 파일 로드 함수
+async function loadTemplateFile(grade, semester, isApplication = false) {
+    const cacheKey = `${grade}-${semester}-${isApplication ? 'app' : 'basic'}`;
+    if (templateCache[cacheKey]) {
+        return templateCache[cacheKey];
+    }
+    
+    try {
+        const fileName = isApplication 
+            ? `ES_PACK02_Basics_${grade}-${semester}_application_templates.json`
+            : `ES_PACK02_Basics_${grade}-${semester}_templates.json`;
+        const response = await fetch(`reference_problems/${fileName}`);
+        
+        if (response.ok) {
+            const data = await response.json();
+            templateCache[cacheKey] = data;
+            console.log(`✅ [loadTemplateFile] 템플릿 로드 성공: ${fileName}`);
+            return data;
+        } else {
+            console.warn(`⚠️ [loadTemplateFile] 템플릿 파일 없음: ${fileName}`);
+            return null;
+        }
+    } catch (error) {
+        console.warn(`⚠️ [loadTemplateFile] 템플릿 로드 실패: ${error.message}`);
+        return null;
+    }
+}
+
+// 템플릿에서 문제 찾기
+function findProblemsFromTemplate(templateData, conceptText, count, problemType) {
+    if (!templateData || !templateData.categories) return null;
+    
+    const conceptLower = conceptText.toLowerCase();
+    const problems = [];
+    const isApplication = problemType === '응용 심화형' || problemType === 'basic+application' || problemType === 'highest' || problemType === '최상위';
+    
+    // 개념 키워드 매칭
+    for (const category of templateData.categories) {
+        if (!category.problems || category.problems.length === 0) continue;
+        
+        // 카테고리명이나 문제의 concept 필드로 매칭
+        const categoryMatch = category.name && conceptLower.includes(category.name.toLowerCase().replace(/\s+/g, ''));
+        const problemMatch = category.problems.some(p => {
+            const problemConcept = (p.concept || '').toLowerCase();
+            return conceptLower.includes(problemConcept) || problemConcept.includes(conceptLower);
+        });
+        
+        if (categoryMatch || problemMatch) {
+            // 응용 문제가 요청되었고 application 파일이 아니면 건너뛰기
+            if (isApplication && !templateData.difficulty_level) {
+                continue;
+            }
+            
+            // 문제 선택 (난이도 필터링)
+            const availableProblems = category.problems.filter(p => {
+                if (isApplication && p.difficulty === '하') return false;
+                return true;
+            });
+            
+            if (availableProblems.length === 0) continue;
+            
+            // 필요한 개수만큼 선택 (랜덤하게)
+            const selectedProblems = [];
+            const shuffled = [...availableProblems].sort(() => Math.random() - 0.5);
+            
+            for (let i = 0; i < Math.min(count, shuffled.length); i++) {
+                selectedProblems.push(shuffled[i]);
+            }
+            
+            for (const problem of selectedProblems) {
+                problems.push({
+                    question: problem.question || '',
+                    answer: '', // 템플릿에 answer가 없으면 빈 문자열
+                    explanation: '', // 템플릿에 explanation이 없으면 빈 문자열
+                    inputPlaceholder: '답을 입력하세요',
+                    type: 'template',
+                    meta: { 
+                        templateType: 'reference',
+                        sourceTemplate: templateData.title,
+                        concept: problem.concept,
+                        difficulty: problem.difficulty
+                    }
+                });
+            }
+            
+            if (problems.length >= count) break;
+        }
+    }
+    
+    return problems.length > 0 ? problems.slice(0, count) : null;
+}
+
+function fallbackGenerate(conceptInfo, count, effectiveGrade, problemType = '기본형') {
+    // conceptInfo가 객체가 아닌 경우 처리
+    let grade = effectiveGrade || 1, semester = 1, gradeLevel = 'elementary';
+    let conceptText = '';
+    let keywords = [], unitTitle = '', subunitTitle = '', domain = 'number';
+    
+    if (typeof conceptInfo === 'object' && conceptInfo !== null) {
+        conceptText = conceptInfo.text || '';
+        keywords = conceptInfo.keywords || [];
+        unitTitle = conceptInfo.unitTitle || '';
+        subunitTitle = conceptInfo.subunitTitle || '';
+        domain = conceptInfo.domain || 'number';
+        gradeLevel = conceptInfo.gradeLevel || 'elementary';
+        grade = conceptInfo.grade || effectiveGrade || 1;
+        semester = conceptInfo.semester || 1;
+    } else {
+        conceptText = String(conceptInfo);
+        // effectiveGrade에서 grade 추정 시도
+        grade = effectiveGrade || 1;
+    }
+    
     const problems = [];
     const conceptLower = conceptText.toLowerCase();
+    
+    // 1차: reference_problems 템플릿 파일에서 문제 찾기 (초등학교만)
+    if (gradeLevel === 'elementary' && grade >= 2 && grade <= 6) {
+        const isApplication = problemType === '응용 심화형' || problemType === 'basic+application' || problemType === 'highest' || problemType === '최상위';
+        const cacheKey = `${grade}-${semester}-${isApplication ? 'app' : 'basic'}`;
+        const templateData = templateCache[cacheKey];
+        
+        if (templateData) {
+            const templateProblems = findProblemsFromTemplate(templateData, conceptText, count, problemType);
+            if (templateProblems && templateProblems.length > 0) {
+                console.log(`✅ [fallbackGenerate] 템플릿에서 ${templateProblems.length}개 문제 찾음: ${conceptText}`);
+                return templateProblems;
+            }
+            
+            // application 템플릿에서 못 찾았으면 basic 템플릿도 시도
+            if (isApplication) {
+                const basicCacheKey = `${grade}-${semester}-basic`;
+                const basicTemplateData = templateCache[basicCacheKey];
+                if (basicTemplateData) {
+                    const basicProblems = findProblemsFromTemplate(basicTemplateData, conceptText, count, problemType);
+                    if (basicProblems && basicProblems.length > 0) {
+                        console.log(`✅ [fallbackGenerate] 기본 템플릿에서 ${basicProblems.length}개 문제 찾음: ${conceptText}`);
+                        return basicProblems;
+                    }
+                }
+            }
+        }
+    }
     
     // emergencyGenerator 사용
     const emergency = emergencyGenerator(conceptInfo, effectiveGrade);
@@ -2262,7 +2404,10 @@ async function generateProblems(formData) {
                                             id: id,
                                             text: topic,
                                             unitTitle: unit.title,
-                                            subunitTitle: unit.subunits[sIdx].title
+                                            subunitTitle: unit.subunits[sIdx].title,
+                                            grade: rawGrade,
+                                            semester: formData.semester || 1,
+                                            gradeLevel: 'middle'
                                         });
                                     }
                                 }
@@ -2275,7 +2420,10 @@ async function generateProblems(formData) {
                             id: concept,
                             text: conceptToText(concept) || concept,
                             unitTitle: '',
-                            subunitTitle: ''
+                            subunitTitle: '',
+                            grade: rawGrade,
+                            semester: formData.semester || 1,
+                            gradeLevel: 'elementary'
                         });
                     });
                 }
@@ -2285,9 +2433,14 @@ async function generateProblems(formData) {
                 let globalQuestionNumber = questions.length + 1;
                 
                 selectedConceptList.forEach((conceptInfo, conceptIndex) => {
+                    // grade와 semester 정보 보장
+                    if (!conceptInfo.grade) conceptInfo.grade = rawGrade;
+                    if (!conceptInfo.semester) conceptInfo.semester = formData.semester || 1;
+                    if (!conceptInfo.gradeLevel) conceptInfo.gradeLevel = schoolLevel === '초등학교' ? 'elementary' : 'middle';
+                    
                     const countForThis = Math.min(perConceptNeed, need - (questions.length - (conceptIndex * perConceptNeed)));
                     if (countForThis > 0) {
-                        const templateProblems = fallbackGenerate(conceptInfo, countForThis, effectiveGrade);
+                        const templateProblems = fallbackGenerate(conceptInfo, countForThis, effectiveGrade, formData.problemType || '기본형');
                         
                         templateProblems.forEach((tp, i) => {
                             const question = {
@@ -2323,7 +2476,7 @@ async function generateProblems(formData) {
                 unitTitle: '',
                 subunitTitle: ''
             };
-            const defaultProblems = fallbackGenerate(defaultConcept, 1, 5);
+            const defaultProblems = fallbackGenerate(defaultConcept, 1, 5, formData.problemType || '기본형');
             questions = defaultProblems.map((tp, i) => ({
                 id: `forced-${Date.now()}-${i}`,
                 type: 'template',
@@ -2364,7 +2517,7 @@ async function generateProblems(formData) {
                 unitTitle: '',
                 subunitTitle: ''
             };
-            const defaultProblems = fallbackGenerate(defaultConcept, 1, 5);
+            const defaultProblems = fallbackGenerate(defaultConcept, 1, 5, formData.problemType || '기본형');
             const questions = defaultProblems.map((tp, i) => ({
                 id: `error-fallback-${Date.now()}-${i}`,
                 type: 'template',
@@ -8739,6 +8892,21 @@ async function createSampleProblems(formData, progressCallback = null) {
         resolvedCount: resolvedCount,
         매칭률: resolvedCount > 0 ? ((resolvedCount / requestedCount) * 100).toFixed(1) + '%' : '0%'
     });
+    
+    // reference_problems 템플릿 파일 미리 로드 (초등학교만)
+    if (schoolLevel === '초등학교') {
+        const isApplication = isAdvanced;
+        try {
+            await loadTemplateFile(rawGrade, semester, isApplication);
+            // application이 없으면 basic 템플릿도 시도
+            if (isApplication) {
+                await loadTemplateFile(rawGrade, semester, false);
+            }
+            console.log(`✅ [createSampleProblems] 템플릿 파일 로드 완료 (${rawGrade}학년 ${semester}학기, ${isApplication ? '응용' : '기본'})`);
+        } catch (error) {
+            console.warn(`⚠️ [createSampleProblems] 템플릿 로드 실패: ${error.message}`);
+        }
+    }
     
     // 개념 데이터 자동 보정(normalize) 함수
     function normalizeConcept(conceptInfo) {
