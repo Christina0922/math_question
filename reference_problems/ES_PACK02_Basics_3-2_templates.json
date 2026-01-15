@@ -4,474 +4,543 @@
   "semester": 2,
   "unit": 2,
   "pdf_key": "3-2",
-  "title": "곱셈 (2), 나눗셈 (1), 분수 (기초), 들이와 무게",
-  "total_problems": 100,
+  "title": "곱셈, 나눗셈, 분수 (기초), 들이와 무게 (변형문제 포함)",
+  "total_problems": 110,
   "categories": [
     {
       "id": "1",
-      "name": "곱셈 (2) – 두 자리 수 × 한 자리 수",
-      "range": [1, 25],
+      "name": "1단원. 곱셈",
+      "range": [
+        1,
+        30
+      ],
       "problems": [
         {
-          "id": 1,
-          "question": "24×3의 계산에서 받아올림은 몇 번 일어납니까?",
-          "concept": "곱셈, 받아올림",
-          "difficulty": "중"
+          "question": "4를 6번 더한 값을 식으로 쓰세요.",
+          "concept": "곱셈 · 기본 이해",
+          "difficulty": "하",
+          "id": 1
         },
         {
-          "id": 2,
-          "question": "36×2의 결과에서 십의 자리 숫자는 무엇입니까?",
-          "concept": "곱셈",
-          "difficulty": "중"
+          "question": "7×5의 뜻을 말로 한 줄로 쓰세요.",
+          "concept": "곱셈 · 기본 이해",
+          "difficulty": "하",
+          "id": 2
         },
         {
-          "id": 3,
-          "question": "45×4를 계산할 때 먼저 계산하는 자리는 어디입니까?",
-          "concept": "곱셈 계산 순서",
-          "difficulty": "하"
+          "question": "0×9의 값은 얼마입니까?",
+          "concept": "곱셈 · 기본 이해",
+          "difficulty": "하",
+          "id": 3
         },
         {
-          "id": 4,
-          "question": "다음 중 결과가 가장 큰 식을 고르세요. (① 28×3 ② 34×2 ③ 19×5)",
-          "concept": "곱셈 비교",
-          "difficulty": "중"
+          "question": "1×38의 값은 얼마입니까?",
+          "concept": "곱셈 · 기본 이해",
+          "difficulty": "하",
+          "id": 4
         },
         {
-          "id": 5,
-          "question": "2×□ = 48일 때 □는 얼마입니까?",
-          "concept": "곱셈의 역산",
-          "difficulty": "중"
+          "question": "곱하는 수와 곱해지는 수를 바꿔도 값은 같습니다. (O/X)",
+          "concept": "곱셈 · 기본 이해",
+          "difficulty": "하",
+          "id": 5
         },
         {
-          "id": 6,
-          "question": "17×4를 20×4를 이용해 계산하는 방법을 설명하세요.",
-          "concept": "계산 전략",
-          "difficulty": "중"
+          "question": "6×□=36일 때 □는?",
+          "concept": "곱셈 · 기본 이해",
+          "difficulty": "하",
+          "id": 6
         },
         {
-          "id": 7,
-          "question": "받아올림이 반드시 생기는 곱셈식을 하나 고르세요.",
-          "concept": "받아올림",
-          "difficulty": "중"
+          "question": "8×□=64일 때 □는?",
+          "concept": "곱셈 · 기본 이해",
+          "difficulty": "하",
+          "id": 7
         },
         {
-          "id": 8,
-          "question": "받아올림이 생기지 않는 곱셈식을 하나 고르세요.",
-          "concept": "받아올림",
-          "difficulty": "하"
+          "question": "9×□=90이 되게 하는 □는?",
+          "concept": "곱셈 · 기본 이해",
+          "difficulty": "하",
+          "id": 8
         },
         {
-          "id": 9,
-          "question": "29×3의 결과가 90보다 큰 이유를 설명하세요.",
-          "concept": "곱셈",
-          "difficulty": "중"
+          "question": "5×7과 7×5 중 더 큰 것은?",
+          "concept": "곱셈 · 기본 이해",
+          "difficulty": "하",
+          "id": 9
         },
         {
-          "id": 10,
-          "question": "40×2와 4×20의 결과를 비교하세요.",
-          "concept": "곱셈의 교환법칙",
-          "difficulty": "하"
+          "question": "3×10에서 3×1을 빼면 얼마입니까?",
+          "concept": "곱셈 · 기본 이해",
+          "difficulty": "하",
+          "id": 10
         },
         {
-          "id": 11,
-          "question": "같은 결과가 되는 곱셈식 두 개를 고르세요.",
-          "concept": "곱셈",
-          "difficulty": "하"
+          "question": "6×9를 6×10을 이용해 계산하면 얼마입니까?",
+          "concept": "곱셈 · 규칙·추론",
+          "difficulty": "중",
+          "id": 11
         },
         {
-          "id": 12,
-          "question": "18×5를 가장 빠르게 계산하는 방법을 쓰세요.",
-          "concept": "계산 전략",
-          "difficulty": "중"
+          "question": "4×25를 빠르게 계산하는 방법을 한 단어로 쓰세요.",
+          "concept": "곱셈 · 규칙·추론",
+          "difficulty": "중",
+          "id": 12
         },
         {
-          "id": 13,
-          "question": "곱셈 결과가 짝수가 되는 이유를 설명하세요.",
-          "concept": "곱셈과 홀짝",
-          "difficulty": "중"
+          "question": "8×(5+2)의 값은?",
+          "concept": "곱셈 · 규칙·추론",
+          "difficulty": "중",
+          "id": 13
         },
         {
-          "id": 14,
-          "question": "25×4를 100을 이용해 계산하세요.",
-          "concept": "계산 전략",
-          "difficulty": "중"
+          "question": "8×5 + 8×2의 값은?",
+          "concept": "곱셈 · 규칙·추론",
+          "difficulty": "중",
+          "id": 14
         },
         {
-          "id": 15,
-          "question": "39×2의 결과에서 일의 자리 숫자는 무엇입니까?",
-          "concept": "곱셈",
-          "difficulty": "중"
+          "question": "위 두 식의 결과는 같습니다. (O/X)",
+          "concept": "곱셈 · 규칙·추론",
+          "difficulty": "중",
+          "id": 15
         },
         {
-          "id": 16,
-          "question": "10이 포함된 곱셈에서 계산이 쉬워지는 이유를 설명하세요.",
-          "concept": "곱셈의 성질",
-          "difficulty": "하"
+          "question": "9×□가 10의 배수가 되게 하는 □의 조건을 쓰세요.",
+          "concept": "곱셈 · 규칙·추론",
+          "difficulty": "중",
+          "id": 16
         },
         {
-          "id": 17,
-          "question": "23×3과 3×23 중 먼저 계산하기 쉬운 식은 무엇입니까?",
-          "concept": "곱셈의 교환법칙",
-          "difficulty": "하"
+          "question": "7×8과 7×9의 차는 얼마입니까?",
+          "concept": "곱셈 · 규칙·추론",
+          "difficulty": "중",
+          "id": 17
         },
         {
-          "id": 18,
-          "question": "2를 곱하면 수가 어떻게 변하는지 설명하세요.",
-          "concept": "곱셈의 성질",
-          "difficulty": "하"
+          "question": "6×□=54일 때 □는?",
+          "concept": "곱셈 · 규칙·추론",
+          "difficulty": "중",
+          "id": 18
         },
         {
-          "id": 19,
-          "question": "곱셈 결과가 100에 가장 가까운 식을 고르세요.",
-          "concept": "곱셈 비교",
-          "difficulty": "중"
+          "question": "곱셈 결과가 홀수가 되려면 두 수는 어떤 성질이어야 합니까?",
+          "concept": "곱셈 · 규칙·추론",
+          "difficulty": "중",
+          "id": 19
         },
         {
-          "id": 20,
-          "question": "같은 수를 두 번 더하는 것과 같은 곱셈식은 무엇입니까?",
-          "concept": "곱셈과 덧셈",
-          "difficulty": "하"
+          "question": "같은 수를 곱해 49가 되는 두 수를 쓰세요.",
+          "concept": "곱셈 · 규칙·추론",
+          "difficulty": "중",
+          "id": 20
         },
         {
-          "id": 21,
-          "question": "곱셈에서 실수하기 쉬운 자리를 하나 고르세요.",
-          "concept": "계산 오류",
-          "difficulty": "중"
+          "question": "3개의 수를 곱해 60이 되게 하세요. (한 가지)",
+          "concept": "곱셈 · 사고력 응용",
+          "difficulty": "상",
+          "id": 21
         },
         {
-          "id": 22,
-          "question": "48×2의 계산 과정을 간단히 설명하세요.",
-          "concept": "곱셈 계산",
-          "difficulty": "하"
+          "question": "4×□가 90보다 크고 100보다 작게 하는 □는?",
+          "concept": "곱셈 · 사고력 응용",
+          "difficulty": "상",
+          "id": 22
         },
         {
-          "id": 23,
-          "question": "곱셈 결과의 크기를 어림하는 방법을 쓰세요.",
-          "concept": "곱셈 어림",
-          "difficulty": "중"
+          "question": "5×□가 100이 되는 □는?",
+          "concept": "곱셈 · 사고력 응용",
+          "difficulty": "상",
+          "id": 23
         },
         {
-          "id": 24,
-          "question": "19×5를 계산하지 않고 결과를 예상하세요.",
-          "concept": "곱셈 예상",
-          "difficulty": "중"
+          "question": "6×□와 9×□의 값이 같아지게 하는 □는 0 말고 있습니까? (O/X)",
+          "concept": "곱셈 · 사고력 응용",
+          "difficulty": "상",
+          "id": 24
         },
         {
-          "id": 25,
-          "question": "두 자리 수 × 한 자리 수 곱셈이 필요한 상황을 하나 고르세요.",
-          "concept": "곱셈의 활용",
-          "difficulty": "하"
+          "question": "곱셈 결과가 가장 크게 되는 식을 고르세요.",
+          "concept": "곱셈 · 사고력 응용",
+          "difficulty": "상",
+          "id": 25
+        },
+        {
+          "question": "12×3을 10×3+2×3으로 바꾸는 이유를 한 줄로 쓰세요.",
+          "concept": "곱셈 · 사고력 응용",
+          "difficulty": "상",
+          "id": 26
+        },
+        {
+          "question": "7×□가 5의 배수가 되게 하는 □의 조건은?",
+          "concept": "곱셈 · 사고력 응용",
+          "difficulty": "상",
+          "id": 27
+        },
+        {
+          "question": "9×□=9×7일 때 □는?",
+          "concept": "곱셈 · 사고력 응용",
+          "difficulty": "상",
+          "id": 28
+        },
+        {
+          "question": "곱셈에서 1의 역할을 한 단어로 쓰세요.",
+          "concept": "곱셈 · 사고력 응용",
+          "difficulty": "상",
+          "id": 29
+        },
+        {
+          "question": "곱셈이 필요한 생활 예를 하나 쓰세요.",
+          "concept": "곱셈 · 사고력 응용",
+          "difficulty": "상",
+          "id": 30
         }
       ]
     },
     {
       "id": "2",
-      "name": "나눗셈 (1) – 나누어떨어짐",
-      "range": [26, 50],
+      "name": "2단원. 나눗셈",
+      "range": [
+        31,
+        60
+      ],
       "problems": [
         {
-          "id": 26,
-          "question": "24÷6의 뜻을 말로 설명하세요.",
-          "concept": "나눗셈의 의미",
-          "difficulty": "하"
+          "question": "24를 6명에게 똑같이 나누면 한 명당 몇 개입니까?",
+          "concept": "나눗셈 · 의미 이해",
+          "difficulty": "하",
+          "id": 31
         },
         {
-          "id": 27,
-          "question": "나눗셈 결과가 5가 되는 식을 하나 고르세요.",
-          "concept": "나눗셈",
-          "difficulty": "하"
+          "question": "나눗셈에서 몫은 무엇을 뜻합니까? (한 단어)",
+          "concept": "나눗셈 · 의미 이해",
+          "difficulty": "하",
+          "id": 32
         },
         {
-          "id": 28,
-          "question": "36을 4로 나누면 몫은 얼마입니까?",
-          "concept": "나눗셈",
-          "difficulty": "하"
+          "question": "30÷5에서 30은 무엇입니까?",
+          "concept": "나눗셈 · 의미 이해",
+          "difficulty": "하",
+          "id": 33
         },
         {
-          "id": 29,
-          "question": "30을 5명에게 똑같이 나누어 주면 한 명당 몇 개입니까?",
-          "concept": "나눗셈의 의미",
-          "difficulty": "하"
+          "question": "30÷5에서 5는 무엇입니까?",
+          "concept": "나눗셈 · 의미 이해",
+          "difficulty": "하",
+          "id": 34
         },
         {
-          "id": 30,
-          "question": "□÷3=7일 때 □는 얼마입니까?",
-          "concept": "나눗셈의 역산",
-          "difficulty": "중"
+          "question": "0을 어떤 수로 나누면 몫은?",
+          "concept": "나눗셈 · 의미 이해",
+          "difficulty": "하",
+          "id": 35
         },
         {
-          "id": 31,
-          "question": "나누어떨어지는 나눗셈의 조건을 하나 쓰세요.",
-          "concept": "나눗셈",
-          "difficulty": "중"
+          "question": "어떤 수를 1로 나누면 결과는?",
+          "concept": "나눗셈 · 의미 이해",
+          "difficulty": "하",
+          "id": 36
         },
         {
-          "id": 32,
-          "question": "18÷3과 18÷6의 결과를 비교하세요.",
-          "concept": "나눗셈 비교",
-          "difficulty": "중"
+          "question": "18÷4의 나머지는 얼마입니까?",
+          "concept": "나눗셈 · 의미 이해",
+          "difficulty": "하",
+          "id": 37
         },
         {
-          "id": 33,
-          "question": "나눗셈을 곱셈으로 확인하는 식을 하나 고르세요.",
-          "concept": "나눗셈과 곱셈",
-          "difficulty": "중"
+          "question": "나머지는 항상 나누는 수보다 (크다/작다).",
+          "concept": "나눗셈 · 의미 이해",
+          "difficulty": "하",
+          "id": 38
         },
         {
-          "id": 34,
-          "question": "나눗셈 결과가 가장 큰 식을 고르세요.",
-          "concept": "나눗셈 비교",
-          "difficulty": "중"
+          "question": "9×4=36일 때 36÷9는?",
+          "concept": "나눗셈 · 의미 이해",
+          "difficulty": "하",
+          "id": 39
         },
         {
-          "id": 35,
-          "question": "같은 수를 나누는 수가 달라질 때 몫은 어떻게 변합니까?",
-          "concept": "나눗셈의 성질",
-          "difficulty": "중"
+          "question": "36÷4는?",
+          "concept": "나눗셈 · 의미 이해",
+          "difficulty": "하",
+          "id": 40
         },
         {
-          "id": 36,
-          "question": "42÷7을 빠르게 계산하는 방법을 쓰세요.",
-          "concept": "계산 전략",
-          "difficulty": "중"
+          "question": "48÷6=8일 때 48÷12의 몫은?",
+          "concept": "나눗셈 · 규칙·판단",
+          "difficulty": "중",
+          "id": 41
         },
         {
-          "id": 37,
-          "question": "나눗셈에서 실수하기 쉬운 경우를 하나 고르세요.",
-          "concept": "계산 오류",
-          "difficulty": "중"
+          "question": "42÷7=6일 때 84÷7의 몫은?",
+          "concept": "나눗셈 · 규칙·판단",
+          "difficulty": "중",
+          "id": 42
         },
         {
-          "id": 38,
-          "question": "1로 나누면 결과가 어떻게 되는지 설명하세요.",
-          "concept": "나눗셈의 성질",
-          "difficulty": "하"
+          "question": "63÷9=7일 때 63÷3의 몫은?",
+          "concept": "나눗셈 · 규칙·판단",
+          "difficulty": "중",
+          "id": 43
         },
         {
-          "id": 39,
-          "question": "0으로 나눌 수 없는 이유를 고르세요.",
-          "concept": "나눗셈의 성질",
-          "difficulty": "중"
+          "question": "나머지가 0인 나눗셈을 무엇이라 합니까?",
+          "concept": "나눗셈 · 규칙·판단",
+          "difficulty": "중",
+          "id": 44
         },
         {
-          "id": 40,
-          "question": "20을 두 가지 방법으로 나누는 식을 고르세요.",
-          "concept": "나눗셈",
-          "difficulty": "하"
+          "question": "5로 나누어떨어지는 수의 끝자리를 모두 쓰세요.",
+          "concept": "나눗셈 · 규칙·판단",
+          "difficulty": "중",
+          "id": 45
         },
         {
-          "id": 41,
-          "question": "같은 몫이 되는 서로 다른 나눗셈식을 하나 고르세요.",
-          "concept": "나눗셈",
-          "difficulty": "중"
+          "question": "몫이 가장 큰 식을 고르세요.",
+          "concept": "나눗셈 · 규칙·판단",
+          "difficulty": "중",
+          "id": 46
         },
         {
-          "id": 42,
-          "question": "48÷6을 곱셈으로 바꾸어 쓰세요.",
-          "concept": "나눗셈과 곱셈",
-          "difficulty": "중"
+          "question": "48÷□=24÷3일 때 □는?",
+          "concept": "나눗셈 · 규칙·판단",
+          "difficulty": "중",
+          "id": 47
         },
         {
-          "id": 43,
-          "question": "나눗셈 결과를 어림하는 방법을 하나 쓰세요.",
-          "concept": "나눗셈 어림",
-          "difficulty": "중"
+          "question": "몫이 10이고 나머지가 2인 나눗셈을 하나 쓰세요.",
+          "concept": "나눗셈 · 규칙·판단",
+          "difficulty": "중",
+          "id": 48
         },
         {
-          "id": 44,
-          "question": "32÷4와 32÷8 중 더 큰 몫은 무엇입니까?",
-          "concept": "나눗셈 비교",
-          "difficulty": "중"
+          "question": "6으로 나누어떨어지는 수의 조건을 한 줄로 쓰세요.",
+          "concept": "나눗셈 · 규칙·판단",
+          "difficulty": "중",
+          "id": 49
         },
         {
-          "id": 45,
-          "question": "나눗셈이 필요한 상황을 하나 고르세요.",
-          "concept": "나눗셈의 활용",
-          "difficulty": "하"
+          "question": "7로 나누어떨어지는 가장 작은 두 자리 수는?",
+          "concept": "나눗셈 · 규칙·판단",
+          "difficulty": "중",
+          "id": 50
         },
         {
-          "id": 46,
-          "question": "나눗셈 결과가 1이 되는 경우의 조건을 쓰세요.",
-          "concept": "나눗셈의 성질",
-          "difficulty": "하"
+          "question": "어떤 수를 6으로 나누었더니 몫이 7, 나머지가 5입니다. 그 수는?",
+          "concept": "나눗셈 · 사고력 응용",
+          "difficulty": "상",
+          "id": 51
         },
         {
-          "id": 47,
-          "question": "36을 나누었더니 몫이 9가 되었습니다. 나누는 수는 얼마입니까?",
-          "concept": "나눗셈의 역산",
-          "difficulty": "중"
+          "question": "36개를 5명에게 최대한 공평하게 나누면 몫은?",
+          "concept": "나눗셈 · 사고력 응용",
+          "difficulty": "상",
+          "id": 52
         },
         {
-          "id": 48,
-          "question": "나눗셈과 곱셈의 관계를 한 문장으로 쓰세요.",
-          "concept": "나눗셈과 곱셈",
-          "difficulty": "중"
+          "question": "위 문제에서 나머지는?",
+          "concept": "나눗셈 · 사고력 응용",
+          "difficulty": "상",
+          "id": 53
         },
         {
-          "id": 49,
-          "question": "같은 수를 똑같이 나누는 계산을 무엇이라 합니까?",
-          "concept": "나눗셈의 의미",
-          "difficulty": "하"
+          "question": "나누는 수를 2배로 하면 몫은 절반이 됩니다. (O/X)",
+          "concept": "나눗셈 · 사고력 응용",
+          "difficulty": "상",
+          "id": 54
         },
         {
-          "id": 50,
-          "question": "나눗셈을 잘못 계산했을 때 생기는 문제를 하나 고르세요.",
-          "concept": "계산 오류",
-          "difficulty": "중"
+          "question": "60을 2, 3, 5 중 하나로 나눌 때 몫이 가장 작은 경우는?",
+          "concept": "나눗셈 · 사고력 응용",
+          "difficulty": "상",
+          "id": 55
+        },
+        {
+          "question": "48÷□의 몫이 6이 되게 하는 □를 모두 쓰세요.",
+          "concept": "나눗셈 · 사고력 응용",
+          "difficulty": "상",
+          "id": 56
+        },
+        {
+          "question": "1부터 50까지 중 6의 배수는 몇 개입니까?",
+          "concept": "나눗셈 · 사고력 응용",
+          "difficulty": "상",
+          "id": 57
+        },
+        {
+          "question": "1부터 50까지 중 6과 4의 공배수는?",
+          "concept": "나눗셈 · 사고력 응용",
+          "difficulty": "상",
+          "id": 58
+        },
+        {
+          "question": "나눗셈이 필요한 상황을 하나 쓰세요.",
+          "concept": "나눗셈 · 사고력 응용",
+          "difficulty": "상",
+          "id": 59
+        },
+        {
+          "question": "곱셈과 나눗셈의 관계를 한 줄로 쓰세요.",
+          "concept": "나눗셈 · 사고력 응용",
+          "difficulty": "상",
+          "id": 60
         }
       ]
     },
     {
       "id": "3",
-      "name": "분수 (기초)",
-      "range": [51, 75],
+      "name": "3단원. 분수 (기초)",
+      "range": [
+        61,
+        85
+      ],
       "problems": [
         {
-          "id": 51,
+          "id": 61,
           "question": "분수에서 분모의 뜻을 말로 설명하세요.",
           "concept": "분수의 기초",
           "difficulty": "하"
         },
         {
-          "id": 52,
+          "id": 62,
           "question": "분수에서 분자의 뜻을 말로 설명하세요.",
           "concept": "분수의 기초",
           "difficulty": "하"
         },
         {
-          "id": 53,
+          "id": 63,
           "question": "1/2은 무엇을 나타냅니까?",
           "concept": "분수의 의미",
           "difficulty": "하"
         },
         {
-          "id": 54,
+          "id": 64,
           "question": "같은 크기의 분수를 고르세요. (① 1/2 ② 2/4 ③ 1/3)",
           "concept": "분수의 크기",
           "difficulty": "중"
         },
         {
-          "id": 55,
+          "id": 65,
           "question": "3/4은 전체를 몇 개로 나눈 것입니까?",
           "concept": "분수의 의미",
           "difficulty": "하"
         },
         {
-          "id": 56,
+          "id": 66,
           "question": "분모가 커지면 한 조각의 크기는 어떻게 변합니까?",
           "concept": "분수의 성질",
           "difficulty": "중"
         },
         {
-          "id": 57,
+          "id": 67,
           "question": "분자가 커지면 분수의 크기는 어떻게 변합니까?",
           "concept": "분수의 성질",
           "difficulty": "중"
         },
         {
-          "id": 58,
+          "id": 68,
           "question": "1/3과 1/4 중 더 큰 분수를 고르세요.",
           "concept": "분수 비교",
           "difficulty": "중"
         },
         {
-          "id": 59,
+          "id": 69,
           "question": "2/3과 3/5 중 더 큰 분수를 고르세요.",
           "concept": "분수 비교",
           "difficulty": "중"
         },
         {
-          "id": 60,
+          "id": 70,
           "question": "전체가 같은 경우 분수의 크기를 비교하는 방법을 쓰세요.",
           "concept": "분수 비교",
           "difficulty": "중"
         },
         {
-          "id": 61,
+          "id": 71,
           "question": "1보다 작은 분수의 조건을 쓰세요.",
           "concept": "분수의 성질",
           "difficulty": "하"
         },
         {
-          "id": 62,
+          "id": 72,
           "question": "1과 같은 분수를 하나 고르세요.",
           "concept": "분수의 성질",
           "difficulty": "하"
         },
         {
-          "id": 63,
+          "id": 73,
           "question": "분모가 같은 분수의 크기 비교 방법을 쓰세요.",
           "concept": "분수 비교",
           "difficulty": "하"
         },
         {
-          "id": 64,
+          "id": 74,
           "question": "분자가 같은 분수의 크기 비교 방법을 쓰세요.",
           "concept": "분수 비교",
           "difficulty": "하"
         },
         {
-          "id": 65,
+          "id": 75,
           "question": "분수를 그림으로 나타낼 때 주의할 점을 고르세요.",
           "concept": "분수의 표현",
           "difficulty": "중"
         },
         {
-          "id": 66,
+          "id": 76,
           "question": "분수를 수직선에 나타낼 때 기준이 되는 것은 무엇입니까?",
           "concept": "분수의 표현",
           "difficulty": "중"
         },
         {
-          "id": 67,
+          "id": 77,
           "question": "4/4가 1과 같은 이유를 설명하세요.",
           "concept": "분수의 성질",
           "difficulty": "하"
         },
         {
-          "id": 68,
+          "id": 78,
           "question": "분수에서 가장 흔한 실수를 하나 고르세요.",
           "concept": "분수 오류",
           "difficulty": "중"
         },
         {
-          "id": 69,
+          "id": 79,
           "question": "생활 속에서 분수를 사용하는 예를 하나 고르세요.",
           "concept": "분수의 활용",
           "difficulty": "하"
         },
         {
-          "id": 70,
+          "id": 80,
           "question": "전체를 똑같이 나누지 않으면 생기는 문제를 설명하세요.",
           "concept": "분수의 의미",
           "difficulty": "중"
         },
         {
-          "id": 71,
+          "id": 81,
           "question": "1/2보다 크고 1보다 작은 분수를 하나 고르세요.",
           "concept": "분수의 크기",
           "difficulty": "중"
         },
         {
-          "id": 72,
+          "id": 82,
           "question": "분모가 5인 분수를 하나 고르세요.",
           "concept": "분수의 기초",
           "difficulty": "하"
         },
         {
-          "id": 73,
+          "id": 83,
           "question": "분자가 1인 분수를 무엇이라 부릅니까?",
           "concept": "분수의 기초",
           "difficulty": "하"
         },
         {
-          "id": 74,
+          "id": 84,
           "question": "분수를 비교할 때 분모만 보면 안 되는 이유를 설명하세요.",
           "concept": "분수 비교",
           "difficulty": "중"
         },
         {
-          "id": 75,
+          "id": 85,
           "question": "분수가 필요한 상황을 하나 고르세요.",
           "concept": "분수의 활용",
           "difficulty": "하"
@@ -480,155 +549,158 @@
     },
     {
       "id": "4",
-      "name": "들이와 무게",
-      "range": [76, 100],
+      "name": "4단원. 들이와 무게",
+      "range": [
+        86,
+        110
+      ],
       "problems": [
         {
-          "id": 76,
+          "id": 86,
           "question": "1L는 몇 mL입니까?",
           "concept": "들이 단위",
           "difficulty": "하"
         },
         {
-          "id": 77,
+          "id": 87,
           "question": "500mL는 몇 L입니까?",
           "concept": "들이 단위 환산",
           "difficulty": "중"
         },
         {
-          "id": 78,
+          "id": 88,
           "question": "1kg은 몇 g입니까?",
           "concept": "무게 단위",
           "difficulty": "하"
         },
         {
-          "id": 79,
+          "id": 89,
           "question": "1500g은 몇 kg 몇 g입니까?",
           "concept": "무게 단위 환산",
           "difficulty": "중"
         },
         {
-          "id": 80,
+          "id": 90,
           "question": "더 큰 들이를 고르세요. (① 900mL ② 1L)",
           "concept": "들이 비교",
           "difficulty": "중"
         },
         {
-          "id": 81,
+          "id": 91,
           "question": "더 무거운 것을 고르세요. (① 1200g ② 1kg)",
           "concept": "무게 비교",
           "difficulty": "중"
         },
         {
-          "id": 82,
+          "id": 92,
           "question": "들이를 비교할 때 먼저 해야 할 것은 무엇입니까?",
           "concept": "들이 비교",
           "difficulty": "하"
         },
         {
-          "id": 83,
+          "id": 93,
           "question": "무게를 비교할 때 단위를 맞추는 이유를 설명하세요.",
           "concept": "무게 비교",
           "difficulty": "중"
         },
         {
-          "id": 84,
+          "id": 94,
           "question": "2L는 몇 mL입니까?",
           "concept": "들이 단위",
           "difficulty": "하"
         },
         {
-          "id": 85,
+          "id": 95,
           "question": "3kg은 몇 g입니까?",
           "concept": "무게 단위",
           "difficulty": "하"
         },
         {
-          "id": 86,
+          "id": 96,
           "question": "750mL는 1L의 몇 분의 몇입니까?",
           "concept": "들이 단위, 분수",
           "difficulty": "중"
         },
         {
-          "id": 87,
+          "id": 97,
           "question": "500g은 1kg의 몇 분의 몇입니까?",
           "concept": "무게 단위, 분수",
           "difficulty": "중"
         },
         {
-          "id": 88,
+          "id": 98,
           "question": "들이 단위를 잘못 사용하면 생기는 문제를 고르세요.",
           "concept": "들이 단위",
           "difficulty": "중"
         },
         {
-          "id": 89,
+          "id": 99,
           "question": "무게 단위를 잘못 계산한 예를 하나 고르세요.",
           "concept": "무게 단위",
           "difficulty": "중"
         },
         {
-          "id": 90,
+          "id": 100,
           "question": "1L와 1000mL가 같은 이유를 설명하세요.",
           "concept": "들이 단위",
           "difficulty": "하"
         },
         {
-          "id": 91,
+          "id": 101,
           "question": "1kg과 1000g이 같은 이유를 설명하세요.",
           "concept": "무게 단위",
           "difficulty": "하"
         },
         {
-          "id": 92,
+          "id": 102,
           "question": "더 무거운 쪽을 고르세요. (① 2kg ② 1800g)",
           "concept": "무게 비교",
           "difficulty": "중"
         },
         {
-          "id": 93,
+          "id": 103,
           "question": "더 많은 들이를 고르세요. (① 1.5L ② 1400mL)",
           "concept": "들이 비교",
           "difficulty": "중"
         },
         {
-          "id": 94,
+          "id": 104,
           "question": "들이 계산이 필요한 상황을 하나 고르세요.",
           "concept": "들이의 활용",
           "difficulty": "하"
         },
         {
-          "id": 95,
+          "id": 105,
           "question": "무게 계산이 필요한 상황을 하나 고르세요.",
           "concept": "무게의 활용",
           "difficulty": "하"
         },
         {
-          "id": 96,
+          "id": 106,
           "question": "들이와 무게의 공통점을 하나 쓰세요.",
           "concept": "측정",
           "difficulty": "중"
         },
         {
-          "id": 97,
+          "id": 107,
           "question": "단위를 바꾸지 않으면 비교하기 어려운 이유를 설명하세요.",
           "concept": "단위 환산",
           "difficulty": "중"
         },
         {
-          "id": 98,
+          "id": 108,
           "question": "들이 단위에서 가장 작은 단위는 무엇입니까?",
           "concept": "들이 단위",
           "difficulty": "하"
         },
         {
-          "id": 99,
+          "id": 109,
           "question": "무게 단위에서 가장 큰 단위는 무엇입니까?",
           "concept": "무게 단위",
           "difficulty": "하"
         },
         {
-          "id": 100,
+          "id": 110,
           "question": "정확한 단위를 쓰는 것이 중요한 이유를 설명하세요.",
           "concept": "단위",
           "difficulty": "중"
@@ -636,10 +708,9 @@
       ]
     }
   ],
-  "note": "초등 3학년 2학기 기본 문제 은행 (Basics 3-2 OCR 기준) - 단원별 변형문제 100문제",
-  "created_date": "2026-01-09",
-  "source": "Basics_3-2_OCR.pdf",
-  "version": "1.0",
+  "note": "초등 3학년 2학기 기본 문제 은행 - 1~2단원은 문제유형(변형) 30문항으로 갱신, 기존 3~4단원은 유지",
+  "created_date": "2026-01-15",
+  "source": "UserProvided_3-2_ProblemType_Partial.txt + Existing_3-2_OCR.json",
+  "version": "2.0",
   "structure": "4개 단원으로 구성 (곱셈 (2) – 두 자리 수 × 한 자리 수, 나눗셈 (1) – 나누어떨어짐, 분수 (기초), 들이와 무게)"
 }
-

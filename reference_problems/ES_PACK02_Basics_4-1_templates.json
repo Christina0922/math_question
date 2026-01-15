@@ -2,319 +2,355 @@
   "pack": "ES_PACK02_Basics",
   "grade": 4,
   "semester": 1,
-  "unit": 2,
+  "unit": 1,
   "pdf_key": "4-1",
-  "title": "큰 수 (만, 십만 단위), 곱셈과 나눗셈 (2), 분수의 덧셈과 뺄셈, 소수 (0.1, 0.01)",
-  "total_problems": 100,
+  "title": "큰 수, 곱셈과 나눗셈, 분수의 덧셈과 뺄셈, 소수 (변형문제 포함)",
+  "total_problems": 105,
   "categories": [
     {
       "id": "1",
-      "name": "큰 수 (만, 십만 단위)",
-      "range": [1, 25],
+      "name": "1단원. 큰 수",
+      "range": [
+        1,
+        30
+      ],
       "problems": [
         {
-          "id": 1,
-          "question": "만 단위까지 나타낼 수 있는 가장 작은 수는 무엇입니까?",
-          "concept": "큰 수",
-          "difficulty": "하"
+          "question": "456 000을 읽으세요.",
+          "concept": "큰 수 · 수 읽기·쓰기",
+          "difficulty": "하",
+          "id": 1
         },
         {
-          "id": 2,
-          "question": "만 단위까지 나타낼 수 있는 가장 큰 수는 무엇입니까?",
-          "concept": "큰 수",
-          "difficulty": "하"
+          "question": "사십오만을 숫자로 쓰세요.",
+          "concept": "큰 수 · 수 읽기·쓰기",
+          "difficulty": "하",
+          "id": 2
         },
         {
-          "id": 3,
-          "question": "34,560에서 만의 자리 숫자는 무엇입니까?",
-          "concept": "큰 수, 자릿값",
-          "difficulty": "하"
+          "question": "700 000보다 큰 가장 작은 십만 단위 수는?",
+          "concept": "큰 수 · 수 읽기·쓰기",
+          "difficulty": "하",
+          "id": 3
         },
         {
-          "id": 4,
-          "question": "72,405에서 천의 자리 숫자는 무엇입니까?",
-          "concept": "큰 수, 자릿값",
-          "difficulty": "하"
+          "question": "320 000에서 만의 자리 숫자는?",
+          "concept": "큰 수 · 수 읽기·쓰기",
+          "difficulty": "하",
+          "id": 4
         },
         {
-          "id": 5,
-          "question": "숫자 6이 6,000을 뜻하는 수 중 가장 작은 수는?",
-          "concept": "큰 수, 자릿값",
-          "difficulty": "중"
+          "question": "999 999 다음에 오는 수는?",
+          "concept": "큰 수 · 수 읽기·쓰기",
+          "difficulty": "하",
+          "id": 5
         },
         {
-          "id": 6,
-          "question": "숫자 6이 60,000을 뜻하는 수 중 가장 큰 수는?",
-          "concept": "큰 수, 자릿값",
-          "difficulty": "중"
+          "question": "백만은 몇 개의 십만으로 이루어져 있습니까?",
+          "concept": "큰 수 · 수 읽기·쓰기",
+          "difficulty": "하",
+          "id": 6
         },
         {
-          "id": 7,
-          "question": "5만보다 크고 6만보다 작은 수 중 가장 작은 수는?",
-          "concept": "큰 수 비교",
-          "difficulty": "하"
+          "question": "100 000이 5개 모이면 얼마입니까?",
+          "concept": "큰 수 · 수 읽기·쓰기",
+          "difficulty": "하",
+          "id": 7
         },
         {
-          "id": 8,
-          "question": "5만보다 크고 6만보다 작은 수 중 가장 큰 수는?",
-          "concept": "큰 수 비교",
-          "difficulty": "하"
+          "question": "10만을 10개 모으면 얼마입니까?",
+          "concept": "큰 수 · 수 읽기·쓰기",
+          "difficulty": "하",
+          "id": 8
         },
         {
-          "id": 9,
-          "question": "48,320을 만 단위로 반올림하면 얼마입니까?",
-          "concept": "반올림",
-          "difficulty": "중"
+          "question": "450 000은 100 000이 몇 개인 수입니까?",
+          "concept": "큰 수 · 수 읽기·쓰기",
+          "difficulty": "하",
+          "id": 9
         },
         {
-          "id": 10,
-          "question": "52,499를 만 단위로 반올림하면 얼마입니까?",
-          "concept": "반올림",
-          "difficulty": "중"
+          "question": "600 000과 60 000 중 더 큰 수는?",
+          "concept": "큰 수 · 수 읽기·쓰기",
+          "difficulty": "하",
+          "id": 10
         },
         {
-          "id": 11,
-          "question": "70,000에 가장 가까운 수를 고르세요. (① 69,501 ② 70,499 ③ 71,200)",
-          "concept": "큰 수 비교",
-          "difficulty": "중"
+          "question": "345 678과 354 678 중 더 큰 수는?",
+          "concept": "큰 수 · 비교·구성",
+          "difficulty": "중",
+          "id": 11
         },
         {
-          "id": 12,
-          "question": "만의 자리 숫자가 3인 수 중 가장 작은 수는?",
-          "concept": "큰 수",
-          "difficulty": "하"
+          "question": "십만 자리 숫자가 같은 두 수를 하나 쓰세요.",
+          "concept": "큰 수 · 비교·구성",
+          "difficulty": "중",
+          "id": 12
         },
         {
-          "id": 13,
-          "question": "만의 자리 숫자가 8인 수 중 가장 큰 수는?",
-          "concept": "큰 수",
-          "difficulty": "하"
+          "question": "500 000보다 크고 600 000보다 작은 수를 하나 쓰세요.",
+          "concept": "큰 수 · 비교·구성",
+          "difficulty": "중",
+          "id": 13
         },
         {
-          "id": 14,
-          "question": "100,000보다 작은 수 중 가장 큰 수는 무엇입니까?",
-          "concept": "큰 수",
-          "difficulty": "하"
+          "question": "백만보다 작은 가장 큰 수는?",
+          "concept": "큰 수 · 비교·구성",
+          "difficulty": "중",
+          "id": 14
         },
         {
-          "id": 15,
-          "question": "10,000이 4개인 수를 숫자로 쓰세요.",
-          "concept": "큰 수",
-          "difficulty": "하"
+          "question": "각 자리 수의 합이 10이 되게 하는 6자리 수를 하나 쓰세요.",
+          "concept": "큰 수 · 비교·구성",
+          "difficulty": "중",
+          "id": 15
         },
         {
-          "id": 16,
-          "question": "큰 수를 비교할 때 가장 먼저 비교해야 할 자리는 어디입니까?",
-          "concept": "큰 수 비교",
-          "difficulty": "하"
+          "question": "4개의 숫자를 사용해 가장 큰 6자리 수를 만드세요.",
+          "concept": "큰 수 · 비교·구성",
+          "difficulty": "중",
+          "id": 16
         },
         {
-          "id": 17,
-          "question": "39,999와 40,000 중 더 큰 수를 고르세요.",
-          "concept": "큰 수 비교",
-          "difficulty": "하"
+          "question": "같은 숫자를 두 번 이상 사용하지 않고 7자리 수를 하나 쓰세요.",
+          "concept": "큰 수 · 비교·구성",
+          "difficulty": "중",
+          "id": 17
         },
         {
-          "id": 18,
-          "question": "같은 숫자를 사용해 가장 큰 다섯 자리 수를 만드세요.",
-          "concept": "큰 수",
-          "difficulty": "중"
+          "question": "가장 작은 수가 되게 자리 순서를 바꾸세요.",
+          "concept": "큰 수 · 비교·구성",
+          "difficulty": "중",
+          "id": 18
         },
         {
-          "id": 19,
-          "question": "같은 숫자를 사용해 가장 작은 다섯 자리 수를 만드세요.",
-          "concept": "큰 수",
-          "difficulty": "중"
+          "question": "십만 자리 숫자를 1 크게 하면 수는 얼마나 커집니까?",
+          "concept": "큰 수 · 비교·구성",
+          "difficulty": "중",
+          "id": 19
         },
         {
-          "id": 20,
-          "question": "만의 자리 숫자만 바꿔 수의 크기가 가장 크게 달라지는 예를 고르세요.",
-          "concept": "큰 수, 자릿값",
-          "difficulty": "중"
+          "question": "일의 자리를 바꾸면 수의 크기는 변합니까? (O/X)",
+          "concept": "큰 수 · 비교·구성",
+          "difficulty": "중",
+          "id": 20
         },
         {
-          "id": 21,
-          "question": "큰 수 비교에서 실수하기 쉬운 경우를 하나 고르세요.",
-          "concept": "큰 수 비교",
-          "difficulty": "중"
+          "question": "100 000씩 더해 1 000 000이 되는 과정을 쓰세요.",
+          "concept": "큰 수 · 사고력 응용",
+          "difficulty": "상",
+          "id": 21
         },
         {
-          "id": 22,
-          "question": "10,000을 기준으로 수를 나누는 이유를 설명하세요.",
-          "concept": "큰 수",
-          "difficulty": "중"
+          "question": "어떤 수에 100 000을 더했더니 650 000이 되었습니다. 그 수는?",
+          "concept": "큰 수 · 사고력 응용",
+          "difficulty": "상",
+          "id": 22
         },
         {
-          "id": 23,
-          "question": "큰 수를 읽을 때 끊어 읽는 기준은 무엇입니까?",
-          "concept": "큰 수",
-          "difficulty": "하"
+          "question": "백만을 넘지 않는 수 중 짝수만 쓰인 수를 하나 쓰세요.",
+          "concept": "큰 수 · 사고력 응용",
+          "difficulty": "상",
+          "id": 23
         },
         {
-          "id": 24,
-          "question": "만 단위를 사용하면 좋은 이유를 한 가지 쓰세요.",
-          "concept": "큰 수",
-          "difficulty": "중"
+          "question": "6자리 수 중에서 가장 큰 홀수는?",
+          "concept": "큰 수 · 사고력 응용",
+          "difficulty": "상",
+          "id": 24
         },
         {
-          "id": 25,
-          "question": "큰 수 단원이 필요한 이유를 설명하세요.",
-          "concept": "큰 수",
-          "difficulty": "중"
+          "question": "숫자 0의 위치에 따라 값이 달라지는 이유를 한 줄로 쓰세요.",
+          "concept": "큰 수 · 사고력 응용",
+          "difficulty": "상",
+          "id": 25
+        },
+        {
+          "question": "십만 단위에서 반올림하면 달라질 수 있는 수를 하나 쓰세요.",
+          "concept": "큰 수 · 사고력 응용",
+          "difficulty": "상",
+          "id": 26
+        },
+        {
+          "question": "자리값이 가장 큰 자리는 무엇입니까?",
+          "concept": "큰 수 · 사고력 응용",
+          "difficulty": "상",
+          "id": 27
+        },
+        {
+          "question": "같은 숫자로 이루어진 6자리 수를 하나 쓰세요.",
+          "concept": "큰 수 · 사고력 응용",
+          "difficulty": "상",
+          "id": 28
+        },
+        {
+          "question": "수의 크기를 비교할 때 가장 먼저 보는 자리는?",
+          "concept": "큰 수 · 사고력 응용",
+          "difficulty": "상",
+          "id": 29
+        },
+        {
+          "question": "큰 수가 필요한 생활 예를 하나 쓰세요.",
+          "concept": "큰 수 · 사고력 응용",
+          "difficulty": "상",
+          "id": 30
         }
       ]
     },
     {
       "id": "2",
-      "name": "곱셈과 나눗셈 (2) – 세 자리 수 × 한 자리 수",
-      "range": [26, 50],
+      "name": "2단원. 곱셈과 나눗셈 (2) – 세 자리 수 × 한 자리 수",
+      "range": [
+        31,
+        55
+      ],
       "problems": [
         {
-          "id": 26,
+          "id": 31,
           "question": "234×3을 계산할 때 받아올림은 몇 번 일어납니까?",
           "concept": "곱셈, 받아올림",
           "difficulty": "중"
         },
         {
-          "id": 27,
+          "id": 32,
           "question": "408×2의 계산 결과에서 0의 역할을 설명하세요.",
           "concept": "곱셈, 0",
           "difficulty": "중"
         },
         {
-          "id": 28,
+          "id": 33,
           "question": "125×4를 계산할 때 가장 먼저 계산하는 자리는 어디입니까?",
           "concept": "곱셈 계산 순서",
           "difficulty": "하"
         },
         {
-          "id": 29,
+          "id": 34,
           "question": "다음 중 결과가 가장 큰 식을 고르세요. (① 312×3 ② 425×2 ③ 198×4)",
           "concept": "곱셈 비교",
           "difficulty": "중"
         },
         {
-          "id": 30,
+          "id": 35,
           "question": "600×3을 쉽게 계산하는 방법을 설명하세요.",
           "concept": "계산 전략",
           "difficulty": "중"
         },
         {
-          "id": 31,
+          "id": 36,
           "question": "209×5의 계산에서 주의할 점을 고르세요.",
           "concept": "곱셈",
           "difficulty": "중"
         },
         {
-          "id": 32,
+          "id": 37,
           "question": "받아올림이 반드시 생기는 식을 하나 고르세요.",
           "concept": "받아올림",
           "difficulty": "중"
         },
         {
-          "id": 33,
+          "id": 38,
           "question": "받아올림이 생기지 않는 식을 하나 고르세요.",
           "concept": "받아올림",
           "difficulty": "하"
         },
         {
-          "id": 34,
+          "id": 39,
           "question": "480×2와 48×20의 결과를 비교하세요.",
           "concept": "곱셈의 성질",
           "difficulty": "하"
         },
         {
-          "id": 35,
+          "id": 40,
           "question": "305×4의 계산 결과에서 백의 자리 숫자는 무엇입니까?",
           "concept": "곱셈",
           "difficulty": "중"
         },
         {
-          "id": 36,
+          "id": 41,
           "question": "곱셈 결과가 1000을 넘는 식을 하나 고르세요.",
           "concept": "곱셈",
           "difficulty": "중"
         },
         {
-          "id": 37,
+          "id": 42,
           "question": "곱셈 결과를 어림하여 판단하는 방법을 쓰세요.",
           "concept": "곱셈 어림",
           "difficulty": "중"
         },
         {
-          "id": 38,
+          "id": 43,
           "question": "999×2를 계산하지 않고 결과의 범위를 말하세요.",
           "concept": "곱셈 예상",
           "difficulty": "중"
         },
         {
-          "id": 39,
+          "id": 44,
           "question": "곱셈에서 0이 포함될 때 실수하기 쉬운 이유를 설명하세요.",
           "concept": "곱셈, 0",
           "difficulty": "중"
         },
         {
-          "id": 40,
+          "id": 45,
           "question": "120×5를 가장 빠르게 계산하는 방법을 쓰세요.",
           "concept": "계산 전략",
           "difficulty": "중"
         },
         {
-          "id": 41,
+          "id": 46,
           "question": "세 자리 수 × 한 자리 수 곱셈이 필요한 상황을 고르세요.",
           "concept": "곱셈의 활용",
           "difficulty": "하"
         },
         {
-          "id": 42,
+          "id": 47,
           "question": "같은 결과가 되는 곱셈식 두 개를 고르세요.",
           "concept": "곱셈",
           "difficulty": "하"
         },
         {
-          "id": 43,
+          "id": 48,
           "question": "곱셈 결과가 가장 작은 식을 고르세요.",
           "concept": "곱셈 비교",
           "difficulty": "중"
         },
         {
-          "id": 44,
+          "id": 49,
           "question": "곱셈을 덧셈으로 바꾸어 생각하는 이유를 설명하세요.",
           "concept": "곱셈과 덧셈",
           "difficulty": "중"
         },
         {
-          "id": 45,
+          "id": 50,
           "question": "계산 결과가 같은 식끼리 짝지으세요.",
           "concept": "곱셈",
           "difficulty": "중"
         },
         {
-          "id": 46,
+          "id": 51,
           "question": "곱셈에서 자리 올림을 잘못 처리한 예를 고르세요.",
           "concept": "계산 오류",
           "difficulty": "중"
         },
         {
-          "id": 47,
+          "id": 52,
           "question": "계산 순서를 바꾸면 안 되는 이유를 설명하세요.",
           "concept": "계산 순서",
           "difficulty": "중"
         },
         {
-          "id": 48,
+          "id": 53,
           "question": "곱셈 결과의 크기를 미리 예상하는 이유를 쓰세요.",
           "concept": "곱셈 예상",
           "difficulty": "중"
         },
         {
-          "id": 49,
+          "id": 54,
           "question": "곱셈 실수를 줄이는 방법을 하나 고르세요.",
           "concept": "계산 오류",
           "difficulty": "중"
         },
         {
-          "id": 50,
+          "id": 55,
           "question": "이 단원에서 가장 중요한 점을 한 문장으로 쓰세요.",
           "concept": "곱셈",
           "difficulty": "중"
@@ -323,155 +359,158 @@
     },
     {
       "id": "3",
-      "name": "분수의 덧셈과 뺄셈",
-      "range": [51, 75],
+      "name": "3단원. 분수의 덧셈과 뺄셈",
+      "range": [
+        56,
+        80
+      ],
       "problems": [
         {
-          "id": 51,
+          "id": 56,
           "question": "분모가 같은 분수끼리 더할 수 있는 이유를 설명하세요.",
           "concept": "분수 덧셈",
           "difficulty": "중"
         },
         {
-          "id": 52,
+          "id": 57,
           "question": "2/7 + 3/7의 결과는 무엇입니까?",
           "concept": "분수 덧셈",
           "difficulty": "하"
         },
         {
-          "id": 53,
+          "id": 58,
           "question": "5/9 − 2/9의 결과는 무엇입니까?",
           "concept": "분수 뺄셈",
           "difficulty": "하"
         },
         {
-          "id": 54,
+          "id": 59,
           "question": "다음 중 계산 결과가 가장 큰 것을 고르세요. (① 1/5+3/5 ② 2/6+2/6 ③ 3/8+2/8)",
           "concept": "분수 덧셈 비교",
           "difficulty": "중"
         },
         {
-          "id": 55,
+          "id": 60,
           "question": "분모는 그대로 두고 분자만 계산하는 이유를 설명하세요.",
           "concept": "분수 계산",
           "difficulty": "중"
         },
         {
-          "id": 56,
+          "id": 61,
           "question": "6/10 − 4/10의 결과를 가장 간단히 나타내세요.",
           "concept": "분수 뺄셈, 약분",
           "difficulty": "중"
         },
         {
-          "id": 57,
+          "id": 62,
           "question": "계산 결과가 1이 되는 분수 덧셈식을 하나 고르세요.",
           "concept": "분수 덧셈",
           "difficulty": "중"
         },
         {
-          "id": 58,
+          "id": 63,
           "question": "계산 결과가 0이 되는 분수 뺄셈식을 하나 고르세요.",
           "concept": "분수 뺄셈",
           "difficulty": "중"
         },
         {
-          "id": 59,
+          "id": 64,
           "question": "분수 계산에서 가장 많이 하는 실수를 고르세요.",
           "concept": "분수 계산 오류",
           "difficulty": "중"
         },
         {
-          "id": 60,
+          "id": 65,
           "question": "분자만 더하면 안 되는 경우가 있는지 설명하세요.",
           "concept": "분수 계산",
           "difficulty": "중"
         },
         {
-          "id": 61,
+          "id": 66,
           "question": "같은 분모를 가진 분수의 크기 비교 방법을 쓰세요.",
           "concept": "분수 비교",
           "difficulty": "하"
         },
         {
-          "id": 62,
+          "id": 67,
           "question": "4/6과 5/6 중 더 큰 분수를 고르세요.",
           "concept": "분수 비교",
           "difficulty": "하"
         },
         {
-          "id": 63,
+          "id": 68,
           "question": "7/8 − 3/8의 계산 과정을 간단히 설명하세요.",
           "concept": "분수 뺄셈",
           "difficulty": "하"
         },
         {
-          "id": 64,
+          "id": 69,
           "question": "분수 덧셈 결과가 1보다 커질 수 있는지 설명하세요.",
           "concept": "분수 덧셈",
           "difficulty": "중"
         },
         {
-          "id": 65,
+          "id": 70,
           "question": "계산 결과를 그림으로 확인하는 이유를 쓰세요.",
           "concept": "분수 계산",
           "difficulty": "중"
         },
         {
-          "id": 66,
+          "id": 71,
           "question": "분수 계산에서 단위를 맞춘다는 말의 뜻을 설명하세요.",
           "concept": "분수 계산",
           "difficulty": "중"
         },
         {
-          "id": 67,
+          "id": 72,
           "question": "9/10 − 1/10을 쉽게 계산하는 방법을 쓰세요.",
           "concept": "계산 전략",
           "difficulty": "중"
         },
         {
-          "id": 68,
+          "id": 73,
           "question": "분수 계산 결과를 어림하는 방법을 하나 쓰세요.",
           "concept": "분수 계산 어림",
           "difficulty": "중"
         },
         {
-          "id": 69,
+          "id": 74,
           "question": "분수 덧셈과 뺄셈이 필요한 상황을 고르세요.",
           "concept": "분수 계산의 활용",
           "difficulty": "하"
         },
         {
-          "id": 70,
+          "id": 75,
           "question": "분수 계산을 잘못했을 때 생기는 문제를 하나 고르세요.",
           "concept": "분수 계산 오류",
           "difficulty": "중"
         },
         {
-          "id": 71,
+          "id": 76,
           "question": "같은 분모 분수 계산이 쉬운 이유를 설명하세요.",
           "concept": "분수 계산",
           "difficulty": "중"
         },
         {
-          "id": 72,
+          "id": 77,
           "question": "분자와 분모의 역할을 바꾸면 안 되는 이유를 설명하세요.",
           "concept": "분수의 성질",
           "difficulty": "중"
         },
         {
-          "id": 73,
+          "id": 78,
           "question": "계산 결과가 같은 분수 덧셈식 두 개를 고르세요.",
           "concept": "분수 덧셈",
           "difficulty": "중"
         },
         {
-          "id": 74,
+          "id": 79,
           "question": "분수 계산 실수를 줄이는 방법을 하나 고르세요.",
           "concept": "분수 계산 오류",
           "difficulty": "중"
         },
         {
-          "id": 75,
+          "id": 80,
           "question": "이 단원의 핵심을 한 문장으로 정리하세요.",
           "concept": "분수 계산",
           "difficulty": "중"
@@ -480,155 +519,158 @@
     },
     {
       "id": "4",
-      "name": "소수 (0.1, 0.01)",
-      "range": [76, 100],
+      "name": "4단원. 소수 (0.1, 0.01)",
+      "range": [
+        81,
+        105
+      ],
       "problems": [
         {
-          "id": 76,
+          "id": 81,
           "question": "소수점 아래 첫째 자리를 무엇이라 합니까?",
           "concept": "소수의 기초",
           "difficulty": "하"
         },
         {
-          "id": 77,
+          "id": 82,
           "question": "소수점 아래 둘째 자리를 무엇이라 합니까?",
           "concept": "소수의 기초",
           "difficulty": "하"
         },
         {
-          "id": 78,
+          "id": 83,
           "question": "0.3은 무엇을 뜻하는 수입니까?",
           "concept": "소수의 의미",
           "difficulty": "하"
         },
         {
-          "id": 79,
+          "id": 84,
           "question": "1을 10으로 나눈 값을 소수로 나타내세요.",
           "concept": "소수",
           "difficulty": "하"
         },
         {
-          "id": 80,
+          "id": 85,
           "question": "0.5와 0.50은 같은 수입니까? 이유를 고르세요.",
           "concept": "소수의 성질",
           "difficulty": "중"
         },
         {
-          "id": 81,
+          "id": 86,
           "question": "0.7과 0.07 중 더 큰 수를 고르세요.",
           "concept": "소수 비교",
           "difficulty": "중"
         },
         {
-          "id": 82,
+          "id": 87,
           "question": "소수에서 0의 역할을 설명하세요.",
           "concept": "소수, 0",
           "difficulty": "중"
         },
         {
-          "id": 83,
+          "id": 88,
           "question": "1보다 작은 소수의 조건을 쓰세요.",
           "concept": "소수의 성질",
           "difficulty": "하"
         },
         {
-          "id": 84,
+          "id": 89,
           "question": "0.1이 10개 모이면 얼마입니까?",
           "concept": "소수",
           "difficulty": "하"
         },
         {
-          "id": 85,
+          "id": 90,
           "question": "0.01이 100개 모이면 얼마입니까?",
           "concept": "소수",
           "difficulty": "중"
         },
         {
-          "id": 86,
+          "id": 91,
           "question": "소수를 분수로 생각하면 좋은 이유를 설명하세요.",
           "concept": "소수와 분수",
           "difficulty": "중"
         },
         {
-          "id": 87,
+          "id": 92,
           "question": "소수의 크기를 비교할 때 가장 먼저 보는 자리는 어디입니까?",
           "concept": "소수 비교",
           "difficulty": "하"
         },
         {
-          "id": 88,
+          "id": 93,
           "question": "0.4와 0.39 중 더 큰 수를 고르세요.",
           "concept": "소수 비교",
           "difficulty": "중"
         },
         {
-          "id": 89,
+          "id": 94,
           "question": "소수 크기 비교에서 실수하기 쉬운 예를 고르세요.",
           "concept": "소수 비교",
           "difficulty": "중"
         },
         {
-          "id": 90,
+          "id": 95,
           "question": "1.0과 1의 관계를 설명하세요.",
           "concept": "소수의 성질",
           "difficulty": "하"
         },
         {
-          "id": 91,
+          "id": 96,
           "question": "소수점을 옮기면 값이 달라지는 이유를 설명하세요.",
           "concept": "소수의 성질",
           "difficulty": "중"
         },
         {
-          "id": 92,
+          "id": 97,
           "question": "소수는 왜 필요한지 생활 예를 하나 고르세요.",
           "concept": "소수의 활용",
           "difficulty": "하"
         },
         {
-          "id": 93,
+          "id": 98,
           "question": "0.25를 분수로 생각하면 어떤 수입니까?",
           "concept": "소수와 분수",
           "difficulty": "중"
         },
         {
-          "id": 94,
+          "id": 99,
           "question": "소수점 아래 숫자가 많다고 항상 큰 이유는 없는 이유를 설명하세요.",
           "concept": "소수 비교",
           "difficulty": "중"
         },
         {
-          "id": 95,
+          "id": 100,
           "question": "0.9와 1 중 더 큰 수를 고르세요.",
           "concept": "소수 비교",
           "difficulty": "하"
         },
         {
-          "id": 96,
+          "id": 101,
           "question": "소수 비교를 쉽게 하는 방법을 하나 고르세요.",
           "concept": "소수 비교",
           "difficulty": "중"
         },
         {
-          "id": 97,
+          "id": 102,
           "question": "소수 계산에서 가장 중요한 점을 고르세요.",
           "concept": "소수 계산",
           "difficulty": "중"
         },
         {
-          "id": 98,
+          "id": 103,
           "question": "소수 단원이 없으면 불편한 점을 하나 쓰세요.",
           "concept": "소수",
           "difficulty": "중"
         },
         {
-          "id": 99,
+          "id": 104,
           "question": "소수를 잘못 읽었을 때 생길 수 있는 문제를 고르세요.",
           "concept": "소수",
           "difficulty": "중"
         },
         {
-          "id": 100,
+          "id": 105,
           "question": "소수 단원의 핵심을 한 문장으로 정리하세요.",
           "concept": "소수",
           "difficulty": "중"
@@ -636,10 +678,9 @@
       ]
     }
   ],
-  "note": "초등 4학년 1학기 기본 문제 은행 (Basics 4-1 OCR 기준) - 단원별 변형문제 100문제",
-  "created_date": "2026-01-09",
-  "source": "Basics_4-1_OCR.pdf",
-  "version": "1.0",
+  "note": "초등 4학년 1학기 기본 문제 은행 - 1단원은 문제유형(변형) 30문항으로 갱신, 기존 2~4단원은 유지",
+  "created_date": "2026-01-15",
+  "source": "UserProvided_4-1_ProblemType_Partial.txt + Existing_4-1_OCR.json",
+  "version": "2.0",
   "structure": "4개 단원으로 구성 (큰 수 (만, 십만 단위), 곱셈과 나눗셈 (2) – 세 자리 수 × 한 자리 수, 분수의 덧셈과 뺄셈, 소수 (0.1, 0.01))"
 }
-
