@@ -1291,6 +1291,7 @@ function handleSubmit(event) {
     
     // 제출 버튼 비활성화 (중복 클릭 방지)
     const submitButton = event.target.querySelector('button[type="submit"]') || document.querySelector('button[type="submit"]');
+    const originalButtonContent = submitButton ? submitButton.innerHTML : '';
     if (submitButton) {
         submitButton.disabled = true;
         submitButton.innerHTML = '<span class="btn-icon">⏳</span> 문제 생성 중...';
@@ -1369,12 +1370,20 @@ function handleSubmit(event) {
     if (formData.schoolLevel === 'elementary' && 
         ((formData.grade === 5 && formData.semester === 2) || (formData.grade === 6 && formData.semester === 2))) {
         alert('해당 학기는 개정으로 데이터가 없어 문제를 생성할 수 없습니다.');
+        if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.innerHTML = originalButtonContent || '문제 생성하기';
+        }
         return;
     }
     
     // 유효성 검사 (체크된 개수와 concepts 배열 길이 일치 확인)
     if (checkedCount === 0 || formData.concepts.length === 0) {
         alert('최소 1개 이상의 개념을 선택해주세요.');
+        if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.innerHTML = originalButtonContent || '문제 생성하기';
+        }
         return;
     }
     
@@ -1390,6 +1399,10 @@ function handleSubmit(event) {
     
     if (formData.mistakes.length === 0) {
         alert('최소 1개 이상의 틀린 이유를 선택해주세요.');
+        if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.innerHTML = originalButtonContent || '문제 생성하기';
+        }
         return;
     }
     
