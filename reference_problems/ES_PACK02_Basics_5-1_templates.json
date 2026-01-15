@@ -4,642 +4,210 @@
   "semester": 1,
   "unit": 1,
   "pdf_key": "5-1",
-  "title": "자연수의 혼합 계산, 약수와 배수, 분수의 덧셈과 뺄셈 (통분), 소수의 곱셈",
-  "total_problems": 100,
+  "title": "자연수의 혼합 계산, 약수와 배수, 분수의 덧셈과 뺄셈, 도형의 넓이, 자료의 표현과 해석",
+  "total_problems": 150,
   "categories": [
     {
       "id": "1",
-      "name": "자연수의 혼합 계산",
-      "range": [1, 25],
+      "name": "1단원. 자연수의 혼합 계산",
+      "range": [1, 30],
       "problems": [
-        {
-          "id": 1,
-          "question": "48 + 32 × 5의 계산 결과는 얼마입니까?",
-          "concept": "혼합 계산",
-          "difficulty": "중"
-        },
-        {
-          "id": 2,
-          "question": "120 − 20 ÷ 5의 계산 결과는 얼마입니까?",
-          "concept": "혼합 계산",
-          "difficulty": "중"
-        },
-        {
-          "id": 3,
-          "question": "다음 중 계산 순서가 바르게 적용된 식을 고르세요.",
-          "concept": "계산 순서",
-          "difficulty": "중"
-        },
-        {
-          "id": 4,
-          "question": "6 × 15 + 30을 계산할 때 먼저 계산해야 하는 부분은 어디입니까?",
-          "concept": "계산 순서",
-          "difficulty": "하"
-        },
-        {
-          "id": 5,
-          "question": "100 − 40 × 2의 계산 결과를 구하세요.",
-          "concept": "혼합 계산",
-          "difficulty": "중"
-        },
-        {
-          "id": 6,
-          "question": "혼합 계산에서 괄호를 사용해야 하는 이유를 고르세요.",
-          "concept": "괄호",
-          "difficulty": "중"
-        },
-        {
-          "id": 7,
-          "question": "(20 + 10) × 3과 20 + 10 × 3의 결과를 비교하세요.",
-          "concept": "괄호",
-          "difficulty": "중"
-        },
-        {
-          "id": 8,
-          "question": "계산 결과가 가장 큰 식을 고르세요.",
-          "concept": "혼합 계산 비교",
-          "difficulty": "중"
-        },
-        {
-          "id": 9,
-          "question": "계산 결과가 가장 작은 식을 고르세요.",
-          "concept": "혼합 계산 비교",
-          "difficulty": "중"
-        },
-        {
-          "id": 10,
-          "question": "혼합 계산에서 가장 많이 하는 실수를 하나 고르세요.",
-          "concept": "계산 오류",
-          "difficulty": "중"
-        },
-        {
-          "id": 11,
-          "question": "90 ÷ 3 + 12 × 2의 계산 결과는 얼마입니까?",
-          "concept": "혼합 계산",
-          "difficulty": "중"
-        },
-        {
-          "id": 12,
-          "question": "괄호를 사용해 계산 결과가 60이 되도록 식을 만드세요.",
-          "concept": "괄호",
-          "difficulty": "상"
-        },
-        {
-          "id": 13,
-          "question": "덧셈을 먼저 계산해야 하는 경우를 하나 고르세요.",
-          "concept": "계산 순서",
-          "difficulty": "중"
-        },
-        {
-          "id": 14,
-          "question": "곱셈을 먼저 계산해야 하는 경우를 하나 고르세요.",
-          "concept": "계산 순서",
-          "difficulty": "하"
-        },
-        {
-          "id": 15,
-          "question": "나눗셈을 먼저 계산해야 하는 경우를 하나 고르세요.",
-          "concept": "계산 순서",
-          "difficulty": "하"
-        },
-        {
-          "id": 16,
-          "question": "계산 순서를 바꾸면 안 되는 이유를 설명하세요.",
-          "concept": "계산 순서",
-          "difficulty": "중"
-        },
-        {
-          "id": 17,
-          "question": "혼합 계산 결과를 어림하여 판단하는 방법을 쓰세요.",
-          "concept": "혼합 계산 어림",
-          "difficulty": "중"
-        },
-        {
-          "id": 18,
-          "question": "계산 결과가 100보다 큰지 작은지 어림으로 판단하세요.",
-          "concept": "혼합 계산 어림",
-          "difficulty": "중"
-        },
-        {
-          "id": 19,
-          "question": "괄호 위치를 바꾸었을 때 결과가 달라지는 예를 고르세요.",
-          "concept": "괄호",
-          "difficulty": "중"
-        },
-        {
-          "id": 20,
-          "question": "혼합 계산이 필요한 생활 속 상황을 하나 고르세요.",
-          "concept": "혼합 계산의 활용",
-          "difficulty": "하"
-        },
-        {
-          "id": 21,
-          "question": "계산 결과를 검산하는 방법을 하나 고르세요.",
-          "concept": "검산",
-          "difficulty": "중"
-        },
-        {
-          "id": 22,
-          "question": "같은 숫자를 사용해 서로 다른 결과가 나오도록 식을 두 개 만드세요.",
-          "concept": "혼합 계산",
-          "difficulty": "상"
-        },
-        {
-          "id": 23,
-          "question": "계산 결과가 같은 서로 다른 혼합 계산식을 고르세요.",
-          "concept": "혼합 계산",
-          "difficulty": "상"
-        },
-        {
-          "id": 24,
-          "question": "혼합 계산에서 가장 중요한 규칙을 한 문장으로 쓰세요.",
-          "concept": "혼합 계산",
-          "difficulty": "중"
-        },
-        {
-          "id": 25,
-          "question": "이 단원의 핵심을 한 문장으로 정리하세요.",
-          "concept": "혼합 계산",
-          "difficulty": "중"
-        }
+        {"id": 1, "question": "8 + 12 × 3의 계산에서 먼저 해야 할 것은 무엇입니까?", "concept": "혼합 계산 · 계산 원리 이해", "difficulty": "하"},
+        {"id": 2, "question": "20 − 4 × 3의 값을 구하세요.", "concept": "혼합 계산 · 계산 원리 이해", "difficulty": "하"},
+        {"id": 3, "question": "18 ÷ 3 + 5의 값을 구하세요.", "concept": "혼합 계산 · 계산 원리 이해", "difficulty": "하"},
+        {"id": 4, "question": "6 × 5 − 10의 값을 구하세요.", "concept": "혼합 계산 · 계산 원리 이해", "difficulty": "하"},
+        {"id": 5, "question": "30 ÷ 5 × 4의 값을 구하세요.", "concept": "혼합 계산 · 계산 원리 이해", "difficulty": "하"},
+        {"id": 6, "question": "덧셈과 곱셈이 함께 있을 때 어떤 계산을 먼저 합니까?", "concept": "혼합 계산 · 계산 원리 이해", "difficulty": "하"},
+        {"id": 7, "question": "괄호가 있으면 계산 순서는 어떻게 됩니까?", "concept": "혼합 계산 · 계산 원리 이해", "difficulty": "하"},
+        {"id": 8, "question": "40 − (12 ÷ 3)의 값을 구하세요.", "concept": "혼합 계산 · 계산 원리 이해", "difficulty": "하"},
+        {"id": 9, "question": "(8 + 4) × 5의 값을 구하세요.", "concept": "혼합 계산 · 계산 원리 이해", "difficulty": "하"},
+        {"id": 10, "question": "계산 결과가 가장 큰 식을 고르세요.", "concept": "혼합 계산 · 계산 원리 이해", "difficulty": "하"},
+
+        {"id": 11, "question": "5 + 3 × 4와 (5 + 3) × 4의 결과는 같습니까? (O/X)", "concept": "혼합 계산 · 순서·비교", "difficulty": "중"},
+        {"id": 12, "question": "계산 결과가 20이 되는 식을 하나 쓰세요.", "concept": "혼합 계산 · 순서·비교", "difficulty": "중"},
+        {"id": 13, "question": "곱셈을 먼저 하면 결과가 커지는 이유를 한 단어로 쓰세요.", "concept": "혼합 계산 · 순서·비교", "difficulty": "중"},
+        {"id": 14, "question": "같은 수를 사용해 서로 다른 결과가 나오도록 식을 두 개 쓰세요.", "concept": "혼합 계산 · 순서·비교", "difficulty": "중"},
+        {"id": 15, "question": "계산 결과가 가장 작은 식을 고르세요.", "concept": "혼합 계산 · 순서·비교", "difficulty": "중"},
+        {"id": 16, "question": "100 − 20 ÷ 5의 값을 구하세요.", "concept": "혼합 계산 · 순서·비교", "difficulty": "중"},
+        {"id": 17, "question": "100 − (20 ÷ 5)의 값을 구하세요.", "concept": "혼합 계산 · 순서·비교", "difficulty": "중"},
+        {"id": 18, "question": "위 두 결과는 같습니다. (O/X)", "concept": "혼합 계산 · 순서·비교", "difficulty": "중"},
+        {"id": 19, "question": "괄호의 역할을 한 단어로 쓰세요.", "concept": "혼합 계산 · 순서·비교", "difficulty": "중"},
+        {"id": 20, "question": "계산 실수를 가장 많이 하는 이유를 하나 쓰세요.", "concept": "혼합 계산 · 순서·비교", "difficulty": "중"},
+
+        {"id": 21, "question": "계산 결과가 24가 되도록 식을 하나 만드세요.", "concept": "혼합 계산 · 사고력 응용", "difficulty": "상"},
+        {"id": 22, "question": "같은 숫자 3개로 계산 결과가 서로 다르게 나오게 하세요.", "concept": "혼합 계산 · 사고력 응용", "difficulty": "상"},
+        {"id": 23, "question": "곱셈을 나중에 하면 결과는 어떻게 되는지 쓰세요.", "concept": "혼합 계산 · 사고력 응용", "difficulty": "상"},
+        {"id": 24, "question": "계산 순서를 바꾸면 안 되는 이유를 쓰세요.", "concept": "혼합 계산 · 사고력 응용", "difficulty": "상"},
+        {"id": 25, "question": "사칙연산이 모두 들어간 식을 하나 쓰세요.", "concept": "혼합 계산 · 사고력 응용", "difficulty": "상"},
+        {"id": 26, "question": "계산 결과가 음수가 되지 않게 하세요.", "concept": "혼합 계산 · 사고력 응용", "difficulty": "상"},
+        {"id": 27, "question": "괄호를 넣지 않으면 틀리는 식을 하나 쓰세요.", "concept": "혼합 계산 · 사고력 응용", "difficulty": "상"},
+        {"id": 28, "question": "가장 먼저 계산해야 하는 연산을 쓰세요.", "concept": "혼합 계산 · 사고력 응용", "difficulty": "상"},
+        {"id": 29, "question": "계산 결과를 예측한 뒤 계산하세요.", "concept": "혼합 계산 · 사고력 응용", "difficulty": "상"},
+        {"id": 30, "question": "혼합 계산이 필요한 생활 상황을 하나 쓰세요.", "concept": "혼합 계산 · 사고력 응용", "difficulty": "상"}
       ]
     },
     {
       "id": "2",
-      "name": "약수와 배수",
-      "range": [26, 50],
+      "name": "2단원. 약수와 배수",
+      "range": [31, 60],
       "problems": [
-        {
-          "id": 26,
-          "question": "24의 약수 중 가장 큰 수는 무엇입니까?",
-          "concept": "약수",
-          "difficulty": "하"
-        },
-        {
-          "id": 27,
-          "question": "24의 약수 중 가장 작은 수는 무엇입니까?",
-          "concept": "약수",
-          "difficulty": "하"
-        },
-        {
-          "id": 28,
-          "question": "다음 중 18의 약수를 모두 고르세요.",
-          "concept": "약수",
-          "difficulty": "중"
-        },
-        {
-          "id": 29,
-          "question": "12의 배수를 하나 고르세요.",
-          "concept": "배수",
-          "difficulty": "하"
-        },
-        {
-          "id": 30,
-          "question": "어떤 수의 약수는 왜 항상 두 개씩 짝을 이룹니까?",
-          "concept": "약수의 성질",
-          "difficulty": "중"
-        },
-        {
-          "id": 31,
-          "question": "1은 모든 자연수의 어떤 수입니까?",
-          "concept": "약수",
-          "difficulty": "하"
-        },
-        {
-          "id": 32,
-          "question": "어떤 수가 다른 수의 배수인지 확인하는 방법을 고르세요.",
-          "concept": "배수",
-          "difficulty": "중"
-        },
-        {
-          "id": 33,
-          "question": "30의 약수 중 짝수는 몇 개입니까?",
-          "concept": "약수",
-          "difficulty": "중"
-        },
-        {
-          "id": 34,
-          "question": "15의 배수이면서 60보다 작은 수를 하나 고르세요.",
-          "concept": "배수",
-          "difficulty": "중"
-        },
-        {
-          "id": 35,
-          "question": "약수와 배수의 차이를 한 문장으로 설명하세요.",
-          "concept": "약수와 배수",
-          "difficulty": "중"
-        },
-        {
-          "id": 36,
-          "question": "24와 36의 공약수를 하나 고르세요.",
-          "concept": "공약수",
-          "difficulty": "중"
-        },
-        {
-          "id": 37,
-          "question": "6의 배수이면서 4의 배수인 수를 하나 고르세요.",
-          "concept": "공배수",
-          "difficulty": "중"
-        },
-        {
-          "id": 38,
-          "question": "어떤 수의 배수가 무한히 많은 이유를 설명하세요.",
-          "concept": "배수의 성질",
-          "difficulty": "중"
-        },
-        {
-          "id": 39,
-          "question": "어떤 수의 약수가 유한한 이유를 설명하세요.",
-          "concept": "약수의 성질",
-          "difficulty": "중"
-        },
-        {
-          "id": 40,
-          "question": "약수를 잘못 찾았을 때 생기는 문제를 고르세요.",
-          "concept": "약수 오류",
-          "difficulty": "중"
-        },
-        {
-          "id": 41,
-          "question": "배수를 잘못 판단했을 때 생기는 문제를 고르세요.",
-          "concept": "배수 오류",
-          "difficulty": "중"
-        },
-        {
-          "id": 42,
-          "question": "20보다 큰 5의 배수를 하나 고르세요.",
-          "concept": "배수",
-          "difficulty": "하"
-        },
-        {
-          "id": 43,
-          "question": "두 수의 공배수를 찾는 이유를 설명하세요.",
-          "concept": "공배수",
-          "difficulty": "중"
-        },
-        {
-          "id": 44,
-          "question": "공약수가 1뿐인 두 수를 무엇이라 합니까?",
-          "concept": "서로소",
-          "difficulty": "하"
-        },
-        {
-          "id": 45,
-          "question": "서로소의 뜻을 고르세요.",
-          "concept": "서로소",
-          "difficulty": "하"
-        },
-        {
-          "id": 46,
-          "question": "8과 12가 서로소가 아닌 이유를 설명하세요.",
-          "concept": "서로소",
-          "difficulty": "중"
-        },
-        {
-          "id": 47,
-          "question": "약수와 배수가 필요한 생활 속 상황을 하나 고르세요.",
-          "concept": "약수와 배수의 활용",
-          "difficulty": "하"
-        },
-        {
-          "id": 48,
-          "question": "1과 자기 자신만 약수로 가지는 수를 무엇이라 합니까?",
-          "concept": "소수",
-          "difficulty": "하"
-        },
-        {
-          "id": 49,
-          "question": "소수의 예를 하나 고르세요.",
-          "concept": "소수",
-          "difficulty": "하"
-        },
-        {
-          "id": 50,
-          "question": "이 단원의 핵심을 한 문장으로 정리하세요.",
-          "concept": "약수와 배수",
-          "difficulty": "중"
-        }
+        {"id": 31, "question": "12의 약수를 모두 쓰세요.", "concept": "약수와 배수 · 개념 이해", "difficulty": "하"},
+        {"id": 32, "question": "15의 약수를 모두 쓰세요.", "concept": "약수와 배수 · 개념 이해", "difficulty": "하"},
+        {"id": 33, "question": "6의 배수를 3개 쓰세요.", "concept": "약수와 배수 · 개념 이해", "difficulty": "하"},
+        {"id": 34, "question": "어떤 수의 약수에는 반드시 1이 포함됩니다. (O/X)", "concept": "약수와 배수 · 개념 이해", "difficulty": "하"},
+        {"id": 35, "question": "어떤 수의 배수는 끝이 있습니까? (O/X)", "concept": "약수와 배수 · 개념 이해", "difficulty": "하"},
+        {"id": 36, "question": "약수의 개수가 2개인 수를 무엇이라 합니까?", "concept": "약수와 배수 · 개념 이해", "difficulty": "하"},
+        {"id": 37, "question": "1은 모든 수의 약수입니다. (O/X)", "concept": "약수와 배수 · 개념 이해", "difficulty": "하"},
+        {"id": 38, "question": "20의 배수를 하나 쓰세요.", "concept": "약수와 배수 · 개념 이해", "difficulty": "하"},
+        {"id": 39, "question": "10의 약수 중 가장 큰 수는?", "concept": "약수와 배수 · 개념 이해", "difficulty": "하"},
+        {"id": 40, "question": "배수의 의미를 한 단어로 쓰세요.", "concept": "약수와 배수 · 개념 이해", "difficulty": "하"},
+
+        {"id": 41, "question": "12와 18의 공약수를 모두 쓰세요.", "concept": "약수와 배수 · 공약수·공배수", "difficulty": "중"},
+        {"id": 42, "question": "8과 12의 최대공약수를 구하세요.", "concept": "약수와 배수 · 공약수·공배수", "difficulty": "중"},
+        {"id": 43, "question": "6과 9의 공배수를 하나 쓰세요.", "concept": "약수와 배수 · 공약수·공배수", "difficulty": "중"},
+        {"id": 44, "question": "4와 10의 최소공배수를 구하세요.", "concept": "약수와 배수 · 공약수·공배수", "difficulty": "중"},
+        {"id": 45, "question": "공약수가 1뿐인 두 수를 무엇이라 합니까?", "concept": "약수와 배수 · 공약수·공배수", "difficulty": "중"},
+        {"id": 46, "question": "9와 16은 서로소입니까? (O/X)", "concept": "약수와 배수 · 공약수·공배수", "difficulty": "중"},
+        {"id": 47, "question": "15와 20의 최대공약수를 구하세요.", "concept": "약수와 배수 · 공약수·공배수", "difficulty": "중"},
+        {"id": 48, "question": "6과 8의 최소공배수를 구하세요.", "concept": "약수와 배수 · 공약수·공배수", "difficulty": "중"},
+        {"id": 49, "question": "공배수는 무한히 많습니다. (O/X)", "concept": "약수와 배수 · 공약수·공배수", "difficulty": "중"},
+        {"id": 50, "question": "최대공약수는 무엇을 의미합니까?", "concept": "약수와 배수 · 공약수·공배수", "difficulty": "중"},
+
+        {"id": 51, "question": "30보다 작은 6의 배수를 모두 쓰세요.", "concept": "약수와 배수 · 사고력 응용", "difficulty": "상"},
+        {"id": 52, "question": "약수의 개수가 가장 많은 수를 고르세요.", "concept": "약수와 배수 · 사고력 응용", "difficulty": "상"},
+        {"id": 53, "question": "배수이면서 약수인 수가 있을 수 있습니까? (O/X)", "concept": "약수와 배수 · 사고력 응용", "difficulty": "상"},
+        {"id": 54, "question": "두 수의 공약수가 많을수록 어떤 점이 있습니까?", "concept": "약수와 배수 · 사고력 응용", "difficulty": "상"},
+        {"id": 55, "question": "최소공배수가 필요한 상황을 하나 쓰세요.", "concept": "약수와 배수 · 사고력 응용", "difficulty": "상"},
+        {"id": 56, "question": "최대공약수가 1이면 항상 서로소입니까? (O/X)", "concept": "약수와 배수 · 사고력 응용", "difficulty": "상"},
+        {"id": 57, "question": "1과 어떤 수의 최소공배수는 얼마입니까?", "concept": "약수와 배수 · 사고력 응용", "difficulty": "상"},
+        {"id": 58, "question": "12와 □의 최대공약수가 6이 되게 하는 □를 하나 쓰세요.", "concept": "약수와 배수 · 사고력 응용", "difficulty": "상"},
+        {"id": 59, "question": "약수와 배수의 가장 큰 차이를 쓰세요.", "concept": "약수와 배수 · 사고력 응용", "difficulty": "상"},
+        {"id": 60, "question": "약수·배수 개념이 필요한 이유를 쓰세요.", "concept": "약수와 배수 · 사고력 응용", "difficulty": "상"}
       ]
     },
     {
       "id": "3",
-      "name": "분수의 덧셈과 뺄셈 (통분)",
-      "range": [51, 75],
+      "name": "3단원. 분수의 덧셈과 뺄셈",
+      "range": [61, 90],
       "problems": [
-        {
-          "id": 51,
-          "question": "분모가 다른 분수를 더하기 전에 해야 할 일은 무엇입니까?",
-          "concept": "통분",
-          "difficulty": "하"
-        },
-        {
-          "id": 52,
-          "question": "1/3 + 1/6을 계산하기 위해 통분해야 하는 이유를 설명하세요.",
-          "concept": "통분",
-          "difficulty": "중"
-        },
-        {
-          "id": 53,
-          "question": "2/5 + 3/10의 결과는 얼마입니까?",
-          "concept": "분수 덧셈",
-          "difficulty": "중"
-        },
-        {
-          "id": 54,
-          "question": "7/8 − 3/4의 결과는 얼마입니까?",
-          "concept": "분수 뺄셈",
-          "difficulty": "중"
-        },
-        {
-          "id": 55,
-          "question": "다음 중 통분이 바르게 된 것을 고르세요.",
-          "concept": "통분",
-          "difficulty": "중"
-        },
-        {
-          "id": 56,
-          "question": "공통분모를 만드는 기준을 고르세요.",
-          "concept": "통분",
-          "difficulty": "중"
-        },
-        {
-          "id": 57,
-          "question": "통분 후 분모를 바꾸면 안 되는 이유를 설명하세요.",
-          "concept": "통분",
-          "difficulty": "중"
-        },
-        {
-          "id": 58,
-          "question": "계산 결과가 1이 되는 분수 덧셈식을 하나 고르세요.",
-          "concept": "분수 덧셈",
-          "difficulty": "중"
-        },
-        {
-          "id": 59,
-          "question": "계산 결과가 0보다 큰 분수 뺄셈식을 하나 고르세요.",
-          "concept": "분수 뺄셈",
-          "difficulty": "중"
-        },
-        {
-          "id": 60,
-          "question": "분수 계산에서 가장 많이 하는 실수를 고르세요.",
-          "concept": "분수 계산 오류",
-          "difficulty": "중"
-        },
-        {
-          "id": 61,
-          "question": "통분을 하지 않고 계산하면 왜 틀리는지 설명하세요.",
-          "concept": "통분",
-          "difficulty": "중"
-        },
-        {
-          "id": 62,
-          "question": "3/4와 5/6 중 더 큰 분수를 판단하는 방법을 쓰세요.",
-          "concept": "분수 비교",
-          "difficulty": "중"
-        },
-        {
-          "id": 63,
-          "question": "통분 후 계산 결과를 약분해야 하는 이유를 고르세요.",
-          "concept": "약분",
-          "difficulty": "중"
-        },
-        {
-          "id": 64,
-          "question": "약분하지 않으면 생기는 문제를 하나 고르세요.",
-          "concept": "약분",
-          "difficulty": "중"
-        },
-        {
-          "id": 65,
-          "question": "분수 덧셈 결과를 어림하는 방법을 쓰세요.",
-          "concept": "분수 계산 어림",
-          "difficulty": "중"
-        },
-        {
-          "id": 66,
-          "question": "분수 뺄셈 결과가 음수가 될 수 없는 이유를 설명하세요.",
-          "concept": "분수 뺄셈",
-          "difficulty": "중"
-        },
-        {
-          "id": 67,
-          "question": "분수 계산을 그림으로 확인하면 좋은 이유를 쓰세요.",
-          "concept": "분수 계산",
-          "difficulty": "중"
-        },
-        {
-          "id": 68,
-          "question": "통분이 필요한 상황을 하나 고르세요.",
-          "concept": "통분",
-          "difficulty": "하"
-        },
-        {
-          "id": 69,
-          "question": "분모가 클수록 좋은 점과 불편한 점을 각각 하나씩 쓰세요.",
-          "concept": "통분",
-          "difficulty": "중"
-        },
-        {
-          "id": 70,
-          "question": "분수 계산 실수를 줄이는 방법을 하나 고르세요.",
-          "concept": "분수 계산 오류",
-          "difficulty": "중"
-        },
-        {
-          "id": 71,
-          "question": "계산 결과가 같은 서로 다른 분수 덧셈식을 고르세요.",
-          "concept": "분수 덧셈",
-          "difficulty": "상"
-        },
-        {
-          "id": 72,
-          "question": "통분 후 분자의 변화만 계산하는 이유를 설명하세요.",
-          "concept": "통분",
-          "difficulty": "중"
-        },
-        {
-          "id": 73,
-          "question": "분수 덧셈과 뺄셈의 공통점을 쓰세요.",
-          "concept": "분수 계산",
-          "difficulty": "중"
-        },
-        {
-          "id": 74,
-          "question": "이 단원이 필요한 이유를 한 문장으로 쓰세요.",
-          "concept": "분수 계산",
-          "difficulty": "중"
-        },
-        {
-          "id": 75,
-          "question": "이 단원의 핵심을 한 문장으로 정리하세요.",
-          "concept": "분수 계산",
-          "difficulty": "중"
-        }
+        {"id": 61, "question": "3/7 + 2/7의 값을 구하세요.", "concept": "분수의 덧셈과 뺄셈 · 분모 같은 경우", "difficulty": "하"},
+        {"id": 62, "question": "6/9 − 2/9의 값을 구하세요.", "concept": "분수의 덧셈과 뺄셈 · 분모 같은 경우", "difficulty": "하"},
+        {"id": 63, "question": "5/8 + 1/8의 값을 구하세요.", "concept": "분수의 덧셈과 뺄셈 · 분모 같은 경우", "difficulty": "하"},
+        {"id": 64, "question": "9/10 − 3/10의 값을 구하세요.", "concept": "분수의 덧셈과 뺄셈 · 분모 같은 경우", "difficulty": "하"},
+        {"id": 65, "question": "4/11 + 7/11의 값을 구하세요.", "concept": "분수의 덧셈과 뺄셈 · 분모 같은 경우", "difficulty": "하"},
+        {"id": 66, "question": "10/12 − 5/12의 값을 구하세요.", "concept": "분수의 덧셈과 뺄셈 · 분모 같은 경우", "difficulty": "하"},
+        {"id": 67, "question": "분모가 같을 때 계산 방법을 한 단어로 쓰세요.", "concept": "분수의 덧셈과 뺄셈 · 분모 같은 경우", "difficulty": "하"},
+        {"id": 68, "question": "계산 결과가 1이 되는 식을 하나 쓰세요.", "concept": "분수의 덧셈과 뺄셈 · 분모 같은 경우", "difficulty": "하"},
+        {"id": 69, "question": "결과가 1보다 큰 식을 하나 쓰세요.", "concept": "분수의 덧셈과 뺄셈 · 분모 같은 경우", "difficulty": "하"},
+        {"id": 70, "question": "계산 결과를 약분하세요.", "concept": "분수의 덧셈과 뺄셈 · 분모 같은 경우", "difficulty": "하"},
+
+        {"id": 71, "question": "1/2 + 1/3의 값을 구하세요.", "concept": "분수의 덧셈과 뺄셈 · 분모 다른 경우", "difficulty": "중"},
+        {"id": 72, "question": "3/4 − 1/2의 값을 구하세요.", "concept": "분수의 덧셈과 뺄셈 · 분모 다른 경우", "difficulty": "중"},
+        {"id": 73, "question": "2/5 + 3/10의 값을 구하세요.", "concept": "분수의 덧셈과 뺄셈 · 분모 다른 경우", "difficulty": "중"},
+        {"id": 74, "question": "5/6 − 1/3의 값을 구하세요.", "concept": "분수의 덧셈과 뺄셈 · 분모 다른 경우", "difficulty": "중"},
+        {"id": 75, "question": "분모를 같게 하는 이유를 쓰세요.", "concept": "분수의 덧셈과 뺄셈 · 분모 다른 경우", "difficulty": "중"},
+        {"id": 76, "question": "통분이 필요 없는 경우를 하나 쓰세요.", "concept": "분수의 덧셈과 뺄셈 · 분모 다른 경우", "difficulty": "중"},
+        {"id": 77, "question": "결과가 가장 큰 식을 고르세요.", "concept": "분수의 덧셈과 뺄셈 · 분모 다른 경우", "difficulty": "중"},
+        {"id": 78, "question": "결과가 가장 작은 식을 고르세요.", "concept": "분수의 덧셈과 뺄셈 · 분모 다른 경우", "difficulty": "중"},
+        {"id": 79, "question": "분모가 다른 분수의 비교 방법을 쓰세요.", "concept": "분수의 덧셈과 뺄셈 · 분모 다른 경우", "difficulty": "중"},
+        {"id": 80, "question": "계산 결과를 가장 간단히 나타내세요.", "concept": "분수의 덧셈과 뺄셈 · 분모 다른 경우", "difficulty": "중"},
+
+        {"id": 81, "question": "합이 1이 되는 분수 두 개를 쓰세요.", "concept": "분수의 덧셈과 뺄셈 · 사고력 응용", "difficulty": "상"},
+        {"id": 82, "question": "차가 1/2가 되는 식을 하나 쓰세요.", "concept": "분수의 덧셈과 뺄셈 · 사고력 응용", "difficulty": "상"},
+        {"id": 83, "question": "1보다 큰 결과가 나오도록 식을 만드세요.", "concept": "분수의 덧셈과 뺄셈 · 사고력 응용", "difficulty": "상"},
+        {"id": 84, "question": "분수 계산이 필요한 상황을 하나 쓰세요.", "concept": "분수의 덧셈과 뺄셈 · 사고력 응용", "difficulty": "상"},
+        {"id": 85, "question": "같은 값을 가지는 서로 다른 분수 두 개를 쓰세요.", "concept": "분수의 덧셈과 뺄셈 · 사고력 응용", "difficulty": "상"},
+        {"id": 86, "question": "분수 계산에서 실수가 생기는 이유를 쓰세요.", "concept": "분수의 덧셈과 뺄셈 · 사고력 응용", "difficulty": "상"},
+        {"id": 87, "question": "덧셈과 뺄셈 중 결과가 더 커지는 것은 언제입니까?", "concept": "분수의 덧셈과 뺄셈 · 사고력 응용", "difficulty": "상"},
+        {"id": 88, "question": "대분수가 나오는 식을 하나 쓰세요.", "concept": "분수의 덧셈과 뺄셈 · 사고력 응용", "difficulty": "상"},
+        {"id": 89, "question": "분수 계산을 자연수 계산과 비교해 쓰세요.", "concept": "분수의 덧셈과 뺄셈 · 사고력 응용", "difficulty": "상"},
+        {"id": 90, "question": "분수 계산의 핵심을 한 단어로 쓰세요.", "concept": "분수의 덧셈과 뺄셈 · 사고력 응용", "difficulty": "상"}
       ]
     },
     {
       "id": "4",
-      "name": "소수의 곱셈",
-      "range": [76, 100],
+      "name": "4단원. 도형의 넓이",
+      "range": [91, 120],
       "problems": [
-        {
-          "id": 76,
-          "question": "0.3 × 4는 무엇을 의미하는 계산입니까?",
-          "concept": "소수 곱셈",
-          "difficulty": "하"
-        },
-        {
-          "id": 77,
-          "question": "0.5 × 6의 결과는 얼마입니까?",
-          "concept": "소수 곱셈",
-          "difficulty": "하"
-        },
-        {
-          "id": 78,
-          "question": "소수 곱셈에서 소수점을 나중에 찍는 이유를 설명하세요.",
-          "concept": "소수 곱셈",
-          "difficulty": "중"
-        },
-        {
-          "id": 79,
-          "question": "0.2 × 0.4의 결과가 0.08인 이유를 설명하세요.",
-          "concept": "소수 곱셈",
-          "difficulty": "중"
-        },
-        {
-          "id": 80,
-          "question": "다음 중 결과가 가장 큰 식을 고르세요.",
-          "concept": "소수 곱셈 비교",
-          "difficulty": "중"
-        },
-        {
-          "id": 81,
-          "question": "소수 곱셈 결과가 1보다 작아지는 조건을 고르세요.",
-          "concept": "소수 곱셈",
-          "difficulty": "중"
-        },
-        {
-          "id": 82,
-          "question": "소수 곱셈 결과가 커지는 경우를 고르세요.",
-          "concept": "소수 곱셈",
-          "difficulty": "중"
-        },
-        {
-          "id": 83,
-          "question": "1을 곱했을 때 값이 변하지 않는 이유를 설명하세요.",
-          "concept": "소수 곱셈의 성질",
-          "difficulty": "하"
-        },
-        {
-          "id": 84,
-          "question": "0을 곱했을 때 결과가 0이 되는 이유를 설명하세요.",
-          "concept": "소수 곱셈의 성질",
-          "difficulty": "하"
-        },
-        {
-          "id": 85,
-          "question": "0.6 × 10의 계산 결과를 빠르게 구하세요.",
-          "concept": "소수 곱셈",
-          "difficulty": "하"
-        },
-        {
-          "id": 86,
-          "question": "소수점 자릿수를 세는 방법을 설명하세요.",
-          "concept": "소수 곱셈",
-          "difficulty": "중"
-        },
-        {
-          "id": 87,
-          "question": "소수 곱셈에서 가장 많이 하는 실수를 고르세요.",
-          "concept": "소수 곱셈 오류",
-          "difficulty": "중"
-        },
-        {
-          "id": 88,
-          "question": "계산 결과를 어림으로 먼저 판단해야 하는 이유를 설명하세요.",
-          "concept": "소수 곱셈 어림",
-          "difficulty": "중"
-        },
-        {
-          "id": 89,
-          "question": "0.25 × 4를 계산하지 않고 결과를 예측하세요.",
-          "concept": "소수 곱셈 예상",
-          "difficulty": "중"
-        },
-        {
-          "id": 90,
-          "question": "소수 곱셈 결과를 분수로 생각하면 쉬운 이유를 설명하세요.",
-          "concept": "소수와 분수",
-          "difficulty": "중"
-        },
-        {
-          "id": 91,
-          "question": "같은 결과가 되는 소수 곱셈식을 두 개 고르세요.",
-          "concept": "소수 곱셈",
-          "difficulty": "중"
-        },
-        {
-          "id": 92,
-          "question": "소수 곱셈이 필요한 생활 속 상황을 하나 고르세요.",
-          "concept": "소수 곱셈의 활용",
-          "difficulty": "하"
-        },
-        {
-          "id": 93,
-          "question": "소수 곱셈에서 10, 100을 곱하면 생기는 변화를 설명하세요.",
-          "concept": "소수 곱셈의 성질",
-          "difficulty": "중"
-        },
-        {
-          "id": 94,
-          "question": "소수점 위치를 잘못 찍었을 때 생기는 문제를 고르세요.",
-          "concept": "소수 곱셈 오류",
-          "difficulty": "중"
-        },
-        {
-          "id": 95,
-          "question": "0.9 × 0.9의 결과가 0.9보다 작은 이유를 설명하세요.",
-          "concept": "소수 곱셈",
-          "difficulty": "중"
-        },
-        {
-          "id": 96,
-          "question": "소수 곱셈 결과를 검산하는 방법을 하나 고르세요.",
-          "concept": "검산",
-          "difficulty": "중"
-        },
-        {
-          "id": 97,
-          "question": "소수 곱셈이 자연수 곱셈과 다른 점을 쓰세요.",
-          "concept": "소수 곱셈",
-          "difficulty": "중"
-        },
-        {
-          "id": 98,
-          "question": "소수 곱셈 실수를 줄이는 방법을 하나 고르세요.",
-          "concept": "소수 곱셈 오류",
-          "difficulty": "중"
-        },
-        {
-          "id": 99,
-          "question": "소수 곱셈 단원이 없으면 불편한 점을 하나 쓰세요.",
-          "concept": "소수 곱셈",
-          "difficulty": "중"
-        },
-        {
-          "id": 100,
-          "question": "이 단원의 핵심을 한 문장으로 정리하세요.",
-          "concept": "소수 곱셈",
-          "difficulty": "중"
-        }
+        {"id": 91, "question": "직사각형의 넓이를 구하는 식을 쓰세요.", "concept": "도형의 넓이 · 기본 개념", "difficulty": "하"},
+        {"id": 92, "question": "가로 8cm, 세로 5cm인 직사각형의 넓이는?", "concept": "도형의 넓이 · 기본 개념", "difficulty": "하"},
+        {"id": 93, "question": "한 변이 6cm인 정사각형의 넓이는?", "concept": "도형의 넓이 · 기본 개념", "difficulty": "하"},
+        {"id": 94, "question": "넓이의 단위를 쓰세요.", "concept": "도형의 넓이 · 기본 개념", "difficulty": "하"},
+        {"id": 95, "question": "가로를 2배로 하면 넓이는 어떻게 됩니까?", "concept": "도형의 넓이 · 기본 개념", "difficulty": "하"},
+        {"id": 96, "question": "세로를 절반으로 하면 넓이는 어떻게 됩니까?", "concept": "도형의 넓이 · 기본 개념", "difficulty": "하"},
+        {"id": 97, "question": "넓이는 무엇을 나타냅니까?", "concept": "도형의 넓이 · 기본 개념", "difficulty": "하"},
+        {"id": 98, "question": "둘레와 넓이의 차이를 쓰세요.", "concept": "도형의 넓이 · 기본 개념", "difficulty": "하"},
+        {"id": 99, "question": "넓이가 같은 두 직사각형이 있을 수 있습니까? (O/X)", "concept": "도형의 넓이 · 기본 개념", "difficulty": "하"},
+        {"id": 100, "question": "정사각형이 넓이를 구하기 쉬운 이유를 쓰세요.", "concept": "도형의 넓이 · 기본 개념", "difficulty": "하"},
+
+        {"id": 101, "question": "넓이가 36㎠인 직사각형을 하나 쓰세요.", "concept": "도형의 넓이 · 수치 추론", "difficulty": "중"},
+        {"id": 102, "question": "넓이가 48㎠이고 가로가 6cm일 때 세로는?", "concept": "도형의 넓이 · 수치 추론", "difficulty": "중"},
+        {"id": 103, "question": "넓이가 64㎠인 정사각형의 한 변의 길이는?", "concept": "도형의 넓이 · 수치 추론", "difficulty": "중"},
+        {"id": 104, "question": "넓이가 같은 도형을 두 가지 쓰세요.", "concept": "도형의 넓이 · 수치 추론", "difficulty": "중"},
+        {"id": 105, "question": "가로와 세로가 모두 자연수인 경우만 쓰세요.", "concept": "도형의 넓이 · 수치 추론", "difficulty": "중"},
+        {"id": 106, "question": "넓이가 가장 큰 경우를 고르세요.", "concept": "도형의 넓이 · 수치 추론", "difficulty": "중"},
+        {"id": 107, "question": "넓이를 비교할 때 중요한 기준을 쓰세요.", "concept": "도형의 넓이 · 수치 추론", "difficulty": "중"},
+        {"id": 108, "question": "넓이가 변하지 않게 바꾸는 방법을 쓰세요.", "concept": "도형의 넓이 · 수치 추론", "difficulty": "중"},
+        {"id": 109, "question": "가로·세로 중 하나만 알 때 넓이를 구할 수 있습니까? (O/X)", "concept": "도형의 넓이 · 수치 추론", "difficulty": "중"},
+        {"id": 110, "question": "넓이 계산이 필요한 상황을 하나 쓰세요.", "concept": "도형의 넓이 · 수치 추론", "difficulty": "중"},
+
+        {"id": 111, "question": "넓이가 1㎠ 늘어나려면 무엇이 바뀌어야 합니까?", "concept": "도형의 넓이 · 사고력 응용", "difficulty": "상"},
+        {"id": 112, "question": "둘레는 같지만 넓이가 다른 경우를 설명하세요.", "concept": "도형의 넓이 · 사고력 응용", "difficulty": "상"},
+        {"id": 113, "question": "넓이가 100㎠가 되게 하세요.", "concept": "도형의 넓이 · 사고력 응용", "difficulty": "상"},
+        {"id": 114, "question": "가장 효율적인 모양을 한 단어로 쓰세요.", "concept": "도형의 넓이 · 사고력 응용", "difficulty": "상"},
+        {"id": 115, "question": "정사각형과 직사각형의 공통점을 쓰세요.", "concept": "도형의 넓이 · 사고력 응용", "difficulty": "상"},
+        {"id": 116, "question": "넓이가 0이 되는 경우가 있습니까? (O/X)", "concept": "도형의 넓이 · 사고력 응용", "difficulty": "상"},
+        {"id": 117, "question": "넓이를 곱셈으로 구하는 이유를 쓰세요.", "concept": "도형의 넓이 · 사고력 응용", "difficulty": "상"},
+        {"id": 118, "question": "넓이 개념이 중요한 이유를 쓰세요.", "concept": "도형의 넓이 · 사고력 응용", "difficulty": "상"},
+        {"id": 119, "question": "넓이를 비교할 때 실수가 생기는 이유를 쓰세요.", "concept": "도형의 넓이 · 사고력 응용", "difficulty": "상"},
+        {"id": 120, "question": "넓이 단원이 어려운 이유를 쓰세요.", "concept": "도형의 넓이 · 사고력 응용", "difficulty": "상"}
+      ]
+    },
+    {
+      "id": "5",
+      "name": "5단원. 자료의 표현과 해석",
+      "range": [121, 150],
+      "problems": [
+        {"id": 121, "question": "자료를 정리하는 이유를 쓰세요.", "concept": "자료의 표현과 해석 · 자료 이해", "difficulty": "하"},
+        {"id": 122, "question": "가장 많은 값을 가진 항목을 무엇이라 합니까?", "concept": "자료의 표현과 해석 · 자료 이해", "difficulty": "하"},
+        {"id": 123, "question": "가장 적은 값을 가진 항목을 무엇이라 합니까?", "concept": "자료의 표현과 해석 · 자료 이해", "difficulty": "하"},
+        {"id": 124, "question": "평균의 의미를 한 단어로 쓰세요.", "concept": "자료의 표현과 해석 · 자료 이해", "difficulty": "하"},
+        {"id": 125, "question": "평균보다 큰 값은 몇 개입니까?", "concept": "자료의 표현과 해석 · 자료 이해", "difficulty": "하"},
+        {"id": 126, "question": "평균보다 작은 값은 몇 개입니까?", "concept": "자료의 표현과 해석 · 자료 이해", "difficulty": "하"},
+        {"id": 127, "question": "값이 같은 항목이 있습니까? (O/X)", "concept": "자료의 표현과 해석 · 자료 이해", "difficulty": "하"},
+        {"id": 128, "question": "자료의 단위가 중요한 이유를 쓰세요.", "concept": "자료의 표현과 해석 · 자료 이해", "difficulty": "하"},
+        {"id": 129, "question": "전체 합을 구하는 이유를 쓰세요.", "concept": "자료의 표현과 해석 · 자료 이해", "difficulty": "하"},
+        {"id": 130, "question": "자료에서 알 수 없는 것을 하나 쓰세요.", "concept": "자료의 표현과 해석 · 자료 이해", "difficulty": "하"},
+
+        {"id": 131, "question": "가장 차이가 큰 두 값을 고르세요.", "concept": "자료의 표현과 해석 · 비교·판단", "difficulty": "중"},
+        {"id": 132, "question": "변화가 없는 항목을 쓰세요.", "concept": "자료의 표현과 해석 · 비교·판단", "difficulty": "중"},
+        {"id": 133, "question": "가장 안정적인 항목을 쓰세요.", "concept": "자료의 표현과 해석 · 비교·판단", "difficulty": "중"},
+        {"id": 134, "question": "평균이 실제를 항상 잘 나타냅니까? (O/X)", "concept": "자료의 표현과 해석 · 비교·판단", "difficulty": "중"},
+        {"id": 135, "question": "평균이 같아도 분포는 다를 수 있습니까? (O/X)", "concept": "자료의 표현과 해석 · 비교·판단", "difficulty": "중"},
+        {"id": 136, "question": "값의 차이가 클수록 무엇이 커집니까?", "concept": "자료의 표현과 해석 · 비교·판단", "difficulty": "중"},
+        {"id": 137, "question": "자료를 줄이면 좋은 점을 쓰세요.", "concept": "자료의 표현과 해석 · 비교·판단", "difficulty": "중"},
+        {"id": 138, "question": "자료를 늘리면 생기는 문제를 쓰세요.", "concept": "자료의 표현과 해석 · 비교·판단", "difficulty": "중"},
+        {"id": 139, "question": "비교하기 쉬운 자료의 조건을 쓰세요.", "concept": "자료의 표현과 해석 · 비교·판단", "difficulty": "중"},
+        {"id": 140, "question": "자료 해석에서 주의할 점을 쓰세요.", "concept": "자료의 표현과 해석 · 비교·판단", "difficulty": "중"},
+
+        {"id": 141, "question": "평균만 보고 판단하면 안 되는 이유를 쓰세요.", "concept": "자료의 표현과 해석 · 사고력 응용", "difficulty": "상"},
+        {"id": 142, "question": "자료 해석이 필요한 생활 예를 쓰세요.", "concept": "자료의 표현과 해석 · 사고력 응용", "difficulty": "상"},
+        {"id": 143, "question": "같은 평균을 가진 다른 자료를 생각해 보세요.", "concept": "자료의 표현과 해석 · 사고력 응용", "difficulty": "상"},
+        {"id": 144, "question": "극단값이 평균에 미치는 영향을 쓰세요.", "concept": "자료의 표현과 해석 · 사고력 응용", "difficulty": "상"},
+        {"id": 145, "question": "자료를 잘못 해석한 예를 하나 쓰세요.", "concept": "자료의 표현과 해석 · 사고력 응용", "difficulty": "상"},
+        {"id": 146, "question": "평균 대신 다른 기준을 쓰는 경우를 쓰세요.", "concept": "자료의 표현과 해석 · 사고력 응용", "difficulty": "상"},
+        {"id": 147, "question": "자료 해석의 핵심을 한 단어로 쓰세요.", "concept": "자료의 표현과 해석 · 사고력 응용", "difficulty": "상"},
+        {"id": 148, "question": "자료의 신뢰도를 판단하는 기준을 쓰세요.", "concept": "자료의 표현과 해석 · 사고력 응용", "difficulty": "상"},
+        {"id": 149, "question": "자료를 한 문장으로 요약하세요.", "concept": "자료의 표현과 해석 · 사고력 응용", "difficulty": "상"},
+        {"id": 150, "question": "자료를 정리하는 가장 큰 목적을 쓰세요.", "concept": "자료의 표현과 해석 · 사고력 응용", "difficulty": "상"}
       ]
     }
   ],
-  "note": "초등 5학년 1학기 기본 문제 은행 (Basics 5-1 OCR 기준) - 단원별 변형문제 100문제",
-  "created_date": "2026-01-09",
-  "source": "Basics_5-1_OCR.pdf",
-  "version": "1.0",
-  "structure": "4개 단원으로 구성 (자연수의 혼합 계산, 약수와 배수, 분수의 덧셈과 뺄셈 (통분), 소수의 곱셈)"
+  "note": "초등 5학년 1학기 기본 문제 은행 (문제유형 버전) - 5단원 × 30문항 = 150문항",
+  "created_date": "2026-01-15",
+  "source": "UserProvided_5-1_ProblemType.txt",
+  "version": "2.0",
+  "structure": "5개 단원 구성 (자연수의 혼합 계산, 약수와 배수, 분수의 덧셈과 뺄셈, 도형의 넓이, 자료의 표현과 해석). 각 단원 30문항: ① 10 + ② 10 + ③ 10"
 }
+
 
