@@ -9525,7 +9525,29 @@ async function createSampleProblems(formData, progressCallback = null) {
                         question: q.question || q.questionText || '',
                         meta: q.meta || {}
                     }));
-                    const emergency = emergencyGenerator(conceptInfo, effectiveGrade, existingQuestionsForEmergency3);
+                    // 1순위: 템플릿 기반 fallback (검증 실패 시에도 템플릿 문제는 그대로 사용)
+                    // - 커리큘럼 문구/키워드와 템플릿 문구가 달라 키워드 검증이 계속 실패하는 경우를 방지
+                    // - 특히 최상위/응용 템플릿을 실제 화면에 반영하기 위함
+                    let emergency = null;
+                    try {
+                        const conceptInfoForFallback = {
+                            ...(typeof conceptInfo === 'object' && conceptInfo !== null ? conceptInfo : {}),
+                            text: conceptText,
+                            grade: rawGrade,
+                            semester: semester,
+                            gradeLevel: (finalSchoolLevel === 'middle' ? 'middle' : 'elementary'),
+                            schoolLevel: finalSchoolLevel
+                        };
+                        const fallbackArr = fallbackGenerate(conceptInfoForFallback, 1, effectiveGrade, problemType);
+                        emergency = Array.isArray(fallbackArr) && fallbackArr.length > 0 ? fallbackArr[0] : null;
+                    } catch (e) {
+                        emergency = null;
+                    }
+
+                    // 2순위: 기존 emergencyGenerator
+                    if (!emergency) {
+                        emergency = emergencyGenerator(conceptInfo, effectiveGrade, existingQuestionsForEmergency3);
+                    }
                     if (emergency) {
                         // emergency 문제에 schoolLevel 추가
                         if (!emergency.meta) {
