@@ -1,0 +1,33 @@
+{
+  "generated_by": "manual",
+  "note": "홈페이지(문제은행 보기)에서 템플릿 목록을 표시하기 위한 manifest. 필요 시 파일 추가/삭제에 맞춰 갱신하세요.",
+  "templates": [
+    {"file": "ES_PACK02_Basics_1-1_templates.json", "grade": 1, "semester": 1, "type": "basic"},
+    {"file": "ES_PACK02_Basics_1-1_application_templates.json", "grade": 1, "semester": 1, "type": "application"},
+    {"file": "ES_PACK02_Basics_1-2_templates.json", "grade": 1, "semester": 2, "type": "basic"},
+    {"file": "ES_PACK02_Basics_1-2_application_templates.json", "grade": 1, "semester": 2, "type": "application"},
+
+    {"file": "ES_PACK02_Basics_2-1_templates.json", "grade": 2, "semester": 1, "type": "basic"},
+    {"file": "ES_PACK02_Basics_2-1_application_templates.json", "grade": 2, "semester": 1, "type": "application"},
+    {"file": "ES_PACK02_Basics_2-2_templates.json", "grade": 2, "semester": 2, "type": "basic"},
+    {"file": "ES_PACK02_Basics_2-2_application_templates.json", "grade": 2, "semester": 2, "type": "application"},
+
+    {"file": "ES_PACK02_Basics_3-1_templates.json", "grade": 3, "semester": 1, "type": "basic"},
+    {"file": "ES_PACK02_Basics_3-1_application_templates.json", "grade": 3, "semester": 1, "type": "application"},
+    {"file": "ES_PACK02_Basics_3-2_templates.json", "grade": 3, "semester": 2, "type": "basic"},
+    {"file": "ES_PACK02_Basics_3-2_application_templates.json", "grade": 3, "semester": 2, "type": "application"},
+
+    {"file": "ES_PACK02_Basics_4-1_templates.json", "grade": 4, "semester": 1, "type": "basic"},
+    {"file": "ES_PACK02_Basics_4-1_application_templates.json", "grade": 4, "semester": 1, "type": "application"},
+    {"file": "ES_PACK02_Basics_4-2_templates.json", "grade": 4, "semester": 2, "type": "basic"},
+    {"file": "ES_PACK02_Basics_4-2_application_templates.json", "grade": 4, "semester": 2, "type": "application"},
+
+    {"file": "ES_PACK02_Basics_5-1_templates.json", "grade": 5, "semester": 1, "type": "basic"},
+    {"file": "ES_PACK02_Basics_5-1_application_templates.json", "grade": 5, "semester": 1, "type": "application"},
+
+    {"file": "ES_PACK02_Basics_6-1_templates.json", "grade": 6, "semester": 1, "type": "basic"},
+    {"file": "ES_PACK02_Basics_6-1_application_templates.json", "grade": 6, "semester": 1, "type": "application"}
+  ]
+}
+
+

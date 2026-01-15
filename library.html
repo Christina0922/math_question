@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>문제은행 보기 - 우등생이 되는 수학 변형문제</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>문제은행 보기</h1>
+      <p class="subtitle">업로드한 템플릿(JSON)과 원본 문제은행(PDF)을 한 곳에서 확인합니다.</p>
+      <div style="margin-top: 16px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+        <a class="back-link" href="index.html">← 홈으로</a>
+        <a class="back-link" href="create.html">문제 생성하기 →</a>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <section class="section-header" style="margin-bottom: 18px;">
+        <div>
+          <h2 style="margin:0;">템플릿/원본 확인</h2>
+          <p class="section-subtitle" style="margin-top:6px;">“내가 보낸 문제”가 저장/반영됐는지 바로 확인하세요.</p>
+        </div>
+      </section>
+
+      <section class="form-step" style="border-left-color: var(--secondary-color);">
+        <h3>보기 모드</h3>
+        <div class="radio-group" style="margin-top: 10px;">
+          <label class="radio-label">
+            <input type="radio" name="tab" value="templates" checked>
+            <span>템플릿(JSON) 보기</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="tab" value="sources">
+            <span>원본 문제은행(PDF) 보기</span>
+          </label>
+        </div>
+      </section>
+
+      <section id="templatesTab" class="form-step">
+        <h3>템플릿(JSON)</h3>
+        <p class="hint">업로드한 템플릿 파일을 목록으로 보고, 클릭하면 내용(단원/문항)을 바로 펼쳐볼 수 있어요.</p>
+
+        <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top: 12px;">
+          <label style="display:flex; align-items:center; gap:8px;">
+            <span style="font-weight:600;">학년</span>
+            <select id="filterGrade" class="answer-input" style="width:140px; padding:10px;">
+              <option value="">전체</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+            </select>
+          </label>
+
+          <label style="display:flex; align-items:center; gap:8px;">
+            <span style="font-weight:600;">학기</span>
+            <select id="filterSemester" class="answer-input" style="width:140px; padding:10px;">
+              <option value="">전체</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+            </select>
+          </label>
+
+          <label style="display:flex; align-items:center; gap:8px;">
+            <span style="font-weight:600;">유형</span>
+            <select id="filterType" class="answer-input" style="width:180px; padding:10px;">
+              <option value="">전체</option>
+              <option value="basic">기본형</option>
+              <option value="application">응용 심화형</option>
+            </select>
+          </label>
+        </div>
+
+        <div id="templatesList" style="margin-top: 18px;"></div>
+        <div id="templatePreview" style="margin-top: 18px;"></div>
+      </section>
+
+      <section id="sourcesTab" class="form-step" style="display:none;">
+        <h3>원본 문제은행(PDF)</h3>
+        <p class="hint">
+          원본은 <code>import_from_Math_Questions/_question_bank_only</code> 폴더에 있습니다.
+          아래에서 “로컬 PDF” 또는 “구글 드라이브 미리보기”로 바로 확인할 수 있어요.
+        </p>
+
+        <div id="sourcesList" style="margin-top: 18px;"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="library.js"></script>
+</body>
+</html>
+
+
