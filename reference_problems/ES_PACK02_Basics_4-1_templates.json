@@ -4,683 +4,210 @@
   "semester": 1,
   "unit": 1,
   "pdf_key": "4-1",
-  "title": "큰 수, 곱셈과 나눗셈, 분수의 덧셈과 뺄셈, 소수 (변형문제 포함)",
-  "total_problems": 105,
+  "title": "큰 수, 각도, 곱셈과 나눗셈, 평면도형의 이동, 막대그래프",
+  "total_problems": 150,
   "categories": [
     {
       "id": "1",
       "name": "1단원. 큰 수",
-      "range": [
-        1,
-        30
-      ],
+      "range": [1, 30],
       "problems": [
-        {
-          "question": "456 000을 읽으세요.",
-          "concept": "큰 수 · 수 읽기·쓰기",
-          "difficulty": "하",
-          "id": 1
-        },
-        {
-          "question": "사십오만을 숫자로 쓰세요.",
-          "concept": "큰 수 · 수 읽기·쓰기",
-          "difficulty": "하",
-          "id": 2
-        },
-        {
-          "question": "700 000보다 큰 가장 작은 십만 단위 수는?",
-          "concept": "큰 수 · 수 읽기·쓰기",
-          "difficulty": "하",
-          "id": 3
-        },
-        {
-          "question": "320 000에서 만의 자리 숫자는?",
-          "concept": "큰 수 · 수 읽기·쓰기",
-          "difficulty": "하",
-          "id": 4
-        },
-        {
-          "question": "999 999 다음에 오는 수는?",
-          "concept": "큰 수 · 수 읽기·쓰기",
-          "difficulty": "하",
-          "id": 5
-        },
-        {
-          "question": "백만은 몇 개의 십만으로 이루어져 있습니까?",
-          "concept": "큰 수 · 수 읽기·쓰기",
-          "difficulty": "하",
-          "id": 6
-        },
-        {
-          "question": "100 000이 5개 모이면 얼마입니까?",
-          "concept": "큰 수 · 수 읽기·쓰기",
-          "difficulty": "하",
-          "id": 7
-        },
-        {
-          "question": "10만을 10개 모으면 얼마입니까?",
-          "concept": "큰 수 · 수 읽기·쓰기",
-          "difficulty": "하",
-          "id": 8
-        },
-        {
-          "question": "450 000은 100 000이 몇 개인 수입니까?",
-          "concept": "큰 수 · 수 읽기·쓰기",
-          "difficulty": "하",
-          "id": 9
-        },
-        {
-          "question": "600 000과 60 000 중 더 큰 수는?",
-          "concept": "큰 수 · 수 읽기·쓰기",
-          "difficulty": "하",
-          "id": 10
-        },
-        {
-          "question": "345 678과 354 678 중 더 큰 수는?",
-          "concept": "큰 수 · 비교·구성",
-          "difficulty": "중",
-          "id": 11
-        },
-        {
-          "question": "십만 자리 숫자가 같은 두 수를 하나 쓰세요.",
-          "concept": "큰 수 · 비교·구성",
-          "difficulty": "중",
-          "id": 12
-        },
-        {
-          "question": "500 000보다 크고 600 000보다 작은 수를 하나 쓰세요.",
-          "concept": "큰 수 · 비교·구성",
-          "difficulty": "중",
-          "id": 13
-        },
-        {
-          "question": "백만보다 작은 가장 큰 수는?",
-          "concept": "큰 수 · 비교·구성",
-          "difficulty": "중",
-          "id": 14
-        },
-        {
-          "question": "각 자리 수의 합이 10이 되게 하는 6자리 수를 하나 쓰세요.",
-          "concept": "큰 수 · 비교·구성",
-          "difficulty": "중",
-          "id": 15
-        },
-        {
-          "question": "4개의 숫자를 사용해 가장 큰 6자리 수를 만드세요.",
-          "concept": "큰 수 · 비교·구성",
-          "difficulty": "중",
-          "id": 16
-        },
-        {
-          "question": "같은 숫자를 두 번 이상 사용하지 않고 7자리 수를 하나 쓰세요.",
-          "concept": "큰 수 · 비교·구성",
-          "difficulty": "중",
-          "id": 17
-        },
-        {
-          "question": "가장 작은 수가 되게 자리 순서를 바꾸세요.",
-          "concept": "큰 수 · 비교·구성",
-          "difficulty": "중",
-          "id": 18
-        },
-        {
-          "question": "십만 자리 숫자를 1 크게 하면 수는 얼마나 커집니까?",
-          "concept": "큰 수 · 비교·구성",
-          "difficulty": "중",
-          "id": 19
-        },
-        {
-          "question": "일의 자리를 바꾸면 수의 크기는 변합니까? (O/X)",
-          "concept": "큰 수 · 비교·구성",
-          "difficulty": "중",
-          "id": 20
-        },
-        {
-          "question": "100 000씩 더해 1 000 000이 되는 과정을 쓰세요.",
-          "concept": "큰 수 · 사고력 응용",
-          "difficulty": "상",
-          "id": 21
-        },
-        {
-          "question": "어떤 수에 100 000을 더했더니 650 000이 되었습니다. 그 수는?",
-          "concept": "큰 수 · 사고력 응용",
-          "difficulty": "상",
-          "id": 22
-        },
-        {
-          "question": "백만을 넘지 않는 수 중 짝수만 쓰인 수를 하나 쓰세요.",
-          "concept": "큰 수 · 사고력 응용",
-          "difficulty": "상",
-          "id": 23
-        },
-        {
-          "question": "6자리 수 중에서 가장 큰 홀수는?",
-          "concept": "큰 수 · 사고력 응용",
-          "difficulty": "상",
-          "id": 24
-        },
-        {
-          "question": "숫자 0의 위치에 따라 값이 달라지는 이유를 한 줄로 쓰세요.",
-          "concept": "큰 수 · 사고력 응용",
-          "difficulty": "상",
-          "id": 25
-        },
-        {
-          "question": "십만 단위에서 반올림하면 달라질 수 있는 수를 하나 쓰세요.",
-          "concept": "큰 수 · 사고력 응용",
-          "difficulty": "상",
-          "id": 26
-        },
-        {
-          "question": "자리값이 가장 큰 자리는 무엇입니까?",
-          "concept": "큰 수 · 사고력 응용",
-          "difficulty": "상",
-          "id": 27
-        },
-        {
-          "question": "같은 숫자로 이루어진 6자리 수를 하나 쓰세요.",
-          "concept": "큰 수 · 사고력 응용",
-          "difficulty": "상",
-          "id": 28
-        },
-        {
-          "question": "수의 크기를 비교할 때 가장 먼저 보는 자리는?",
-          "concept": "큰 수 · 사고력 응용",
-          "difficulty": "상",
-          "id": 29
-        },
-        {
-          "question": "큰 수가 필요한 생활 예를 하나 쓰세요.",
-          "concept": "큰 수 · 사고력 응용",
-          "difficulty": "상",
-          "id": 30
-        }
+        {"id": 1, "question": "10만은 몇 자리 수입니까?", "concept": "큰 수 · 수 감각", "difficulty": "하"},
+        {"id": 2, "question": "345 678에서 만의 자리 숫자는 무엇입니까?", "concept": "큰 수 · 수 감각", "difficulty": "하"},
+        {"id": 3, "question": "700 000은 10만이 몇 개인 수입니까?", "concept": "큰 수 · 수 감각", "difficulty": "하"},
+        {"id": 4, "question": "999 999 다음에 오는 수는 무엇입니까?", "concept": "큰 수 · 수 감각", "difficulty": "하"},
+        {"id": 5, "question": "100 000보다 큰 가장 작은 수는?", "concept": "큰 수 · 수 감각", "difficulty": "하"},
+        {"id": 6, "question": "백만은 몇 개의 십만으로 이루어져 있습니까?", "concept": "큰 수 · 수 감각", "difficulty": "하"},
+        {"id": 7, "question": "560 000에서 십만 자리 숫자는 무엇입니까?", "concept": "큰 수 · 수 감각", "difficulty": "하"},
+        {"id": 8, "question": "400 000과 40 000 중 더 큰 수는?", "concept": "큰 수 · 수 감각", "difficulty": "하"},
+        {"id": 9, "question": "10만 단위로 읽으면 230 000은 어떻게 읽습니까?", "concept": "큰 수 · 수 감각", "difficulty": "하"},
+        {"id": 10, "question": "큰 수를 읽을 때 가장 먼저 보는 자리는 어디입니까?", "concept": "큰 수 · 수 감각", "difficulty": "하"},
+
+        {"id": 11, "question": "345 678과 354 678 중 더 큰 수는?", "concept": "큰 수 · 비교·구성", "difficulty": "중"},
+        {"id": 12, "question": "800 000보다 크고 900 000보다 작은 수를 하나 쓰세요.", "concept": "큰 수 · 비교·구성", "difficulty": "중"},
+        {"id": 13, "question": "만의 자리 숫자가 7인 수를 하나 쓰세요.", "concept": "큰 수 · 비교·구성", "difficulty": "중"},
+        {"id": 14, "question": "같은 숫자를 두 번 사용해 여섯 자리 수를 하나 만드세요.", "concept": "큰 수 · 비교·구성", "difficulty": "중"},
+        {"id": 15, "question": "여섯 자리 수 중 가장 작은 수는?", "concept": "큰 수 · 비교·구성", "difficulty": "중"},
+        {"id": 16, "question": "여섯 자리 수 중 가장 큰 수는?", "concept": "큰 수 · 비교·구성", "difficulty": "중"},
+        {"id": 17, "question": "숫자 0이 들어간 여섯 자리 수를 하나 쓰세요.", "concept": "큰 수 · 비교·구성", "difficulty": "중"},
+        {"id": 18, "question": "자리만 바꿔 다른 수가 되는 예를 하나 쓰세요.", "concept": "큰 수 · 비교·구성", "difficulty": "중"},
+        {"id": 19, "question": "큰 수를 비교할 때 가장 중요한 기준은 무엇입니까?", "concept": "큰 수 · 비교·구성", "difficulty": "중"},
+        {"id": 20, "question": "여섯 자리 수가 필요한 생활 예를 하나 쓰세요.", "concept": "큰 수 · 비교·구성", "difficulty": "중"},
+
+        {"id": 21, "question": "100 000을 7번 더한 수는 얼마입니까?", "concept": "큰 수 · 사고력 응용", "difficulty": "상"},
+        {"id": 22, "question": "어떤 수에 100 000을 더했더니 650 000이 되었습니다. 그 수는?", "concept": "큰 수 · 사고력 응용", "difficulty": "상"},
+        {"id": 23, "question": "십만 자리 숫자를 1 크게 하면 수는 얼마나 커집니까?", "concept": "큰 수 · 사고력 응용", "difficulty": "상"},
+        {"id": 24, "question": "만의 자리 숫자를 바꾸면 수의 크기는 달라집니다. (O/X)", "concept": "큰 수 · 사고력 응용", "difficulty": "상"},
+        {"id": 25, "question": "같은 숫자로 이루어진 여섯 자리 수를 하나 쓰세요.", "concept": "큰 수 · 사고력 응용", "difficulty": "상"},
+        {"id": 26, "question": "가장 큰 여섯 자리 수에서 가장 작은 여섯 자리 수를 빼면 얼마입니까?", "concept": "큰 수 · 사고력 응용", "difficulty": "상"},
+        {"id": 27, "question": "큰 수를 잘못 읽으면 생기는 문제를 하나 쓰세요.", "concept": "큰 수 · 사고력 응용", "difficulty": "상"},
+        {"id": 28, "question": "큰 수를 쉽게 읽는 방법을 한 단어로 쓰세요.", "concept": "큰 수 · 사고력 응용", "difficulty": "상"},
+        {"id": 29, "question": "큰 수가 쓰이는 상황을 하나 더 쓰세요.", "concept": "큰 수 · 사고력 응용", "difficulty": "상"},
+        {"id": 30, "question": "이 단원의 핵심을 한 단어로 쓰세요.", "concept": "큰 수 · 사고력 응용", "difficulty": "상"}
       ]
     },
     {
       "id": "2",
-      "name": "2단원. 곱셈과 나눗셈 (2) – 세 자리 수 × 한 자리 수",
-      "range": [
-        31,
-        55
-      ],
+      "name": "2단원. 각도",
+      "range": [31, 60],
       "problems": [
-        {
-          "id": 31,
-          "question": "234×3을 계산할 때 받아올림은 몇 번 일어납니까?",
-          "concept": "곱셈, 받아올림",
-          "difficulty": "중"
-        },
-        {
-          "id": 32,
-          "question": "408×2의 계산 결과에서 0의 역할을 설명하세요.",
-          "concept": "곱셈, 0",
-          "difficulty": "중"
-        },
-        {
-          "id": 33,
-          "question": "125×4를 계산할 때 가장 먼저 계산하는 자리는 어디입니까?",
-          "concept": "곱셈 계산 순서",
-          "difficulty": "하"
-        },
-        {
-          "id": 34,
-          "question": "다음 중 결과가 가장 큰 식을 고르세요. (① 312×3 ② 425×2 ③ 198×4)",
-          "concept": "곱셈 비교",
-          "difficulty": "중"
-        },
-        {
-          "id": 35,
-          "question": "600×3을 쉽게 계산하는 방법을 설명하세요.",
-          "concept": "계산 전략",
-          "difficulty": "중"
-        },
-        {
-          "id": 36,
-          "question": "209×5의 계산에서 주의할 점을 고르세요.",
-          "concept": "곱셈",
-          "difficulty": "중"
-        },
-        {
-          "id": 37,
-          "question": "받아올림이 반드시 생기는 식을 하나 고르세요.",
-          "concept": "받아올림",
-          "difficulty": "중"
-        },
-        {
-          "id": 38,
-          "question": "받아올림이 생기지 않는 식을 하나 고르세요.",
-          "concept": "받아올림",
-          "difficulty": "하"
-        },
-        {
-          "id": 39,
-          "question": "480×2와 48×20의 결과를 비교하세요.",
-          "concept": "곱셈의 성질",
-          "difficulty": "하"
-        },
-        {
-          "id": 40,
-          "question": "305×4의 계산 결과에서 백의 자리 숫자는 무엇입니까?",
-          "concept": "곱셈",
-          "difficulty": "중"
-        },
-        {
-          "id": 41,
-          "question": "곱셈 결과가 1000을 넘는 식을 하나 고르세요.",
-          "concept": "곱셈",
-          "difficulty": "중"
-        },
-        {
-          "id": 42,
-          "question": "곱셈 결과를 어림하여 판단하는 방법을 쓰세요.",
-          "concept": "곱셈 어림",
-          "difficulty": "중"
-        },
-        {
-          "id": 43,
-          "question": "999×2를 계산하지 않고 결과의 범위를 말하세요.",
-          "concept": "곱셈 예상",
-          "difficulty": "중"
-        },
-        {
-          "id": 44,
-          "question": "곱셈에서 0이 포함될 때 실수하기 쉬운 이유를 설명하세요.",
-          "concept": "곱셈, 0",
-          "difficulty": "중"
-        },
-        {
-          "id": 45,
-          "question": "120×5를 가장 빠르게 계산하는 방법을 쓰세요.",
-          "concept": "계산 전략",
-          "difficulty": "중"
-        },
-        {
-          "id": 46,
-          "question": "세 자리 수 × 한 자리 수 곱셈이 필요한 상황을 고르세요.",
-          "concept": "곱셈의 활용",
-          "difficulty": "하"
-        },
-        {
-          "id": 47,
-          "question": "같은 결과가 되는 곱셈식 두 개를 고르세요.",
-          "concept": "곱셈",
-          "difficulty": "하"
-        },
-        {
-          "id": 48,
-          "question": "곱셈 결과가 가장 작은 식을 고르세요.",
-          "concept": "곱셈 비교",
-          "difficulty": "중"
-        },
-        {
-          "id": 49,
-          "question": "곱셈을 덧셈으로 바꾸어 생각하는 이유를 설명하세요.",
-          "concept": "곱셈과 덧셈",
-          "difficulty": "중"
-        },
-        {
-          "id": 50,
-          "question": "계산 결과가 같은 식끼리 짝지으세요.",
-          "concept": "곱셈",
-          "difficulty": "중"
-        },
-        {
-          "id": 51,
-          "question": "곱셈에서 자리 올림을 잘못 처리한 예를 고르세요.",
-          "concept": "계산 오류",
-          "difficulty": "중"
-        },
-        {
-          "id": 52,
-          "question": "계산 순서를 바꾸면 안 되는 이유를 설명하세요.",
-          "concept": "계산 순서",
-          "difficulty": "중"
-        },
-        {
-          "id": 53,
-          "question": "곱셈 결과의 크기를 미리 예상하는 이유를 쓰세요.",
-          "concept": "곱셈 예상",
-          "difficulty": "중"
-        },
-        {
-          "id": 54,
-          "question": "곱셈 실수를 줄이는 방법을 하나 고르세요.",
-          "concept": "계산 오류",
-          "difficulty": "중"
-        },
-        {
-          "id": 55,
-          "question": "이 단원에서 가장 중요한 점을 한 문장으로 쓰세요.",
-          "concept": "곱셈",
-          "difficulty": "중"
-        }
+        {"id": 31, "question": "각은 무엇으로 이루어져 있습니까?", "concept": "각도 · 기본 개념", "difficulty": "하"},
+        {"id": 32, "question": "각의 크기는 무엇으로 나타냅니까?", "concept": "각도 · 기본 개념", "difficulty": "하"},
+        {"id": 33, "question": "직각의 크기는 몇 도입니까?", "concept": "각도 · 기본 개념", "difficulty": "하"},
+        {"id": 34, "question": "직각보다 작은 각을 무엇이라 합니까?", "concept": "각도 · 기본 개념", "difficulty": "하"},
+        {"id": 35, "question": "직각보다 큰 각을 무엇이라 합니까?", "concept": "각도 · 기본 개념", "difficulty": "하"},
+        {"id": 36, "question": "한 바퀴는 몇 도입니까?", "concept": "각도 · 기본 개념", "difficulty": "하"},
+        {"id": 37, "question": "각의 크기는 눈으로만 알 수 있습니다. (O/X)", "concept": "각도 · 기본 개념", "difficulty": "하"},
+        {"id": 38, "question": "각을 재는 도구는 무엇입니까?", "concept": "각도 · 기본 개념", "difficulty": "하"},
+        {"id": 39, "question": "90°보다 작은 각은 몇 도까지 될 수 있습니까?", "concept": "각도 · 기본 개념", "difficulty": "하"},
+        {"id": 40, "question": "각이 필요한 상황을 하나 쓰세요.", "concept": "각도 · 기본 개념", "difficulty": "하"},
+
+        {"id": 41, "question": "45°와 90° 중 더 큰 각은?", "concept": "각도 · 비교·판단", "difficulty": "중"},
+        {"id": 42, "question": "120°는 직각보다 (크다/작다).", "concept": "각도 · 비교·판단", "difficulty": "중"},
+        {"id": 43, "question": "180°는 어떤 각입니까?", "concept": "각도 · 비교·판단", "difficulty": "중"},
+        {"id": 44, "question": "각의 크기가 같아도 모양은 달라질 수 있습니다. (O/X)", "concept": "각도 · 비교·판단", "difficulty": "중"},
+        {"id": 45, "question": "직각은 항상 한 가지 모양입니다. (O/X)", "concept": "각도 · 비교·판단", "difficulty": "중"},
+        {"id": 46, "question": "각의 크기를 비교할 때 중요한 것은 무엇입니까?", "concept": "각도 · 비교·판단", "difficulty": "중"},
+        {"id": 47, "question": "60°는 예각입니까? (O/X)", "concept": "각도 · 비교·판단", "difficulty": "중"},
+        {"id": 48, "question": "135°는 둔각입니까? (O/X)", "concept": "각도 · 비교·판단", "difficulty": "중"},
+        {"id": 49, "question": "각을 잘못 재면 생기는 문제를 하나 쓰세요.", "concept": "각도 · 비교·판단", "difficulty": "중"},
+        {"id": 50, "question": "각을 비교하는 이유를 쓰세요.", "concept": "각도 · 비교·판단", "difficulty": "중"},
+
+        {"id": 51, "question": "직각이 두 개인 각이 있을 수 있습니까? (O/X)", "concept": "각도 · 사고력 응용", "difficulty": "상"},
+        {"id": 52, "question": "180°보다 큰 각이 있을 수 있습니까? (O/X)", "concept": "각도 · 사고력 응용", "difficulty": "상"},
+        {"id": 53, "question": "예각 두 개를 합치면 둔각이 될 수 있습니까? (O/X)", "concept": "각도 · 사고력 응용", "difficulty": "상"},
+        {"id": 54, "question": "각의 크기를 어림짐작하는 방법을 하나 쓰세요.", "concept": "각도 · 사고력 응용", "difficulty": "상"},
+        {"id": 55, "question": "각의 크기가 같은 생활 물건을 하나 쓰세요.", "concept": "각도 · 사고력 응용", "difficulty": "상"},
+        {"id": 56, "question": "각을 정확히 재야 하는 이유를 쓰세요.", "concept": "각도 · 사고력 응용", "difficulty": "상"},
+        {"id": 57, "question": "각의 단위를 바꾸면 크기가 달라집니다. (O/X)", "concept": "각도 · 사고력 응용", "difficulty": "상"},
+        {"id": 58, "question": "각을 배우면 좋은 점을 하나 쓰세요.", "concept": "각도 · 사고력 응용", "difficulty": "상"},
+        {"id": 59, "question": "각 단원의 핵심을 한 단어로 쓰세요.", "concept": "각도 · 사고력 응용", "difficulty": "상"},
+        {"id": 60, "question": "각이 쓰이는 생활 예를 하나 더 쓰세요.", "concept": "각도 · 사고력 응용", "difficulty": "상"}
       ]
     },
     {
       "id": "3",
-      "name": "3단원. 분수의 덧셈과 뺄셈",
-      "range": [
-        56,
-        80
-      ],
+      "name": "3단원. 곱셈과 나눗셈",
+      "range": [61, 90],
       "problems": [
-        {
-          "id": 56,
-          "question": "분모가 같은 분수끼리 더할 수 있는 이유를 설명하세요.",
-          "concept": "분수 덧셈",
-          "difficulty": "중"
-        },
-        {
-          "id": 57,
-          "question": "2/7 + 3/7의 결과는 무엇입니까?",
-          "concept": "분수 덧셈",
-          "difficulty": "하"
-        },
-        {
-          "id": 58,
-          "question": "5/9 − 2/9의 결과는 무엇입니까?",
-          "concept": "분수 뺄셈",
-          "difficulty": "하"
-        },
-        {
-          "id": 59,
-          "question": "다음 중 계산 결과가 가장 큰 것을 고르세요. (① 1/5+3/5 ② 2/6+2/6 ③ 3/8+2/8)",
-          "concept": "분수 덧셈 비교",
-          "difficulty": "중"
-        },
-        {
-          "id": 60,
-          "question": "분모는 그대로 두고 분자만 계산하는 이유를 설명하세요.",
-          "concept": "분수 계산",
-          "difficulty": "중"
-        },
-        {
-          "id": 61,
-          "question": "6/10 − 4/10의 결과를 가장 간단히 나타내세요.",
-          "concept": "분수 뺄셈, 약분",
-          "difficulty": "중"
-        },
-        {
-          "id": 62,
-          "question": "계산 결과가 1이 되는 분수 덧셈식을 하나 고르세요.",
-          "concept": "분수 덧셈",
-          "difficulty": "중"
-        },
-        {
-          "id": 63,
-          "question": "계산 결과가 0이 되는 분수 뺄셈식을 하나 고르세요.",
-          "concept": "분수 뺄셈",
-          "difficulty": "중"
-        },
-        {
-          "id": 64,
-          "question": "분수 계산에서 가장 많이 하는 실수를 고르세요.",
-          "concept": "분수 계산 오류",
-          "difficulty": "중"
-        },
-        {
-          "id": 65,
-          "question": "분자만 더하면 안 되는 경우가 있는지 설명하세요.",
-          "concept": "분수 계산",
-          "difficulty": "중"
-        },
-        {
-          "id": 66,
-          "question": "같은 분모를 가진 분수의 크기 비교 방법을 쓰세요.",
-          "concept": "분수 비교",
-          "difficulty": "하"
-        },
-        {
-          "id": 67,
-          "question": "4/6과 5/6 중 더 큰 분수를 고르세요.",
-          "concept": "분수 비교",
-          "difficulty": "하"
-        },
-        {
-          "id": 68,
-          "question": "7/8 − 3/8의 계산 과정을 간단히 설명하세요.",
-          "concept": "분수 뺄셈",
-          "difficulty": "하"
-        },
-        {
-          "id": 69,
-          "question": "분수 덧셈 결과가 1보다 커질 수 있는지 설명하세요.",
-          "concept": "분수 덧셈",
-          "difficulty": "중"
-        },
-        {
-          "id": 70,
-          "question": "계산 결과를 그림으로 확인하는 이유를 쓰세요.",
-          "concept": "분수 계산",
-          "difficulty": "중"
-        },
-        {
-          "id": 71,
-          "question": "분수 계산에서 단위를 맞춘다는 말의 뜻을 설명하세요.",
-          "concept": "분수 계산",
-          "difficulty": "중"
-        },
-        {
-          "id": 72,
-          "question": "9/10 − 1/10을 쉽게 계산하는 방법을 쓰세요.",
-          "concept": "계산 전략",
-          "difficulty": "중"
-        },
-        {
-          "id": 73,
-          "question": "분수 계산 결과를 어림하는 방법을 하나 쓰세요.",
-          "concept": "분수 계산 어림",
-          "difficulty": "중"
-        },
-        {
-          "id": 74,
-          "question": "분수 덧셈과 뺄셈이 필요한 상황을 고르세요.",
-          "concept": "분수 계산의 활용",
-          "difficulty": "하"
-        },
-        {
-          "id": 75,
-          "question": "분수 계산을 잘못했을 때 생기는 문제를 하나 고르세요.",
-          "concept": "분수 계산 오류",
-          "difficulty": "중"
-        },
-        {
-          "id": 76,
-          "question": "같은 분모 분수 계산이 쉬운 이유를 설명하세요.",
-          "concept": "분수 계산",
-          "difficulty": "중"
-        },
-        {
-          "id": 77,
-          "question": "분자와 분모의 역할을 바꾸면 안 되는 이유를 설명하세요.",
-          "concept": "분수의 성질",
-          "difficulty": "중"
-        },
-        {
-          "id": 78,
-          "question": "계산 결과가 같은 분수 덧셈식 두 개를 고르세요.",
-          "concept": "분수 덧셈",
-          "difficulty": "중"
-        },
-        {
-          "id": 79,
-          "question": "분수 계산 실수를 줄이는 방법을 하나 고르세요.",
-          "concept": "분수 계산 오류",
-          "difficulty": "중"
-        },
-        {
-          "id": 80,
-          "question": "이 단원의 핵심을 한 문장으로 정리하세요.",
-          "concept": "분수 계산",
-          "difficulty": "중"
-        }
+        {"id": 61, "question": "6을 8번 더한 값을 곱셈으로 쓰세요.", "concept": "곱셈과 나눗셈 · 기본 의미", "difficulty": "하"},
+        {"id": 62, "question": "48 ÷ 6의 몫은 얼마입니까?", "concept": "곱셈과 나눗셈 · 기본 의미", "difficulty": "하"},
+        {"id": 63, "question": "곱셈과 나눗셈은 서로 관계가 있습니다. (O/X)", "concept": "곱셈과 나눗셈 · 기본 의미", "difficulty": "하"},
+        {"id": 64, "question": "0 × 35의 값은?", "concept": "곱셈과 나눗셈 · 기본 의미", "difficulty": "하"},
+        {"id": 65, "question": "어떤 수를 1로 나누면 결과는?", "concept": "곱셈과 나눗셈 · 기본 의미", "difficulty": "하"},
+        {"id": 66, "question": "36 ÷ 9에서 9는 무엇입니까?", "concept": "곱셈과 나눗셈 · 기본 의미", "difficulty": "하"},
+        {"id": 67, "question": "36 ÷ 9에서 36은 무엇입니까?", "concept": "곱셈과 나눗셈 · 기본 의미", "difficulty": "하"},
+        {"id": 68, "question": "나눗셈에서 몫은 무엇을 뜻합니까?", "concept": "곱셈과 나눗셈 · 기본 의미", "difficulty": "하"},
+        {"id": 69, "question": "곱셈이 필요한 상황을 하나 쓰세요.", "concept": "곱셈과 나눗셈 · 기본 의미", "difficulty": "하"},
+        {"id": 70, "question": "나눗셈이 필요한 상황을 하나 쓰세요.", "concept": "곱셈과 나눗셈 · 기본 의미", "difficulty": "하"},
+
+        {"id": 71, "question": "7 × 8과 8 × 7의 결과는 같습니다. (O/X)", "concept": "곱셈과 나눗셈 · 규칙·판단", "difficulty": "중"},
+        {"id": 72, "question": "56 ÷ 7과 56 ÷ 8 중 몫이 더 큰 것은?", "concept": "곱셈과 나눗셈 · 규칙·판단", "difficulty": "중"},
+        {"id": 73, "question": "나머지가 0인 나눗셈을 무엇이라 합니까?", "concept": "곱셈과 나눗셈 · 규칙·판단", "difficulty": "중"},
+        {"id": 74, "question": "곱셈 결과가 홀수가 되려면 조건은?", "concept": "곱셈과 나눗셈 · 규칙·판단", "difficulty": "중"},
+        {"id": 75, "question": "6의 배수 중 가장 작은 두 자리 수는?", "concept": "곱셈과 나눗셈 · 규칙·판단", "difficulty": "중"},
+        {"id": 76, "question": "9로 나누어떨어지는 수의 특징을 쓰세요.", "concept": "곱셈과 나눗셈 · 규칙·판단", "difficulty": "중"},
+        {"id": 77, "question": "72 ÷ □ = 9일 때 □는?", "concept": "곱셈과 나눗셈 · 규칙·판단", "difficulty": "중"},
+        {"id": 78, "question": "몫이 5이고 나머지가 2인 식을 하나 쓰세요.", "concept": "곱셈과 나눗셈 · 규칙·판단", "difficulty": "중"},
+        {"id": 79, "question": "나누는 수가 커지면 몫은 어떻게 됩니까?", "concept": "곱셈과 나눗셈 · 규칙·판단", "difficulty": "중"},
+        {"id": 80, "question": "곱셈과 나눗셈의 공통점을 하나 쓰세요.", "concept": "곱셈과 나눗셈 · 규칙·판단", "difficulty": "중"},
+
+        {"id": 81, "question": "세 수를 곱해 84가 되게 하세요.", "concept": "곱셈과 나눗셈 · 사고력 응용", "difficulty": "상"},
+        {"id": 82, "question": "60을 두 수의 곱으로 나타내세요. (한 가지)", "concept": "곱셈과 나눗셈 · 사고력 응용", "difficulty": "상"},
+        {"id": 83, "question": "같은 몫이 나오는 다른 나눗셈을 하나 쓰세요.", "concept": "곱셈과 나눗셈 · 사고력 응용", "difficulty": "상"},
+        {"id": 84, "question": "곱셈으로 확인할 수 있는 나눗셈을 하나 쓰세요.", "concept": "곱셈과 나눗셈 · 사고력 응용", "difficulty": "상"},
+        {"id": 85, "question": "계산하지 않고 몫의 크기를 짐작해 보세요.", "concept": "곱셈과 나눗셈 · 사고력 응용", "difficulty": "상"},
+        {"id": 86, "question": "곱셈을 잘못하면 생기는 문제를 쓰세요.", "concept": "곱셈과 나눗셈 · 사고력 응용", "difficulty": "상"},
+        {"id": 87, "question": "나눗셈을 잘못하면 생기는 문제를 쓰세요.", "concept": "곱셈과 나눗셈 · 사고력 응용", "difficulty": "상"},
+        {"id": 88, "question": "곱셈·나눗셈이 필요한 생활 예를 하나 더 쓰세요.", "concept": "곱셈과 나눗셈 · 사고력 응용", "difficulty": "상"},
+        {"id": 89, "question": "이 단원의 핵심을 한 단어로 쓰세요.", "concept": "곱셈과 나눗셈 · 사고력 응용", "difficulty": "상"},
+        {"id": 90, "question": "곱셈과 나눗셈을 함께 배우는 이유를 쓰세요.", "concept": "곱셈과 나눗셈 · 사고력 응용", "difficulty": "상"}
       ]
     },
     {
       "id": "4",
-      "name": "4단원. 소수 (0.1, 0.01)",
-      "range": [
-        81,
-        105
-      ],
+      "name": "4단원. 평면도형의 이동",
+      "range": [91, 120],
       "problems": [
-        {
-          "id": 81,
-          "question": "소수점 아래 첫째 자리를 무엇이라 합니까?",
-          "concept": "소수의 기초",
-          "difficulty": "하"
-        },
-        {
-          "id": 82,
-          "question": "소수점 아래 둘째 자리를 무엇이라 합니까?",
-          "concept": "소수의 기초",
-          "difficulty": "하"
-        },
-        {
-          "id": 83,
-          "question": "0.3은 무엇을 뜻하는 수입니까?",
-          "concept": "소수의 의미",
-          "difficulty": "하"
-        },
-        {
-          "id": 84,
-          "question": "1을 10으로 나눈 값을 소수로 나타내세요.",
-          "concept": "소수",
-          "difficulty": "하"
-        },
-        {
-          "id": 85,
-          "question": "0.5와 0.50은 같은 수입니까? 이유를 고르세요.",
-          "concept": "소수의 성질",
-          "difficulty": "중"
-        },
-        {
-          "id": 86,
-          "question": "0.7과 0.07 중 더 큰 수를 고르세요.",
-          "concept": "소수 비교",
-          "difficulty": "중"
-        },
-        {
-          "id": 87,
-          "question": "소수에서 0의 역할을 설명하세요.",
-          "concept": "소수, 0",
-          "difficulty": "중"
-        },
-        {
-          "id": 88,
-          "question": "1보다 작은 소수의 조건을 쓰세요.",
-          "concept": "소수의 성질",
-          "difficulty": "하"
-        },
-        {
-          "id": 89,
-          "question": "0.1이 10개 모이면 얼마입니까?",
-          "concept": "소수",
-          "difficulty": "하"
-        },
-        {
-          "id": 90,
-          "question": "0.01이 100개 모이면 얼마입니까?",
-          "concept": "소수",
-          "difficulty": "중"
-        },
-        {
-          "id": 91,
-          "question": "소수를 분수로 생각하면 좋은 이유를 설명하세요.",
-          "concept": "소수와 분수",
-          "difficulty": "중"
-        },
-        {
-          "id": 92,
-          "question": "소수의 크기를 비교할 때 가장 먼저 보는 자리는 어디입니까?",
-          "concept": "소수 비교",
-          "difficulty": "하"
-        },
-        {
-          "id": 93,
-          "question": "0.4와 0.39 중 더 큰 수를 고르세요.",
-          "concept": "소수 비교",
-          "difficulty": "중"
-        },
-        {
-          "id": 94,
-          "question": "소수 크기 비교에서 실수하기 쉬운 예를 고르세요.",
-          "concept": "소수 비교",
-          "difficulty": "중"
-        },
-        {
-          "id": 95,
-          "question": "1.0과 1의 관계를 설명하세요.",
-          "concept": "소수의 성질",
-          "difficulty": "하"
-        },
-        {
-          "id": 96,
-          "question": "소수점을 옮기면 값이 달라지는 이유를 설명하세요.",
-          "concept": "소수의 성질",
-          "difficulty": "중"
-        },
-        {
-          "id": 97,
-          "question": "소수는 왜 필요한지 생활 예를 하나 고르세요.",
-          "concept": "소수의 활용",
-          "difficulty": "하"
-        },
-        {
-          "id": 98,
-          "question": "0.25를 분수로 생각하면 어떤 수입니까?",
-          "concept": "소수와 분수",
-          "difficulty": "중"
-        },
-        {
-          "id": 99,
-          "question": "소수점 아래 숫자가 많다고 항상 큰 이유는 없는 이유를 설명하세요.",
-          "concept": "소수 비교",
-          "difficulty": "중"
-        },
-        {
-          "id": 100,
-          "question": "0.9와 1 중 더 큰 수를 고르세요.",
-          "concept": "소수 비교",
-          "difficulty": "하"
-        },
-        {
-          "id": 101,
-          "question": "소수 비교를 쉽게 하는 방법을 하나 고르세요.",
-          "concept": "소수 비교",
-          "difficulty": "중"
-        },
-        {
-          "id": 102,
-          "question": "소수 계산에서 가장 중요한 점을 고르세요.",
-          "concept": "소수 계산",
-          "difficulty": "중"
-        },
-        {
-          "id": 103,
-          "question": "소수 단원이 없으면 불편한 점을 하나 쓰세요.",
-          "concept": "소수",
-          "difficulty": "중"
-        },
-        {
-          "id": 104,
-          "question": "소수를 잘못 읽었을 때 생길 수 있는 문제를 고르세요.",
-          "concept": "소수",
-          "difficulty": "중"
-        },
-        {
-          "id": 105,
-          "question": "소수 단원의 핵심을 한 문장으로 정리하세요.",
-          "concept": "소수",
-          "difficulty": "중"
-        }
+        {"id": 91, "question": "도형을 옮기는 것을 무엇이라 합니까?", "concept": "평면도형의 이동 · 기본 개념", "difficulty": "하"},
+        {"id": 92, "question": "도형을 뒤집는 것을 무엇이라 합니까?", "concept": "평면도형의 이동 · 기본 개념", "difficulty": "하"},
+        {"id": 93, "question": "도형을 돌리는 것을 무엇이라 합니까?", "concept": "평면도형의 이동 · 기본 개념", "difficulty": "하"},
+        {"id": 94, "question": "도형을 옮겨도 크기는 변하지 않습니다. (O/X)", "concept": "평면도형의 이동 · 기본 개념", "difficulty": "하"},
+        {"id": 95, "question": "도형을 뒤집어도 모양은 같습니다. (O/X)", "concept": "평면도형의 이동 · 기본 개념", "difficulty": "하"},
+        {"id": 96, "question": "도형을 돌려도 넓이는 변하지 않습니다. (O/X)", "concept": "평면도형의 이동 · 기본 개념", "difficulty": "하"},
+        {"id": 97, "question": "이동 전과 후의 도형을 무엇이라 합니까?", "concept": "평면도형의 이동 · 기본 개념", "difficulty": "하"},
+        {"id": 98, "question": "이동한 도형이 같은 도형인 이유를 쓰세요.", "concept": "평면도형의 이동 · 기본 개념", "difficulty": "하"},
+        {"id": 99, "question": "도형 이동이 필요한 이유를 쓰세요.", "concept": "평면도형의 이동 · 기본 개념", "difficulty": "하"},
+        {"id": 100, "question": "도형 이동의 예를 하나 쓰세요.", "concept": "평면도형의 이동 · 기본 개념", "difficulty": "하"},
+
+        {"id": 101, "question": "도형을 옮기면 방향은 변합니까? (O/X)", "concept": "평면도형의 이동 · 비교·판단", "difficulty": "중"},
+        {"id": 102, "question": "도형을 뒤집으면 방향은 변합니까? (O/X)", "concept": "평면도형의 이동 · 비교·판단", "difficulty": "중"},
+        {"id": 103, "question": "도형을 돌리면 위치는 변합니까? (O/X)", "concept": "평면도형의 이동 · 비교·판단", "difficulty": "중"},
+        {"id": 104, "question": "이동한 도형과 원래 도형은 겹칩니까? (O/X)", "concept": "평면도형의 이동 · 비교·판단", "difficulty": "중"},
+        {"id": 105, "question": "이동해도 변하지 않는 것은 무엇입니까?", "concept": "평면도형의 이동 · 비교·판단", "difficulty": "중"},
+        {"id": 106, "question": "도형 이동에서 가장 중요한 기준은 무엇입니까?", "concept": "평면도형의 이동 · 비교·판단", "difficulty": "중"},
+        {"id": 107, "question": "같은 도형인지 판단하는 방법을 하나 쓰세요.", "concept": "평면도형의 이동 · 비교·판단", "difficulty": "중"},
+        {"id": 108, "question": "이동한 도형이 다른 도형처럼 보이는 이유를 쓰세요.", "concept": "평면도형의 이동 · 비교·판단", "difficulty": "중"},
+        {"id": 109, "question": "도형 이동을 잘못 이해하면 생기는 문제를 쓰세요.", "concept": "평면도형의 이동 · 비교·판단", "difficulty": "중"},
+        {"id": 110, "question": "도형 이동을 배우는 이유를 쓰세요.", "concept": "평면도형의 이동 · 비교·판단", "difficulty": "중"},
+
+        {"id": 111, "question": "뒤집기와 돌리기의 차이를 한 단어로 쓰세요.", "concept": "평면도형의 이동 · 사고력 응용", "difficulty": "상"},
+        {"id": 112, "question": "이동만으로는 만들 수 없는 변화가 있습니까? (O/X)", "concept": "평면도형의 이동 · 사고력 응용", "difficulty": "상"},
+        {"id": 113, "question": "도형을 여러 번 이동해도 같은 이유를 쓰세요.", "concept": "평면도형의 이동 · 사고력 응용", "difficulty": "상"},
+        {"id": 114, "question": "도형 이동이 쓰이는 생활 예를 하나 쓰세요.", "concept": "평면도형의 이동 · 사고력 응용", "difficulty": "상"},
+        {"id": 115, "question": "도형 이동이 설계에 중요한 이유를 쓰세요.", "concept": "평면도형의 이동 · 사고력 응용", "difficulty": "상"},
+        {"id": 116, "question": "이동한 도형의 크기가 달라 보이는 이유를 쓰세요.", "concept": "평면도형의 이동 · 사고력 응용", "difficulty": "상"},
+        {"id": 117, "question": "도형 이동 단원의 핵심을 한 단어로 쓰세요.", "concept": "평면도형의 이동 · 사고력 응용", "difficulty": "상"},
+        {"id": 118, "question": "도형 이동을 배우면 좋은 점을 쓰세요.", "concept": "평면도형의 이동 · 사고력 응용", "difficulty": "상"},
+        {"id": 119, "question": "이동·뒤집기·돌리기의 공통점을 쓰세요.", "concept": "평면도형의 이동 · 사고력 응용", "difficulty": "상"},
+        {"id": 120, "question": "이 단원을 마친 소감을 한 단어로 쓰세요.", "concept": "평면도형의 이동 · 사고력 응용", "difficulty": "상"}
+      ]
+    },
+    {
+      "id": "5",
+      "name": "5단원. 막대그래프",
+      "range": [121, 150],
+      "problems": [
+        {"id": 121, "question": "막대그래프는 무엇을 나타냅니까?", "concept": "막대그래프 · 기본 이해", "difficulty": "하"},
+        {"id": 122, "question": "막대의 길이는 무엇을 뜻합니까?", "concept": "막대그래프 · 기본 이해", "difficulty": "하"},
+        {"id": 123, "question": "그래프에 단위가 필요한 이유를 쓰세요.", "concept": "막대그래프 · 기본 이해", "difficulty": "하"},
+        {"id": 124, "question": "가장 큰 값은 어떻게 알 수 있습니까?", "concept": "막대그래프 · 기본 이해", "difficulty": "하"},
+        {"id": 125, "question": "가장 작은 값은 어떻게 알 수 있습니까?", "concept": "막대그래프 · 기본 이해", "difficulty": "하"},
+        {"id": 126, "question": "막대그래프는 비교하기 쉽습니다. (O/X)", "concept": "막대그래프 · 기본 이해", "difficulty": "하"},
+        {"id": 127, "question": "그래프를 읽을 때 먼저 보는 것은 무엇입니까?", "concept": "막대그래프 · 기본 이해", "difficulty": "하"},
+        {"id": 128, "question": "값이 같은 경우는 어떻게 나타납니까?", "concept": "막대그래프 · 기본 이해", "difficulty": "하"},
+        {"id": 129, "question": "막대그래프가 필요한 이유를 쓰세요.", "concept": "막대그래프 · 기본 이해", "difficulty": "하"},
+        {"id": 130, "question": "그래프로 알 수 없는 것을 하나 쓰세요.", "concept": "막대그래프 · 기본 이해", "difficulty": "하"},
+
+        {"id": 131, "question": "막대가 길수록 값은 (크다/작다).", "concept": "막대그래프 · 비교·판단", "difficulty": "중"},
+        {"id": 132, "question": "막대가 같은 길이면 값도 같습니다. (O/X)", "concept": "막대그래프 · 비교·판단", "difficulty": "중"},
+        {"id": 133, "question": "그래프를 잘못 읽으면 생기는 문제를 하나 쓰세요.", "concept": "막대그래프 · 비교·판단", "difficulty": "중"},
+        {"id": 134, "question": "그래프와 표의 공통점을 하나 쓰세요.", "concept": "막대그래프 · 비교·판단", "difficulty": "중"},
+        {"id": 135, "question": "그래프와 표의 차이점을 하나 쓰세요.", "concept": "막대그래프 · 비교·판단", "difficulty": "중"},
+        {"id": 136, "question": "자료가 많을수록 그래프가 복잡해집니다. (O/X)", "concept": "막대그래프 · 비교·판단", "difficulty": "중"},
+        {"id": 137, "question": "비교하기 좋은 그래프의 조건을 쓰세요.", "concept": "막대그래프 · 비교·판단", "difficulty": "중"},
+        {"id": 138, "question": "단위가 바뀌면 해석도 달라집니다. (O/X)", "concept": "막대그래프 · 비교·판단", "difficulty": "중"},
+        {"id": 139, "question": "그래프 해석에서 가장 중요한 점을 쓰세요.", "concept": "막대그래프 · 비교·판단", "difficulty": "중"},
+        {"id": 140, "question": "막대그래프가 쓰이는 생활 예를 쓰세요.", "concept": "막대그래프 · 비교·판단", "difficulty": "중"},
+
+        {"id": 141, "question": "그래프만 보고 판단하면 안 되는 이유를 쓰세요.", "concept": "막대그래프 · 사고력 응용", "difficulty": "상"},
+        {"id": 142, "question": "같은 값을 다른 그래프로 나타낼 수 있습니까? (O/X)", "concept": "막대그래프 · 사고력 응용", "difficulty": "상"},
+        {"id": 143, "question": "막대그래프 대신 표가 더 좋은 경우를 쓰세요.", "concept": "막대그래프 · 사고력 응용", "difficulty": "상"},
+        {"id": 144, "question": "그래프가 오해를 줄 수 있는 상황을 쓰세요.", "concept": "막대그래프 · 사고력 응용", "difficulty": "상"},
+        {"id": 145, "question": "그래프를 한 문장으로 요약해 보세요.", "concept": "막대그래프 · 사고력 응용", "difficulty": "상"},
+        {"id": 146, "question": "그래프를 비교할 때 주의할 점을 쓰세요.", "concept": "막대그래프 · 사고력 응용", "difficulty": "상"},
+        {"id": 147, "question": "그래프 해석이 필요한 생활 예를 하나 더 쓰세요.", "concept": "막대그래프 · 사고력 응용", "difficulty": "상"},
+        {"id": 148, "question": "막대그래프 단원의 핵심을 한 단어로 쓰세요.", "concept": "막대그래프 · 사고력 응용", "difficulty": "상"},
+        {"id": 149, "question": "이 단원을 배워서 좋은 점을 쓰세요.", "concept": "막대그래프 · 사고력 응용", "difficulty": "상"},
+        {"id": 150, "question": "자료를 그래프로 나타내는 가장 큰 이유를 쓰세요", "concept": "막대그래프 · 사고력 응용", "difficulty": "상"}
       ]
     }
   ],
-  "note": "초등 4학년 1학기 기본 문제 은행 - 1단원은 문제유형(변형) 30문항으로 갱신, 기존 2~4단원은 유지",
+  "note": "초등 4학년 1학기 기본응용 변형문제 - 5단원 × 30문항 = 150문항",
   "created_date": "2026-01-15",
-  "source": "UserProvided_4-1_ProblemType_Partial.txt + Existing_4-1_OCR.json",
-  "version": "2.0",
-  "structure": "4개 단원으로 구성 (큰 수 (만, 십만 단위), 곱셈과 나눗셈 (2) – 세 자리 수 × 한 자리 수, 분수의 덧셈과 뺄셈, 소수 (0.1, 0.01))"
+  "source": "UserProvided_4-1_BasicApplication_ProblemType.txt",
+  "version": "3.0",
+  "structure": "5개 단원 구성 (큰 수, 각도, 곱셈과 나눗셈, 평면도형의 이동, 막대그래프). 각 단원 30문항: ① 10 + ② 10 + ③ 10"
 }
+
+
