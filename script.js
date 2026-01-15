@@ -1883,7 +1883,42 @@ function findProblemsFromTemplate(templateData, conceptText, count, problemType)
             if (problems.length >= count) break;
         }
     }
-    
+
+    // 2차(보강): 개념 매칭이 실패해도, 해당 템플릿에서 최소한 문제를 뽑아 올 수 있도록 전체 풀백
+    // (특히 커리큘럼 문구/단원명이 템플릿과 다를 때 템플릿이 '로드만 되고 사용되지 않는' 문제 방지)
+    if (problems.length === 0) {
+        const allProblems = [];
+        for (const category of templateData.categories) {
+            if (!category.problems || category.problems.length === 0) continue;
+            for (const p of category.problems) allProblems.push(p);
+        }
+
+        const filtered = allProblems.filter(p => {
+            if (isApplication && p.difficulty === '하') return false;
+            return true;
+        });
+
+        if (filtered.length > 0) {
+            const shuffled = [...filtered].sort(() => Math.random() - 0.5);
+            const picked = shuffled.slice(0, Math.min(count, shuffled.length));
+            for (const problem of picked) {
+                problems.push({
+                    question: problem.question || '',
+                    answer: '',
+                    explanation: '',
+                    inputPlaceholder: '답을 입력하세요',
+                    type: 'template',
+                    meta: {
+                        templateType: 'reference',
+                        sourceTemplate: templateData.title,
+                        concept: problem.concept,
+                        difficulty: problem.difficulty
+                    }
+                });
+            }
+        }
+    }
+
     return problems.length > 0 ? problems.slice(0, count) : null;
 }
 
