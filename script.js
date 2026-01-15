@@ -1899,7 +1899,7 @@ function fallbackGenerate(conceptInfo, count, effectiveGrade, problemType = '기
     const conceptLower = conceptText.toLowerCase();
     
     // 1차: reference_problems 템플릿 파일에서 문제 찾기 (초등학교만)
-    if (gradeLevel === 'elementary' && grade >= 2 && grade <= 6) {
+    if (gradeLevel === 'elementary' && grade >= 1 && grade <= 6) {
         const isApplication = problemType === '응용 심화형' || problemType === 'basic+application' || problemType === 'highest' || problemType === '최상위';
         const cacheKey = `${grade}-${semester}-${isApplication ? 'app' : 'basic'}`;
         const templateData = templateCache[cacheKey];
