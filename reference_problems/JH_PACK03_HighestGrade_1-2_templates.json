@@ -1,0 +1,86 @@
+{
+  "pack": "JH_PACK03_HighestGrade",
+  "grade": 7,
+  "semester": 2,
+  "unit": 1,
+  "pdf_key": "1-2",
+  "title": "최상위 중학교 1학년 2학기",
+  "total_problems": 50,
+  "difficulty_level": "최상위",
+  "categories": [
+    {
+      "id": "1",
+      "name": "③ 정수와 유리수",
+      "range": [1, 25],
+      "problems": [
+        {"id": 1, "question": "절댓값의 정의를 수직선과 연결하여 설명하시오.", "concept": "정수와 유리수 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 2, "question": "절댓값이 같은 두 수의 합이 0이 되는 이유를 설명하시오.", "concept": "정수와 유리수 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 3, "question": "음수와 양수를 동시에 사용해야 하는 이유를 설명하시오.", "concept": "정수와 유리수 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 4, "question": "−(−a)가 a가 되는 이유를 설명하시오.", "concept": "정수와 유리수 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 5, "question": "정수의 곱셈에서 부호를 먼저 판단하는 이유를 설명하시오.", "concept": "정수와 유리수 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 6, "question": "두 유리수의 곱이 1이 되기 위한 조건을 설명하시오.", "concept": "정수와 유리수 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 7, "question": "정수의 나눗셈에서 몫의 부호가 결정되는 원리를 설명하시오.", "concept": "정수와 유리수 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 8, "question": "0으로 나눌 수 없는 이유를 설명하시오.", "concept": "정수와 유리수 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 9, "question": "절댓값이 크다고 항상 수가 큰 것은 아닌 이유를 설명하시오.", "concept": "정수와 유리수 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 10, "question": "−3²과 (−3)²의 값이 다른 이유를 설명하시오.", "concept": "정수와 유리수 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+
+        {"id": 11, "question": "유리수가 자연수의 범위를 확장한 이유를 설명하시오.", "concept": "정수와 유리수 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 12, "question": "유리수의 덧셈을 수직선으로 설명하는 이유를 설명하시오.", "concept": "정수와 유리수 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 13, "question": "음수가 실제 생활에서 필요한 상황을 설명하시오.", "concept": "정수와 유리수 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 14, "question": "계산 결과의 부호가 의미를 가지는 이유를 설명하시오.", "concept": "정수와 유리수 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 15, "question": "유리수 계산에서 가장 많이 발생하는 오류의 원인을 설명하시오.", "concept": "정수와 유리수 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 16, "question": "절댓값을 사용하면 편리해지는 계산의 예를 설명하시오.", "concept": "정수와 유리수 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 17, "question": "두 수의 차를 절댓값으로 나타내는 이유를 설명하시오.", "concept": "정수와 유리수 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 18, "question": "음수끼리의 곱이 양수가 되는 구조적 이유를 설명하시오.", "concept": "정수와 유리수 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 19, "question": "유리수 단원이 이후 방정식에 필요한 이유를 설명하시오.", "concept": "정수와 유리수 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 20, "question": "정수 단원이 없다면 생기는 수학적 문제를 설명하시오.", "concept": "정수와 유리수 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+
+        {"id": 21, "question": "유리수의 크기 비교에서 주의할 점을 설명하시오.", "concept": "정수와 유리수 · 사고력 응용", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 22, "question": "분수와 소수 중 상황에 따라 유리한 표현을 구분하는 기준을 설명하시오.", "concept": "정수와 유리수 · 사고력 응용", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 23, "question": "절댓값이 거리 개념으로 사용되는 이유를 설명하시오.", "concept": "정수와 유리수 · 사고력 응용", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 24, "question": "유리수의 연산 순서를 지켜야 하는 이유를 설명하시오.", "concept": "정수와 유리수 · 사고력 응용", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 25, "question": "이 단원의 핵심 개념을 한 문장으로 정리하시오.", "concept": "정수와 유리수 · 사고력 응용", "difficulty": "최상", "difficulty_level": "최상위"}
+      ]
+    },
+    {
+      "id": "2",
+      "name": "④ 문자와 식 · 일차방정식",
+      "range": [26, 50],
+      "problems": [
+        {"id": 26, "question": "문자를 사용하는 가장 본질적인 이유를 설명하시오.", "concept": "문자와 식 · 일차방정식 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 27, "question": "a+b=b+a가 항상 성립하는 이유를 설명하시오.", "concept": "문자와 식 · 일차방정식 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 28, "question": "2(x+3)=2x+6이 되는 구조를 설명하시오.", "concept": "문자와 식 · 일차방정식 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 29, "question": "−(x−5)가 −x+5가 되는 이유를 설명하시오.", "concept": "문자와 식 · 일차방정식 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 30, "question": "같은 문자식이라도 값이 달라지는 이유를 설명하시오.", "concept": "문자와 식 · 일차방정식 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 31, "question": "상수항과 계수의 차이를 설명하시오.", "concept": "문자와 식 · 일차방정식 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 32, "question": "x²−x가 항상 짝수가 되는 이유를 설명하시오.", "concept": "문자와 식 · 일차방정식 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 33, "question": "x+y가 일정할 때 x−y가 변하는 이유를 설명하시오.", "concept": "문자와 식 · 일차방정식 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 34, "question": "문자식에서 괄호가 필요한 이유를 설명하시오.", "concept": "문자와 식 · 일차방정식 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 35, "question": "식의 구조를 먼저 봐야 하는 이유를 설명하시오.", "concept": "문자와 식 · 일차방정식 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+
+        {"id": 36, "question": "방정식의 정의를 설명하시오.", "concept": "문자와 식 · 일차방정식 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 37, "question": "방정식의 해가 무엇을 의미하는지 설명하시오.", "concept": "문자와 식 · 일차방정식 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 38, "question": "일차방정식의 해가 하나뿐인 이유를 설명하시오.", "concept": "문자와 식 · 일차방정식 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 39, "question": "양변에 같은 수를 더하거나 빼도 되는 이유를 설명하시오.", "concept": "문자와 식 · 일차방정식 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 40, "question": "양변에 같은 수를 곱하거나 나눌 때 주의해야 할 점을 설명하시오.", "concept": "문자와 식 · 일차방정식 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 41, "question": "방정식 풀이에서 이항을 하는 이유를 설명하시오.", "concept": "문자와 식 · 일차방정식 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 42, "question": "해를 반드시 확인해야 하는 이유를 설명하시오.", "concept": "문자와 식 · 일차방정식 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 43, "question": "방정식을 잘못 세웠을 때 발생하는 오류를 설명하시오.", "concept": "문자와 식 · 일차방정식 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 44, "question": "해가 분수로 나오는 경우의 의미를 설명하시오.", "concept": "문자와 식 · 일차방정식 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 45, "question": "방정식이 실제 문제 해결에 유용한 이유를 설명하시오.", "concept": "문자와 식 · 일차방정식 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+
+        {"id": 46, "question": "문자식과 방정식의 차이를 설명하시오.", "concept": "문자와 식 · 일차방정식 · 사고력 응용", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 47, "question": "같은 해를 가지는 서로 다른 방정식이 존재할 수 있는 이유를 설명하시오.", "concept": "문자와 식 · 일차방정식 · 사고력 응용", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 48, "question": "방정식 단원이 이후 함수로 이어지는 이유를 설명하시오.", "concept": "문자와 식 · 일차방정식 · 사고력 응용", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 49, "question": "문자 사용이 없을 때 방정식이 불가능한 이유를 설명하시오.", "concept": "문자와 식 · 일차방정식 · 사고력 응용", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 50, "question": "이 단원의 핵심 개념을 한 문장으로 정리하시오.", "concept": "문자와 식 · 일차방정식 · 사고력 응용", "difficulty": "최상", "difficulty_level": "최상위"}
+      ]
+    }
+  ],
+  "note": "최상위 중학교 1학년 2학기 - 2단원 × (25+25)문항 = 50문항",
+  "created_date": "2026-01-15",
+  "source": "UserProvided_HighestGrade_1-2.txt",
+  "version": "1.0",
+  "structure": "2개 단원 구성 (정수와 유리수, 문자와 식 · 일차방정식). 정수와 유리수 25문항: ① 개념·이해 (1~10) + ② 비교·판단 (11~20) + ③ 사고력 응용 (21~25). 문자와 식 · 일차방정식 25문항: ① 개념·이해 (26~35) + ② 비교·판단 (36~45) + ③ 사고력 응용 (46~50)"
+}
+

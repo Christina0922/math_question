@@ -26,7 +26,23 @@
     {"file": "ES_PACK02_Basics_5-1_application_templates.json", "grade": 5, "semester": 1, "type": "application"},
 
     {"file": "ES_PACK02_Basics_6-1_templates.json", "grade": 6, "semester": 1, "type": "basic"},
-    {"file": "ES_PACK02_Basics_6-1_application_templates.json", "grade": 6, "semester": 1, "type": "application"}
+    {"file": "ES_PACK02_Basics_6-1_application_templates.json", "grade": 6, "semester": 1, "type": "application"},
+
+    {"file": "JH_PACK01_FundamentalConcept_1-1_templates.json", "grade": 7, "semester": 1, "type": "basic"},
+    {"file": "JH_PACK01_FundamentalConcept_1-2_templates.json", "grade": 7, "semester": 2, "type": "basic"},
+    {"file": "JH_PACK01_FundamentalConcept_2-1_templates.json", "grade": 8, "semester": 1, "type": "basic"},
+    {"file": "JH_PACK01_FundamentalConcept_2-2_templates.json", "grade": 8, "semester": 2, "type": "basic"},
+    {"file": "JH_PACK01_FundamentalConcept_3-1_templates.json", "grade": 9, "semester": 1, "type": "basic"},
+    {"file": "JH_PACK02_HighestGrade_Light_1-1_templates.json", "grade": 7, "semester": 1, "type": "application"},
+    {"file": "JH_PACK02_HighestGrade_Light_1-2_templates.json", "grade": 7, "semester": 2, "type": "application"},
+    {"file": "JH_PACK02_HighestGrade_Light_2-1_templates.json", "grade": 8, "semester": 1, "type": "application"},
+    {"file": "JH_PACK02_HighestGrade_Light_2-2_templates.json", "grade": 8, "semester": 2, "type": "application"},
+    {"file": "JH_PACK02_HighestGrade_Light_3-1_templates.json", "grade": 9, "semester": 1, "type": "application"},
+    {"file": "JH_PACK03_HighestGrade_1-1_templates.json", "grade": 7, "semester": 1, "type": "application"},
+    {"file": "JH_PACK03_HighestGrade_1-2_templates.json", "grade": 7, "semester": 2, "type": "application"},
+    {"file": "JH_PACK03_HighestGrade_2-1_templates.json", "grade": 8, "semester": 1, "type": "application"},
+    {"file": "JH_PACK03_HighestGrade_2-2_templates.json", "grade": 8, "semester": 2, "type": "application"},
+    {"file": "JH_PACK03_HighestGrade_3-1_templates.json", "grade": 9, "semester": 1, "type": "application"}
   ]
 }
 

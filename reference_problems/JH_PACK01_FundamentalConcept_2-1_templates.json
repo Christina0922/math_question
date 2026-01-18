@@ -1,0 +1,154 @@
+{
+  "pack": "JH_PACK01_FundamentalConcept",
+  "grade": 8,
+  "semester": 1,
+  "unit": 1,
+  "pdf_key": "2-1",
+  "title": "중학교 2학년 1학기 개념기본",
+  "total_problems": 100,
+  "difficulty_level": "개념기본",
+  "categories": [
+    {
+      "id": "1",
+      "name": "1단원. 유리수와 순환소수",
+      "range": [1, 25],
+      "problems": [
+        {"id": 1, "question": "유리수의 뜻을 쓰세요.", "concept": "유리수와 순환소수 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 2, "question": "다음 중 유리수를 모두 고르세요.", "concept": "유리수와 순환소수 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 3, "question": "−3/5는 유리수입니까?", "concept": "유리수와 순환소수 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 4, "question": "0.25를 분수로 나타내세요.", "concept": "유리수와 순환소수 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 5, "question": "1/4를 소수로 나타내세요.", "concept": "유리수와 순환소수 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 6, "question": "0.333…을 분수로 나타내세요.", "concept": "유리수와 순환소수 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 7, "question": "순환소수의 뜻을 쓰세요.", "concept": "유리수와 순환소수 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 8, "question": "0.121212…의 순환마디를 쓰세요.", "concept": "유리수와 순환소수 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 9, "question": "유한소수는 모두 유리수입니까?", "concept": "유리수와 순환소수 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 10, "question": "순환소수는 모두 유리수입니까?", "concept": "유리수와 순환소수 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+
+        {"id": 11, "question": "다음 중 순환소수를 고르세요.", "concept": "유리수와 순환소수 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 12, "question": "2/3을 소수로 나타내세요.", "concept": "유리수와 순환소수 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 13, "question": "0.4와 2/5 중 같은 수를 고르세요.", "concept": "유리수와 순환소수 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 14, "question": "순환소수를 분수로 나타내는 이유를 쓰세요.", "concept": "유리수와 순환소수 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 15, "question": "유리수와 정수의 관계를 쓰세요.", "concept": "유리수와 순환소수 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 16, "question": "다음 중 유리수가 아닌 것을 고르세요.", "concept": "유리수와 순환소수 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 17, "question": "0은 유리수입니까?", "concept": "유리수와 순환소수 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 18, "question": "−1.5를 분수로 나타내세요.", "concept": "유리수와 순환소수 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 19, "question": "7/8은 유한소수입니까, 순환소수입니까?", "concept": "유리수와 순환소수 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 20, "question": "분모가 어떤 수일 때 유한소수가 되는지 쓰세요.", "concept": "유리수와 순환소수 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+
+        {"id": 21, "question": "순환마디가 한 자리인 소수의 예를 하나 쓰세요.", "concept": "유리수와 순환소수 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 22, "question": "순환마디가 두 자리인 소수의 예를 하나 쓰세요.", "concept": "유리수와 순환소수 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 23, "question": "유리수를 소수로 나타내면 좋은 점을 쓰세요.", "concept": "유리수와 순환소수 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 24, "question": "유리수 단원이 필요한 이유를 하나 쓰세요.", "concept": "유리수와 순환소수 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 25, "question": "이 단원의 핵심 개념을 한 문장으로 쓰세요.", "concept": "유리수와 순환소수 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"}
+      ]
+    },
+    {
+      "id": "2",
+      "name": "2단원. 식의 계산",
+      "range": [26, 50],
+      "problems": [
+        {"id": 26, "question": "문자식의 뜻을 쓰세요.", "concept": "식의 계산 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 27, "question": "3a+2a를 간단히 하세요.", "concept": "식의 계산 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 28, "question": "5x−2x를 간단히 하세요.", "concept": "식의 계산 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 29, "question": "2a+3b에서 같은 항을 고르세요.", "concept": "식의 계산 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 30, "question": "다음 중 동류항을 고르세요.", "concept": "식의 계산 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 31, "question": "4x+7−2x를 간단히 하세요.", "concept": "식의 계산 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 32, "question": "6a−(2a+3)를 계산하세요.", "concept": "식의 계산 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 33, "question": "괄호를 먼저 계산해야 하는 이유를 쓰세요.", "concept": "식의 계산 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 34, "question": "−3x+5x를 계산하세요.", "concept": "식의 계산 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 35, "question": "2(x+3)을 전개하세요.", "concept": "식의 계산 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+
+        {"id": 36, "question": "−3(a−2)를 전개하세요.", "concept": "식의 계산 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 37, "question": "분배법칙의 뜻을 쓰세요.", "concept": "식의 계산 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 38, "question": "3(x−4)+2x를 간단히 하세요.", "concept": "식의 계산 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 39, "question": "−(x−5)를 풀어 쓰세요.", "concept": "식의 계산 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 40, "question": "계산 결과가 같은 식을 하나 고르세요.", "concept": "식의 계산 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 41, "question": "문자식 계산에서 가장 많이 하는 실수를 쓰세요.", "concept": "식의 계산 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 42, "question": "2a×3b를 계산하세요.", "concept": "식의 계산 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 43, "question": "a×a는 어떻게 씁니까?", "concept": "식의 계산 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 44, "question": "x²의 뜻을 말로 설명하세요.", "concept": "식의 계산 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 45, "question": "3x²은 어떤 항입니까?", "concept": "식의 계산 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+
+        {"id": 46, "question": "문자식에서 계수의 뜻을 쓰세요.", "concept": "식의 계산 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 47, "question": "상수항의 뜻을 쓰세요.", "concept": "식의 계산 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 48, "question": "문자식 계산이 필요한 이유를 하나 쓰세요.", "concept": "식의 계산 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 49, "question": "식을 간단히 하는 목적을 쓰세요.", "concept": "식의 계산 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 50, "question": "이 단원의 핵심 개념을 한 문장으로 쓰세요.", "concept": "식의 계산 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"}
+      ]
+    },
+    {
+      "id": "3",
+      "name": "3단원. 일차부등식",
+      "range": [51, 75],
+      "problems": [
+        {"id": 51, "question": "부등식의 뜻을 쓰세요.", "concept": "일차부등식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 52, "question": "다음 중 부등식을 고르세요.", "concept": "일차부등식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 53, "question": "x+3>5를 푸세요.", "concept": "일차부등식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 54, "question": "2x≤6을 푸세요.", "concept": "일차부등식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 55, "question": "x−4<1을 푸세요.", "concept": "일차부등식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 56, "question": "−3x>6을 풀 때 주의할 점을 쓰세요.", "concept": "일차부등식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 57, "question": "부등식의 해의 뜻을 쓰세요.", "concept": "일차부등식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 58, "question": "x≤2를 수직선에 나타내세요.", "concept": "일차부등식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 59, "question": "부등식의 해가 여러 개인 이유를 쓰세요.", "concept": "일차부등식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 60, "question": "부등식의 해를 확인하는 방법을 쓰세요.", "concept": "일차부등식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+
+        {"id": 61, "question": "x/2≥3을 푸세요.", "concept": "일차부등식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 62, "question": "−x<5를 푸세요.", "concept": "일차부등식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 63, "question": "부등식에서 양변에 음수를 곱할 때 생기는 변화는 무엇입니까?", "concept": "일차부등식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 64, "question": "부등호의 방향이 바뀌는 경우를 쓰세요.", "concept": "일차부등식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 65, "question": "다음 중 해가 x>1인 부등식을 고르세요.", "concept": "일차부등식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 66, "question": "부등식을 푸는 순서를 쓰세요.", "concept": "일차부등식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 67, "question": "일차부등식의 뜻을 쓰세요.", "concept": "일차부등식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 68, "question": "해가 무수히 많은 이유를 쓰세요.", "concept": "일차부등식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 69, "question": "부등식이 사용되는 상황을 하나 고르세요.", "concept": "일차부등식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 70, "question": "부등식을 방정식과 비교하여 차이를 쓰세요.", "concept": "일차부등식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+
+        {"id": 71, "question": "x≥0의 뜻을 말로 설명하세요.", "concept": "일차부등식 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 72, "question": "부등식을 잘못 풀었을 때 생기는 문제를 쓰세요.", "concept": "일차부등식 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 73, "question": "부등식 풀이에서 가장 중요한 점을 하나 쓰세요.", "concept": "일차부등식 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 74, "question": "부등식 단원이 필요한 이유를 쓰세요.", "concept": "일차부등식 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 75, "question": "이 단원의 핵심 개념을 한 문장으로 쓰세요.", "concept": "일차부등식 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"}
+      ]
+    },
+    {
+      "id": "4",
+      "name": "4단원. 연립일차방정식",
+      "range": [76, 100],
+      "problems": [
+        {"id": 76, "question": "연립방정식의 뜻을 쓰세요.", "concept": "연립일차방정식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 77, "question": "다음 중 연립방정식을 고르세요.", "concept": "연립일차방정식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 78, "question": "x+y=5, x−y=1에서 x의 값을 구하세요.", "concept": "연립일차방정식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 79, "question": "위 연립방정식에서 y의 값을 구하세요.", "concept": "연립일차방정식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 80, "question": "연립방정식을 푸는 이유를 쓰세요.", "concept": "연립일차방정식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 81, "question": "가감법의 뜻을 쓰세요.", "concept": "연립일차방정식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 82, "question": "대입법의 뜻을 쓰세요.", "concept": "연립일차방정식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 83, "question": "다음 중 가감법이 알맞은 경우를 고르세요.", "concept": "연립일차방정식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 84, "question": "다음 중 대입법이 알맞은 경우를 고르세요.", "concept": "연립일차방정식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 85, "question": "연립방정식의 해의 뜻을 쓰세요.", "concept": "연립일차방정식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+
+        {"id": 86, "question": "두 직선의 교점의 의미를 쓰세요.", "concept": "연립일차방정식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 87, "question": "해가 하나인 경우는 언제입니까?", "concept": "연립일차방정식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 88, "question": "해가 없는 경우는 언제입니까?", "concept": "연립일차방정식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 89, "question": "해가 무수히 많은 경우는 언제입니까?", "concept": "연립일차방정식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 90, "question": "연립방정식을 그래프로 풀 수 있는 이유를 쓰세요.", "concept": "연립일차방정식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 91, "question": "연립방정식을 풀 때 가장 많이 하는 실수를 쓰세요.", "concept": "연립일차방정식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 92, "question": "방정식 두 개가 필요한 이유를 쓰세요.", "concept": "연립일차방정식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 93, "question": "연립방정식이 필요한 상황을 하나 고르세요.", "concept": "연립일차방정식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 94, "question": "연립방정식의 해를 확인하는 방법을 쓰세요.", "concept": "연립일차방정식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 95, "question": "두 식이 같은 직선을 나타내면 어떤 결과가 됩니까?", "concept": "연립일차방정식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+
+        {"id": 96, "question": "두 식이 평행하면 어떤 결과가 됩니까?", "concept": "연립일차방정식 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 97, "question": "연립방정식에서 중요한 약속을 하나 쓰세요.", "concept": "연립일차방정식 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 98, "question": "연립방정식 풀이 순서를 쓰세요.", "concept": "연립일차방정식 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 99, "question": "연립방정식 단원이 없으면 불편한 점을 쓰세요.", "concept": "연립일차방정식 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 100, "question": "이 단원의 핵심 개념을 한 문장으로 쓰세요.", "concept": "연립일차방정식 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"}
+      ]
+    }
+  ],
+  "note": "중학교 2학년 1학기 개념기본 - 4단원 × 25문항 = 100문항",
+  "created_date": "2026-01-15",
+  "source": "UserProvided_Middle_School_2-1.txt",
+  "version": "1.0",
+  "structure": "4개 단원 구성 (유리수와 순환소수, 식의 계산, 일차부등식, 연립일차방정식). 각 단원 25문항: ① 개념·이해 (1~10) + ② 비교·판단 (11~20) + ③ 사고력 응용 (21~25)"
+}
+

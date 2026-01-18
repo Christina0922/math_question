@@ -1,0 +1,154 @@
+{
+  "pack": "JH_PACK01_FundamentalConcept",
+  "grade": 7,
+  "semester": 1,
+  "unit": 1,
+  "pdf_key": "1-1",
+  "title": "중학교 1학년 1학기 개념기본",
+  "total_problems": 100,
+  "difficulty_level": "개념기본",
+  "categories": [
+    {
+      "id": "1",
+      "name": "1단원. 소인수분해",
+      "range": [1, 25],
+      "problems": [
+        {"id": 1, "question": "24를 소인수분해 하세요.", "concept": "소인수분해 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 2, "question": "36을 소인수분해 하세요.", "concept": "소인수분해 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 3, "question": "18을 소인수분해 하세요.", "concept": "소인수분해 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 4, "question": "다음 중 소수가 아닌 것을 고르세요.", "concept": "소인수분해 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 5, "question": "다음 중 합성수를 모두 고르세요.", "concept": "소인수분해 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 6, "question": "45를 소인수분해 했을 때 가장 작은 소인수는 무엇입니까?", "concept": "소인수분해 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 7, "question": "72를 소인수분해 했을 때 소인수의 개수는 몇 개입니까?", "concept": "소인수분해 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 8, "question": "소인수분해의 뜻을 쓰세요.", "concept": "소인수분해 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 9, "question": "60을 소인수분해 하면 2는 몇 번 곱해집니까?", "concept": "소인수분해 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 10, "question": "다음 중 소인수분해가 바르게 된 것을 고르세요.", "concept": "소인수분해 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+
+        {"id": 11, "question": "84를 소인수분해 하세요.", "concept": "소인수분해 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 12, "question": "어떤 수를 소인수분해 했더니 2×2×3이 되었습니다. 이 수는 얼마입니까?", "concept": "소인수분해 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 13, "question": "90을 소인수분해 했을 때 포함되지 않는 소인수는 무엇입니까?", "concept": "소인수분해 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 14, "question": "48과 72의 공통인 소인수를 모두 쓰세요.", "concept": "소인수분해 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 15, "question": "소인수분해를 하는 이유를 한 가지 쓰세요.", "concept": "소인수분해 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 16, "question": "100을 소인수분해 하세요.", "concept": "소인수분해 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 17, "question": "다음 중 소수만으로 이루어진 곱을 고르세요.", "concept": "소인수분해 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 18, "question": "54를 소인수분해 하세요.", "concept": "소인수분해 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 19, "question": "소인수분해에서 1을 사용하지 않는 이유를 쓰세요.", "concept": "소인수분해 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 20, "question": "66을 소인수분해 했을 때 가장 큰 소인수는 무엇입니까?", "concept": "소인수분해 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+
+        {"id": 21, "question": "소수의 뜻을 쓰세요.", "concept": "소인수분해 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 22, "question": "합성수의 뜻을 쓰세요.", "concept": "소인수분해 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 23, "question": "2와 3의 공배수 중 가장 작은 수는 무엇입니까?", "concept": "소인수분해 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 24, "question": "소인수분해가 필요한 상황을 하나 고르세요.", "concept": "소인수분해 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 25, "question": "이 단원의 핵심 개념을 한 문장으로 쓰세요.", "concept": "소인수분해 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"}
+      ]
+    },
+    {
+      "id": "2",
+      "name": "2단원. 정수와 유리수",
+      "range": [26, 50],
+      "problems": [
+        {"id": 26, "question": "다음 중 정수를 모두 고르세요.", "concept": "정수와 유리수 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 27, "question": "−3은 어떤 수입니까?", "concept": "정수와 유리수 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 28, "question": "다음 중 유리수를 고르세요.", "concept": "정수와 유리수 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 29, "question": "−5와 3 중 더 큰 수를 고르세요.", "concept": "정수와 유리수 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 30, "question": "수직선에서 −2는 0의 어느 쪽에 있습니까?", "concept": "정수와 유리수 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 31, "question": "절댓값의 뜻을 쓰세요.", "concept": "정수와 유리수 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 32, "question": "|−7|의 값은 얼마입니까?", "concept": "정수와 유리수 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 33, "question": "다음 중 절댓값이 같은 수를 고르세요.", "concept": "정수와 유리수 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 34, "question": "−4와 −6 중 절댓값이 더 큰 수는 무엇입니까?", "concept": "정수와 유리수 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 35, "question": "0의 절댓값은 얼마입니까?", "concept": "정수와 유리수 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+
+        {"id": 36, "question": "−2 + (−3)의 계산 결과는 얼마입니까?", "concept": "정수와 유리수 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 37, "question": "−5 + 7의 계산 결과는 얼마입니까?", "concept": "정수와 유리수 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 38, "question": "6 − 9의 계산 결과는 얼마입니까?", "concept": "정수와 유리수 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 39, "question": "−4 − (−2)의 계산 결과는 얼마입니까?", "concept": "정수와 유리수 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 40, "question": "정수의 덧셈에서 같은 부호끼리 계산하는 방법을 쓰세요.", "concept": "정수와 유리수 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 41, "question": "서로 다른 부호의 정수를 더할 때의 계산 방법을 쓰세요.", "concept": "정수와 유리수 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 42, "question": "다음 중 계산 결과가 0이 되는 식을 고르세요.", "concept": "정수와 유리수 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 43, "question": "수직선을 이용해 −3 + 5를 설명하세요.", "concept": "정수와 유리수 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 44, "question": "정수 계산에서 가장 많이 하는 실수를 하나 고르세요.", "concept": "정수와 유리수 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 45, "question": "유리수의 뜻을 쓰세요.", "concept": "정수와 유리수 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+
+        {"id": 46, "question": "정수는 유리수에 포함됩니까?", "concept": "정수와 유리수 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 47, "question": "−1은 자연수입니까?", "concept": "정수와 유리수 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 48, "question": "정수 계산이 필요한 상황을 하나 고르세요.", "concept": "정수와 유리수 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 49, "question": "절댓값이 같은 두 정수를 하나 쓰세요.", "concept": "정수와 유리수 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 50, "question": "이 단원의 핵심 개념을 한 문장으로 쓰세요.", "concept": "정수와 유리수 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"}
+      ]
+    },
+    {
+      "id": "3",
+      "name": "3단원. 문자와 식",
+      "range": [51, 75],
+      "problems": [
+        {"id": 51, "question": "x는 무엇을 나타냅니까?", "concept": "문자와 식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 52, "question": "3x의 뜻을 말로 설명하세요.", "concept": "문자와 식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 53, "question": "x=2일 때 3x의 값을 구하세요.", "concept": "문자와 식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 54, "question": "x=5일 때 x+4의 값을 구하세요.", "concept": "문자와 식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 55, "question": "2x+3에서 상수항은 무엇입니까?", "concept": "문자와 식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 56, "question": "4a−7에서 계수는 무엇입니까?", "concept": "문자와 식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 57, "question": "다음 중 문자가 사용된 식을 고르세요.", "concept": "문자와 식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 58, "question": "x+5와 5+x가 같은 이유를 쓰세요.", "concept": "문자와 식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 59, "question": "x=1일 때 2x−1의 값을 구하세요.", "concept": "문자와 식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 60, "question": "식의 값을 구한다는 뜻을 설명하세요.", "concept": "문자와 식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+
+        {"id": 61, "question": "다음 중 일차식인 것을 고르세요.", "concept": "문자와 식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 62, "question": "3x와 x+x+x의 관계를 설명하세요.", "concept": "문자와 식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 63, "question": "x=0일 때 x−3의 값을 구하세요.", "concept": "문자와 식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 64, "question": "문자를 사용하는 이유를 한 가지 쓰세요.", "concept": "문자와 식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 65, "question": "5x에서 5는 무엇을 의미합니까?", "concept": "문자와 식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 66, "question": "x에 어떤 수를 대입해도 값이 변하지 않는 식을 고르세요.", "concept": "문자와 식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 67, "question": "x=4일 때 2x+1의 값을 구하세요.", "concept": "문자와 식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 68, "question": "문자식 계산에서 주의할 점을 쓰세요.", "concept": "문자와 식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 69, "question": "같은 식을 다른 방법으로 나타내세요.", "concept": "문자와 식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 70, "question": "문자식이 필요한 상황을 하나 고르세요.", "concept": "문자와 식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+
+        {"id": 71, "question": "x가 커질수록 값이 커지는 식을 고르세요.", "concept": "문자와 식 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 72, "question": "상수항이 없는 식을 하나 고르세요.", "concept": "문자와 식 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 73, "question": "계수가 1인 항을 고르세요.", "concept": "문자와 식 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 74, "question": "문자식에서 가장 중요한 약속을 쓰세요.", "concept": "문자와 식 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 75, "question": "이 단원의 핵심 개념을 한 문장으로 쓰세요.", "concept": "문자와 식 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"}
+      ]
+    },
+    {
+      "id": "4",
+      "name": "4단원. 좌표평면",
+      "range": [76, 100],
+      "problems": [
+        {"id": 76, "question": "좌표평면의 뜻을 쓰세요.", "concept": "좌표평면 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 77, "question": "x축은 어떤 선입니까?", "concept": "좌표평면 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 78, "question": "y축은 어떤 선입니까?", "concept": "좌표평면 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 79, "question": "(3, 0)은 어느 축 위의 점입니까?", "concept": "좌표평면 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 80, "question": "(0, −4)는 어느 축 위의 점입니까?", "concept": "좌표평면 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 81, "question": "(2, 3)의 뜻을 설명하세요.", "concept": "좌표평면 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 82, "question": "다음 중 x좌표가 0인 점을 고르세요.", "concept": "좌표평면 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 83, "question": "제1사분면에 있는 점을 고르세요.", "concept": "좌표평면 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 84, "question": "제3사분면에 있는 점을 고르세요.", "concept": "좌표평면 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 85, "question": "(−2, 5)는 어느 사분면에 있습니까?", "concept": "좌표평면 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+
+        {"id": 86, "question": "(4, −1)은 어느 사분면에 있습니까?", "concept": "좌표평면 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 87, "question": "좌표를 쓸 때 순서를 바꾸면 안 되는 이유를 쓰세요.", "concept": "좌표평면 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 88, "question": "원점의 좌표를 쓰세요.", "concept": "좌표평면 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 89, "question": "좌표평면에서 가로 방향은 어느 축입니까?", "concept": "좌표평면 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 90, "question": "좌표평면에서 세로 방향은 어느 축입니까?", "concept": "좌표평면 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 91, "question": "두 점의 x좌표가 같을 때 특징을 쓰세요.", "concept": "좌표평면 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 92, "question": "두 점의 y좌표가 같을 때 특징을 쓰세요.", "concept": "좌표평면 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 93, "question": "좌표를 잘못 읽었을 때 생기는 문제를 고르세요.", "concept": "좌표평면 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 94, "question": "좌표가 필요한 상황을 하나 고르세요.", "concept": "좌표평면 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 95, "question": "점 (1, 2)와 (1, −2)의 공통점을 쓰세요.", "concept": "좌표평면 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+
+        {"id": 96, "question": "좌표평면이 필요한 이유를 쓰세요.", "concept": "좌표평면 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 97, "question": "좌표를 이용해 위치를 설명하는 이유를 쓰세요.", "concept": "좌표평면 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 98, "question": "제2사분면의 특징을 쓰세요.", "concept": "좌표평면 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 99, "question": "좌표 단원에서 가장 중요한 약속을 쓰세요.", "concept": "좌표평면 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 100, "question": "이 단원의 핵심 개념을 한 문장으로 쓰세요.", "concept": "좌표평면 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"}
+      ]
+    }
+  ],
+  "note": "중학교 1학년 1학기 개념기본 - 4단원 × 25문항 = 100문항",
+  "created_date": "2026-01-15",
+  "source": "UserProvided_Middle_School_1-1.txt",
+  "version": "1.0",
+  "structure": "4개 단원 구성 (소인수분해, 정수와 유리수, 문자와 식, 좌표평면). 각 단원 25문항: ① 개념·이해 (1~10) + ② 비교·판단 (11~20) + ③ 사고력 응용 (21~25)"
+}
+

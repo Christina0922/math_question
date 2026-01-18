@@ -1,0 +1,85 @@
+{
+  "pack": "JH_PACK02_HighestGrade_Light",
+  "grade": 8,
+  "semester": 2,
+  "unit": 1,
+  "pdf_key": "2-2",
+  "title": "최상위 라이트 중학교 2학년 2학기",
+  "total_problems": 50,
+  "difficulty_level": "최상위 라이트",
+  "categories": [
+    {
+      "id": "1",
+      "name": "① 이차방정식",
+      "range": [1, 30],
+      "problems": [
+        {"id": 1, "question": "이차방정식의 뜻을 한 문장으로 쓰시오.", "concept": "이차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 2, "question": "x²=9에서 해가 두 개인 이유를 설명하시오.", "concept": "이차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 3, "question": "x²=0의 해가 하나뿐인 이유를 설명하시오.", "concept": "이차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 4, "question": "x²−5=0의 해를 근호로 나타내고, 그 의미를 쓰시오.", "concept": "이차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 5, "question": "x²+1=0이 해를 가지지 않는 이유를 설명하시오.", "concept": "이차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 6, "question": "(x−3)²=4를 풀 때 제곱을 먼저 풀면 안 되는 이유를 설명하시오.", "concept": "이차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 7, "question": "x²=a의 해의 개수가 a의 값에 따라 달라지는 이유를 설명하시오.", "concept": "이차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 8, "question": "이차방정식의 해가 정수가 되기 위한 조건을 설명하시오.", "concept": "이차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 9, "question": "해가 서로 다른 두 개인 이차방정식의 형태를 설명하시오.", "concept": "이차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 10, "question": "해가 중근이 되는 상황을 말로 설명하시오.", "concept": "이차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+
+        {"id": 11, "question": "이차방정식을 풀 때 이항을 하는 이유를 설명하시오.", "concept": "이차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 12, "question": "x²−7=0과 x²=7의 해가 같은 이유를 설명하시오.", "concept": "이차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 13, "question": "제곱을 취하면 해가 늘어날 수 있는 이유를 설명하시오.", "concept": "이차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 14, "question": "근호로 나타낸 해가 근삿값이 필요한 이유를 설명하시오.", "concept": "이차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 15, "question": "이차방정식의 해를 반드시 확인해야 하는 이유를 설명하시오.", "concept": "이차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 16, "question": "이차방정식과 일차방정식의 가장 큰 차이를 설명하시오.", "concept": "이차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 17, "question": "해가 음수가 되는 이차방정식의 특징을 설명하시오.", "concept": "이차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 18, "question": "해가 양수만 되는 이차방정식의 조건을 설명하시오.", "concept": "이차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 19, "question": "해가 0을 포함하는 경우를 설명하시오.", "concept": "이차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 20, "question": "이차방정식이 실생활 문제에 쓰이는 이유를 설명하시오.", "concept": "이차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+
+        {"id": 21, "question": "x²=b 형태가 인수분해로 바로 풀리는 이유를 설명하시오.", "concept": "이차방정식 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 22, "question": "이차방정식의 해의 의미를 그래프와 연결하여 설명하시오.", "concept": "이차방정식 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 23, "question": "해의 개수를 판단할 때 가장 먼저 볼 점을 쓰시오.", "concept": "이차방정식 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 24, "question": "근호 계산 실수가 자주 나는 이유를 설명하시오.", "concept": "이차방정식 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 25, "question": "이차방정식 풀이 순서를 말로 정리하시오.", "concept": "이차방정식 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 26, "question": "이차방정식에서 '제곱'의 의미를 설명하시오.", "concept": "이차방정식 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 27, "question": "해가 유리수가 아닌 경우를 설명하시오.", "concept": "이차방정식 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 28, "question": "이차방정식 단원이 필요한 이유를 설명하시오.", "concept": "이차방정식 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 29, "question": "이차방정식을 잘못 이해했을 때 생기는 문제를 설명하시오.", "concept": "이차방정식 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 30, "question": "이 단원의 핵심 개념을 한 문장으로 정리하시오.", "concept": "이차방정식 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"}
+      ]
+    },
+    {
+      "id": "2",
+      "name": "② 이차함수 y=ax²",
+      "range": [31, 50],
+      "problems": [
+        {"id": 31, "question": "이차함수의 뜻을 한 문장으로 쓰시오.", "concept": "이차함수 y=ax² · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 32, "question": "y=x²이 함수가 되는 이유를 설명하시오.", "concept": "이차함수 y=ax² · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 33, "question": "y=−x²의 그래프가 아래로 열리는 이유를 설명하시오.", "concept": "이차함수 y=ax² · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 34, "question": "y=ax²에서 a의 부호가 의미하는 바를 설명하시오.", "concept": "이차함수 y=ax² · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 35, "question": "y=ax²에서 |a|가 커질수록 그래프가 어떻게 변하는지 설명하시오.", "concept": "이차함수 y=ax² · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 36, "question": "이차함수 그래프가 포물선인 이유를 설명하시오.", "concept": "이차함수 y=ax² · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 37, "question": "y=x²의 꼭짓점의 의미를 설명하시오.", "concept": "이차함수 y=ax² · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 38, "question": "꼭짓점이 원점에 있는 이유를 설명하시오.", "concept": "이차함수 y=ax² · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 39, "question": "y=x²의 그래프가 y축에 대하여 대칭인 이유를 설명하시오.", "concept": "이차함수 y=ax² · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 40, "question": "이차함수의 최솟값이 존재하는 이유를 설명하시오.", "concept": "이차함수 y=ax² · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+
+        {"id": 41, "question": "y=−x²에서 최댓값이 존재하는 이유를 설명하시오.", "concept": "이차함수 y=ax² · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 42, "question": "이차함수에서 x값이 커질수록 y값이 변하는 방식을 설명하시오.", "concept": "이차함수 y=ax² · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 43, "question": "그래프를 그리지 않고 y값의 부호를 판단하는 방법을 설명하시오.", "concept": "이차함수 y=ax² · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 44, "question": "이차함수와 일차함수 그래프의 차이를 설명하시오.", "concept": "이차함수 y=ax² · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 45, "question": "이차함수가 직선이 될 수 없는 이유를 설명하시오.", "concept": "이차함수 y=ax² · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 46, "question": "y=ax²이 항상 원점을 지나는 이유를 설명하시오.", "concept": "이차함수 y=ax² · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 47, "question": "이차함수의 그래프 해석에서 자주 생기는 오해를 설명하시오.", "concept": "이차함수 y=ax² · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 48, "question": "그래프의 대칭성이 중요한 이유를 설명하시오.", "concept": "이차함수 y=ax² · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 49, "question": "이차함수 단원이 이후 함수 단원에 필요한 이유를 설명하시오.", "concept": "이차함수 y=ax² · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 50, "question": "이 단원의 핵심 개념을 한 문장으로 정리하시오.", "concept": "이차함수 y=ax² · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"}
+      ]
+    }
+  ],
+  "note": "최상위 라이트 중학교 2학년 2학기 - 2단원 × (30+20)문항 = 50문항",
+  "created_date": "2026-01-15",
+  "source": "UserProvided_HighestGrade_Light_2-2.txt",
+  "version": "1.0",
+  "structure": "2개 단원 구성 (이차방정식, 이차함수 y=ax²). 이차방정식 30문항: ① 개념·이해 (1~10) + ② 비교·판단 (11~20) + ③ 사고력 응용 (21~30). 이차함수 y=ax² 20문항: ① 개념·이해 (31~40) + ② 비교·판단 (41~50)"
+}
+

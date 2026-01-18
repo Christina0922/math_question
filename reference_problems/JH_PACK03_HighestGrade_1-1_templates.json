@@ -1,0 +1,85 @@
+{
+  "pack": "JH_PACK03_HighestGrade",
+  "grade": 7,
+  "semester": 1,
+  "unit": 1,
+  "pdf_key": "1-1",
+  "title": "최상위 중학교 1학년 1학기",
+  "total_problems": 50,
+  "difficulty_level": "최상위",
+  "categories": [
+    {
+      "id": "1",
+      "name": "① 소인수분해",
+      "range": [1, 30],
+      "problems": [
+        {"id": 1, "question": "360을 소인수분해하고 소인수의 지수의 합을 구하시오.", "concept": "소인수분해 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 2, "question": "소인수가 2와 3뿐인 세 자리 자연수 중 가장 큰 수를 구하시오.", "concept": "소인수분해 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 3, "question": "소인수의 개수가 4개(중복 포함)인 가장 작은 자연수를 구하시오.", "concept": "소인수분해 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 4, "question": "소인수분해 결과가 2^a×3^b 꼴이 되는 자연수의 특징을 설명하시오.", "concept": "소인수분해 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 5, "question": "540의 약수 중 완전제곱수의 개수를 구하시오.", "concept": "소인수분해 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 6, "question": "어떤 수를 소인수분해하였더니 2²×5×7이다. 이 수의 약수의 개수를 구하시오.", "concept": "소인수분해 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 7, "question": "소인수분해 결과에 2가 포함되지 않는 합성수의 최소값을 구하시오.", "concept": "소인수분해 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 8, "question": "1부터 100까지 자연수 중 소인수가 한 종류뿐인 수의 개수를 구하시오.", "concept": "소인수분해 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 9, "question": "소인수분해 결과가 같은 두 서로 다른 자연수가 존재할 수 없는 이유를 설명하시오.", "concept": "소인수분해 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 10, "question": "어떤 자연수 N의 약수의 개수가 12개일 때 가능한 N의 소인수분해 형태를 설명하시오.", "concept": "소인수분해 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+
+        {"id": 11, "question": "450의 소인수분해를 이용하여 약수 중 3의 배수의 개수를 구하시오.", "concept": "소인수분해 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 12, "question": "소인수분해를 이용하면 최대공약수를 쉽게 구할 수 있는 이유를 설명하시오.", "concept": "소인수분해 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 13, "question": "소인수의 지수가 모두 홀수인 수의 예를 하나 만들고 이유를 설명하시오.", "concept": "소인수분해 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 14, "question": "소인수의 지수가 하나라도 짝수이면 어떤 성질이 있는지 설명하시오.", "concept": "소인수분해 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 15, "question": "어떤 수에 자연수 하나를 곱해 처음으로 완전제곱수가 되는 경우의 판단 기준을 설명하시오.", "concept": "소인수분해 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 16, "question": "72에 어떤 자연수를 곱해야 완전제곱수가 되는지 구하시오.", "concept": "소인수분해 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 17, "question": "200을 어떤 자연수로 나누면 완전제곱수가 되는지 구하시오.", "concept": "소인수분해 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 18, "question": "소인수분해 결과에서 지수의 합이 클수록 수의 크기가 커지는지 판단하고 이유를 설명하시오.", "concept": "소인수분해 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 19, "question": "약수의 개수가 홀수인 수가 되는 조건을 설명하시오.", "concept": "소인수분해 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 20, "question": "1부터 200까지 자연수 중 약수의 개수가 홀수인 수의 개수를 구하시오.", "concept": "소인수분해 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+
+        {"id": 21, "question": "서로 다른 두 자연수의 소인수분해 결과가 같아질 수 없는 이유를 설명하시오.", "concept": "소인수분해 · 사고력 응용", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 22, "question": "소인수분해가 곱셈 구조를 드러내는 이유를 설명하시오.", "concept": "소인수분해 · 사고력 응용", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 23, "question": "소인수분해를 하지 않으면 약수 문제에서 생기는 어려움을 설명하시오.", "concept": "소인수분해 · 사고력 응용", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 24, "question": "소인수분해 결과로 수의 성질을 예측할 수 있는 이유를 설명하시오.", "concept": "소인수분해 · 사고력 응용", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 25, "question": "소인수분해에서 지수의 의미를 설명하시오.", "concept": "소인수분해 · 사고력 응용", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 26, "question": "소인수분해가 가능한 수와 불가능한 수의 차이를 설명하시오.", "concept": "소인수분해 · 사고력 응용", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 27, "question": "소인수분해 결과에 같은 소인수가 반복될 때 생기는 특징을 설명하시오.", "concept": "소인수분해 · 사고력 응용", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 28, "question": "소인수분해를 이용해 수를 분류하는 방법을 설명하시오.", "concept": "소인수분해 · 사고력 응용", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 29, "question": "소인수분해 단원이 이후 단원에 필요한 이유를 설명하시오.", "concept": "소인수분해 · 사고력 응용", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 30, "question": "이 단원의 핵심 개념을 한 문장으로 정리하시오.", "concept": "소인수분해 · 사고력 응용", "difficulty": "최상", "difficulty_level": "최상위"}
+      ]
+    },
+    {
+      "id": "2",
+      "name": "② 최대공약수와 최소공배수",
+      "range": [31, 50],
+      "problems": [
+        {"id": 31, "question": "두 자연수의 최대공약수가 12이고 최소공배수가 180일 때 두 수의 곱을 구하시오.", "concept": "최대공약수와 최소공배수 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 32, "question": "서로소인 두 자연수의 최소공배수가 두 수의 곱과 같은 이유를 설명하시오.", "concept": "최대공약수와 최소공배수 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 33, "question": "84와 126의 공약수의 개수를 구하시오.", "concept": "최대공약수와 최소공배수 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 34, "question": "두 자연수의 최대공약수가 클수록 어떤 성질이 강해지는지 설명하시오.", "concept": "최대공약수와 최소공배수 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 35, "question": "최소공배수가 커지는 경우의 특징을 설명하시오.", "concept": "최대공약수와 최소공배수 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 36, "question": "가로 108cm, 세로 180cm 직사각형을 같은 정사각형으로 나눌 때 정사각형의 최대 한 변을 구하시오.", "concept": "최대공약수와 최소공배수 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 37, "question": "4개씩 묶으면 1개가 남고, 6개씩 묶으면 5개가 남는 자연수 중 가장 작은 수를 구하시오.", "concept": "최대공약수와 최소공배수 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 38, "question": "두 수의 공배수를 최소공배수로 대표하는 이유를 설명하시오.", "concept": "최대공약수와 최소공배수 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 39, "question": "공약수와 최대공약수의 관계를 설명하시오.", "concept": "최대공약수와 최소공배수 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 40, "question": "공배수와 최소공배수의 관계를 설명하시오.", "concept": "최대공약수와 최소공배수 · 개념·이해", "difficulty": "최상", "difficulty_level": "최상위"},
+
+        {"id": 41, "question": "세 자연수 18, 24, x의 최대공약수가 6일 때 x의 최소값을 구하시오.", "concept": "최대공약수와 최소공배수 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 42, "question": "세 자연수 8, 12, x의 최소공배수가 24가 되도록 하는 x를 구하시오.", "concept": "최대공약수와 최소공배수 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 43, "question": "최대공약수를 이용해 두 수의 비를 간단히 하는 이유를 설명하시오.", "concept": "최대공약수와 최소공배수 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 44, "question": "최소공배수를 이용하면 반복 문제를 쉽게 푸는 이유를 설명하시오.", "concept": "최대공약수와 최소공배수 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 45, "question": "두 자연수의 최대공약수와 최소공배수를 동시에 고려해야 하는 이유를 설명하시오.", "concept": "최대공약수와 최소공배수 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 46, "question": "서로소의 개념이 필요한 이유를 설명하시오.", "concept": "최대공약수와 최소공배수 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 47, "question": "두 수가 서로소일 때의 구조적 특징을 설명하시오.", "concept": "최대공약수와 최소공배수 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 48, "question": "최대공약수와 최소공배수 중 먼저 구해야 할 상황을 구분하는 기준을 설명하시오.", "concept": "최대공약수와 최소공배수 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 49, "question": "이 단원이 실생활 문제에 자주 쓰이는 이유를 설명하시오.", "concept": "최대공약수와 최소공배수 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"},
+        {"id": 50, "question": "이 단원의 핵심 개념을 한 문장으로 정리하시오.", "concept": "최대공약수와 최소공배수 · 비교·판단", "difficulty": "최상", "difficulty_level": "최상위"}
+      ]
+    }
+  ],
+  "note": "최상위 중학교 1학년 1학기 - 2단원 × (30+20)문항 = 50문항",
+  "created_date": "2026-01-15",
+  "source": "UserProvided_HighestGrade_1-1.txt",
+  "version": "1.0",
+  "structure": "2개 단원 구성 (소인수분해, 최대공약수와 최소공배수). 소인수분해 30문항: ① 개념·이해 (1~10) + ② 비교·판단 (11~20) + ③ 사고력 응용 (21~30). 최대공약수와 최소공배수 20문항: ① 개념·이해 (31~40) + ② 비교·판단 (41~50)"
+}
+

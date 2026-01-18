@@ -1,0 +1,154 @@
+{
+  "pack": "JH_PACK01_FundamentalConcept",
+  "grade": 8,
+  "semester": 2,
+  "unit": 1,
+  "pdf_key": "2-2",
+  "title": "중학교 2학년 2학기 개념기본",
+  "total_problems": 100,
+  "difficulty_level": "개념기본",
+  "categories": [
+    {
+      "id": "1",
+      "name": "1단원. 이차방정식",
+      "range": [1, 25],
+      "problems": [
+        {"id": 1, "question": "이차방정식의 뜻을 쓰세요.", "concept": "이차방정식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 2, "question": "다음 중 이차방정식을 고르세요.", "concept": "이차방정식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 3, "question": "x² = 9를 푸세요.", "concept": "이차방정식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 4, "question": "x² − 4 = 0을 푸세요.", "concept": "이차방정식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 5, "question": "x² = 16의 해를 모두 쓰세요.", "concept": "이차방정식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 6, "question": "x² + 5 = 14를 푸세요.", "concept": "이차방정식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 7, "question": "(x − 3)² = 0의 해를 쓰세요.", "concept": "이차방정식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 8, "question": "x² = 0의 해는 무엇입니까?", "concept": "이차방정식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 9, "question": "이차방정식의 해의 뜻을 쓰세요.", "concept": "이차방정식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 10, "question": "x² = 7의 해를 근호를 사용해 나타내세요.", "concept": "이차방정식 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+
+        {"id": 11, "question": "다음 중 해가 2개인 이차방정식을 고르세요.", "concept": "이차방정식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 12, "question": "다음 중 해가 1개인 이차방정식을 고르세요.", "concept": "이차방정식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 13, "question": "다음 중 해가 없는 이차방정식을 고르세요.", "concept": "이차방정식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 14, "question": "x² − 1 = 0을 인수분해로 푸세요.", "concept": "이차방정식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 15, "question": "(x + 2)(x − 2) = 0의 해를 쓰세요.", "concept": "이차방정식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 16, "question": "이차방정식을 푸는 이유를 한 가지 쓰세요.", "concept": "이차방정식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 17, "question": "이차방정식의 해를 확인하는 방법을 쓰세요.", "concept": "이차방정식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 18, "question": "x² = 25를 그래프로 생각하면 해의 의미는 무엇입니까?", "concept": "이차방정식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 19, "question": "이차방정식에서 가장 많이 하는 실수를 하나 쓰세요.", "concept": "이차방정식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 20, "question": "이차방정식이 사용되는 상황을 하나 고르세요.", "concept": "이차방정식 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+
+        {"id": 21, "question": "x² = 5의 해는 정수입니까?", "concept": "이차방정식 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 22, "question": "이차방정식과 일차방정식의 차이를 쓰세요.", "concept": "이차방정식 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 23, "question": "이차방정식의 해가 서로 다른 이유를 설명하세요.", "concept": "이차방정식 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 24, "question": "이차방정식에서 x²의 의미를 설명하세요.", "concept": "이차방정식 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 25, "question": "이 단원의 핵심 개념을 한 문장으로 쓰세요.", "concept": "이차방정식 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"}
+      ]
+    },
+    {
+      "id": "2",
+      "name": "2단원. 이차함수 y = ax²",
+      "range": [26, 50],
+      "problems": [
+        {"id": 26, "question": "이차함수의 뜻을 쓰세요.", "concept": "이차함수 y = ax² · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 27, "question": "y = x²은 이차함수입니까?", "concept": "이차함수 y = ax² · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 28, "question": "y = −x²은 이차함수입니까?", "concept": "이차함수 y = ax² · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 29, "question": "y = 2x²에서 a의 값은 무엇입니까?", "concept": "이차함수 y = ax² · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 30, "question": "x = 1일 때 y = x²의 값을 구하세요.", "concept": "이차함수 y = ax² · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 31, "question": "x = −2일 때 y = x²의 값을 구하세요.", "concept": "이차함수 y = ax² · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 32, "question": "y = x²의 그래프는 어느 방향으로 열립니까?", "concept": "이차함수 y = ax² · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 33, "question": "y = −x²의 그래프는 어느 방향으로 열립니까?", "concept": "이차함수 y = ax² · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 34, "question": "이차함수 그래프의 꼭짓점의 좌표를 쓰세요.", "concept": "이차함수 y = ax² · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 35, "question": "y = x²의 그래프는 어느 축에 대하여 대칭입니까?", "concept": "이차함수 y = ax² · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+
+        {"id": 36, "question": "y = 3x²에서 x가 1 증가하면 y는 어떻게 변합니까?", "concept": "이차함수 y = ax² · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 37, "question": "y = −2x²의 그래프 특징을 하나 쓰세요.", "concept": "이차함수 y = ax² · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 38, "question": "이차함수의 그래프를 무엇이라고 합니까?", "concept": "이차함수 y = ax² · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 39, "question": "y = x²의 그래프가 원점을 지나는 이유를 쓰세요.", "concept": "이차함수 y = ax² · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 40, "question": "y = ax²에서 a의 절댓값이 커지면 그래프는 어떻게 변합니까?", "concept": "이차함수 y = ax² · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 41, "question": "y = ax²에서 a > 0일 때의 특징을 쓰세요.", "concept": "이차함수 y = ax² · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 42, "question": "y = ax²에서 a < 0일 때의 특징을 쓰세요.", "concept": "이차함수 y = ax² · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 43, "question": "이차함수 그래프에서 y값이 가장 작은 점은 어디입니까?", "concept": "이차함수 y = ax² · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 44, "question": "이차함수와 일차함수의 그래프 차이를 쓰세요.", "concept": "이차함수 y = ax² · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 45, "question": "y = x²과 y = 2x² 중 더 가파른 그래프를 고르세요.", "concept": "이차함수 y = ax² · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+
+        {"id": 46, "question": "이차함수가 필요한 상황을 하나 고르세요.", "concept": "이차함수 y = ax² · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 47, "question": "그래프를 그릴 때 주의할 점을 하나 쓰세요.", "concept": "이차함수 y = ax² · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 48, "question": "이차함수 그래프를 잘못 해석했을 때 생기는 문제를 쓰세요.", "concept": "이차함수 y = ax² · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 49, "question": "이차함수 단원이 필요한 이유를 쓰세요.", "concept": "이차함수 y = ax² · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 50, "question": "이 단원의 핵심 개념을 한 문장으로 쓰세요.", "concept": "이차함수 y = ax² · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"}
+      ]
+    },
+    {
+      "id": "3",
+      "name": "3단원. 삼각형과 사각형의 성질",
+      "range": [51, 75],
+      "problems": [
+        {"id": 51, "question": "삼각형의 내각의 합은 몇 도입니까?", "concept": "삼각형과 사각형의 성질 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 52, "question": "삼각형의 외각의 뜻을 쓰세요.", "concept": "삼각형과 사각형의 성질 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 53, "question": "삼각형의 외각의 크기와 관계 있는 각을 쓰세요.", "concept": "삼각형과 사각형의 성질 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 54, "question": "이등변삼각형의 성질을 하나 쓰세요.", "concept": "삼각형과 사각형의 성질 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 55, "question": "이등변삼각형에서 같은 각은 무엇입니까?", "concept": "삼각형과 사각형의 성질 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 56, "question": "정삼각형의 성질을 하나 쓰세요.", "concept": "삼각형과 사각형의 성질 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 57, "question": "직각삼각형의 뜻을 쓰세요.", "concept": "삼각형과 사각형의 성질 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 58, "question": "삼각형의 합동 조건 하나를 쓰세요.", "concept": "삼각형과 사각형의 성질 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 59, "question": "삼각형이 합동이면 무엇이 같아집니까?", "concept": "삼각형과 사각형의 성질 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 60, "question": "사각형의 뜻을 쓰세요.", "concept": "삼각형과 사각형의 성질 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+
+        {"id": 61, "question": "평행사변형의 뜻을 쓰세요.", "concept": "삼각형과 사각형의 성질 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 62, "question": "평행사변형의 성질을 하나 쓰세요.", "concept": "삼각형과 사각형의 성질 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 63, "question": "마름모의 뜻을 쓰세요.", "concept": "삼각형과 사각형의 성질 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 64, "question": "직사각형의 뜻을 쓰세요.", "concept": "삼각형과 사각형의 성질 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 65, "question": "정사각형의 뜻을 쓰세요.", "concept": "삼각형과 사각형의 성질 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 66, "question": "평행사변형과 사다리꼴의 차이를 쓰세요.", "concept": "삼각형과 사각형의 성질 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 67, "question": "사각형의 내각의 합은 몇 도입니까?", "concept": "삼각형과 사각형의 성질 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 68, "question": "도형의 성질을 이용하는 이유를 쓰세요.", "concept": "삼각형과 사각형의 성질 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 69, "question": "도형 성질 문제에서 가장 많이 하는 실수를 하나 쓰세요.", "concept": "삼각형과 사각형의 성질 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 70, "question": "삼각형의 성질이 필요한 상황을 하나 고르세요.", "concept": "삼각형과 사각형의 성질 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+
+        {"id": 71, "question": "사각형의 성질이 필요한 상황을 하나 고르세요.", "concept": "삼각형과 사각형의 성질 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 72, "question": "도형의 성질을 증명하는 이유를 쓰세요.", "concept": "삼각형과 사각형의 성질 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 73, "question": "도형 단원에서 가장 중요한 약속을 하나 쓰세요.", "concept": "삼각형과 사각형의 성질 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 74, "question": "도형의 성질을 외우기만 하면 안 되는 이유를 쓰세요.", "concept": "삼각형과 사각형의 성질 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 75, "question": "이 단원의 핵심 개념을 한 문장으로 쓰세요.", "concept": "삼각형과 사각형의 성질 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"}
+      ]
+    },
+    {
+      "id": "4",
+      "name": "4단원. 도형의 닮음",
+      "range": [76, 100],
+      "problems": [
+        {"id": 76, "question": "닮은 도형의 뜻을 쓰세요.", "concept": "도형의 닮음 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 77, "question": "닮은 도형에서 같은 것은 무엇입니까?", "concept": "도형의 닮음 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 78, "question": "닮은 도형에서 달라지는 것은 무엇입니까?", "concept": "도형의 닮음 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 79, "question": "닮음비의 뜻을 쓰세요.", "concept": "도형의 닮음 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 80, "question": "닮음비가 1보다 크면 도형은 어떻게 변합니까?", "concept": "도형의 닮음 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 81, "question": "닮음비가 1보다 작으면 도형은 어떻게 변합니까?", "concept": "도형의 닮음 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 82, "question": "삼각형의 닮음 조건 하나를 쓰세요.", "concept": "도형의 닮음 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 83, "question": "닮은 삼각형에서 대응변의 길이의 비는 어떠합니까?", "concept": "도형의 닮음 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 84, "question": "닮은 삼각형에서 대응각의 크기는 어떠합니까?", "concept": "도형의 닮음 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 85, "question": "닮은 도형의 넓이의 비는 무엇의 제곱입니까?", "concept": "도형의 닮음 · 개념·이해", "difficulty": "중", "difficulty_level": "개념기본"},
+
+        {"id": 86, "question": "닮은 도형의 둘레의 비는 무엇과 같습니까?", "concept": "도형의 닮음 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 87, "question": "닮음비를 이용해 길이를 구하는 이유를 쓰세요.", "concept": "도형의 닮음 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 88, "question": "닮음이 성립하지 않는 경우를 하나 고르세요.", "concept": "도형의 닮음 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 89, "question": "닮은 도형을 구별하는 방법을 하나 쓰세요.", "concept": "도형의 닮음 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 90, "question": "닮은 도형 문제에서 가장 많이 하는 실수를 하나 쓰세요.", "concept": "도형의 닮음 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 91, "question": "닮음이 필요한 생활 속 상황을 하나 고르세요.", "concept": "도형의 닮음 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 92, "question": "축소 도형과 확대 도형의 차이를 쓰세요.", "concept": "도형의 닮음 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 93, "question": "닮은 삼각형을 이용해 높이를 구하는 이유를 쓰세요.", "concept": "도형의 닮음 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 94, "question": "닮음비를 잘못 적용했을 때 생기는 문제를 쓰세요.", "concept": "도형의 닮음 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 95, "question": "닮은 도형에서 각의 크기가 중요한 이유를 쓰세요.", "concept": "도형의 닮음 · 비교·판단", "difficulty": "중", "difficulty_level": "개념기본"},
+
+        {"id": 96, "question": "닮음과 합동의 차이를 쓰세요.", "concept": "도형의 닮음 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 97, "question": "닮은 도형의 성질을 정리하세요.", "concept": "도형의 닮음 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 98, "question": "닮음 단원이 없으면 불편한 점을 쓰세요.", "concept": "도형의 닮음 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 99, "question": "닮음비를 사용하는 이유를 쓰세요.", "concept": "도형의 닮음 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"},
+        {"id": 100, "question": "이 단원의 핵심 개념을 한 문장으로 쓰세요.", "concept": "도형의 닮음 · 사고력 응용", "difficulty": "중", "difficulty_level": "개념기본"}
+      ]
+    }
+  ],
+  "note": "중학교 2학년 2학기 개념기본 - 4단원 × 25문항 = 100문항",
+  "created_date": "2026-01-15",
+  "source": "UserProvided_Middle_School_2-2.txt",
+  "version": "1.0",
+  "structure": "4개 단원 구성 (이차방정식, 이차함수 y = ax², 삼각형과 사각형의 성질, 도형의 닮음). 각 단원 25문항: ① 개념·이해 (1~10) + ② 비교·판단 (11~20) + ③ 사고력 응용 (21~25)"
+}
+

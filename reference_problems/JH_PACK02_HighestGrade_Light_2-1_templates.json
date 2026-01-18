@@ -1,0 +1,86 @@
+{
+  "pack": "JH_PACK02_HighestGrade_Light",
+  "grade": 8,
+  "semester": 1,
+  "unit": 1,
+  "pdf_key": "2-1",
+  "title": "최상위 라이트 중학교 2학년 1학기",
+  "total_problems": 50,
+  "difficulty_level": "최상위 라이트",
+  "categories": [
+    {
+      "id": "1",
+      "name": "⑥ 일차함수",
+      "range": [1, 25],
+      "problems": [
+        {"id": 1, "question": "함수의 뜻을 쓰시오.", "concept": "일차함수 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 2, "question": "일차함수의 뜻을 쓰시오.", "concept": "일차함수 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 3, "question": "y=2x가 함수가 되는 이유를 설명하시오.", "concept": "일차함수 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 4, "question": "같은 x값에 y값이 하나만 정해져야 하는 이유를 설명하시오.", "concept": "일차함수 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 5, "question": "y=−x가 일차함수인 이유를 설명하시오.", "concept": "일차함수 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 6, "question": "y=3x에서 x가 1 증가할 때 y의 변화를 설명하시오.", "concept": "일차함수 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 7, "question": "y=−2x에서 음수가 가지는 의미를 설명하시오.", "concept": "일차함수 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 8, "question": "y=ax에서 a의 역할을 설명하시오.", "concept": "일차함수 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 9, "question": "기울기의 의미를 말로 설명하시오.", "concept": "일차함수 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 10, "question": "기울기가 크다는 말의 뜻을 설명하시오.", "concept": "일차함수 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+
+        {"id": 11, "question": "y=0을 만족하는 x의 의미를 설명하시오.", "concept": "일차함수 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 12, "question": "원점을 지나는 함수의 공통된 특징을 설명하시오.", "concept": "일차함수 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 13, "question": "일차함수 그래프가 직선인 이유를 설명하시오.", "concept": "일차함수 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 14, "question": "기울기가 같은 두 직선의 관계를 설명하시오.", "concept": "일차함수 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 15, "question": "기울기가 다른 두 직선의 관계를 설명하시오.", "concept": "일차함수 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 16, "question": "그래프를 그리지 않고 증가·감소를 판단하는 방법을 설명하시오.", "concept": "일차함수 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 17, "question": "일차함수와 비례의 관계를 설명하시오.", "concept": "일차함수 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 18, "question": "일차함수가 실생활에서 쓰이는 이유를 설명하시오.", "concept": "일차함수 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 19, "question": "함수식을 표로 나타내는 이유를 설명하시오.", "concept": "일차함수 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 20, "question": "표를 그래프로 옮길 때 주의할 점을 설명하시오.", "concept": "일차함수 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+
+        {"id": 21, "question": "y절편의 의미를 설명하시오.", "concept": "일차함수 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 22, "question": "기울기와 y절편이 각각 나타내는 정보를 설명하시오.", "concept": "일차함수 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 23, "question": "일차함수 그래프 해석에서 자주 생기는 오류를 설명하시오.", "concept": "일차함수 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 24, "question": "함수 단원이 이후 연립방정식에 필요한 이유를 설명하시오.", "concept": "일차함수 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 25, "question": "이 단원의 핵심 개념을 한 문장으로 정리하시오.", "concept": "일차함수 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"}
+      ]
+    },
+    {
+      "id": "2",
+      "name": "⑦ 연립일차방정식",
+      "range": [26, 50],
+      "problems": [
+        {"id": 26, "question": "연립방정식의 뜻을 쓰시오.", "concept": "연립일차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 27, "question": "방정식이 두 개 필요한 이유를 설명하시오.", "concept": "연립일차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 28, "question": "연립방정식의 해의 의미를 설명하시오.", "concept": "연립일차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 29, "question": "가감법의 원리를 설명하시오.", "concept": "연립일차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 30, "question": "대입법의 원리를 설명하시오.", "concept": "연립일차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 31, "question": "두 직선이 한 점에서 만날 때의 의미를 설명하시오.", "concept": "연립일차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 32, "question": "해가 하나인 경우를 설명하시오.", "concept": "연립일차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 33, "question": "해가 없는 경우를 설명하시오.", "concept": "연립일차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 34, "question": "해가 무수히 많은 경우를 설명하시오.", "concept": "연립일차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 35, "question": "연립방정식을 그래프로 풀 수 있는 이유를 설명하시오.", "concept": "연립일차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+
+        {"id": 36, "question": "가감법이 유리한 경우의 특징을 설명하시오.", "concept": "연립일차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 37, "question": "대입법이 유리한 경우의 특징을 설명하시오.", "concept": "연립일차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 38, "question": "연립방정식 풀이에서 부호 실수가 잦은 이유를 설명하시오.", "concept": "연립일차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 39, "question": "해를 구한 뒤 반드시 확인해야 하는 이유를 설명하시오.", "concept": "연립일차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 40, "question": "두 식이 같은 직선을 나타낼 때의 의미를 설명하시오.", "concept": "연립일차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 41, "question": "두 식이 평행한 직선을 나타낼 때의 의미를 설명하시오.", "concept": "연립일차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 42, "question": "연립방정식이 실생활 문제에 쓰이는 이유를 설명하시오.", "concept": "연립일차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 43, "question": "문장제를 연립방정식으로 바꿀 때 주의할 점을 설명하시오.", "concept": "연립일차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 44, "question": "하나의 방정식만으로 해결할 수 없는 이유를 설명하시오.", "concept": "연립일차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 45, "question": "연립방정식의 해가 조건을 만족해야 하는 이유를 설명하시오.", "concept": "연립일차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+
+        {"id": 46, "question": "연립방정식과 일차함수의 관계를 설명하시오.", "concept": "연립일차방정식 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 47, "question": "연립방정식 단원이 중요한 이유를 설명하시오.", "concept": "연립일차방정식 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 48, "question": "연립방정식 풀이 순서를 설명하시오.", "concept": "연립일차방정식 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 49, "question": "연립방정식에서 가장 중요한 개념을 하나 설명하시오.", "concept": "연립일차방정식 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 50, "question": "이 단원의 핵심 개념을 한 문장으로 정리하시오.", "concept": "연립일차방정식 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"}
+      ]
+    }
+  ],
+  "note": "최상위 라이트 중학교 2학년 1학기 - 2단원 × (25+25)문항 = 50문항",
+  "created_date": "2026-01-15",
+  "source": "UserProvided_HighestGrade_Light_2-1.txt",
+  "version": "1.0",
+  "structure": "2개 단원 구성 (일차함수, 연립일차방정식). 일차함수 25문항: ① 개념·이해 (1~10) + ② 비교·판단 (11~20) + ③ 사고력 응용 (21~25). 연립일차방정식 25문항: ① 개념·이해 (26~35) + ② 비교·판단 (36~45) + ③ 사고력 응용 (46~50)"
+}
+

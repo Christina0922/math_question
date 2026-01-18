@@ -1,0 +1,85 @@
+{
+  "pack": "JH_PACK02_HighestGrade_Light",
+  "grade": 7,
+  "semester": 2,
+  "unit": 1,
+  "pdf_key": "1-2",
+  "title": "최상위 라이트 중학교 1학년 2학기",
+  "total_problems": 50,
+  "difficulty_level": "최상위 라이트",
+  "categories": [
+    {
+      "id": "1",
+      "name": "④ 문자와 식",
+      "range": [1, 30],
+      "problems": [
+        {"id": 1, "question": "문자를 사용하는 이유를 한 문장으로 쓰시오.", "concept": "문자와 식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 2, "question": "a+b와 b+a가 항상 같은 값이 되는 이유를 설명하시오.", "concept": "문자와 식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 3, "question": "2a+3a가 5a가 되는 이유를 설명하시오.", "concept": "문자와 식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 4, "question": "3x−x가 2x가 되는 과정을 말로 설명하시오.", "concept": "문자와 식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 5, "question": "2(x+3)이 2x+6이 되는 이유를 설명하시오.", "concept": "문자와 식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 6, "question": "−(x−4)를 풀어 쓰면 왜 −x+4가 되는지 설명하시오.", "concept": "문자와 식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 7, "question": "3(a−2)+2a를 간단히 할 때 순서를 설명하시오.", "concept": "문자와 식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 8, "question": "x=−1일 때 2x²−3x의 값을 구하고 부호가 그렇게 되는 이유를 쓰시오.", "concept": "문자와 식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 9, "question": "x와 y가 같은 수일 때 x−y의 값이 항상 같은 이유를 설명하시오.", "concept": "문자와 식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 10, "question": "문자식에서 괄호가 필요한 이유를 예를 들어 설명하시오.", "concept": "문자와 식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+
+        {"id": 11, "question": "식 4x+1이 항상 홀수가 되는 이유를 설명하시오.", "concept": "문자와 식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 12, "question": "a가 짝수일 때 3a가 짝수가 되는 이유를 설명하시오.", "concept": "문자와 식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 13, "question": "x가 자연수일 때 x²−x가 항상 짝수가 되는 이유를 설명하시오.", "concept": "문자와 식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 14, "question": "2a+1과 2a−1이 항상 서로 다른 이유를 설명하시오.", "concept": "문자와 식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 15, "question": "문자식의 값이 달라지는 이유를 설명하시오.", "concept": "문자와 식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 16, "question": "x+y=10일 때 x−y가 가장 클 때의 상황을 설명하시오.", "concept": "문자와 식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 17, "question": "x+y가 일정할 때 2x+2y가 변하지 않는 이유를 설명하시오.", "concept": "문자와 식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 18, "question": "a−b가 0이 되는 조건을 설명하시오.", "concept": "문자와 식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 19, "question": "같은 문자식이라도 계산 순서에 따라 실수가 생기는 이유를 설명하시오.", "concept": "문자와 식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 20, "question": "문자식 계산에서 부호 실수가 자주 나는 이유를 설명하시오.", "concept": "문자와 식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+
+        {"id": 21, "question": "문자식이 수식보다 유리한 점을 설명하시오.", "concept": "문자와 식 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 22, "question": "문자를 쓰지 않으면 불편한 상황을 한 가지 설명하시오.", "concept": "문자와 식 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 23, "question": "문자식이 항상 참이 되기 위한 조건을 설명하시오.", "concept": "문자와 식 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 24, "question": "서로 다른 두 문자식이 같은 값을 가질 수 있는 이유를 설명하시오.", "concept": "문자와 식 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 25, "question": "문자식에서 항을 구분하는 기준을 설명하시오.", "concept": "문자와 식 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 26, "question": "상수항의 의미를 설명하시오.", "concept": "문자와 식 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 27, "question": "계수가 바뀌면 식의 값이 어떻게 변하는지 설명하시오.", "concept": "문자와 식 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 28, "question": "문자식의 구조를 먼저 봐야 하는 이유를 설명하시오.", "concept": "문자와 식 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 29, "question": "문자식 단원이 이후 방정식에 필요한 이유를 설명하시오.", "concept": "문자와 식 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 30, "question": "이 단원의 핵심 개념을 한 문장으로 정리하시오.", "concept": "문자와 식 · 사고력 응용", "difficulty": "상", "difficulty_level": "최상위 라이트"}
+      ]
+    },
+    {
+      "id": "2",
+      "name": "⑤ 일차방정식",
+      "range": [31, 50],
+      "problems": [
+        {"id": 31, "question": "방정식의 뜻을 쓰시오.", "concept": "일차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 32, "question": "일차방정식에서 '해'의 의미를 설명하시오.", "concept": "일차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 33, "question": "x+3=7에서 양변에 같은 수를 빼는 이유를 설명하시오.", "concept": "일차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 34, "question": "2x=10에서 나누기를 하는 이유를 설명하시오.", "concept": "일차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 35, "question": "방정식을 푸는 기본 원칙을 설명하시오.", "concept": "일차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 36, "question": "x−5=2x+1을 풀 때 먼저 해야 할 일을 설명하시오.", "concept": "일차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 37, "question": "3(x−2)=x+4에서 괄호를 먼저 처리하는 이유를 설명하시오.", "concept": "일차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 38, "question": "해가 음수가 되는 일차방정식의 특징을 설명하시오.", "concept": "일차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 39, "question": "해가 자연수가 되지 않는 경우를 설명하시오.", "concept": "일차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 40, "question": "방정식의 해를 반드시 확인해야 하는 이유를 설명하시오.", "concept": "일차방정식 · 개념·이해", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+
+        {"id": 41, "question": "일차방정식의 해가 하나뿐인 이유를 설명하시오.", "concept": "일차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 42, "question": "등식과 방정식의 차이를 설명하시오.", "concept": "일차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 43, "question": "방정식을 잘못 세우면 어떤 문제가 생기는지 설명하시오.", "concept": "일차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 44, "question": "해가 분수로 나오는 경우를 설명하시오.", "concept": "일차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 45, "question": "일차방정식이 생활 문제에 쓰이는 이유를 설명하시오.", "concept": "일차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 46, "question": "x에 어떤 수를 더하면 3배가 되는지를 식으로 나타내는 이유를 설명하시오.", "concept": "일차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 47, "question": "문장제를 방정식으로 바꿀 때 가장 중요한 점을 설명하시오.", "concept": "일차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 48, "question": "방정식에서 부호 실수가 많이 나는 이유를 설명하시오.", "concept": "일차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 49, "question": "같은 해를 가지는 서로 다른 방정식이 존재하는 이유를 설명하시오.", "concept": "일차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"},
+        {"id": 50, "question": "이 단원의 핵심 개념을 한 문장으로 정리하시오.", "concept": "일차방정식 · 비교·판단", "difficulty": "상", "difficulty_level": "최상위 라이트"}
+      ]
+    }
+  ],
+  "note": "최상위 라이트 중학교 1학년 2학기 - 2단원 × (30+20)문항 = 50문항",
+  "created_date": "2026-01-15",
+  "source": "UserProvided_HighestGrade_Light_1-2.txt",
+  "version": "1.0",
+  "structure": "2개 단원 구성 (문자와 식, 일차방정식). 문자와 식 30문항: ① 개념·이해 (1~10) + ② 비교·판단 (11~20) + ③ 사고력 응용 (21~30). 일차방정식 20문항: ① 개념·이해 (31~40) + ② 비교·판단 (41~50)"
+}
+
