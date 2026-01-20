@@ -11364,24 +11364,24 @@ function renderSampleProblems() {
     const sampleProblems = [
         {
             tags: ['초등학교 4학년', '1학기'],
-            concept: '분수의 덧셈',
-            stem: '\\frac{3}{5} + \\frac{2}{5} = ?',
-            answer: '\\frac{5}{5} = 1',
-            explanation: '분모가 같으므로 분자만 더합니다: 3 + 2 = 5'
+            concept: '큰 수',
+            stem: '3, 0, 5, 2, 1로 만들 수 있는 가장 큰 수는?',
+            answer: '53210',
+            explanation: '큰 수를 만들려면 큰 자리 수에 큰 숫자를 배치해야 합니다. 가장 큰 자리인 만의 자리에 5, 다음 천의 자리에 3, 백의 자리에 2, 십의 자리에 1, 일의 자리에 0을 배치하면 53210이 됩니다.'
         },
         {
-            tags: ['초등학교 5학년', '1학기'],
-            concept: '소수의 곱셈',
-            stem: '사과 한 상자의 무게가 2.5kg입니다. 상자가 4개 있으면 총 무게는 몇 kg인가요?',
-            answer: '10kg',
-            explanation: '2.5 × 4 = 10. 소수점을 고려하여 계산합니다.'
+            tags: ['초등학교 4학년', '2학기'],
+            concept: '분수의 덧셈과 뺄셈',
+            stem: '1/4 + 2/4의 값은 얼마입니까?',
+            answer: '3/4',
+            explanation: '분모가 같으므로 분자만 더합니다: 1 + 2 = 3'
         },
         {
-            tags: ['초등학교 6학년', '1학기'],
-            concept: '비와 비율',
-            stem: '3 : 5 = 6 : ? 일 때, ?에 들어갈 수는 무엇인가요?',
-            answer: '10',
-            explanation: '비례식을 풀면: 3 : 5 = 6 : 10 (3 × 2 = 6, 5 × 2 = 10)'
+            tags: ['중학교 1학년', '1학기'],
+            concept: '소인수분해',
+            stem: '24를 소인수분해 하세요.',
+            answer: '2³ × 3 또는 2 × 2 × 2 × 3',
+            explanation: '24 = 2 × 2 × 2 × 3 = 2³ × 3'
         }
     ];
     
@@ -11476,46 +11476,20 @@ function loadReviewsPreview() {
         // 실제 후기와 데모 후기 결합 (데모는 실제 후기가 없을 때만 표시)
         let displayReviews = reviews.slice(0, 3);
         if (displayReviews.length === 0) {
-            // 실제 후기가 없으면 데모 2개 + 첫 후기 카드 1개
-            displayReviews = [
-                {
-                    id: 'first-review',
-                    summary: '첫 후기를 남겨주세요',
-                    content: '여러분의 소중한 후기가 서비스 개선에 큰 도움이 됩니다.',
-                    author: '',
-                    date: '',
-                    isFirstReview: true
-                },
-                ...demoReviews
-            ];
+            // 실제 후기가 없으면 데모만 표시
+            displayReviews = demoReviews;
         } else if (displayReviews.length < 3) {
             // 실제 후기가 1~2개면 데모로 채움
             const remaining = 3 - displayReviews.length;
             displayReviews = [...displayReviews, ...demoReviews.slice(0, remaining)];
         }
         
-        container.innerHTML = displayReviews.map(review => {
-            if (review.isFirstReview) {
-                return `
-                    <div class="review-preview-card" style="border: 2px dashed var(--primary-color); background: linear-gradient(135deg, #EEF2FF 0%, #F0F9FF 100%);">
-                        <div class="reviews-empty-icon" style="font-size: 3rem; margin-bottom: 16px;">📝</div>
-                        <div class="review-preview-summary" style="color: var(--primary-color);">${escapeHtml(review.summary)}</div>
-                        <div class="review-preview-content">${escapeHtml(review.content)}</div>
-                        <div class="review-preview-footer">
-                            <button onclick="showReviewDrawer()" class="btn btn-primary" style="width: 100%; margin-top: 16px;">
-                                <span class="btn-icon">✏️</span>
-                                후기 작성하기
-                            </button>
-                        </div>
-                    </div>
-                `;
-            }
-            
-            const demoBadge = review.isDemo ? '<span class="sample-problem-tag" style="background: #FCD34D; color: #92400E; font-size: 0.75rem; padding: 4px 8px;">예시 후기</span>' : '';
+        container.innerHTML = displayReviews.map((review, index) => {
+            const reviewNumber = index + 1;
             
             return `
                 <div class="review-preview-card">
-                    ${demoBadge ? `<div style="margin-bottom: 12px;">${demoBadge}</div>` : ''}
+                    <div class="review-preview-number">${reviewNumber}</div>
                     <div class="review-preview-summary">${escapeHtml(review.summary || review.content.substring(0, 50))}</div>
                     <div class="review-preview-content">${escapeHtml(review.content || '')}</div>
                     <div class="review-preview-footer">

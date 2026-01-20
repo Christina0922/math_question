@@ -1432,12 +1432,12 @@ header h1 {
 
 /* 섹션 헤더 공통 (새로 추가) */
 .section-header {
-    text-align: center;
-    margin-bottom: 50px;
+    text-align: left;
+    margin-bottom: 30px;
 }
 
 .section-header h2 {
-    font-size: 2.2rem;
+    font-size: 2rem;
     font-weight: 700;
     color: var(--text-color);
     margin-bottom: 10px;
@@ -1446,19 +1446,6 @@ header h1 {
 .section-subtitle {
     font-size: 1.1rem;
     color: var(--text-light);
-}
-
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-}
-
-.section-header h2 {
-    font-size: 2rem;
-    color: var(--text-color);
-    margin: 0;
 }
 
 .btn-small {
@@ -1523,6 +1510,73 @@ header h1 {
     font-size: var(--fs-h4);
     color: var(--text-light);
     font-weight: 500;
+}
+
+/* 후기 미리보기 */
+.reviews-preview {
+    display: grid;
+    gap: 24px;
+    margin-bottom: 48px;
+}
+
+.reviews-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.review-preview-card {
+    background: transparent;
+    border: 1px solid var(--primary-color);
+    border-radius: 12px;
+    padding: 24px;
+    position: relative;
+}
+
+.review-preview-number {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.review-preview-card:first-child .review-preview-number {
+    background: var(--primary-color);
+}
+
+.review-preview-summary {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 12px;
+    padding-right: 40px;
+}
+
+.review-preview-content {
+    font-size: 1rem;
+    color: var(--text-color);
+    line-height: 1.7;
+    margin-bottom: 16px;
+}
+
+.review-preview-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
 }
 
 /* 후기 작성 드로어 (사이드 패널) */
