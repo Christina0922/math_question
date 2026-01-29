@@ -1,0 +1,54 @@
+{
+  "pack": "ES_PACK02_Basics",
+  "grade": 2,
+  "semester": 1,
+  "unit": 4,
+  "pdf_key": "2-1",
+  "title": "4단원. 길이 재기",
+  "total_problems": 30,
+  "categories": [
+    {
+      "id": "4",
+      "name": "4단원. 길이 재기",
+      "range": [1, 30],
+      "problems": [
+        {"id": 1, "question": "민지는 책의 길이를 자로 재 보았습니다. 책의 길이가 18cm라면, 20cm보다 긴가요 짧은가요?", "concept": "길이 재기 · 비교·판단", "difficulty": "하", "answer": "짧은가요"},
+        {"id": 2, "question": "연필 A는 15cm, 연필 B는 19cm입니다. 더 긴 연필은 무엇입니까?", "concept": "길이 재기 · 비교·판단", "difficulty": "하", "answer": "연필 B"},
+        {"id": 3, "question": "책상 길이가 120cm이고, 의자 길이는 80cm입니다. 어떤 것이 더 깁니까?", "concept": "길이 재기 · 비교·판단", "difficulty": "하", "answer": "책상"},
+        {"id": 4, "question": "민수는 끈의 길이를 30cm로 잘랐습니다. 이 끈은 25cm보다 깁니까?", "concept": "길이 재기 · 비교·판단", "difficulty": "하", "answer": "깁니다"},
+        {"id": 5, "question": "자에서 숫자가 1cm씩 늘어날 때 길이는 어떻게 변합니까?", "concept": "길이 재기 · 단위 이해", "difficulty": "하", "answer": "1cm씩 길어집니다"},
+        {"id": 6, "question": "공책의 가로 길이가 21cm입니다. 20cm보다 얼마나 더 깁니까?", "concept": "길이 재기 · 비교·계산", "difficulty": "하", "answer": "1cm"},
+        {"id": 7, "question": "리본 A는 45cm, 리본 B는 38cm입니다. 더 짧은 것은 무엇입니까?", "concept": "길이 재기 · 비교·판단", "difficulty": "하", "answer": "리본 B"},
+        {"id": 8, "question": "민지는 책 두 권을 포개어 길이를 비교했습니다. 이런 방법의 좋은 점은 무엇입니까?", "concept": "길이 재기 · 측정 방법", "difficulty": "중", "answer": "정확하게 비교할 수 있습니다"},
+        {"id": 9, "question": "문 길이가 190cm, 창문 길이가 120cm입니다. 차이는 몇 cm입니까?", "concept": "길이 재기 · 비교·계산", "difficulty": "중", "answer": "70cm"},
+        {"id": 10, "question": "연필의 길이가 17cm라면 10cm보다 얼마나 깁니까?", "concept": "길이 재기 · 비교·계산", "difficulty": "하", "answer": "7cm"},
+        {"id": 11, "question": "책상 다리 하나의 길이가 65cm입니다. 네 다리의 길이를 모두 더하면 몇 cm입니까?", "concept": "길이 재기 · 비교·계산", "difficulty": "중", "answer": "260cm"},
+        {"id": 12, "question": "민수는 자를 비스듬히 놓고 길이를 쟀습니다. 정확한 결과가 나올까요?", "concept": "길이 재기 · 측정 방법", "difficulty": "중", "answer": "아니요"},
+        {"id": 13, "question": "운동장의 선 길이가 300cm입니다. 이는 몇 m입니까?", "concept": "길이 재기 · 단위 변환", "difficulty": "중", "answer": "3m"},
+        {"id": 14, "question": "끈의 길이가 2m라면, 150cm보다 깁니까?", "concept": "길이 재기 · 단위 변환·비교", "difficulty": "중", "answer": "깁니다"},
+        {"id": 15, "question": "연필이 14cm이고 지우개는 5cm입니다. 둘의 길이 차이는 몇 cm입니까?", "concept": "길이 재기 · 비교·계산", "difficulty": "하", "answer": "9cm"},
+        {"id": 16, "question": "책의 세로 길이가 24cm입니다. 30cm와 비교하면 어떻습니까?", "concept": "길이 재기 · 비교·판단", "difficulty": "하", "answer": "6cm 짧습니다"},
+        {"id": 17, "question": "민지는 테이프로 책의 길이를 재었습니다. 이 방법의 문제점은 무엇입니까?", "concept": "길이 재기 · 측정 방법", "difficulty": "중", "answer": "정확하지 않을 수 있습니다"},
+        {"id": 18, "question": "자에서 0cm는 왜 중요합니까?", "concept": "길이 재기 · 단위 이해", "difficulty": "중", "answer": "측정의 시작점이기 때문입니다"},
+        {"id": 19, "question": "의자 길이가 90cm이고 책상 길이는 130cm입니다. 더 긴 것은 무엇입니까?", "concept": "길이 재기 · 비교·판단", "difficulty": "하", "answer": "책상"},
+        {"id": 20, "question": "리본이 1m 20cm라면, cm로 쓰면 얼마입니까?", "concept": "길이 재기 · 단위 변환", "difficulty": "중", "answer": "120cm"},
+        {"id": 21, "question": "연필의 길이가 모두 같도록 자르려면 무엇이 필요합니까?", "concept": "길이 재기 · 측정 방법", "difficulty": "중", "answer": "자"},
+        {"id": 22, "question": "민수는 자를 두 번 나누어 길이를 재었습니다. 이 방법은 정확할까요?", "concept": "길이 재기 · 측정 방법", "difficulty": "중", "answer": "정확하지 않을 수 있습니다"},
+        {"id": 23, "question": "끈이 75cm이고 다른 끈은 1m입니다. 더 긴 것은 무엇입니까?", "concept": "길이 재기 · 단위 변환·비교", "difficulty": "중", "answer": "1m인 끈"},
+        {"id": 24, "question": "책의 가로 길이가 18cm이고 세로 길이가 26cm입니다. 어느 쪽이 더 깁니까?", "concept": "길이 재기 · 비교·판단", "difficulty": "하", "answer": "세로"},
+        {"id": 25, "question": "운동화 끈의 길이가 110cm입니다. 1m보다 깁니까?", "concept": "길이 재기 · 단위 변환·비교", "difficulty": "중", "answer": "깁니다"},
+        {"id": 26, "question": "길이를 비교할 때 기준이 달라지면 어떤 문제가 생깁니까?", "concept": "길이 재기 · 측정 방법", "difficulty": "상", "answer": "정확한 비교가 어렵습니다"},
+        {"id": 27, "question": "자 대신 손으로 재면 생길 수 있는 문제는 무엇입니까?", "concept": "길이 재기 · 측정 방법", "difficulty": "중", "answer": "정확하지 않습니다"},
+        {"id": 28, "question": "민지는 길이가 같은 물건끼리 묶었습니다. 어떤 기준으로 묶었을까요?", "concept": "길이 재기 · 비교·판단", "difficulty": "중", "answer": "길이"},
+        {"id": 29, "question": "책장 길이가 2m이고 책상 길이는 160cm입니다. 어느 쪽이 더 깁니까?", "concept": "길이 재기 · 단위 변환·비교", "difficulty": "중", "answer": "책장"},
+        {"id": 30, "question": "길이를 정확히 재기 위해 가장 중요한 것은 무엇입니까?", "concept": "길이 재기 · 측정 방법", "difficulty": "상", "answer": "올바른 도구와 방법을 사용하는 것입니다"}
+      ]
+    }
+  ],
+  "note": "초등 2학년 1학기 4단원 길이 재기 - 30문항",
+  "created_date": "2026-01-15",
+  "source": "UserProvided_2-1_Unit4_LengthMeasurement",
+  "version": "1.0",
+  "structure": "4단원 길이 재기 - 30문항"
+}
+

@@ -1,0 +1,54 @@
+{
+  "pack": "ES_PACK02_Basics",
+  "grade": 2,
+  "semester": 2,
+  "unit": 3,
+  "pdf_key": "2-2",
+  "title": "3단원. 곱셈과 나눗셈",
+  "total_problems": 30,
+  "categories": [
+    {
+      "id": "3",
+      "name": "3단원. 곱셈과 나눗셈",
+      "range": [1, 30],
+      "problems": [
+        {"id": 1, "question": "한 상자에 공이 12개씩 들어 있습니다. 상자가 25개라면 공은 모두 몇 개입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "중", "answer": "300개"},
+        {"id": 2, "question": "민지는 사탕 360개를 친구 12명에게 똑같이 나누어 주었습니다. 한 사람당 몇 개입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "중", "answer": "30개"},
+        {"id": 3, "question": "교실에 책상이 한 줄에 8개씩 15줄 있습니다. 책상은 모두 몇 개입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "중", "answer": "120개"},
+        {"id": 4, "question": "쿠키 480개를 접시 16개에 똑같이 나누어 담았습니다. 한 접시에 몇 개입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "중", "answer": "30개"},
+        {"id": 5, "question": "하루에 문제를 24개씩 18일 동안 풀었습니다. 푼 문제는 모두 몇 개입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "중", "answer": "432개"},
+        {"id": 6, "question": "민수는 연필 540자루를 9상자에 나누어 담았습니다. 한 상자에 몇 자루입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "중", "answer": "60자루"},
+        {"id": 7, "question": "운동장에 아이들이 14명씩 20줄 서 있습니다. 아이들은 모두 몇 명입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "중", "answer": "280명"},
+        {"id": 8, "question": "귤 720개를 상자 30개에 나누어 담았습니다. 한 상자에 몇 개입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "중", "answer": "24개"},
+        {"id": 9, "question": "민지는 하루에 책을 6권씩 40일 읽었습니다. 읽은 책은 모두 몇 권입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "중", "answer": "240권"},
+        {"id": 10, "question": "공 900개를 18묶음으로 똑같이 나누었습니다. 한 묶음에 몇 개입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "중", "answer": "50개"},
+        {"id": 11, "question": "교실에 의자가 한 줄에 12개씩 25줄 있습니다. 의자는 모두 몇 개입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "중", "answer": "300개"},
+        {"id": 12, "question": "사탕 840개를 7명에게 똑같이 나누어 주었습니다. 한 사람당 몇 개입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "중", "answer": "120개"},
+        {"id": 13, "question": "민수는 하루에 물을 5컵씩 90일 마셨습니다. 마신 물은 모두 몇 컵입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "상", "answer": "450컵"},
+        {"id": 14, "question": "연필 1,200자루를 24상자에 나누어 담았습니다. 한 상자에 몇 자루입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "중", "answer": "50자루"},
+        {"id": 15, "question": "학생이 한 줄에 16명씩 35줄 서 있습니다. 학생은 모두 몇 명입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "상", "answer": "560명"},
+        {"id": 16, "question": "쿠키 960개를 봉지 12개에 나누어 담았습니다. 한 봉지에 몇 개입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "중", "answer": "80개"},
+        {"id": 17, "question": "민지는 문제를 하루에 18개씩 50일 풀었습니다. 모두 몇 개입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "상", "answer": "900개"},
+        {"id": 18, "question": "공 1,080개를 27상자에 나누어 담았습니다. 한 상자에 몇 개입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "중", "answer": "40개"},
+        {"id": 19, "question": "책이 한 상자에 25권씩 32상자 있습니다. 책은 모두 몇 권입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "상", "answer": "800권"},
+        {"id": 20, "question": "사탕 1,200개를 15명에게 나누어 주었습니다. 한 사람당 몇 개입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "중", "answer": "80개"},
+        {"id": 21, "question": "교실에 창문이 한 줄에 6개씩 18줄 있습니다. 창문은 모두 몇 개입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "중", "answer": "108개"},
+        {"id": 22, "question": "민수는 연습문제를 20개씩 45일 풀었습니다. 모두 몇 개입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "상", "answer": "900개"},
+        {"id": 23, "question": "귤 1,440개를 24상자에 나누었습니다. 한 상자에 몇 개입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "중", "answer": "60개"},
+        {"id": 24, "question": "학생 840명을 12명씩 한 모둠으로 나누었습니다. 몇 모둠입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "중", "answer": "70모둠"},
+        {"id": 25, "question": "연필 1,500자루를 30상자에 나누었습니다. 한 상자에 몇 자루입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "중", "answer": "50자루"},
+        {"id": 26, "question": "하루에 책을 10권씩 72일 읽었습니다. 모두 몇 권입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "상", "answer": "720권"},
+        {"id": 27, "question": "사과 1,680개를 21상자에 나누었습니다. 한 상자에 몇 개입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "중", "answer": "80개"},
+        {"id": 28, "question": "민지는 스티커를 36장씩 25묶음 만들었습니다. 모두 몇 장입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "상", "answer": "900장"},
+        {"id": 29, "question": "의자 1,440개를 18줄로 똑같이 놓았습니다. 한 줄에 몇 개입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "중", "answer": "80개"},
+        {"id": 30, "question": "공 2,000개를 40상자에 나누었습니다. 한 상자에 몇 개입니까?", "concept": "곱셈과 나눗셈 · 기본 계산", "difficulty": "중", "answer": "50개"}
+      ]
+    }
+  ],
+  "note": "초등 2학년 2학기 3단원 곱셈과 나눗셈 - 30문항",
+  "created_date": "2026-01-15",
+  "source": "UserProvided_2-2_Unit3_MultiplicationDivision",
+  "version": "1.0",
+  "structure": "3단원 곱셈과 나눗셈 - 30문항"
+}
+

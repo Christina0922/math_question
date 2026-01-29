@@ -1,0 +1,54 @@
+{
+  "pack": "ES_PACK02_Basics",
+  "grade": 2,
+  "semester": 1,
+  "unit": 3,
+  "pdf_key": "2-1",
+  "title": "3단원. 곱셈 (이야기 상황)",
+  "total_problems": 30,
+  "categories": [
+    {
+      "id": "3",
+      "name": "3단원. 곱셈 (이야기 상황)",
+      "range": [1, 30],
+      "problems": [
+        {"id": 1, "question": "한 상자에 사과가 4개씩 들어 있습니다. 이런 상자가 6개 있다면 사과는 모두 몇 개입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "하", "answer": "24"},
+        {"id": 2, "question": "민지는 하루에 연필을 3자루씩 5일 동안 사용했습니다. 사용한 연필은 모두 몇 자루입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "하", "answer": "15"},
+        {"id": 3, "question": "교실에 책상이 한 줄에 5개씩 7줄 놓여 있습니다. 책상은 모두 몇 개입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "하", "answer": "35"},
+        {"id": 4, "question": "한 봉지에 사탕이 8개씩 들어 있습니다. 봉지가 4개 있다면 사탕은 모두 몇 개입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "하", "answer": "32"},
+        {"id": 5, "question": "운동장에서 아이들이 6명씩 9팀으로 나뉘어 서 있습니다. 아이들은 모두 몇 명입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "하", "answer": "54"},
+        {"id": 6, "question": "민수는 하루에 물을 2병씩 10일 동안 마셨습니다. 마신 물은 모두 몇 병입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "하", "answer": "20"},
+        {"id": 7, "question": "연필꽂이에 연필이 7자루씩 6칸 들어 있습니다. 연필은 모두 몇 자루입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "하", "answer": "42"},
+        {"id": 8, "question": "한 상자에 공이 9개씩 들어 있습니다. 상자가 8개 있다면 공은 모두 몇 개입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "중", "answer": "72"},
+        {"id": 9, "question": "민지는 쿠키를 접시에 5개씩 12접시 올려 두었습니다. 쿠키는 모두 몇 개입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "중", "answer": "60"},
+        {"id": 10, "question": "한 줄에 의자가 4개씩 있고, 이런 줄이 11줄 있습니다. 의자는 모두 몇 개입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "중", "answer": "44"},
+        {"id": 11, "question": "하루에 문제를 6개씩 7일 동안 풀었습니다. 푼 문제는 모두 몇 개입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "하", "answer": "42"},
+        {"id": 12, "question": "꽃이 화분 하나에 3송이씩 있습니다. 화분이 14개 있다면 꽃은 모두 몇 송이입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "중", "answer": "42"},
+        {"id": 13, "question": "민수는 사탕을 친구 9명에게 각각 5개씩 나누어 주었습니다. 사탕은 모두 몇 개입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "하", "answer": "45"},
+        {"id": 14, "question": "버스 한 대에 좌석이 8개씩 9줄 있습니다. 좌석은 모두 몇 개입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "중", "answer": "72"},
+        {"id": 15, "question": "연필이 한 묶음에 10자루씩 들어 있습니다. 묶음이 7개라면 연필은 몇 자루입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "하", "answer": "70"},
+        {"id": 16, "question": "민지는 하루에 책을 2권씩 15일 동안 읽었습니다. 읽은 책은 모두 몇 권입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "중", "answer": "30"},
+        {"id": 17, "question": "체육관에 매트가 한 줄에 6장씩 8줄 깔려 있습니다. 매트는 모두 몇 장입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "중", "answer": "48"},
+        {"id": 18, "question": "상자 하나에 귤이 12개씩 들어 있습니다. 상자가 5개라면 귤은 모두 몇 개입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "중", "answer": "60"},
+        {"id": 19, "question": "아이들이 풍선을 4개씩 16명에게 나누어 주었습니다. 풍선은 모두 몇 개입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "중", "answer": "64"},
+        {"id": 20, "question": "민수는 하루에 공을 3번씩 20일 동안 던졌습니다. 공을 던진 횟수는 모두 몇 번입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "중", "answer": "60"},
+        {"id": 21, "question": "교실 창문에 커튼이 한 쪽에 2개씩 14칸 달려 있습니다. 커튼은 모두 몇 개입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "중", "answer": "28"},
+        {"id": 22, "question": "한 상자에 연필이 15자루씩 들어 있습니다. 상자가 6개라면 연필은 모두 몇 자루입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "중", "answer": "90"},
+        {"id": 23, "question": "민지는 하루에 스티커를 7장씩 9일 동안 모았습니다. 스티커는 모두 몇 장입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "중", "answer": "63"},
+        {"id": 24, "question": "놀이공원에서 한 번에 5명씩 18번 탔습니다. 탄 사람은 모두 몇 명입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "상", "answer": "90"},
+        {"id": 25, "question": "농장에 닭이 우리마다 11마리씩 8우리 있습니다. 닭은 모두 몇 마리입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "중", "answer": "88"},
+        {"id": 26, "question": "하루에 물을 4컵씩 25일 동안 마셨습니다. 마신 물은 모두 몇 컵입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "상", "answer": "100"},
+        {"id": 27, "question": "민수는 카드 한 묶음에 9장씩 13묶음을 만들었습니다. 카드는 모두 몇 장입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "상", "answer": "117"},
+        {"id": 28, "question": "상자에 사과가 20개씩 들어 있고, 상자가 9개 있습니다. 사과는 모두 몇 개입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "중", "answer": "180"},
+        {"id": 29, "question": "교실에 학생이 한 줄에 12명씩 7줄 서 있습니다. 학생은 모두 몇 명입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "중", "answer": "84"},
+        {"id": 30, "question": "민지는 하루에 문제를 8개씩 14일 동안 풀었습니다. 푼 문제는 모두 몇 개입니까?", "concept": "곱셈 · 기본 계산", "difficulty": "중", "answer": "112"}
+      ]
+    }
+  ],
+  "note": "초등 2학년 1학기 3단원 곱셈 (이야기 상황) - 30문항",
+  "created_date": "2026-01-15",
+  "source": "UserProvided_2-1_Unit3_Multiplication",
+  "version": "1.0",
+  "structure": "3단원 곱셈 (이야기 상황) - 30문항"
+}
+

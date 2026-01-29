@@ -1,0 +1,54 @@
+{
+  "pack": "ES_PACK02_Basics",
+  "grade": 2,
+  "semester": 2,
+  "unit": 1,
+  "pdf_key": "2-2",
+  "title": "1단원. 네 자리 수",
+  "total_problems": 30,
+  "categories": [
+    {
+      "id": "1",
+      "name": "1단원. 네 자리 수",
+      "range": [1, 30],
+      "problems": [
+        {"id": 1, "question": "민지는 숫자 2,345를 보고 말로 읽었습니다. 어떻게 읽어야 합니까?", "concept": "네 자리 수 · 읽기", "difficulty": "하", "answer": "이천삼백사십오"},
+        {"id": 2, "question": "수 4,120에서 천의 자리 숫자는 무엇입니까?", "concept": "네 자리 수 · 자릿수 이해", "difficulty": "하", "answer": "4"},
+        {"id": 3, "question": "연필이 3,000자루 있습니다. 이 수에는 천이 몇 개 있습니까?", "concept": "네 자리 수 · 자릿수 이해", "difficulty": "하", "answer": "3개"},
+        {"id": 4, "question": "수 5,006에서 일의 자리 숫자는 무엇입니까?", "concept": "네 자리 수 · 자릿수 이해", "difficulty": "하", "answer": "6"},
+        {"id": 5, "question": "4,999 다음에 오는 수는 무엇입니까?", "concept": "네 자리 수 · 수의 순서", "difficulty": "하", "answer": "5,000"},
+        {"id": 6, "question": "수 7,340은 몇 천 몇 백 몇 십 몇입니까?", "concept": "네 자리 수 · 수의 구성", "difficulty": "중", "answer": "7천 3백 4십"},
+        {"id": 7, "question": "민수는 6,000보다 큰 수를 하나 말했습니다. 가능한 수를 말해 보세요.", "concept": "네 자리 수 · 수의 크기", "difficulty": "하", "answer": "6,001 이상의 수"},
+        {"id": 8, "question": "수 8,205에서 백의 자리는 무엇입니까?", "concept": "네 자리 수 · 자릿수 이해", "difficulty": "하", "answer": "2"},
+        {"id": 9, "question": "3,800과 3,790 중 더 큰 수는 무엇입니까?", "concept": "네 자리 수 · 수의 비교", "difficulty": "중", "answer": "3,800"},
+        {"id": 10, "question": "숫자 9,000의 특징을 말해 보세요.", "concept": "네 자리 수 · 수의 특징", "difficulty": "중", "answer": "천이 9개인 수입니다"},
+        {"id": 11, "question": "수 1,234에서 가장 큰 자리는 무엇입니까?", "concept": "네 자리 수 · 자릿수 이해", "difficulty": "하", "answer": "천의 자리"},
+        {"id": 12, "question": "네 자리 수는 최소 얼마부터 시작합니까?", "concept": "네 자리 수 · 수의 범위", "difficulty": "하", "answer": "1,000"},
+        {"id": 13, "question": "수 2,010에서 0은 어떤 자리에 있습니까?", "concept": "네 자리 수 · 자릿수 이해", "difficulty": "중", "answer": "백의 자리와 일의 자리"},
+        {"id": 14, "question": "민지는 5,600을 보고 5,000보다 얼마나 큰지 말했습니다. 얼마입니까?", "concept": "네 자리 수 · 수의 비교", "difficulty": "중", "answer": "600"},
+        {"id": 15, "question": "수 7,777의 특징을 말해 보세요.", "concept": "네 자리 수 · 수의 특징", "difficulty": "중", "answer": "모든 자릿수가 7인 수입니다"},
+        {"id": 16, "question": "수 4,500은 4,000보다 얼마나 큽니까?", "concept": "네 자리 수 · 수의 비교", "difficulty": "중", "answer": "500"},
+        {"id": 17, "question": "수 6,120에서 십의 자리는 무엇입니까?", "concept": "네 자리 수 · 자릿수 이해", "difficulty": "하", "answer": "2"},
+        {"id": 18, "question": "8,999 다음 수는 무엇입니까?", "concept": "네 자리 수 · 수의 순서", "difficulty": "하", "answer": "9,000"},
+        {"id": 19, "question": "민수는 \"이 수에는 천이 3개야\"라고 말했습니다. 가능한 수를 하나 말해 보세요.", "concept": "네 자리 수 · 수의 구성", "difficulty": "하", "answer": "3,000 이상 3,999 이하의 수"},
+        {"id": 20, "question": "수 9,040을 말로 읽어 보세요.", "concept": "네 자리 수 · 읽기", "difficulty": "중", "answer": "구천사십"},
+        {"id": 21, "question": "네 자리 수와 세 자리 수의 차이는 무엇입니까?", "concept": "네 자리 수 · 수의 이해", "difficulty": "중", "answer": "천의 자리가 있는지 없는지입니다"},
+        {"id": 22, "question": "수 2,300과 2,030 중 더 큰 수는 무엇입니까?", "concept": "네 자리 수 · 수의 비교", "difficulty": "중", "answer": "2,300"},
+        {"id": 23, "question": "수 1,111의 특징을 말해 보세요.", "concept": "네 자리 수 · 수의 특징", "difficulty": "중", "answer": "모든 자릿수가 1인 수입니다"},
+        {"id": 24, "question": "수 6,508에서 백의 자리는 무엇을 뜻합니까?", "concept": "네 자리 수 · 자릿수 이해", "difficulty": "중", "answer": "5"},
+        {"id": 25, "question": "민지는 4,999보다 작은 네 자리 수를 말했습니다. 가능한 수를 하나 말해 보세요.", "concept": "네 자리 수 · 수의 범위", "difficulty": "하", "answer": "4,998 이하의 네 자리 수"},
+        {"id": 26, "question": "수 3,700은 몇 천 몇 백입니까?", "concept": "네 자리 수 · 수의 구성", "difficulty": "중", "answer": "3천 7백"},
+        {"id": 27, "question": "수 5,060에서 십의 자리는 무엇입니까?", "concept": "네 자리 수 · 자릿수 이해", "difficulty": "하", "answer": "6"},
+        {"id": 28, "question": "수 9,999 다음에 오는 수는 무엇입니까?", "concept": "네 자리 수 · 수의 순서", "difficulty": "중", "answer": "10,000"},
+        {"id": 29, "question": "네 자리 수를 읽을 때 가장 먼저 보는 자리는 어디입니까?", "concept": "네 자리 수 · 읽기", "difficulty": "중", "answer": "천의 자리"},
+        {"id": 30, "question": "민수는 \"이 수는 천의 자리가 제일 중요해\"라고 말했습니다. 왜 그럴까요?", "concept": "네 자리 수 · 수의 이해", "difficulty": "상", "answer": "천의 자리가 수의 크기를 가장 크게 결정하기 때문입니다"}
+      ]
+    }
+  ],
+  "note": "초등 2학년 2학기 1단원 네 자리 수 - 30문항",
+  "created_date": "2026-01-15",
+  "source": "UserProvided_2-2_Unit1_FourDigitNumbers",
+  "version": "1.0",
+  "structure": "1단원 네 자리 수 - 30문항"
+}
+

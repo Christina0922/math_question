@@ -629,6 +629,108 @@ function numberToSuperscript(num) {
     return result;
 }
 
+// 한글 숫자를 아라비아 숫자로 변환하는 함수
+function koreanToNumber(text) {
+    if (!text) return text;
+    
+    // 한글 숫자 매핑 (하나, 둘, 셋, 넷, 다섯, 여섯, 일곱, 여덟, 아홉, 열)
+    const koreanNumberMap = {
+        '하나': '1', '둘': '2', '셋': '3', '넷': '4', '다섯': '5',
+        '여섯': '6', '일곱': '7', '여덟': '8', '아홉': '9', '열': '10',
+        '일': '1', '이': '2', '삼': '3', '사': '4', '오': '5',
+        '육': '6', '칠': '7', '팔': '8', '구': '9', '십': '10'
+    };
+    
+    // 단위 목록
+    const units = ['개', '명', '권', '그루', '마리', '장', '자루', '벌', '대', '통', '병', '잔', '컵', '상자', '묶음', '봉지', '포기', '송이', '알', '장', '매', '줄', '줄기', '포', '쌍', '켤레', '세트', '조각', '쪽', '페이지', '시간', '분', '초', '일', '주', '개월', '년', '원', '킬로그램', '그램', '리터', '밀리리터', '센티미터', '미터', '킬로미터', '평방미터', '제곱미터', '입방미터', '제곱센티미터', '입방센티미터', '도', '번', '회', '차례', '번째', '번째로', '번째의', '번째에', '번째를', '번째가', '번째는', '번째도', '번째만', '번째와', '번째의', '번째에', '번째를', '번째가', '번째는', '번째도', '번째만', '번째와', '번째씩', '번째로', '번째의', '번째에', '번째를', '번째가', '번째는', '번째도', '번째만', '번째와', '번째씩'];
+    
+    // 소수점 뒤 한글 숫자 패턴 처리 (가장 먼저 처리) - 예: "0.오개" → "0.5개", "0.육개" → "0.6개"
+    const decimalKoreanMap = {
+        '일': '1', '이': '2', '삼': '3', '사': '4', '오': '5',
+        '육': '6', '칠': '7', '팔': '8', '구': '9'
+    };
+    
+    for (const [korean, number] of Object.entries(decimalKoreanMap)) {
+        for (const unit of units) {
+            // "숫자.한글숫자+단위" 패턴 (예: "0.오개", "1.삼개")
+            text = text.replace(new RegExp(`(\\d+)\\.${korean}${unit}`, 'g'), `$1.${number}${unit}`);
+        }
+    }
+    
+    // 복합 한글 숫자 패턴 (단위 포함) - 먼저 처리해야 함
+    const complexPatternsWithUnit = [];
+    const complexNumbers = [
+        { korean: '십일', value: '11' },
+        { korean: '십이', value: '12' },
+        { korean: '십삼', value: '13' },
+        { korean: '십사', value: '14' },
+        { korean: '십오', value: '15' },
+        { korean: '십육', value: '16' },
+        { korean: '십칠', value: '17' },
+        { korean: '십팔', value: '18' },
+        { korean: '십구', value: '19' },
+        { korean: '이십', value: '20' },
+        { korean: '삼십', value: '30' },
+        { korean: '사십', value: '40' },
+        { korean: '오십', value: '50' },
+        { korean: '육십', value: '60' },
+        { korean: '칠십', value: '70' },
+        { korean: '팔십', value: '80' },
+        { korean: '구십', value: '90' }
+    ];
+    
+    // 복합 숫자 + 단위 패턴 생성 (예: "삼십개", "사십개")
+    for (const { korean, value } of complexNumbers) {
+        for (const unit of units) {
+            complexPatternsWithUnit.push({
+                pattern: new RegExp(korean + unit, 'g'),
+                value: value + unit
+            });
+        }
+    }
+    
+    // 복합 숫자 + 단위 패턴 먼저 처리
+    for (const { pattern, value } of complexPatternsWithUnit) {
+        text = text.replace(pattern, value);
+    }
+    
+    // 복합 한글 숫자 패턴 (단위 없음) - 그 다음 처리
+    const complexPatterns = [
+        { pattern: /십일/g, value: '11' },
+        { pattern: /십이/g, value: '12' },
+        { pattern: /십삼/g, value: '13' },
+        { pattern: /십사/g, value: '14' },
+        { pattern: /십오/g, value: '15' },
+        { pattern: /십육/g, value: '16' },
+        { pattern: /십칠/g, value: '17' },
+        { pattern: /십팔/g, value: '18' },
+        { pattern: /십구/g, value: '19' },
+        { pattern: /이십/g, value: '20' },
+        { pattern: /삼십/g, value: '30' },
+        { pattern: /사십/g, value: '40' },
+        { pattern: /오십/g, value: '50' },
+        { pattern: /육십/g, value: '60' },
+        { pattern: /칠십/g, value: '70' },
+        { pattern: /팔십/g, value: '80' },
+        { pattern: /구십/g, value: '90' }
+    ];
+    
+    // 복합 패턴 처리 (단위 없음)
+    for (const { pattern, value } of complexPatterns) {
+        text = text.replace(pattern, value);
+    }
+    
+    // 단순 한글 숫자 패턴 처리 (예: "육개", "팔개", "일곱개", "아홉개", "열개", "사개")
+    for (const [korean, number] of Object.entries(koreanNumberMap)) {
+        for (const unit of units) {
+            // "한글숫자+단위" 패턴
+            text = text.replace(new RegExp(korean + unit, 'g'), number + unit);
+        }
+    }
+    
+    return text;
+}
+
 // 숫자와 한글 혼용 제거 (예: "정8각형" -> "정팔각형", "5각형" -> "오각형")
 function normalizeNumberKorean(text) {
     if (!text) return text;
@@ -753,7 +855,17 @@ function createSelectableCard({ id, type, name, value, checked, label, onChange,
 async function updateConceptList() {
     const conceptGroup = document.getElementById('conceptGroup');
     if (!conceptGroup) {
-        console.error('conceptGroup element not found');
+        console.error('❌ [updateConceptList] conceptGroup element not found');
+        // conceptGroup이 없으면 찾을 때까지 재시도
+        setTimeout(() => {
+            const retryGroup = document.getElementById('conceptGroup');
+            if (retryGroup) {
+                console.log('✅ [updateConceptList] conceptGroup found on retry');
+                updateConceptList();
+            } else {
+                console.error('❌ [updateConceptList] conceptGroup still not found after retry');
+            }
+        }, 100);
         return;
     }
     
@@ -761,10 +873,11 @@ async function updateConceptList() {
     const grade = parseInt(document.querySelector('input[name="grade"]:checked')?.value || '1');
     const semester = parseInt(document.querySelector('input[name="semester"]:checked')?.value || '1');
     
-    console.log('Updating concept list:', { schoolLevel, grade, semester });
+    console.log('🔄 [updateConceptList] Updating concept list:', { schoolLevel, grade, semester });
     
-    // 로딩 표시
-    conceptGroup.innerHTML = '<div style="padding: 20px; text-align: center; color: #999;">로딩 중...</div>';
+    // 로딩 표시 (더 명확하게)
+    conceptGroup.innerHTML = '<div style="padding: 30px; text-align: center; color: #4f46e5; font-size: 1rem; background: #f0f9ff; border-radius: 8px; border: 2px solid #4f46e5;">📚 개념 목록을 불러오는 중...</div>';
+    conceptGroup.style.display = 'block'; // 확실히 보이도록
     
     // 중학교 목차 표시 (단원 → 소단원 → 세부 항목)
     if (schoolLevel === 'middle' && grade >= 1 && grade <= 3) {
@@ -1012,13 +1125,16 @@ async function updateConceptList() {
             });
             
             conceptGroup.appendChild(unitGrid);
+            conceptGroup.style.display = 'block'; // 확실히 보이도록
             updateConceptCount();
+            console.log('✅ [updateConceptList] 중학교 개념 목록 로드 완료:', units.length, '개 단원');
             return;
         } catch (error) {
-            console.error('Error in updateConceptList for middle school:', error);
+            console.error('❌ [updateConceptList] Error in updateConceptList for middle school:', error);
             conceptGroup.innerHTML = '';
+            conceptGroup.style.display = 'block'; // 오류 메시지도 보이도록
             const errorDiv = document.createElement('div');
-            errorDiv.style.cssText = 'padding: 20px; text-align: center; color: #f00;';
+            errorDiv.style.cssText = 'padding: 20px; text-align: center; color: #f00; background: #fee; border-radius: 8px; border: 2px solid #f00;';
             errorDiv.textContent = '오류가 발생했습니다: ' + escapeHtml(error.message);
             conceptGroup.appendChild(errorDiv);
             return;
@@ -1141,7 +1257,7 @@ async function updateConceptList() {
             });
             
             // 단원 카드 생성 (1~6 순서로)
-            unitsWithNo.forEach(({ unit, unitNo }) => {
+            unitsWithNo.forEach(({ unit, unitNo, index: uIdx }) => {
                 const unitCard = document.createElement('section');
                 unitCard.className = 'unit-card';
                 
@@ -1245,7 +1361,9 @@ async function updateConceptList() {
             });
             
             conceptGroup.appendChild(unitGrid);
+            conceptGroup.style.display = 'block'; // 확실히 보이도록
             updateConceptCount();
+            console.log('✅ [updateConceptList] 초등학교 개념 목록 로드 완료:', units.length, '개 단원');
             // 안전 호출 (DOM 직접 생성 방식이므로 실제로는 필요 없지만, 안전장치로 추가)
             if (typeof window.rebuildConceptGroupToUnitGrid === 'function') {
                 try {
@@ -1275,12 +1393,15 @@ async function updateConceptList() {
     }
     
     if (concepts.length === 0) {
-        conceptGroup.innerHTML = '<div style="padding: 20px; text-align: center; color: #999;">선택 가능한 개념이 없습니다.</div>';
+        conceptGroup.innerHTML = '<div style="padding: 20px; text-align: center; color: #999; background: #f9f9f9; border-radius: 8px;">선택 가능한 개념이 없습니다.</div>';
+        conceptGroup.style.display = 'block';
         updateConceptCount();
+        console.warn('⚠️ [updateConceptList] 선택 가능한 개념이 없습니다.');
         return;
     }
     
     conceptGroup.innerHTML = '';
+    conceptGroup.style.display = 'block';
     concepts.forEach((concept, idx) => {
         const conceptId = `concept-fallback-${grade}-${idx}`;
         const cardHtml = createSelectableCard({
@@ -1300,7 +1421,9 @@ async function updateConceptList() {
             conceptGroup.appendChild(tempDiv.firstElementChild);
         }
     });
+    conceptGroup.style.display = 'block';
     updateConceptCount();
+    console.log('✅ [updateConceptList] Fallback 개념 목록 로드 완료:', concepts.length, '개');
 }
 
 // 선택된 개념 개수 업데이트
@@ -1894,16 +2017,21 @@ function emergencyGenerator(conceptInfo, effectiveGrade, existingQuestions = [])
 let templateCache = {};
 
 // 템플릿 파일 로드 함수
-async function loadTemplateFile(grade, semester, isApplication = false) {
-    const cacheKey = `${grade}-${semester}-${isApplication ? 'app' : 'basic'}`;
+async function loadTemplateFile(grade, semester, isApplication = false, unit = null) {
+    // unit이 있으면 unit별 파일, 없으면 학기별 통합 파일
+    const cacheKey = unit 
+        ? `${grade}-${semester}-unit${unit}-${isApplication ? 'app' : 'basic'}`
+        : `${grade}-${semester}-${isApplication ? 'app' : 'basic'}`;
     if (templateCache[cacheKey]) {
         return templateCache[cacheKey];
     }
     
     try {
-        const fileName = isApplication 
-            ? `ES_PACK02_Basics_${grade}-${semester}_application_templates.json`
-            : `ES_PACK02_Basics_${grade}-${semester}_templates.json`;
+        const fileName = unit
+            ? `ES_PACK02_Basics_${grade}-${semester}_unit${unit}_templates.json`
+            : (isApplication 
+                ? `ES_PACK02_Basics_${grade}-${semester}_application_templates.json`
+                : `ES_PACK02_Basics_${grade}-${semester}_templates.json`);
         const response = await fetch(`reference_problems/${fileName}`);
         
         if (response.ok) {
@@ -1922,13 +2050,69 @@ async function loadTemplateFile(grade, semester, isApplication = false) {
 }
 
 // 템플릿에서 문제 찾기
-function findProblemsFromTemplate(templateData, conceptText, unitTitle, count, problemType) {
+function findProblemsFromTemplate(templateData, conceptText, unitTitle, count, problemType, conceptId = null, domain = null, existingQuestions = []) {
     if (!templateData || !templateData.categories) return null;
     
     // conceptText와 unitTitle을 합쳐서 정규화
     const conceptKey = (conceptText + (unitTitle || '')).toLowerCase()
         .replace(/\s+/g, '')
         .replace(/[>:()]/g, '');
+    
+    // 도형 문제인지 확인
+    const isGeometry = domain === 'geometry' || 
+                       conceptKey.includes('도형') || 
+                       conceptKey.includes('넓이') || 
+                       conceptKey.includes('둘레') ||
+                       conceptKey.includes('각') ||
+                       conceptKey.includes('삼각형') ||
+                       conceptKey.includes('사각형') ||
+                       conceptKey.includes('원') ||
+                       conceptKey.includes('다각형') ||
+                       (unitTitle && unitTitle.toLowerCase().includes('도형'));
+    
+    // 그래프/통계 문제인지 확인
+    const isGraphOrStatistics = domain === 'statistics' ||
+                                conceptKey.includes('그래프') ||
+                                conceptKey.includes('띠그래프') ||
+                                conceptKey.includes('원그래프') ||
+                                conceptKey.includes('막대그래프') ||
+                                conceptKey.includes('꺾은선그래프') ||
+                                conceptKey.includes('통계') ||
+                                (unitTitle && (unitTitle.toLowerCase().includes('그래프') || unitTitle.toLowerCase().includes('통계')));
+    
+    // 템플릿 파일의 title에서 unit 번호 추출
+    const templateTitle = (templateData.title || '').toLowerCase();
+    const templateUnitMatch = templateTitle.match(/(\d+)단원/);
+    const templateUnitNum = templateUnitMatch ? parseInt(templateUnitMatch[1]) : null;
+    
+    // conceptId에서 unit 번호 추출
+    let conceptUnitNum = null;
+    if (conceptId) {
+        const unitMatch = conceptId.match(/^G\d+-S\d+-U(\d+)/);
+        if (unitMatch) {
+            conceptUnitNum = parseInt(unitMatch[1]);
+        }
+    }
+    
+    // 기존 문제들의 질문 텍스트를 정규화하여 중복 체크용 Set 생성
+    const existingQuestionTexts = new Set();
+    for (const existing of existingQuestions) {
+        const questionText = (existing.question || existing.questionText || '').trim().toLowerCase()
+            .replace(/\s+/g, '')
+            .replace(/[^\w가-힣]/g, '');
+        if (questionText) {
+            existingQuestionTexts.add(questionText);
+        }
+    }
+    
+    // 중복 체크 함수
+    const isDuplicate = (questionText) => {
+        if (!questionText) return false;
+        const normalized = questionText.trim().toLowerCase()
+            .replace(/\s+/g, '')
+            .replace(/[^\w가-힣]/g, '');
+        return existingQuestionTexts.has(normalized);
+    };
     
     const problems = [];
     const isApplication = problemType === '응용 심화형' || problemType === 'basic+application' || problemType === 'highest' || problemType === '최상위';
@@ -1942,8 +2126,39 @@ function findProblemsFromTemplate(templateData, conceptText, unitTitle, count, p
             .replace(/\s+/g, '')
             .replace(/[>:()]/g, '');
         
-        // 정규화된 키로 매칭
-        const categoryMatch = categoryNameNormalized && conceptKey.includes(categoryNameNormalized);
+        // 카테고리명에서 단원명 추출 (예: "1단원. 분수의 나눗셈" -> "분수의나눗셈")
+        const categoryUnitName = categoryNameNormalized.replace(/^\d+단원\.?/, '').trim();
+        
+        // unitTitle 정규화
+        const unitTitleNormalized = (unitTitle || '').toLowerCase()
+            .replace(/\s+/g, '')
+            .replace(/[>:()]/g, '');
+        
+        // unit 번호 기반 매칭 (가장 정확)
+        let unitMatch = false;
+        if (templateUnitNum !== null && conceptUnitNum !== null) {
+            unitMatch = templateUnitNum === conceptUnitNum;
+        }
+        
+        // 카테고리명 매칭 (단원명이 정확히 일치하는지 확인)
+        const categoryMatch = categoryNameNormalized && (
+            // unit 번호가 일치하고 단원명도 일치
+            (unitMatch && categoryUnitName && unitTitleNormalized && (
+                categoryUnitName.includes(unitTitleNormalized) || 
+                unitTitleNormalized.includes(categoryUnitName)
+            )) ||
+            // 또는 키워드 매칭 (unit 번호가 없을 때만)
+            (!unitMatch && (
+                conceptKey.includes(categoryNameNormalized) || 
+                categoryNameNormalized.includes(conceptKey) ||
+                (unitTitleNormalized && categoryUnitName && (
+                    categoryUnitName.includes(unitTitleNormalized) || 
+                    unitTitleNormalized.includes(categoryUnitName)
+                ))
+            ))
+        );
+        
+        // 문제별 개념 매칭
         const problemMatch = category.problems.some(p => {
             const problemConcept = ((p.concept || '') + (p.unitTitle || '')).toLowerCase()
                 .replace(/\s+/g, '')
@@ -1952,41 +2167,89 @@ function findProblemsFromTemplate(templateData, conceptText, unitTitle, count, p
         });
         
         // 디버그 로그: 템플릿 매칭 결과
-        if (categoryMatch || problemMatch) {
+        if (unitMatch || categoryMatch || problemMatch) {
             console.log('✅ [템플릿 매칭] 성공:', {
                 categoryName: category.name,
                 conceptKey: conceptKey,
-                unitTitle: unitTitle
+                unitTitle: unitTitle,
+                unitMatch: unitMatch,
+                templateUnitNum: templateUnitNum,
+                conceptUnitNum: conceptUnitNum
             });
         }
         
-        if (categoryMatch || problemMatch) {
+        // unit 번호가 정확히 일치하면 우선 사용, 아니면 키워드 매칭 사용
+        if (unitMatch || categoryMatch || problemMatch) {
             // 응용 문제가 요청되었고 application 파일이 아니면 건너뛰기
             if (isApplication && !templateData.difficulty_level) {
                 continue;
             }
             
-            // 문제 선택 (난이도 필터링)
+            // 문제 선택 (난이도 필터링 + 도형 문제에서 분수 문제 차단 + 그래프/통계 문제에서 비와 비율 문제 차단)
             const availableProblems = category.problems.filter(p => {
                 if (isApplication && p.difficulty === '하') return false;
+                
+                const problemText = ((p.question || '') + (p.concept || '')).toLowerCase();
+                
+                // 도형 문제인데 분수 문제면 차단
+                if (isGeometry) {
+                    const fractionKeywords = ['분수', '분자', '분모', '약분', '통분', '\\frac', '\\dfrac'];
+                    const hasFraction = fractionKeywords.some(keyword => problemText.includes(keyword));
+                    if (hasFraction) {
+                        return false;
+                    }
+                }
+                
+                // 그래프/통계 문제인데 비와 비율 문제면 차단
+                if (isGraphOrStatistics) {
+                    const ratioKeywords = ['비', '비율', '비례', '간단히', '자연수의 비', ':', '대응'];
+                    const hasRatio = ratioKeywords.some(keyword => problemText.includes(keyword));
+                    // 단, "그래프"라는 단어가 함께 있으면 허용 (예: "비율 그래프")
+                    const hasGraphInProblem = problemText.includes('그래프') || problemText.includes('통계');
+                    if (hasRatio && !hasGraphInProblem) {
+                        return false;
+                    }
+                }
+                
                 return true;
             });
             
             if (availableProblems.length === 0) continue;
             
-            // 필요한 개수만큼 선택 (랜덤하게)
+            // 필요한 개수만큼 선택 (랜덤하게, 중복 제외)
             const selectedProblems = [];
             const shuffled = [...availableProblems].sort(() => Math.random() - 0.5);
             
-            for (let i = 0; i < Math.min(count, shuffled.length); i++) {
-                selectedProblems.push(shuffled[i]);
+            for (let i = 0; i < shuffled.length && selectedProblems.length < count; i++) {
+                const problem = shuffled[i];
+                const questionText = problem.question || '';
+                
+                // 중복 체크
+                if (!isDuplicate(questionText)) {
+                    selectedProblems.push(problem);
+                }
             }
             
             for (const problem of selectedProblems) {
+                // 한글 숫자를 아라비아 숫자로 변환
+                const questionText = koreanToNumber(problem.question || '');
+                const answerText = koreanToNumber(problem.answer || '');
+                
+                // 중복 체크 (변환 후에도)
+                if (isDuplicate(questionText)) {
+                    continue;
+                }
+                
+                // 선택된 문제를 existingQuestionTexts에 추가하여 다음 문제 선택 시 중복 방지
+                const normalized = questionText.trim().toLowerCase()
+                    .replace(/\s+/g, '')
+                    .replace(/[^\w가-힣]/g, '');
+                existingQuestionTexts.add(normalized);
+                
                 problems.push({
-                    question: problem.question || '',
-                    answer: '', // 템플릿에 answer가 없으면 빈 문자열
-                    explanation: '', // 템플릿에 explanation이 없으면 빈 문자열
+                    question: questionText,
+                    answer: answerText, // 템플릿의 answer 사용
+                    explanation: problem.explanation || '', // 템플릿의 explanation 사용
                     inputPlaceholder: '답을 입력하세요',
                     type: 'template',
                     meta: { 
@@ -2002,45 +2265,104 @@ function findProblemsFromTemplate(templateData, conceptText, unitTitle, count, p
         }
     }
 
-    // 2차(보강): 개념 매칭이 실패해도, 해당 템플릿에서 최소한 문제를 뽑아 올 수 있도록 전체 풀백
-    // (특히 커리큘럼 문구/단원명이 템플릿과 다를 때 템플릿이 '로드만 되고 사용되지 않는' 문제 방지)
+    // 2차(보강): unit 번호가 정확히 일치하는 경우에만 풀백 사용
+    // (다른 단원의 문제가 나오지 않도록 방지)
     if (problems.length === 0) {
-        const allProblems = [];
-        for (const category of templateData.categories) {
-            if (!category.problems || category.problems.length === 0) continue;
-            for (const p of category.problems) allProblems.push(p);
-        }
-
-        const filtered = allProblems.filter(p => {
-            if (isApplication && p.difficulty === '하') return false;
-            return true;
-        });
-
-        if (filtered.length > 0) {
-            const shuffled = [...filtered].sort(() => Math.random() - 0.5);
-            const picked = shuffled.slice(0, Math.min(count, shuffled.length));
-            for (const problem of picked) {
-                problems.push({
-                    question: problem.question || '',
-                    answer: '',
-                    explanation: '',
-                    inputPlaceholder: '답을 입력하세요',
-                    type: 'template',
-                    meta: {
-                        templateType: 'reference',
-                        sourceTemplate: templateData.title,
-                        concept: problem.concept,
-                        difficulty: problem.difficulty
-                    }
-                });
+        // unit 번호가 정확히 일치하는 경우에만 풀백 사용
+        const shouldUseFallback = (templateUnitNum !== null && conceptUnitNum !== null && templateUnitNum === conceptUnitNum) ||
+                                   (templateUnitNum === null && conceptUnitNum === null); // 둘 다 없으면 풀백 사용
+        
+        if (shouldUseFallback) {
+            const allProblems = [];
+            for (const category of templateData.categories) {
+                if (!category.problems || category.problems.length === 0) continue;
+                for (const p of category.problems) allProblems.push(p);
             }
+
+            const filtered = allProblems.filter(p => {
+                if (isApplication && p.difficulty === '하') return false;
+                
+                const problemText = ((p.question || '') + (p.concept || '')).toLowerCase();
+                
+                // 도형 문제인데 분수 문제면 차단
+                if (isGeometry) {
+                    const fractionKeywords = ['분수', '분자', '분모', '약분', '통분', '\\frac', '\\dfrac'];
+                    const hasFraction = fractionKeywords.some(keyword => problemText.includes(keyword));
+                    if (hasFraction) {
+                        return false;
+                    }
+                }
+                
+                // 그래프/통계 문제인데 비와 비율 문제면 차단
+                if (isGraphOrStatistics) {
+                    const ratioKeywords = ['비', '비율', '비례', '간단히', '자연수의 비', ':', '대응'];
+                    const hasRatio = ratioKeywords.some(keyword => problemText.includes(keyword));
+                    // 단, "그래프"라는 단어가 함께 있으면 허용 (예: "비율 그래프")
+                    const hasGraphInProblem = problemText.includes('그래프') || problemText.includes('통계');
+                    if (hasRatio && !hasGraphInProblem) {
+                        return false;
+                    }
+                }
+                
+                return true;
+            });
+
+            if (filtered.length > 0) {
+                const shuffled = [...filtered].sort(() => Math.random() - 0.5);
+                const picked = [];
+                
+                // 중복 제외하며 선택
+                for (let i = 0; i < shuffled.length && picked.length < count; i++) {
+                    const problem = shuffled[i];
+                    const questionText = problem.question || '';
+                    
+                    // 중복 체크
+                    if (!isDuplicate(questionText)) {
+                        picked.push(problem);
+                    }
+                }
+                
+                for (const problem of picked) {
+                    // 한글 숫자를 아라비아 숫자로 변환
+                    const questionText = koreanToNumber(problem.question || '');
+                    const answerText = koreanToNumber(problem.answer || '');
+                    
+                    // 중복 체크 (변환 후에도)
+                    if (isDuplicate(questionText)) {
+                        continue;
+                    }
+                    
+                    // 선택된 문제를 existingQuestionTexts에 추가하여 다음 문제 선택 시 중복 방지
+                    const normalized = questionText.trim().toLowerCase()
+                        .replace(/\s+/g, '')
+                        .replace(/[^\w가-힣]/g, '');
+                    existingQuestionTexts.add(normalized);
+                    
+                    problems.push({
+                        question: questionText,
+                        answer: answerText, // 템플릿의 answer 사용
+                        explanation: problem.explanation || '', // 템플릿의 explanation 사용
+                        inputPlaceholder: '답을 입력하세요',
+                        type: 'template',
+                        meta: {
+                            templateType: 'reference',
+                            sourceTemplate: templateData.title,
+                            concept: problem.concept,
+                            difficulty: problem.difficulty
+                        }
+                    });
+                }
+                console.log(`✅ [템플릿 풀백] unit 번호 일치하여 ${picked.length}개 문제 사용: ${templateData.title}`);
+            }
+        } else {
+            console.log(`⚠️ [템플릿 풀백] unit 번호 불일치로 풀백 사용 안 함: 템플릿 unit ${templateUnitNum}, 개념 unit ${conceptUnitNum}`);
         }
     }
 
     return problems.length > 0 ? problems.slice(0, count) : null;
 }
 
-function fallbackGenerate(conceptInfo, count, effectiveGrade, problemType = '기본형') {
+function fallbackGenerate(conceptInfo, count, effectiveGrade, problemType = '기본형', existingQuestions = []) {
     // conceptInfo가 객체가 아닌 경우 처리
     let grade = effectiveGrade || 1, semester = 1, gradeLevel = 'elementary';
     let conceptText = '';
@@ -2067,11 +2389,43 @@ function fallbackGenerate(conceptInfo, count, effectiveGrade, problemType = '기
     // 1차: reference_problems 템플릿 파일에서 문제 찾기 (초등학교만)
     if (gradeLevel === 'elementary' && grade >= 1 && grade <= 6) {
         const isApplication = problemType === '응용 심화형' || problemType === 'basic+application' || problemType === 'highest' || problemType === '최상위';
+        
+        // unit별 템플릿 우선 검색
+        const conceptId = conceptInfo.id || conceptInfo.conceptId || '';
+        const unitMatch = conceptId.match(/^G\d+-S\d+-U(\d+)/);
+        if (unitMatch) {
+            const unitNum = parseInt(unitMatch[1]);
+            const unitCacheKey = `${grade}-${semester}-unit${unitNum}-${isApplication ? 'app' : 'basic'}`;
+            const unitTemplateData = templateCache[unitCacheKey];
+            
+            if (unitTemplateData) {
+                const unitTemplateProblems = findProblemsFromTemplate(unitTemplateData, conceptText, conceptInfo.unitTitle || '', count, problemType, conceptId, domain, existingQuestions);
+                if (unitTemplateProblems && unitTemplateProblems.length > 0) {
+                    console.log(`✅ [fallbackGenerate] unit별 템플릿에서 ${unitTemplateProblems.length}개 문제 찾음: ${conceptText} (unit ${unitNum})`);
+                    return unitTemplateProblems;
+                }
+            }
+            
+            // application unit 템플릿에서 못 찾았으면 basic unit 템플릿도 시도
+            if (isApplication) {
+                const basicUnitCacheKey = `${grade}-${semester}-unit${unitNum}-basic`;
+                const basicUnitTemplateData = templateCache[basicUnitCacheKey];
+                if (basicUnitTemplateData) {
+                    const basicUnitProblems = findProblemsFromTemplate(basicUnitTemplateData, conceptText, conceptInfo.unitTitle || '', count, problemType, conceptId, domain, existingQuestions);
+                    if (basicUnitProblems && basicUnitProblems.length > 0) {
+                        console.log(`✅ [fallbackGenerate] 기본 unit별 템플릿에서 ${basicUnitProblems.length}개 문제 찾음: ${conceptText} (unit ${unitNum})`);
+                        return basicUnitProblems;
+                    }
+                }
+            }
+        }
+        
+        // 학기별 통합 템플릿 검색
         const cacheKey = `${grade}-${semester}-${isApplication ? 'app' : 'basic'}`;
         const templateData = templateCache[cacheKey];
         
         if (templateData) {
-            const templateProblems = findProblemsFromTemplate(templateData, conceptText, conceptInfo.unitTitle || '', count, problemType);
+            const templateProblems = findProblemsFromTemplate(templateData, conceptText, conceptInfo.unitTitle || '', count, problemType, conceptId, domain, existingQuestions);
             if (templateProblems && templateProblems.length > 0) {
                 console.log(`✅ [fallbackGenerate] 템플릿에서 ${templateProblems.length}개 문제 찾음: ${conceptText}`);
                 return templateProblems;
@@ -2082,7 +2436,7 @@ function fallbackGenerate(conceptInfo, count, effectiveGrade, problemType = '기
                 const basicCacheKey = `${grade}-${semester}-basic`;
                 const basicTemplateData = templateCache[basicCacheKey];
                 if (basicTemplateData) {
-                    const basicProblems = findProblemsFromTemplate(basicTemplateData, conceptText, conceptInfo.unitTitle || '', count, problemType);
+                    const basicProblems = findProblemsFromTemplate(basicTemplateData, conceptText, conceptInfo.unitTitle || '', count, problemType, conceptId, domain, existingQuestions);
                     if (basicProblems && basicProblems.length > 0) {
                         console.log(`✅ [fallbackGenerate] 기본 템플릿에서 ${basicProblems.length}개 문제 찾음: ${conceptText}`);
                         return basicProblems;
@@ -8702,18 +9056,82 @@ function validateProblemMatchesConcept(problem, conceptInfo, existingQuestions =
         };
     }
     
-    // mustIncludeAny 검증 (강제 통과 로직)
-    // 숫자와 연산자가 포함되어 있으면 즉시 통과
-    const hasNumbers = /\d+/.test(questionText);
-    const hasOperators = /[\+\-\×\*\/÷=]/.test(questionText) || questionText.includes('\\dfrac') || questionText.includes('\\frac');
+    // 단원명과 개념명에서 핵심 키워드 추출
+    const unitTitle = (conceptInfo.unitTitle || '').toLowerCase();
+    const conceptTitle = (conceptInfo.conceptTitle || conceptInfo.text || '').toLowerCase();
     
-    if (hasNumbers && hasOperators) {
-        // 숫자와 연산자가 있으면 학년 적합성 맞는 것으로 간주하고 즉시 통과
-        return { valid: true };
+    // 단원명에서 핵심 키워드 추출 (예: "다각형의 둘레와 넓이" -> ["다각형", "둘레", "넓이"])
+    const unitKeywords = unitTitle
+        .replace(/[^\가-힣\s]/g, '')
+        .split(/\s+/)
+        .filter(w => w.length >= 2 && !['의', '와', '과', '을', '를', '이', '가', '은', '는', '에서', '으로', '로'].includes(w));
+    
+    // 개념명에서 핵심 키워드 추출
+    const conceptKeywords = conceptTitle
+        .replace(/[^\가-힣\s]/g, '')
+        .split(/\s+/)
+        .filter(w => w.length >= 2 && !['의', '와', '과', '을', '를', '이', '가', '은', '는', '에서', '으로', '로', '구하기', '알아보기', '나타내기'].includes(w));
+    
+    // 단원/개념과 관련 없는 키워드 목록 (차단 대상)
+    const unrelatedKeywords = {
+        '대응': ['직육면체', '공배수', '약수', '배수', '소수', '분수', '곱셈', '나눗셈'],
+        '다각형': ['약수', '배수', '공배수', '소수', '분수', '전개도', '직육면체'],
+        '넓이': ['약수', '배수', '공배수', '소수', '분수', '전개도'],
+        '마름모': ['약수', '배수', '공배수', '소수', '분수', '직육면체', '전개도'],
+        '사다리꼴': ['약수', '배수', '공배수', '소수', '분수', '직육면체', '전개도'],
+        '약분': ['직육면체', '도형', '넓이', '둘레', '각도'],
+        '통분': ['직육면체', '도형', '넓이', '둘레', '각도']
+    };
+    
+    // 단원/개념과 관련 없는 키워드가 포함되어 있는지 확인
+    for (const [key, forbidden] of Object.entries(unrelatedKeywords)) {
+        if (unitTitle.includes(key) || conceptTitle.includes(key)) {
+            const hasForbidden = forbidden.some(f => allText.includes(f));
+            if (hasForbidden) {
+                return {
+                    valid: false,
+                    reason: `단원 "${key}"과 관련 없는 키워드가 포함되어 있습니다.`
+                };
+            }
+        }
     }
     
-    // 기존 키워드 검증 (fallback)
-    const mustIncludeMinHit = conceptInfo.mustIncludeMinHit || (grade >= 4 && grade <= 6 ? 0 : 1);
+    // 단원명의 핵심 키워드가 문제에 포함되어야 함 (단원명이 있을 때만)
+    if (unitKeywords.length > 0) {
+        const hasUnitKeyword = unitKeywords.some(kw => {
+            const kwLower = kw.toLowerCase();
+            return allText.includes(kwLower) || 
+                   questionText.includes(kwLower) || 
+                   explanationText.includes(kwLower);
+        });
+        
+        if (!hasUnitKeyword) {
+            return {
+                valid: false,
+                reason: `단원 "${unitTitle}"의 핵심 키워드가 문제에 포함되어 있지 않습니다. 필수 키워드: ${unitKeywords.join(', ')}`
+            };
+        }
+    }
+    
+    // 개념명의 핵심 키워드가 문제에 포함되어야 함 (개념명이 있을 때만)
+    if (conceptKeywords.length > 0) {
+        const hasConceptKeyword = conceptKeywords.some(kw => {
+            const kwLower = kw.toLowerCase();
+            return allText.includes(kwLower) || 
+                   questionText.includes(kwLower) || 
+                   explanationText.includes(kwLower);
+        });
+        
+        if (!hasConceptKeyword) {
+            return {
+                valid: false,
+                reason: `개념 "${conceptTitle}"의 핵심 키워드가 문제에 포함되어 있지 않습니다. 필수 키워드: ${conceptKeywords.join(', ')}`
+            };
+        }
+    }
+    
+    // 기존 키워드 검증 (강화: 최소 1개 이상 필수)
+    const mustIncludeMinHit = conceptInfo.mustIncludeMinHit !== undefined ? conceptInfo.mustIncludeMinHit : 1;
     if (mustIncludeAny && mustIncludeAny.length > 0) {
         // 키워드 매칭 시 조사/어미 제거하여 매칭
         const matched = mustIncludeAny.filter(k => {
@@ -8745,6 +9163,52 @@ function validateProblemMatchesConcept(problem, conceptInfo, existingQuestions =
     
     // 도형 항목 강화 검증
     if (domain === 'geometry') {
+        // 도형 문제에서 분수 문제 차단
+        const fractionKeywords = ['분수', '분자', '분모', '약분', '통분', '\\frac', '\\dfrac', '/', '나눗셈', '나누기'];
+        const hasFraction = fractionKeywords.some(keyword => 
+            allText.includes(keyword.toLowerCase()) || 
+            questionText.includes(keyword) || 
+            explanationText.includes(keyword)
+        );
+        
+        if (hasFraction) {
+            return {
+                valid: false,
+                reason: '도형 문제에는 분수 관련 내용이 포함되어서는 안 됩니다.'
+            };
+        }
+    }
+    
+    // 그래프/통계 항목 강화 검증
+    const isGraphOrStatistics = domain === 'statistics' ||
+                                unitTitle.includes('그래프') ||
+                                unitTitle.includes('통계') ||
+                                conceptTitle.includes('그래프') ||
+                                conceptTitle.includes('통계') ||
+                                conceptTitle.includes('띠그래프') ||
+                                conceptTitle.includes('원그래프') ||
+                                conceptTitle.includes('막대그래프') ||
+                                conceptTitle.includes('꺾은선그래프');
+    
+    if (isGraphOrStatistics) {
+        // 그래프/통계 문제에서 비와 비율 문제 차단
+        const ratioKeywords = ['비', '비율', '비례', '간단히', '자연수의 비', ':', '대응'];
+        const hasRatio = ratioKeywords.some(keyword => 
+            allText.includes(keyword.toLowerCase()) || 
+            questionText.includes(keyword) || 
+            explanationText.includes(keyword)
+        );
+        
+        // 단, "그래프"라는 단어가 함께 있으면 허용 (예: "비율 그래프")
+        const hasGraphInProblem = allText.includes('그래프') || allText.includes('통계');
+        
+        if (hasRatio && !hasGraphInProblem) {
+            return {
+                valid: false,
+                reason: '그래프/통계 문제에는 비와 비율 관련 내용이 포함되어서는 안 됩니다.'
+            };
+        }
+        
         const geometryValidation = validateQuestionByConcept(questionText, explanationText, {
             domain: 'geometry',
             mustIncludeAny: mustIncludeAny.length > 0 ? mustIncludeAny : mustInclude,
@@ -9462,12 +9926,31 @@ async function createSampleProblems(formData, progressCallback = null) {
     if (schoolLevel === '초등학교') {
         const isApplication = isAdvanced;
         try {
+            // 학기별 통합 파일 로드
             await loadTemplateFile(rawGrade, semester, isApplication);
             // application이 없으면 basic 템플릿도 시도
             if (isApplication) {
                 await loadTemplateFile(rawGrade, semester, false);
             }
-            console.log(`✅ [createSampleProblems] 템플릿 파일 로드 완료 (${rawGrade}학년 ${semester}학기, ${isApplication ? '응용' : '기본'})`);
+            
+            // unit별 파일도 로드 (selectedConceptList에서 unit 번호 추출)
+            const loadedUnits = new Set();
+            for (const conceptInfo of selectedConceptList) {
+                const conceptId = conceptInfo.id || conceptInfo.conceptId || '';
+                const unitMatch = conceptId.match(/^G\d+-S\d+-U(\d+)/);
+                if (unitMatch) {
+                    const unitNum = parseInt(unitMatch[1]);
+                    if (!loadedUnits.has(unitNum)) {
+                        loadedUnits.add(unitNum);
+                        await loadTemplateFile(rawGrade, semester, isApplication, unitNum);
+                        if (isApplication) {
+                            await loadTemplateFile(rawGrade, semester, false, unitNum);
+                        }
+                    }
+                }
+            }
+            
+            console.log(`✅ [createSampleProblems] 템플릿 파일 로드 완료 (${rawGrade}학년 ${semester}학기, ${isApplication ? '응용' : '기본'}, unit별: ${Array.from(loadedUnits).join(', ') || '없음'})`);
         } catch (error) {
             console.warn(`⚠️ [createSampleProblems] 템플릿 로드 실패: ${error.message}`);
         }
@@ -10030,9 +10513,17 @@ async function createSampleProblems(formData, progressCallback = null) {
                 
                 // 문제 객체 생성 (LaTeX 분리)
                 const questionLatex = problemData.questionLatex || (problemData.question && (problemData.question.includes('\\frac') || problemData.question.includes('\\dfrac')) ? problemData.question : null);
-                const questionText = problemData.questionText || (questionLatex ? null : problemData.question);
+                let questionText = problemData.questionText || (questionLatex ? null : problemData.question);
                 const answerLatex = problemData.answerLatex || (problemData.answer && (problemData.answer.includes('\\frac') || problemData.answer.includes('\\dfrac')) ? problemData.answer : null);
-                const answerText = problemData.answerText || (answerLatex ? null : problemData.answer);
+                let answerText = problemData.answerText || (answerLatex ? null : problemData.answer);
+                
+                // 한글 숫자를 아라비아 숫자로 변환 (questionText와 answerText에만 적용, LaTeX는 제외)
+                if (questionText) {
+                    questionText = koreanToNumber(questionText);
+                }
+                if (answerText) {
+                    answerText = koreanToNumber(answerText);
+                }
                 
                 // 학년/학기 불일치 검증 (생성 직후) - problemData의 메타데이터에서 확인
                 const problemGrade = problemData.meta?.grade || problemData.grade;
@@ -10124,7 +10615,7 @@ async function createSampleProblems(formData, progressCallback = null) {
                             gradeLevel: (finalSchoolLevel === 'middle' ? 'middle' : 'elementary'),
                             schoolLevel: finalSchoolLevel
                         };
-                        const fallbackArr = fallbackGenerate(conceptInfoForFallback, 1, effectiveGrade, problemType);
+                        const fallbackArr = fallbackGenerate(conceptInfoForFallback, 1, effectiveGrade, problemType, existingQuestionsForEmergency3);
                         emergency = Array.isArray(fallbackArr) && fallbackArr.length > 0 ? fallbackArr[0] : null;
                     } catch (e) {
                         emergency = null;
@@ -10147,10 +10638,19 @@ async function createSampleProblems(formData, progressCallback = null) {
                         emergency.grade = rawGrade;
                         emergency.semester = semester;
                         
-                        // emergency 문제를 그대로 사용 (검증 완화)
-                        problemData = emergency;
+                        // emergency 문제도 검증을 거쳐야 함
+                        const emergencyValidation = validateProblemMatchesConcept(emergency, conceptInfo, conceptQuestions);
+                        if (!emergencyValidation.valid) {
+                            // emergency 문제도 검증 실패하면 null로 설정하여 재시도 유도
+                            problemData = null;
+                            validationResult = emergencyValidation;
+                            continue; // 다음 시도로
+                        }
                         
-                        // 문제 객체 생성 및 추가 (검증 없이)
+                        problemData = emergency;
+                        validationResult = { valid: true };
+                        
+                        // 문제 객체 생성 및 추가 (검증 통과)
                         const questionLatex = emergency.questionLatex || (emergency.question && (emergency.question.includes('\\frac') || emergency.question.includes('\\dfrac')) ? emergency.question : null);
                         const questionText = emergency.questionText || (questionLatex ? null : emergency.question);
                         const answerLatex = emergency.answerLatex || (emergency.answer && (emergency.answer.includes('\\frac') || emergency.answer.includes('\\dfrac')) ? emergency.answer : null);
@@ -10445,6 +10945,9 @@ async function createSampleProblems(formData, progressCallback = null) {
             unitTitle없는문제수: questions.filter(q => !q.meta?.unitTitle).length
         });
     }
+    
+    // 성공/실패 통계 로그
+    console.log('📈 [createSampleProblems] 생성 통계:', {
         성공: totalSuccess,
         실패: totalFailure,
         항목수: enrichedConceptList.length,

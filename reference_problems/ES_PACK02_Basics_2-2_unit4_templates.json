@@ -1,0 +1,54 @@
+{
+  "pack": "ES_PACK02_Basics",
+  "grade": 2,
+  "semester": 2,
+  "unit": 4,
+  "pdf_key": "2-2",
+  "title": "4단원. 들이와 무게",
+  "total_problems": 30,
+  "categories": [
+    {
+      "id": "4",
+      "name": "4단원. 들이와 무게",
+      "range": [1, 30],
+      "problems": [
+        {"id": 1, "question": "물 1L짜리 병이 6개 있습니다. 물은 모두 몇 L입니까?", "concept": "들이와 무게 · 기본 계산", "difficulty": "하", "answer": "6L"},
+        {"id": 2, "question": "우유 500mL짜리 컵을 8번 마셨습니다. 마신 우유는 모두 몇 mL입니까?", "concept": "들이와 무게 · 기본 계산", "difficulty": "중", "answer": "4,000mL"},
+        {"id": 3, "question": "사과 한 개의 무게가 200g입니다. 사과 9개의 무게는 얼마입니까?", "concept": "들이와 무게 · 기본 계산", "difficulty": "중", "answer": "1,800g"},
+        {"id": 4, "question": "설탕 2kg짜리 봉지가 3개 있습니다. 설탕은 모두 몇 kg입니까?", "concept": "들이와 무게 · 기본 계산", "difficulty": "하", "answer": "6kg"},
+        {"id": 5, "question": "물 750mL짜리 병 4개의 물은 모두 몇 mL입니까?", "concept": "들이와 무게 · 기본 계산", "difficulty": "중", "answer": "3,000mL"},
+        {"id": 6, "question": "감자 한 개가 300g입니다. 감자 7개의 무게는 얼마입니까?", "concept": "들이와 무게 · 기본 계산", "difficulty": "중", "answer": "2,100g"},
+        {"id": 7, "question": "우유 1L를 컵 250mL로 나누면 몇 컵입니까?", "concept": "들이와 무게 · 단위 변환", "difficulty": "중", "answer": "4컵"},
+        {"id": 8, "question": "쌀 5kg짜리 포대가 2개 있습니다. 쌀은 모두 몇 kg입니까?", "concept": "들이와 무게 · 기본 계산", "difficulty": "하", "answer": "10kg"},
+        {"id": 9, "question": "물 2L는 500mL 컵 몇 컵입니까?", "concept": "들이와 무게 · 단위 변환", "difficulty": "중", "answer": "4컵"},
+        {"id": 10, "question": "사과 1kg과 배 2kg 중 더 무거운 것은 무엇입니까?", "concept": "들이와 무게 · 비교", "difficulty": "하", "answer": "배"},
+        {"id": 11, "question": "주스 1.5L는 500mL 컵 몇 컵입니까?", "concept": "들이와 무게 · 단위 변환", "difficulty": "중", "answer": "3컵"},
+        {"id": 12, "question": "고기 800g과 고기 1kg 중 더 무거운 것은 무엇입니까?", "concept": "들이와 무게 · 단위 변환·비교", "difficulty": "중", "answer": "1kg"},
+        {"id": 13, "question": "물 3L를 1L 병에 나누면 몇 병입니까?", "concept": "들이와 무게 · 단위 변환", "difficulty": "하", "answer": "3병"},
+        {"id": 14, "question": "감자 2kg과 고구마 1,500g 중 더 무거운 것은 무엇입니까?", "concept": "들이와 무게 · 단위 변환·비교", "difficulty": "중", "answer": "감자"},
+        {"id": 15, "question": "우유 2L는 250mL 컵 몇 컵입니까?", "concept": "들이와 무게 · 단위 변환", "difficulty": "중", "answer": "8컵"},
+        {"id": 16, "question": "설탕 1kg을 200g씩 나누면 몇 봉지입니까?", "concept": "들이와 무게 · 단위 변환", "difficulty": "중", "answer": "5봉지"},
+        {"id": 17, "question": "물 4L는 500mL 컵 몇 컵입니까?", "concept": "들이와 무게 · 단위 변환", "difficulty": "중", "answer": "8컵"},
+        {"id": 18, "question": "사과 500g과 바나나 700g 중 더 무거운 것은 무엇입니까?", "concept": "들이와 무게 · 비교", "difficulty": "하", "answer": "바나나"},
+        {"id": 19, "question": "우유 3L를 1L 병에 나누면 몇 병입니까?", "concept": "들이와 무게 · 단위 변환", "difficulty": "하", "answer": "3병"},
+        {"id": 20, "question": "쌀 10kg에서 3kg을 사용했습니다. 남은 쌀은 몇 kg입니까?", "concept": "들이와 무게 · 기본 계산", "difficulty": "하", "answer": "7kg"},
+        {"id": 21, "question": "주스 2,000mL는 몇 L입니까?", "concept": "들이와 무게 · 단위 변환", "difficulty": "중", "answer": "2L"},
+        {"id": 22, "question": "고기 2kg과 생선 1,800g 중 더 무거운 것은 무엇입니까?", "concept": "들이와 무게 · 단위 변환·비교", "difficulty": "중", "answer": "고기"},
+        {"id": 23, "question": "물 1L를 200mL 컵으로 나누면 몇 컵입니까?", "concept": "들이와 무게 · 단위 변환", "difficulty": "중", "answer": "5컵"},
+        {"id": 24, "question": "감자 4kg과 고구마 3,500g 중 더 무거운 것은 무엇입니까?", "concept": "들이와 무게 · 단위 변환·비교", "difficulty": "중", "answer": "감자"},
+        {"id": 25, "question": "우유 5L는 1L 병 몇 병입니까?", "concept": "들이와 무게 · 단위 변환", "difficulty": "하", "answer": "5병"},
+        {"id": 26, "question": "설탕 3kg을 500g씩 나누면 몇 봉지입니까?", "concept": "들이와 무게 · 단위 변환", "difficulty": "중", "answer": "6봉지"},
+        {"id": 27, "question": "물 2.5L는 500mL 컵 몇 컵입니까?", "concept": "들이와 무게 · 단위 변환", "difficulty": "중", "answer": "5컵"},
+        {"id": 28, "question": "사과 1.2kg과 배 1,150g 중 더 무거운 것은 무엇입니까?", "concept": "들이와 무게 · 단위 변환·비교", "difficulty": "중", "answer": "사과"},
+        {"id": 29, "question": "우유 4L를 250mL 컵으로 나누면 몇 컵입니까?", "concept": "들이와 무게 · 단위 변환", "difficulty": "중", "answer": "16컵"},
+        {"id": 30, "question": "들이와 무게를 비교할 때 가장 중요한 점은 무엇입니까?", "concept": "들이와 무게 · 이해", "difficulty": "상", "answer": "같은 단위로 바꾸어 비교하는 것입니다"}
+      ]
+    }
+  ],
+  "note": "초등 2학년 2학기 4단원 들이와 무게 - 30문항",
+  "created_date": "2026-01-15",
+  "source": "UserProvided_2-2_Unit4_VolumeWeight",
+  "version": "1.0",
+  "structure": "4단원 들이와 무게 - 30문항"
+}
+
