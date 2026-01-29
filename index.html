@@ -60,6 +60,123 @@
                 <div id="sampleProblemsList" class="sample-problems-list">
                     <!-- 샘플 문제가 여기에 동적으로 추가됩니다 -->
                 </div>
+                <script>
+                    // HTML에서 직접 호출 (최후의 안전장치) - 즉시 실행
+                    (function() {
+                        // 기본 샘플 문제 HTML (즉시 표시)
+                        const defaultSampleHTML = `
+                            <div class="sample-problem-card">
+                                <div class="sample-problem-tags">
+                                    <span class="sample-problem-tag">초등학교 4학년</span>
+                                    <span class="sample-problem-tag">1학기</span>
+                                    <span class="sample-problem-tag" style="background: var(--primary-color); color: white;">큰 수</span>
+                                </div>
+                                <div class="sample-problem-stem">3, 0, 5, 2, 1로 만들 수 있는 가장 큰 수는?</div>
+                                <div class="sample-problem-actions">
+                                    <button class="sample-problem-toggle" onclick="toggleSampleAnswer(0)">
+                                        <span class="toggle-text-0">정답 보기</span>
+                                    </button>
+                                    <button class="sample-problem-toggle" onclick="toggleSampleExplanation(0)">
+                                        <span class="toggle-explanation-text-0">해설 예시</span>
+                                    </button>
+                                </div>
+                                <div class="sample-problem-answer" id="sampleAnswer-0">
+                                    <div class="answer-text"><strong>답:</strong> 53210</div>
+                                </div>
+                                <div class="sample-problem-explanation-box" id="sampleExplanation-0" style="display: none;">
+                                    <strong>해설:</strong> 큰 수를 만들려면 큰 자리 수에 큰 숫자를 배치해야 합니다. 가장 큰 자리인 만의 자리에 5, 다음 천의 자리에 3, 백의 자리에 2, 십의 자리에 1, 일의 자리에 0을 배치하면 53210이 됩니다.
+                                </div>
+                            </div>
+                            <div class="sample-problem-card">
+                                <div class="sample-problem-tags">
+                                    <span class="sample-problem-tag">초등학교 4학년</span>
+                                    <span class="sample-problem-tag">2학기</span>
+                                    <span class="sample-problem-tag" style="background: var(--primary-color); color: white;">분수의 덧셈과 뺄셈</span>
+                                </div>
+                                <div class="sample-problem-stem">사과 1/4개와 사과 2/4개를 더하면 모두 몇 개인가요?</div>
+                                <div class="sample-problem-actions">
+                                    <button class="sample-problem-toggle" onclick="toggleSampleAnswer(1)">
+                                        <span class="toggle-text-1">정답 보기</span>
+                                    </button>
+                                    <button class="sample-problem-toggle" onclick="toggleSampleExplanation(1)">
+                                        <span class="toggle-explanation-text-1">해설 예시</span>
+                                    </button>
+                                </div>
+                                <div class="sample-problem-answer" id="sampleAnswer-1">
+                                    <div class="answer-text"><strong>답:</strong> 3/4개</div>
+                                </div>
+                                <div class="sample-problem-explanation-box" id="sampleExplanation-1" style="display: none;">
+                                    <strong>해설:</strong> 분모가 같으므로 분자만 더합니다: 1 + 2 = 3. 따라서 3/4개입니다.
+                                </div>
+                            </div>
+                            <div class="sample-problem-card">
+                                <div class="sample-problem-tags">
+                                    <span class="sample-problem-tag">중학교 1학년</span>
+                                    <span class="sample-problem-tag">1학기</span>
+                                    <span class="sample-problem-tag" style="background: var(--primary-color); color: white;">소인수분해</span>
+                                </div>
+                                <div class="sample-problem-stem">24를 소인수분해 하세요.</div>
+                                <div class="sample-problem-actions">
+                                    <button class="sample-problem-toggle" onclick="toggleSampleAnswer(2)">
+                                        <span class="toggle-text-2">정답 보기</span>
+                                    </button>
+                                    <button class="sample-problem-toggle" onclick="toggleSampleExplanation(2)">
+                                        <span class="toggle-explanation-text-2">해설 예시</span>
+                                    </button>
+                                </div>
+                                <div class="sample-problem-answer" id="sampleAnswer-2">
+                                    <div class="answer-text"><strong>답:</strong> 2³ × 3 또는 2 × 2 × 2 × 3</div>
+                                </div>
+                                <div class="sample-problem-explanation-box" id="sampleExplanation-2" style="display: none;">
+                                    <strong>해설:</strong> 24 = 2 × 2 × 2 × 3 = 2³ × 3
+                                </div>
+                            </div>
+                        `;
+                        
+                        function forceRender() {
+                            const container = document.getElementById('sampleProblemsList');
+                            if (!container) {
+                                console.warn('⚠️ [HTML 인라인] sampleProblemsList 컨테이너를 찾을 수 없음');
+                                setTimeout(forceRender, 100);
+                                return;
+                            }
+                            
+                            // 컨테이너가 비어있거나 기본 주석만 있으면 기본 HTML 삽입
+                            const currentContent = container.innerHTML.trim();
+                            if (!currentContent || currentContent === '' || currentContent.includes('동적으로 추가됩니다') || !container.querySelector('.sample-problem-card')) {
+                                console.log('🔧 [HTML 인라인] 기본 샘플 문제 HTML 직접 삽입');
+                                container.innerHTML = defaultSampleHTML;
+                            }
+                            
+                            // renderSampleProblems 함수가 있으면 호출 (더 나은 렌더링)
+                            if (typeof renderSampleProblems === 'function') {
+                                console.log('🔧 [HTML 인라인] renderSampleProblems 함수 호출');
+                                try {
+                                    renderSampleProblems();
+                                } catch (e) {
+                                    console.error('❌ [HTML 인라인] renderSampleProblems 호출 실패:', e);
+                                }
+                            } else {
+                                console.warn('⚠️ [HTML 인라인] renderSampleProblems 함수 대기 중...');
+                                setTimeout(forceRender, 100);
+                            }
+                        }
+                        
+                        // 즉시 실행
+                        if (document.readyState === 'loading') {
+                            document.addEventListener('DOMContentLoaded', function() {
+                                setTimeout(forceRender, 10);
+                            });
+                        } else {
+                            setTimeout(forceRender, 10);
+                        }
+                        
+                        // 추가 안전장치: 여러 시점에서 재시도
+                        setTimeout(forceRender, 100);
+                        setTimeout(forceRender, 500);
+                        setTimeout(forceRender, 1000);
+                    })();
+                </script>
             </section>
 
             <!-- 생성 과정 3단계 섹션 -->
@@ -183,6 +300,6 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>

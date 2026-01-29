@@ -200,32 +200,38 @@
     </div>
 
     <script src="./curriculum_4to6.js"></script>
+    <script src="./script.js"></script>
     <script>
-        // 중학교 목차 데이터 로드 (동적 import)
+        // 중학교 목차 데이터 로드 (동적 import) - script.js 로드 후 실행
         (async function() {
             try {
                 const module = await import('./src/data/middleSchoolToc.js');
                 window.MIDDLE_SCHOOL_TOC = module.MIDDLE_SCHOOL_TOC;
                 console.log('Middle school TOC loaded');
                 
-                // 데이터 로드 후 초기화
-                if (document.readyState === 'loading') {
-                    document.addEventListener('DOMContentLoaded', function() {
-                        if (typeof initializeFormSelectors === 'function') {
-                            initializeFormSelectors();
+                // script.js의 DOMContentLoaded가 실행된 후에 개념 목록 업데이트
+                if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                    // 이미 로드된 경우 즉시 업데이트
+                    if (typeof updateConceptList === 'function') {
+                        await updateConceptList();
+                    }
+                } else {
+                    // 아직 로딩 중이면 DOMContentLoaded 이벤트에서 처리됨
+                    document.addEventListener('DOMContentLoaded', async function() {
+                        if (typeof updateConceptList === 'function') {
+                            await updateConceptList();
                         }
                     });
-                } else {
-                    if (typeof initializeFormSelectors === 'function') {
-                        initializeFormSelectors();
-                    }
                 }
             } catch (error) {
                 console.error('Failed to load middle school TOC:', error);
+                // 오류가 발생해도 개념 목록은 표시되도록 함
+                if (typeof updateConceptList === 'function') {
+                    await updateConceptList();
+                }
             }
         })();
     </script>
-    <script src="./script.js"></script>
 </body>
 </html>
 
