@@ -629,7 +629,67 @@ function numberToSuperscript(num) {
     return result;
 }
 
-// 한글 숫자를 아라비아 숫자로 변환하는 함수
+// 단원별 허용 템플릿 룰셋 정의
+function getUnitTemplateRules(unitTitle, conceptTitle) {
+    const unitLower = (unitTitle || '').toLowerCase();
+    const conceptLower = (conceptTitle || '').toLowerCase();
+    const combined = (unitLower + ' ' + conceptLower).toLowerCase();
+    
+    const rules = {
+        allowedKeywords: [],
+        forbiddenKeywords: [],
+        requiredKeywords: []
+    };
+    
+    // 여러 가지 사각형 단원
+    if (combined.includes('여러 가지 사각형') || combined.includes('사각형') && 
+        (combined.includes('직사각형') || combined.includes('정사각형') || combined.includes('평행사변형') || 
+         combined.includes('마름모') || combined.includes('사다리꼴'))) {
+        rules.allowedKeywords = ['직사각형', '정사각형', '평행사변형', '마름모', '사다리꼴', '둘레', '넓이', '변의 길이', '평행', '각', '대각선', '도형', '분류', '조건', '도형 찾기', '변', '꼭짓점', '대변', '이웃한 변'];
+        rules.forbiddenKeywords = ['과일', '나눠', '나누어', '나누어 주', '사과', '나무', '심', '구역', '인원', '용돈', '분배', '상자', '친구', '똑같이', '묶어', '포장', '몇 개씩', '몇 명', '같이 나누', '똑같이 나누', '각자', '구역으로 나누', '나누어 심', '몇 그루', '몇 개', '나눠 주', '나눠서'];
+        rules.requiredKeywords = ['직사각형', '정사각형', '평행사변형', '마름모', '사다리꼴', '둘레', '넓이', '변', '각', '대각선'].filter(kw => combined.includes(kw) || unitLower.includes(kw));
+    }
+    
+    // 평행과 평행선 단원
+    if (combined.includes('평행') && combined.includes('평행선')) {
+        rules.allowedKeywords = ['평행선', '직선', '교점', '엇각', '동위각', '평행', '평행 조건', '평행선 그리기', '평행선 성질', '추론', '각', '선', '교차', '만나', '평행하지 않'];
+        rules.forbiddenKeywords = ['과일', '나눠', '나누어', '나누어 주', '사과', '나무', '심', '구역', '인원', '용돈', '분배', '상자', '친구', '똑같이', '묶어', '포장', '나누어 심', '구역으로 나누', '몇 개씩', '몇 명', '같이 나누', '똑같이 나누', '각자', '몇 그루', '몇 개', '나눠 주', '나눠서'];
+        rules.requiredKeywords = ['평행선', '직선', '엇각', '동위각', '평행', '교점'].filter(kw => combined.includes(kw) || unitLower.includes(kw));
+    }
+    
+    // 평행 단원 (단독)
+    if (combined.includes('평행') && !combined.includes('평행선')) {
+        rules.allowedKeywords = ['평행', '평행선', '직선', '교점', '엇각', '동위각', '평행 조건', '각', '선'];
+        rules.forbiddenKeywords = ['과일', '나눠', '나누어', '나누어 주', '사과', '나무', '심', '구역', '인원', '용돈', '분배', '상자', '친구', '똑같이', '묶어', '포장', '몇 개씩', '몇 명', '같이 나누', '똑같이 나누', '각자', '구역으로 나누', '나누어 심', '몇 그루', '몇 개', '나눠 주', '나눠서'];
+        rules.requiredKeywords = ['평행', '평행선', '직선'].filter(kw => combined.includes(kw) || unitLower.includes(kw));
+    }
+    
+    // 도형 관련 단원 (일반)
+    if (combined.includes('도형') || combined.includes('삼각형') || combined.includes('사각형') || 
+        combined.includes('다각형') || combined.includes('원') || combined.includes('넓이') || 
+        combined.includes('둘레') || combined.includes('각도')) {
+        if (!rules.allowedKeywords.length) {
+            rules.allowedKeywords = ['도형', '삼각형', '사각형', '다각형', '원', '넓이', '둘레', '각', '변', '꼭짓점', '대각선'];
+        }
+        if (!rules.forbiddenKeywords.length) {
+            rules.forbiddenKeywords = ['과일', '나눠', '나누어', '나누어 주', '사과', '나무', '심', '구역', '인원', '용돈', '분배', '상자', '친구', '똑같이', '묶어', '포장', '몇 개씩', '몇 명', '같이 나누', '똑같이 나누', '각자', '구역으로 나누', '나누어 심', '몇 그루', '몇 개', '나눠 주', '나눠서'];
+        }
+    }
+    
+    // 수와 연산 관련 단원 (과일 나눠주기, 나무 심기 등 허용)
+    if (combined.includes('나눗셈') || combined.includes('곱셈') || combined.includes('덧셈') || 
+        combined.includes('뺄셈') || combined.includes('혼합 계산') || combined.includes('약수') || 
+        combined.includes('배수') || combined.includes('분수') || combined.includes('소수')) {
+        // 수와 연산 단원은 과일 나눠주기 등을 허용하므로 금지 키워드 없음
+        if (!rules.allowedKeywords.length) {
+            rules.allowedKeywords = ['나눗셈', '곱셈', '덧셈', '뺄셈', '계산', '나누기', '곱하기', '더하기', '빼기'];
+        }
+    }
+    
+    return rules;
+}
+
+// 한글 숫자를 아라비아 숫자로 변환하는 함수 (강화 버전: 1~9999 지원)
 function koreanToNumber(text) {
     if (!text) return text;
     
@@ -640,6 +700,16 @@ function koreanToNumber(text) {
         '일': '1', '이': '2', '삼': '3', '사': '4', '오': '5',
         '육': '6', '칠': '7', '팔': '8', '구': '9', '십': '10'
     };
+    
+    // 1~99 복합 숫자 패턴 (십일~구십구)
+    const tens = ['십', '이십', '삼십', '사십', '오십', '육십', '칠십', '팔십', '구십'];
+    const ones = ['일', '이', '삼', '사', '오', '육', '칠', '팔', '구'];
+    
+    // 100~999 패턴 (백, 이백, 삼백...)
+    const hundreds = ['백', '이백', '삼백', '사백', '오백', '육백', '칠백', '팔백', '구백'];
+    
+    // 1000~9999 패턴 (천, 이천, 삼천...)
+    const thousands = ['천', '이천', '삼천', '사천', '오천', '육천', '칠천', '팔천', '구천'];
     
     // 단위 목록
     const units = ['개', '명', '권', '그루', '마리', '장', '자루', '벌', '대', '통', '병', '잔', '컵', '상자', '묶음', '봉지', '포기', '송이', '알', '장', '매', '줄', '줄기', '포', '쌍', '켤레', '세트', '조각', '쪽', '페이지', '시간', '분', '초', '일', '주', '개월', '년', '원', '킬로그램', '그램', '리터', '밀리리터', '센티미터', '미터', '킬로미터', '평방미터', '제곱미터', '입방미터', '제곱센티미터', '입방센티미터', '도', '번', '회', '차례', '번째', '번째로', '번째의', '번째에', '번째를', '번째가', '번째는', '번째도', '번째만', '번째와', '번째의', '번째에', '번째를', '번째가', '번째는', '번째도', '번째만', '번째와', '번째씩', '번째로', '번째의', '번째에', '번째를', '번째가', '번째는', '번째도', '번째만', '번째와', '번째씩'];
@@ -720,6 +790,55 @@ function koreanToNumber(text) {
         text = text.replace(pattern, value);
     }
     
+    // 1~99 패턴을 더 체계적으로 처리
+    // 10의 자리 + 1의 자리 조합
+    for (let ten = 1; ten <= 9; ten++) {
+        const tenStr = ten === 1 ? '십' : tens[ten - 1];
+        for (let one = 0; one <= 9; one++) {
+            let koreanNum = tenStr;
+            if (one > 0) koreanNum += ones[one - 1];
+            const value = ten * 10 + one;
+            for (const unit of units) {
+                text = text.replace(new RegExp(koreanNum + unit, 'g'), value + unit);
+            }
+        }
+    }
+    
+    // 100~999 패턴 처리
+    for (let h = 1; h <= 9; h++) {
+        const hundredStr = h === 1 ? '백' : hundreds[h - 1];
+        for (let ten = 0; ten <= 9; ten++) {
+            for (let one = 0; one <= 9; one++) {
+                let koreanNum = hundredStr;
+                if (ten > 0) koreanNum += (ten === 1 ? '십' : tens[ten - 1]);
+                if (one > 0) koreanNum += ones[one - 1];
+                const value = h * 100 + ten * 10 + one;
+                for (const unit of units) {
+                    text = text.replace(new RegExp(koreanNum + unit, 'g'), value + unit);
+                }
+            }
+        }
+    }
+    
+    // 1000~9999 패턴 처리
+    for (let t = 1; t <= 9; t++) {
+        const thousandStr = thousands[t - 1];
+        for (let h = 0; h <= 9; h++) {
+            for (let ten = 0; ten <= 9; ten++) {
+                for (let one = 0; one <= 9; one++) {
+                    let koreanNum = thousandStr;
+                    if (h > 0) koreanNum += (h === 1 ? '백' : hundreds[h - 1]);
+                    if (ten > 0) koreanNum += (ten === 1 ? '십' : tens[ten - 1]);
+                    if (one > 0) koreanNum += ones[one - 1];
+                    const value = t * 1000 + h * 100 + ten * 10 + one;
+                    for (const unit of units) {
+                        text = text.replace(new RegExp(koreanNum + unit, 'g'), value + unit);
+                    }
+                }
+            }
+        }
+    }
+    
     // 단순 한글 숫자 패턴 처리 (예: "육개", "팔개", "일곱개", "아홉개", "열개", "사개")
     for (const [korean, number] of Object.entries(koreanNumberMap)) {
         for (const unit of units) {
@@ -728,7 +847,18 @@ function koreanToNumber(text) {
         }
     }
     
+    // 공백 정리: "36 개" → "36개"
+    text = text.replace(/(\d+)\s+([개명권그루마리장자루벌대통병잔컵상자묶음봉지포기송이알매줄줄기포쌍켤레세트조각쪽페이지시간분초일주개월년원킬로그램그램리터밀리리터센티미터미터킬로미터평방미터제곱미터입방미터제곱센티미터입방센티미터도번회차례])/g, '$1$2');
+    
     return text;
+}
+
+// 숫자 정규화 검증 함수 (한글 수사가 남아있는지 확인)
+function hasKoreanNumerals(text) {
+    if (!text) return false;
+    // 한글 수사 패턴: 일~구, 십, 백, 천, 만 + 단위 또는 복합 패턴
+    const koreanNumPattern = /(일|이|삼|사|오|육|칠|팔|구|십|백|천|만)[개명권그루마리장자루벌대통병잔컵상자묶음봉지포기송이알매줄줄기포쌍켤레세트조각쪽페이지시간분초일주개월년원킬로그램그램리터밀리리터센티미터미터킬로미터평방미터제곱미터입방미터제곱센티미터입방센티미터도번회차례]|(이십|삼십|사십|오십|육십|칠십|팔십|구십|십일|십이|십삼|십사|십오|십육|십칠|십팔|십구|이십사|삼십육|사십팔|이십삼|삼십사|사십오|오십육|육십칠|칠십팔|팔십구)[개명권그루마리장자루벌대통병잔컵상자묶음봉지포기송이알매줄줄기포쌍켤레세트조각쪽페이지시간분초일주개월년원킬로그램그램리터밀리리터센티미터미터킬로미터평방미터제곱미터입방미터제곱센티미터입방센티미터도번회차례]|(삼십|사십|오십|육십|칠십|팔십|구십|이십|십일|십이|십삼|십사|십오|십육|십칠|십팔|십구|이십사|삼십육|사십팔|이십삼|삼십사|사십오|오십육|육십칠|칠십팔|팔십구)(?![가-힣])/;
+    return koreanNumPattern.test(text);
 }
 
 // 숫자와 한글 혼용 제거 (예: "정8각형" -> "정팔각형", "5각형" -> "오각형")
@@ -9060,6 +9190,43 @@ function validateProblemMatchesConcept(problem, conceptInfo, existingQuestions =
     const unitTitle = (conceptInfo.unitTitle || '').toLowerCase();
     const conceptTitle = (conceptInfo.conceptTitle || conceptInfo.text || '').toLowerCase();
     
+    // 단원별 허용 템플릿 룰셋 적용
+    const unitRules = getUnitTemplateRules(unitTitle, conceptTitle);
+    
+    // 금지 키워드 검증 (단원별 룰셋)
+    if (unitRules.forbiddenKeywords && unitRules.forbiddenKeywords.length > 0) {
+        const hasForbidden = unitRules.forbiddenKeywords.some(keyword => {
+            const keywordLower = keyword.toLowerCase();
+            return allText.includes(keywordLower) || 
+                   questionText.includes(keywordLower) || 
+                   explanationText.includes(keywordLower);
+        });
+        
+        if (hasForbidden) {
+            return {
+                valid: false,
+                reason: `단원 "${unitTitle}"에 금지된 키워드가 포함되어 있습니다. 금지 키워드: ${unitRules.forbiddenKeywords.join(', ')}`
+            };
+        }
+    }
+    
+    // 필수 키워드 검증 (단원별 룰셋)
+    if (unitRules.requiredKeywords && unitRules.requiredKeywords.length > 0) {
+        const hasRequired = unitRules.requiredKeywords.some(keyword => {
+            const keywordLower = keyword.toLowerCase();
+            return allText.includes(keywordLower) || 
+                   questionText.includes(keywordLower) || 
+                   explanationText.includes(keywordLower);
+        });
+        
+        if (!hasRequired) {
+            return {
+                valid: false,
+                reason: `단원 "${unitTitle}"의 필수 키워드가 포함되어 있지 않습니다. 필수 키워드: ${unitRules.requiredKeywords.join(', ')}`
+            };
+        }
+    }
+    
     // 단원명에서 핵심 키워드 추출 (예: "다각형의 둘레와 넓이" -> ["다각형", "둘레", "넓이"])
     const unitKeywords = unitTitle
         .replace(/[^\가-힣\s]/g, '')
@@ -9159,6 +9326,17 @@ function validateProblemMatchesConcept(problem, conceptInfo, existingQuestions =
                 reason: `금지어 포함: ${found.join(', ')}`
             };
         }
+    }
+    
+    // 숫자 정규화 검증 (한글 수사가 남아있는지 확인)
+    const normalizedQuestion = koreanToNumber(questionText);
+    const normalizedExplanation = koreanToNumber(explanationText);
+    
+    if (hasKoreanNumerals(normalizedQuestion) || hasKoreanNumerals(normalizedExplanation)) {
+        return {
+            valid: false,
+            reason: '문제나 해설에 한글 수사가 남아있습니다. 숫자로 변환해야 합니다.'
+        };
     }
     
     // 도형 항목 강화 검증
@@ -10420,6 +10598,20 @@ async function createSampleProblems(formData, progressCallback = null) {
                         continue; // 다음 시도로
                     }
                     
+                    // 숫자 정규화 적용 (검증 전에 먼저 적용)
+                    if (problemData.question) {
+                        problemData.question = koreanToNumber(problemData.question);
+                    }
+                    if (problemData.questionText) {
+                        problemData.questionText = koreanToNumber(problemData.questionText);
+                    }
+                    if (problemData.answer) {
+                        problemData.answer = koreanToNumber(problemData.answer);
+                    }
+                    if (problemData.explanation) {
+                        problemData.explanation = koreanToNumber(problemData.explanation);
+                    }
+                    
                     // 연산형 문제를 문장제로 변환 (문제 생성 후 즉시 체크)
                     let questionText = problemData.question || problemData.questionText || problemData.stem || '';
                     if (isCalculationOnlyProblem(questionText)) {
@@ -10453,7 +10645,7 @@ async function createSampleProblems(formData, progressCallback = null) {
                             });
                         }
                     } else {
-                        // 항목 일치 검증 (중복 체크 포함)
+                        // 항목 일치 검증 (중복 체크 포함, 단원별 룰셋 포함)
                         validationResult = validateProblemMatchesConcept(problemData, conceptInfo, conceptQuestions);
                     }
                     
@@ -10517,12 +10709,16 @@ async function createSampleProblems(formData, progressCallback = null) {
                 const answerLatex = problemData.answerLatex || (problemData.answer && (problemData.answer.includes('\\frac') || problemData.answer.includes('\\dfrac')) ? problemData.answer : null);
                 let answerText = problemData.answerText || (answerLatex ? null : problemData.answer);
                 
-                // 한글 숫자를 아라비아 숫자로 변환 (questionText와 answerText에만 적용, LaTeX는 제외)
+                // 한글 숫자를 아라비아 숫자로 변환 (questionText, answerText, explanation 모두 적용, LaTeX는 제외)
                 if (questionText) {
                     questionText = koreanToNumber(questionText);
                 }
                 if (answerText) {
                     answerText = koreanToNumber(answerText);
+                }
+                let explanationText = problemData.explanation || '';
+                if (explanationText) {
+                    explanationText = koreanToNumber(explanationText);
                 }
                 
                 // 학년/학기 불일치 검증 (생성 직후) - problemData의 메타데이터에서 확인
@@ -10553,7 +10749,7 @@ async function createSampleProblems(formData, progressCallback = null) {
                     answer: answerText || answerLatex || problemData.answer, // 하위 호환성
                     answerText: answerText,
                     answerLatex: answerLatex,
-                    explanation: problemData.explanation || '',
+                    explanation: explanationText || '',
                     inputPlaceholder: problemData.inputPlaceholder || '답을 입력하세요',
                     meta: {
                         ...(problemData.meta || {}),
@@ -11590,7 +11786,8 @@ function displayProblems(questions, formData, status = 'success') {
                 questionText = convertLatexToText(questionText);
                 questionText = cleanLatexDollars(questionText);
             }
-            questionText = normalizeNumberKorean(questionText);
+            // ❌ 제거: normalizeNumberKorean는 숫자를 한글로 바꾸는 반대 방향 함수
+            // questionText = normalizeNumberKorean(questionText);
             
             // 개발 모드: 디버그 정보 추가 (기본 숨김)
             const isDevMode = (() => {
