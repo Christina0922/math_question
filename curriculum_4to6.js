@@ -322,3 +322,4 @@ function rebuildConceptGroupToUnitGrid() {
 
 // 전역으로 노출(순서 문제로 not defined 방지)
 window.rebuildConceptGroupToUnitGrid = rebuildConceptGroupToUnitGrid;
+window.CURRICULUM_4_TO_6 = CURRICULUM_4_TO_6;

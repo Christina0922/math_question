@@ -86,7 +86,44 @@
                     <div class="form-step">
                         <h3>STEP 4. 개념 선택 <span class="hint">(여러 개 선택 가능)</span></h3>
                         <div id="conceptGroup" class="checkbox-group concept-list concept-selector">
-                            <!-- 동적으로 생성됨 -->
+                            <!-- 항상 렌더됨 - 상태에 따라 내용만 변경 -->
+                            <!-- 초기 상태: 로딩 중 표시 -->
+                            <div id="conceptLoadingState" style="display: block; padding: 20px; text-align: center; color: #666;">
+                                개념 목록을 불러오는 중입니다…
+                            </div>
+                            <div id="conceptErrorState" style="display: none; padding: 20px; background: #fee; border: 1px solid #fcc; border-radius: 8px; color: #c00;">
+                                <div style="margin-bottom: 10px;">개념 목록을 불러오지 못했습니다.</div>
+                                <button type="button" id="reloadConceptsBtn" style="padding: 8px 16px; background: #4f46e5; color: white; border: none; border-radius: 4px; cursor: pointer;">다시 불러오기</button>
+                            </div>
+                            <div id="conceptEmptyState" style="display: none; padding: 20px; text-align: center; color: #666;">
+                                선택한 학년/학기/단원에 해당하는 개념이 없습니다.<br />
+                                단원 선택을 다시 확인해 주세요.
+                                <br /><br />
+                                <button type="button" id="reloadConceptsEmptyBtn" style="padding: 8px 16px; background: #4f46e5; color: white; border: none; border-radius: 4px; cursor: pointer;">다시 조회</button>
+                            </div>
+                            <div id="conceptContent" style="display: none;">
+                                <!-- 개념 목록이 여기에 동적으로 생성됨 -->
+                            </div>
+                            <style>
+                                /* STEP 4 두 컬럼 레이아웃 - 반응형 */
+                                #conceptContent > div[style*="grid-template-columns"] {
+                                    display: grid !important;
+                                    grid-template-columns: 1fr 1fr !important;
+                                    gap: 24px !important;
+                                    width: 100% !important;
+                                }
+                                
+                                @media (max-width: 768px) {
+                                    #conceptContent > div[style*="grid-template-columns"] {
+                                        grid-template-columns: 1fr !important;
+                                    }
+                                }
+                                
+                                .concept-column-left,
+                                .concept-column-right {
+                                    min-width: 0;
+                                }
+                            </style>
                         </div>
                     </div>
 
@@ -207,28 +244,26 @@
             try {
                 const module = await import('./src/data/middleSchoolToc.js');
                 window.MIDDLE_SCHOOL_TOC = module.MIDDLE_SCHOOL_TOC;
-                console.log('Middle school TOC loaded');
+                console.log('[STEP4] Middle school TOC loaded');
                 
-                // script.js의 DOMContentLoaded가 실행된 후에 개념 목록 업데이트
-                if (document.readyState === 'complete' || document.readyState === 'interactive') {
-                    // 이미 로드된 경우 즉시 업데이트
+                // script.js의 initConceptSelector가 실행된 후에 개념 목록 업데이트
+                // 약간의 지연을 두어 script.js가 먼저 실행되도록 함
+                setTimeout(async function() {
+                    if (typeof updateConceptList === 'function') {
+                        console.log('[STEP4] TOC 로드 후 개념 목록 업데이트');
+                        await updateConceptList();
+                    } else {
+                        console.warn('[STEP4] updateConceptList 함수를 찾을 수 없습니다.');
+                    }
+                }, 100);
+            } catch (error) {
+                console.error('[STEP4] Failed to load middle school TOC:', error);
+                // 오류가 발생해도 개념 목록은 표시되도록 함
+                setTimeout(async function() {
                     if (typeof updateConceptList === 'function') {
                         await updateConceptList();
                     }
-                } else {
-                    // 아직 로딩 중이면 DOMContentLoaded 이벤트에서 처리됨
-                    document.addEventListener('DOMContentLoaded', async function() {
-                        if (typeof updateConceptList === 'function') {
-                            await updateConceptList();
-                        }
-                    });
-                }
-            } catch (error) {
-                console.error('Failed to load middle school TOC:', error);
-                // 오류가 발생해도 개념 목록은 표시되도록 함
-                if (typeof updateConceptList === 'function') {
-                    await updateConceptList();
-                }
+                }, 100);
             }
         })();
     </script>

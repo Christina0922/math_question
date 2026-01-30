@@ -3,8 +3,9 @@ import socketserver
 import os
 import sys
 
-# 프로젝트 디렉토리
-project_dir = r"D:\1000억 프로젝트\math_question"
+# 프로젝트 디렉토리 (현재 스크립트 위치 기준)
+script_dir = os.path.dirname(os.path.abspath(__file__))
+project_dir = script_dir
 
 # index.html 존재 확인
 index_path = os.path.join(project_dir, 'index.html')
